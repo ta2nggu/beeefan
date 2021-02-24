@@ -1,0 +1,12 @@
+#image-form-wrapper {
+    padding-top: 20px;
+    background: #f7f7f7;
+}
+#images {
+    background: #eee;
+    padding: 20px 0;
+}
+.thumbnail img{
+    height: 300px;
+    width: 450px;
+}

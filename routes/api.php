@@ -19,3 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/upload', [App\Http\Controllers\ImageController::class, 'store'])->name('/app/upload');
+
+Route::post('/DropUp', [App\Http\Controllers\DropController::class, 'store'])->name('/app/DropUp');
+

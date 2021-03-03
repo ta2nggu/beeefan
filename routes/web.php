@@ -33,6 +33,7 @@ Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name
 Route::get('/creator', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');
 Route::get('/creator_write', [App\Http\Controllers\CreatorController::class, 'write'])->name('creator_write')->middleware('verified');
 //Route::post('/upload', [App\Http\Controllers\ImageController::class, 'store'])->name('/app/upload')->middleware('verified');
+Route::post('/creator_write/preview/',[App\Http\Controllers\CreatorController::class, 'preview'])->name('creator_write.preview');
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin')->middleware('verified');
 Route::get('/admin_creatorList', [App\Http\Controllers\AdminController::class, 'admin_creatorList'])->name('admin_creatorList')->middleware('verified');

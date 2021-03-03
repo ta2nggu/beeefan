@@ -2,10 +2,8 @@ import Vue from 'vue'
 import axios from 'axios'
 import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
-import VueRouter from 'vue-router'
 
 Vue.use(Datetime)
-Vue.use(VueRouter)
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -30,7 +28,7 @@ window.Vue = require('vue').default;
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 //Vue.component('form-upload', require('./components/FormUpload.vue').default);//21.02.25 김태영, 테스트 업로드 주석
-// Vue.component('form-write', require('./components/FormWrite.vue').default);
+//Vue.component('form-write', require('./components/FormWrite.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -38,25 +36,7 @@ window.Vue = require('vue').default;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// const app = new Vue({
-//     el: '#image-form-wrapper',
-// })
-
-// const datetime = new Vue({
-//     el: '#birth_date',
-// })
-
-const routes = [
-    { path: '/register', component: Datetime.default },
-    // { path: '/creator_write', component: require('./components/FormWrite.vue').default }
-    { path: '/creator_write', component: require('./components/Dropzone.vue').default }
-]
-
-const router = new VueRouter({
-    routes: routes,
-    mode: "history"
-})
-
-const app = new Vue({
-    router
-}).$mount('#app')
+const datetime = new Vue({
+    el: '#birth_date',
+    components: {Datetime},
+});

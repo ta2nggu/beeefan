@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.creator')
 
 @section('content')
     <div class="container">
@@ -23,7 +23,8 @@
                         수익 : <br>
                         <br>
 {{--                        <a href="/creator_write/{{ $user[0]->nickname }}">신규투고</a><br>--}}
-                        <a href="/creator_write">신규투고</a><br>
+{{--                        <a href="/creator_write">테스트 업로드 페이지로 이동</a><br>--}}
+                        <a href="/creator_write">신규투고</a>
                         <a href="">설정변경</a>
                     </div>
                 </div>

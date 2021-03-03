@@ -27,6 +27,8 @@
     "dependencies": {
         "luxon": "^1.26.0",
         "vue-datetime": "^1.0.0-beta.14",
+        "vue-router": "^3.5.1",
+        "vue2-dropzone": "^3.6.0",
         "weekstart": "^1.0.1"
     }
 }

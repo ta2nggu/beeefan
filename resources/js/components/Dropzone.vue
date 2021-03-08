@@ -134,7 +134,6 @@ export default {
                     chk++;
                     //break;
                 }
-                files[_i].previewElement.querySelector(".dz-remove").remove();
             }
             if (chk === 0) {
                 // alert('전체공개 이미지를 하나 이상 선택해주세요');
@@ -147,6 +146,11 @@ export default {
                     console.log(r.value);
                 });
                 return;
+            }
+
+            // 전체공개 이미지 check 반복문에 file remove 버튼 제거 로직이 있었으나 check 통과 후로 변경
+            for (_i = 0, _len = files.length; _i < _len; _i++) {
+                files[_i].previewElement.querySelector(".dz-remove").remove();
             }
 
             this.disableUploadButton = true;

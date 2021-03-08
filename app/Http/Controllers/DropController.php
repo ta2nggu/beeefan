@@ -9,8 +9,11 @@ use App\Models\Tweet;
 class DropController extends Controller
 {
     public function store(Request $request) {
-        $images = $request->file('file');
+//        return dd($request);
 
+        $images = $request->file('file');
+        $imgPrivate = $request->private;
+        $imgPrivate = explode(",", $imgPrivate);
 
         if (!is_array($images)) {
             $images = [$images];
@@ -24,17 +27,16 @@ class DropController extends Controller
         for ($i = 0; $i < count($images); $i++) {
             $image = $images[$i];
             $imageName = $image->getClientOriginalName();
-            $image->move(storage_path('images/'.$request->id), $imageName);
+//            $image->move(storage_path('images/'.$request->id.'/'.$mTweet->id), $imageName);
+            $image->move(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id), $imageName);
 
             $mImage = new Tweet_image();
             $mImage->tweet_id = $mTweet->id;
             $mImage->idx = $i;
             $mImage->name = $imageName;
             $mImage->mime_type = $image->getClientMimeType();
-            $mImage->private = $i === 0 ? 1 : 0;
+            $mImage->private = $imgPrivate[$i];//$i === 0 ? 1 : 0;
             $mImage->save();
         }
-
-
     }
 }

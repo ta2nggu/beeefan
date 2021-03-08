@@ -16,7 +16,6 @@
 
                         こんにちは。{{ $user[0]->nickname }} 様。
 
-
                         <br><br>
                         투고 수 : <br>
                         회원 수 : <br>
@@ -26,6 +25,15 @@
 {{--                        <a href="/creator_write">테스트 업로드 페이지로 이동</a><br>--}}
                         <a href="/creator_write">신규투고</a>
                         <a href="">설정변경</a>
+
+                        <div class="tweets">
+{{--                            <div class="p-2" style="width: 80%;">--}}
+                            @foreach($tweets as $tweet)
+                            <div class="card" style="width: 20rem;">
+                                <img src="{{ asset('storage/images/'.$tweet->path) }}"/>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

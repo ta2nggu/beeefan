@@ -3,9 +3,11 @@ import axios from 'axios'
 import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import VueRouter from 'vue-router'
+import VueSimpleAlert from "vue-simple-alert"
 
 Vue.use(Datetime)
 Vue.use(VueRouter)
+Vue.use(VueSimpleAlert)
 
 /**
  * First we will load all of this project's JavaScript dependencies which

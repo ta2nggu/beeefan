@@ -25,8 +25,23 @@ class CreatorController extends Controller
 //                       ->select(DB::raw("COUNT(1) as cnt"))
             ->where('nickname', '=', $this->user->nickname)
             ->get();
+
+//        21.03.07 김태영, 크리에이터 tweet 가져오기
+        $tweets = DB::table('tweets', 'tweets')
+//            ->select('tweets.user_id', 'tweets.id', 'tweet_images.name')
+            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path"))
+            ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
+            ->where('tweets.user_id', $this->user->id)
+            ->where('tweet_images.idx', 0)
+            ->orderBy('tweets.id', 'desc')
+            ->orderBy('tweet_images.idx')
+//            ->limit(1)
+            ->get();
+
+
         return view('creator.index', [
-            'user' => $user
+            'user' => $user,
+            'tweets' => $tweets
         ]);
     }
 
@@ -39,6 +54,7 @@ class CreatorController extends Controller
         return view('creator.write');
     }
 
+//    21.03.07 김태영, dropzone js 사용으로 변경, 현재 사용 안함
 //    21.02.28 김태영, 업로드 전 파일 미리보기
     public function preview(Request $request){
 

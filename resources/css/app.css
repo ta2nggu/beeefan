@@ -1,12 +1,25 @@
-#image-form-wrapper {
-    padding-top: 20px;
-    background: #f7f7f7;
+
+/*21.03.09 김태영, 주석 dropzone 사용하기 이전 업로드 때 작성한 코드*/
+/*#image-form-wrapper {*/
+/*    padding-top: 20px;*/
+/*    background: #f7f7f7;*/
+/*}*/
+/*#images {*/
+/*    background: #eee;*/
+/*    padding: 20px 0;*/
+/*}*/
+/*.thumbnail img{*/
+/*    height: 300px;*/
+/*    width: 450px;*/
+/*}*/
+
+.flex_images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
-#images {
-    background: #eee;
-    padding: 20px 0;
-}
-.thumbnail img{
-    height: 300px;
-    width: 450px;
+
+.flex_images img {
+    width: 130px;
+    height: 130px;
 }

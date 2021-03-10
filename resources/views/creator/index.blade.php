@@ -27,12 +27,13 @@
                         <a href="">설정변경</a>
 
                         <div class="tweets">
-{{--                            <div class="p-2" style="width: 80%;">--}}
+                            <div class="flex_images">
                             @foreach($tweets as $tweet)
-                            <div class="card" style="width: 20rem;">
-                                <img src="{{ asset('storage/images/'.$tweet->path) }}"/>
-                            </div>
+                                <a href="">
+                                    <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet->path) }}"/>
+                                </a>
                             @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

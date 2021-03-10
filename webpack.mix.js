@@ -13,4 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .vue()
+    .postCss('resources/css/app.css', 'public/css', [
+
+    ])//21.03.09 김태영, postCss추가 css 파일 추가 하고 싶으면 이렇게
     .sass('resources/sass/app.scss', 'public/css');

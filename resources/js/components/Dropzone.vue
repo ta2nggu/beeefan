@@ -44,7 +44,7 @@ export default {
                 addRemoveLinks: true,
                 autoProcessQueue: false,
                 uploadMultiple: true,
-                maxFiles: 5,
+                maxFiles: 10,
                 parallelUploads: 5
             },
         }

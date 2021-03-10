@@ -35,6 +35,12 @@
  * Date: 2020-05-04T22:49Z
  */
 
+/*!
+ * vue-datetime v1.0.0-beta.14
+ * (c) 2020 Mario Juárez
+ * Released under the MIT License.
+ */
+
 /**
  * @license
  * Lodash <https://lodash.com/>

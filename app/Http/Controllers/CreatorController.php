@@ -27,15 +27,25 @@ class CreatorController extends Controller
             ->get();
 
 //        21.03.07 김태영, 크리에이터 tweet 가져오기
+//        $tweets = DB::table('tweets', 'tweets')
+////            ->select('tweets.user_id', 'tweets.id', 'tweet_images.name')
+//            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweets.id"))
+//            ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
+//            ->where('tweets.user_id', $this->user->id)
+//            ->where('tweet_images.idx', 0)
+//            ->orderBy('tweets.id', 'desc')
+//            ->orderBy('tweet_images.idx')
+////            ->limit(1)
+//            ->get();
+
         $tweets = DB::table('tweets', 'tweets')
-//            ->select('tweets.user_id', 'tweets.id', 'tweet_images.name')
-            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path"))
+            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweets.id, tweet_images.mime_type, A.images_cnt"))
             ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
+            ->joinSub('(select tweet_images.tweet_id, count(1) as images_cnt from tweet_images join tweets on tweet_images.tweet_id = tweets.id where tweets.user_id = '.$this->user->id.' group by tweet_images.tweet_id)', 'A', 'A.tweet_id', '=', 'tweets.id')
             ->where('tweets.user_id', $this->user->id)
             ->where('tweet_images.idx', 0)
             ->orderBy('tweets.id', 'desc')
             ->orderBy('tweet_images.idx')
-//            ->limit(1)
             ->get();
 
 

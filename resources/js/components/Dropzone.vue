@@ -1,7 +1,6 @@
 <template>
 <div>
 <!--    <textarea v-model="msg" placeholder="メッセージを入力してください"></textarea>-->
-    <textarea v-model="msg" placeholder="メッセージを入力してください"></textarea>
     <vue-dropzone
         ref="myVueDropzone"
         id="dropzone"
@@ -12,13 +11,22 @@
         v-on:vdropzone-success="successEvent"
     >
     </vue-dropzone>
-    <button class="btn btn-success" v-on:click="processQueue" :disabled="disableUploadButton">투고하기</button>
+    <div class='more' ref='more'>+</div>
+    <div class="msg">
+        <textarea class="msgTextarea" v-model="msg" placeholder="テキストを入力してください (400文字以内)"></textarea>
+    </div>
+    <div class="btn">
+<!--        <button class="btn btn-success" v-on:click="processQueue" :disabled="disableUploadButton">投稿する</button>-->
+        <button class="btnUpload" v-on:click="processQueue" :disabled="disableUploadButton">投稿する</button>
+    </div>
 </div>
 </template>
 
 <script>
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
+import * as draganddrop from '../draganddrop.js'
 
 export default {
     name: 'Dropzone',
@@ -38,16 +46,32 @@ export default {
             imgPrivate: [],
             dropzoneOptions: {
                 url: 'api/DropUp',
-                thumbnailWidth: 200,
-                thumbnailHeight: 200,
+                thumbnailWidth: 130,
+                thumbnailHeight: 130,
                 headers: { "My-Awesome-Header": "header value" },
                 addRemoveLinks: true,
                 autoProcessQueue: false,
                 uploadMultiple: true,
                 maxFiles: 10,
-                parallelUploads: 5
+                parallelUploads: 5,
+                dictDefaultMessage: '',
+                clickable: '.more'
             },
         }
+    },
+    mounted () {
+        this.$el.removeChild(this.$refs.more)
+        let dropzone = this.$refs.myVueDropzone.dropzone
+        dropzone.element.appendChild(this.$refs.more)
+
+
+
+        $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
+        // $(document).ready(function() {
+        //     //div list
+        //     // $('#dropzone').sortable({container: '#dropzone', nodes: ':not(#dropzone, .more)'});
+        //     $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
+        // });
     },
     methods: {
         sendingEvent (file, xhr, formData) {
@@ -95,35 +119,111 @@ export default {
                 e.preventDefault(); // click이벤트 외의 이벤트 막기위해
                 e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
 
-                if(btnPrivate.innerText.toLowerCase() === '全体公開') {
-                    btnPrivate.innerText = '会員公開';
-                    btnPrivate.style.backgroundColor = '#000000';
+                if(btnPrivate.innerText.toLowerCase() === '無料公開') {
+                    btnPrivate.innerText = '有料公開';
+                    btnPrivate.style.borderColor = '#dfa4ad';
+                    btnPrivate.style.color = '#dfa4ad';
                     inputPrivate.value = '1';
                 }
                 else {
-                    btnPrivate.innerText = '全体公開';
-                    btnPrivate.style.backgroundColor = '#FF0000';
+                    btnPrivate.innerText = '無料公開';
+                    btnPrivate.style.borderColor = '#9cc5eb';
+                    btnPrivate.style.color = '#9cc5eb';
                     inputPrivate.value = '0';
                 }
             });
 
             if (files[0] === file)
             {
-                btnPrivate.innerHTML = "全体公開";
-                btnPrivate.style.backgroundColor = '#FF0000';
+                btnPrivate.innerHTML = "無料公開";
+                btnPrivate.style.borderColor = '#9ac5ea';
+                btnPrivate.style.color = '#9ac5ea';
                 inputPrivate.value = '0';
             }
             else
             {
-                btnPrivate.innerText = '会員公開';
+                btnPrivate.innerText = '有料公開';
+                btnPrivate.style.borderColor = '#dfa4ad';
+                btnPrivate.style.color = '#dfa4ad';
                 inputPrivate.value = '1';
             }
+
+            // this.$refs.myVueDropzone.dropzone.default_configuration.emit("thumbnail", file, "http://path/to/image");
+
+            //21.03.15 김태영, 가이드 + 추가
+            let dropzone = this.$refs.myVueDropzone.dropzone
+            dropzone.files.length > 0
+                ? dropzone.element.appendChild(this.$refs.more)
+                : dropzone.element.removeChild(this.$refs.more)
+
+            file.previewElement.querySelector('.dz-remove').innerHTML = '&#128465';
+
+            //21.03.18 김태영, 파일 지우기, 공개여부 선택에 마우스 위로 올라올 경우 drop n drag 기능 제거
+            var divRemove = file.previewElement.querySelector('.dz-remove');
+            divRemove.addEventListener('mouseover', function (e) {
+                e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+
+                $('#dropzone').sortable('destroy');
+            });
+
+            //21.03.19 김태영, 모바일 touchstart 테스트
+            // function handleStart(evt) {
+            //     console.log('a');
+            // }
+
+            // divRemove.addEventListener("touchstart", handleStart, {passive: true});
+            // var clickEvent = (function() {
+            //     if ('ontouchstart' in document.documentElement === true) {
+            //         console.log('bbb');
+            //         return 'touchstart';
+            //     } else {
+            //         console.log('ccc');
+            //         return 'click';
+            //     }
+            // })();
+            //
+            // divRemove.addEventListener(clickEvent,function(){
+            //     console.log('aaa');
+            // });
+            btnPrivate.addEventListener('mouseover', function (e) {
+                e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+
+                $('#dropzone').sortable('destroy');
+            });
+            var divPreview = file.previewElement.querySelector('.dz-details');
+            divPreview.addEventListener('mouseover', function (e) {
+                e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+
+                $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
+                divRemove.style.opacity = 0;
+            });
+            divPreview.addEventListener('mouseout', function (e) {
+                e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+
+                divRemove.style.opacity = 1;
+            });
+
         },
         removedEvent(file, error, xhr) {
             // var files = this.$refs.myVueDropzone.dropzone.files;
             // console.log(files);
             // var myDiv = files[0].previewElement.querySelector(".btnPrivate");
             // files[0].previewElement.removeChild(myDiv);
+
+            //21.03.15 김태영, 가이드 + 추가
+            let dropzone = this.$refs.myVueDropzone.dropzone
+            dropzone.files.length > 0
+                ? dropzone.element.appendChild(this.$refs.more)
+                : dropzone.element.removeChild(this.$refs.more)
+
+            if (dropzone.files.length === 0) {
+                dropzone.element.appendChild(this.$refs.more)
+                this.disableUploadButton = true;
+            }
         },
         processQueue() {
             var files = this.$refs.myVueDropzone.dropzone.files;
@@ -148,6 +248,21 @@ export default {
                 return;
             }
 
+            //21.03.19 김태영, drag n drop 후 전송 전 재정렬
+            // var filesReorder = this.$refs.myVueDropzone.dropzone.getQueuedFiles();
+            // Sort theme based on the DOM element index
+            files.sort(function(a, b){
+                return ($(a.previewElement).index() > $(b.previewElement).index()) ? 1 : -1;
+            })
+            // Clear the dropzone queue
+            this.$refs.myVueDropzone.dropzone.removeAllFiles();
+            // Add the reordered files to the queue
+            // this.$refs.myVueDropzone.dropzone.handleFiles(files);
+            var i = 0;
+            for(i; i < files.length; i++){
+                this.$refs.myVueDropzone.dropzone.addFile(files[i]);
+            }
+
             // 전체공개 이미지 check 반복문에 file remove 버튼 제거 로직이 있었으나 check 통과 후로 변경
             for (_i = 0, _len = files.length; _i < _len; _i++) {
                 files[_i].previewElement.querySelector(".dz-remove").remove();
@@ -166,14 +281,104 @@ export default {
 </script>
 
 <style>
+#dropzone {
+    background-color: #ffffff;
+    border: 0px;
+}
+
+.dropzone .dz-preview.dz-image-preview  {
+    margin-bottom: 55px;
+    /*width: 50%;*/
+}
 .dropzone .dz-preview .btnPrivate {
     cursor: pointer;
     z-index: 30;
     position: absolute;
-    border: 2px #fff solid;
-    color:#fff;
-    margin-left: 135px;
-    bottom: 165px;
-    background-color: #000000;
+    border: 3px #9ac5ea solid;
+    color:#9ac5ea;
+    /*margin-left: 135px;*/
+    margin-left: 10px;
+    /*bottom: 165px;*/
+    bottom: -45px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    font-size: 20px;
+    width: 115px;
+    text-align: center;
 }
+.dropzone .dz-preview .dz-remove {
+    cursor: pointer;
+    border: 0px;
+    margin-left: 120px;
+    bottom: -55px;
+    font-size: 25px;
+    opacity: 1;
+}
+.more {
+    display: inline-block;
+    margin: 16px;
+    /*border: 3px dashed lightgray;*/
+    border: 0px dashed lightgray;
+    width: 130px;
+    height: 130px;
+    box-sizing: border-box;
+    color: lightgray;
+    /*border-radius: 8px;*/
+    font-size: 60px;
+    text-align: center;
+    line-height: 130px;
+    /*pointer-events: none;*/
+    background-color: #f3f3f3;
+    cursor: pointer;
+}
+.more:hover {
+    background-color: #e8e8e8;
+}
+.msg {
+    margin-top: 50px;
+    width: 100%;
+}
+.msgTextarea {
+    width: 100%;
+    border-color: #e7e7e7;
+}
+.btn {
+    width: 100%;
+}
+.btnUpload {
+    width: 100%;
+    color: #ffffff;
+    background-color: #b15a68;
+    border-radius: 10px;
+    border: 0px;
+    height: 50px;
+}
+.btnUpload:disabled {
+    background-color: #Ddabb4;
+}
+.dropzone .dz-preview .dz-progress {
+    opacity: 0;
+}
+.dropzone .dz-preview {
+    width: 130px;
+    height: 130px;
+}
+.vue-dropzone>.dz-preview .dz-details {
+    background-color: #Ddabb4;
+    /*z-index: 0;*/
+}
+.vue-dropzone>.dz-preview.dz-image-preview .dz-details {
+    /*z-index: 0;*/
+    opacity: 0;
+}
+.dropzone .dz-preview:hover .dz-image img {
+    -webkit-transform: scale(1.05, 1.05);
+    -moz-transform: scale(1.05, 1.05);
+    -ms-transform: scale(1.05, 1.05);
+    -o-transform: scale(1.05, 1.05);
+    transform: scale(1.05, 1.05);
+    -webkit-filter: blur(8px);
+    filter: blur(0px);
+}
+
 </style>

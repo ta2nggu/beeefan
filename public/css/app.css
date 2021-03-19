@@ -10963,11 +10963,57 @@ a.text-dark:focus {
 .flex_images {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    /*flex-wrap: wrap;*/
+    justify-content: center;
 }
 
 .flex_images img {
-    width: 130px;
-    height: 130px;
+    width: 200px;
+    height: 200px;
+}
+
+.images_cnt {
+    position: absolute;
+    color: #000000;
+    background: #f66d9b;
+    font-size: 25px;
+    margin-left: 170px;
+    margin-top: -180px;
+}
+
+/*creator 투고 화면*/
+.inputfile {
+    /*width: 0.1px;*/
+    /*height: 0.1px;*/
+    width: 200px;
+    height: 30px;
+    opacity: 1;
+    overflow: hidden;
+    /*position: absolute;*/
+    z-index: -1;
+}
+
+/*.inputfile + label {*/
+.inputfile ~ label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: #afafaf;
+    background-color: #f3f3f3;
+    display: inline-block;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    cursor: pointer;
+    background-size: 100px 100px;
+}
+
+/*.inputfile:focus + label,*/
+/*.inputfile + label:hover {*/
+.inputfile:focus ~ label,
+.inputfile ~ label:hover {
+    background-color: #e4e4e4;
 }
 

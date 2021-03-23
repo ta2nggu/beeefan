@@ -24,7 +24,7 @@
     </div>
 
     <div>
-        <a href="/admin_creatorList">クリエイター情報管理</a><br>
+        <a href="/admin/creators">クリエイター情報管理</a><br>
         <a href="">運営者情報管理</a>
     </div>
 @endsection

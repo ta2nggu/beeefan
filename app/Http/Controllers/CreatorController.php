@@ -39,13 +39,20 @@ class CreatorController extends Controller
 //            ->get();
 
         $tweets = DB::table('tweets', 'tweets')
-            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweets.id, tweet_images.mime_type, A.images_cnt"))
-            ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
-            ->joinSub('(select tweet_images.tweet_id, count(1) as images_cnt from tweet_images join tweets on tweet_images.tweet_id = tweets.id where tweets.user_id = '.$this->user->id.' group by tweet_images.tweet_id)', 'A', 'A.tweet_id', '=', 'tweets.id')
+//            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweets.id, tweet_images.mime_type, A.images_cnt"))
+//            ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
+//            ->joinSub('(select tweet_images.tweet_id, count(1) as images_cnt from tweet_images join tweets on tweet_images.tweet_id = tweets.id where tweets.user_id = '.$this->user->id.' group by tweet_images.tweet_id)', 'A', 'A.tweet_id', '=', 'tweets.id')
+//            ->where('tweets.user_id', $this->user->id)
+//            ->where('tweets.visible', 1)
+////            ->where('tweet_images.idx', 0)
+//            ->where('tweet_images.private', 0)
+//            ->orderBy('tweets.id', 'desc')
+//            ->orderBy('tweet_images.idx')
+
+            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt"))
             ->where('tweets.user_id', $this->user->id)
-            ->where('tweet_images.idx', 0)
+            ->where('tweets.visible', 1)
             ->orderBy('tweets.id', 'desc')
-            ->orderBy('tweet_images.idx')
             ->get();
 
 

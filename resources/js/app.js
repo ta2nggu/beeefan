@@ -51,12 +51,13 @@ window.Vue = require('vue').default;
 const routes = [
     { path: '/register', component: Datetime.default },
     // { path: '/creator_write', component: require('./components/FormWrite.vue').default }
-    { path: '/creator_write', component: require('./components/Dropzone.vue').default }
+    { path: '/creator/write', component: require('./components/Dropzone.vue').default }
 ]
 
 const router = new VueRouter({
     routes: routes,
     mode: "history"
+    // base: 'creator'//prefix같은 개념
 })
 
 const app = new Vue({

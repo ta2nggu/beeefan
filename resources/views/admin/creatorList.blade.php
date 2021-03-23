@@ -15,7 +15,7 @@
                             </div>
                         @endif
 
-                        <a href="/admin_creatorRegPage">クリエイター新規登録</a><br>
+                        <a href="/admin/creatorReg">クリエイター新規登録</a><br>
 
                         {{ $creator_list }}
 

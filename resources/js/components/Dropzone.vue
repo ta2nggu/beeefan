@@ -15,9 +15,12 @@
     <div class="msg">
         <textarea class="msgTextarea" v-model="msg" placeholder="テキストを入力してください (400文字以内)"></textarea>
     </div>
-    <div class="btn">
+    <div class="btnDropUp">
 <!--        <button class="btn btn-success" v-on:click="processQueue" :disabled="disableUploadButton">投稿する</button>-->
-        <button class="btnUpload" v-on:click="processQueue" :disabled="disableUploadButton">投稿する</button>
+        <button class="btnUpload" v-on:click="processQueue(1)" :disabled="disableUploadButton">投稿する</button>
+    </div>
+    <div class="btnDropUp">
+        <button class="btnInvisible" v-on:click="processQueue(0)" :disabled="disableUploadButton">下書き保存</button>
     </div>
 </div>
 </template>
@@ -42,9 +45,15 @@ export default {
     data() {
         return {
             msg:"",
+            visible:1,
+            main_img:"",
+            include_video:0,
+            file_cnt:0,
             disableUploadButton: true,
             imgPrivate: [],
             dropzoneOptions: {
+                // url: 'api/DropUp',
+                //21.03.21 김태영, url 앞에 '/' 없으면 web.php 을 바라보게 됨
                 url: 'api/DropUp',
                 thumbnailWidth: 130,
                 thumbnailHeight: 130,
@@ -60,12 +69,13 @@ export default {
         }
     },
     mounted () {
+        //mounted - vue js 처음 실행될 때
         this.$el.removeChild(this.$refs.more)
         let dropzone = this.$refs.myVueDropzone.dropzone
         dropzone.element.appendChild(this.$refs.more)
 
 
-
+        //재정렬 drag and drop 사용
         $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
         // $(document).ready(function() {
         //     //div list
@@ -77,6 +87,14 @@ export default {
         sendingEvent (file, xhr, formData) {
             formData.append('id', this.currentUser);
             formData.append('msg', this.msg);
+            //21.03.20 김태영, tweet 공개여부
+            formData.append('visible', this.visible);
+            //21.03.22 김태영, tweets table 파일 총 개수
+            formData.append('file_cnt', this.file_cnt);
+            //21.03.22 김태영, video 포함 여부 체크
+            formData.append('include_video', this.include_video);
+            //21.03.22 김태영, 전체공개 대표 이미지 찾기
+            formData.append('main_img', this.main_img);
 
             //var str = file.previewElement.querySelector("#private" + file.name.toString()).value;
             var str = file.previewElement.querySelector("input[name='private'");
@@ -225,8 +243,14 @@ export default {
                 this.disableUploadButton = true;
             }
         },
-        processQueue() {
+        processQueue(visible) {
+            //21.03.20 김태영, visible 1 투고 저장, visible 0 임시저장(비공개)
+            this.visible = visible;
+
             var files = this.$refs.myVueDropzone.dropzone.files;
+
+            //21.03.22 김태영, tweets table 파일 총 개수
+            this.file_cnt = files.length;
 
             var _i, _len, chk = 0;
             for (_i = 0, _len = files.length; _i < _len; _i++) {
@@ -254,18 +278,31 @@ export default {
             files.sort(function(a, b){
                 return ($(a.previewElement).index() > $(b.previewElement).index()) ? 1 : -1;
             })
-            // Clear the dropzone queue
-            this.$refs.myVueDropzone.dropzone.removeAllFiles();
-            // Add the reordered files to the queue
-            // this.$refs.myVueDropzone.dropzone.handleFiles(files);
-            var i = 0;
-            for(i; i < files.length; i++){
-                this.$refs.myVueDropzone.dropzone.addFile(files[i]);
-            }
+            //21.03.21 김태영, removeAllFiles, addFile 기능 필요 없음
+            // // Clear the dropzone queue
+            // this.$refs.myVueDropzone.dropzone.removeAllFiles();
+            // // Add the reordered files to the queue
+            // // this.$refs.myVueDropzone.dropzone.handleFiles(files);
+            // var i = 0;
+            // for(i; i < files.length; i++){
+            //     this.$refs.myVueDropzone.dropzone.addFile(files[i]);
+            // }
 
             // 전체공개 이미지 check 반복문에 file remove 버튼 제거 로직이 있었으나 check 통과 후로 변경
             for (_i = 0, _len = files.length; _i < _len; _i++) {
                 files[_i].previewElement.querySelector(".dz-remove").remove();
+
+                //21.03.22 김태영, video 포함 여부 체크
+                var filetype = files[_i].type.split('/');
+                if (filetype[0] === 'video') {
+                    this.include_video++;
+                }
+                //21.03.22 김태영, 전체공개 대표 이미지 찾기
+                if (files[_i].previewElement.querySelector(".inPrivate").value === '0') {
+                    if (this.main_img === "") {
+                        this.main_img = files[_i].name;
+                    }
+                }
             }
 
             this.disableUploadButton = true;
@@ -273,7 +310,7 @@ export default {
         },
         successEvent(file, response) {
             setTimeout(function() {
-                window.location.href = '/creator';
+                window.location.href = '/creator/index';
             }, 3000);
         }
     }
@@ -342,8 +379,9 @@ export default {
     width: 100%;
     border-color: #e7e7e7;
 }
-.btn {
+.btnDropUp {
     width: 100%;
+    margin-bottom: 10px;
 }
 .btnUpload {
     width: 100%;
@@ -353,8 +391,22 @@ export default {
     border: 0px;
     height: 50px;
 }
+.btnUpload:hover {
+    background-color: #b96b77;
+}
 .btnUpload:disabled {
     background-color: #Ddabb4;
+}
+.btnInvisible {
+    width: 100%;
+    color: #e0a3ad;
+    background-color: #ffffff;
+    border-color: #e0a3ad;
+    border-radius: 10px;
+    height: 50px;
+}
+.btnInvisible:hover {
+    background-color: #f7f7f7;
 }
 .dropzone .dz-preview .dz-progress {
     opacity: 0;

@@ -26,7 +26,16 @@
     height: 200px;
 }
 
-.images_cnt {
+.timeline_image img {
+    width: 500px;
+    height: 500px;
+}
+
+.ajax-load.text-center {
+    display: none;
+}
+
+.file_cnt {
     position: absolute;
     color: #000000;
     background: #f66d9b;

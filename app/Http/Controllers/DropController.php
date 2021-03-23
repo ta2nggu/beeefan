@@ -22,6 +22,10 @@ class DropController extends Controller
         $mTweet = new Tweet();
         $mTweet->user_id = $request->id;
         $mTweet->msg = $request->msg;
+        $mTweet->visible = $request->visible;
+        $mTweet->file_cnt = $request->file_cnt;
+        $mTweet->include_video = $request->include_video;
+        $mTweet->main_img = $request->main_img;
         $mTweet->save();
 
         for ($i = 0; $i < count($images); $i++) {

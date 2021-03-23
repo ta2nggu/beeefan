@@ -1874,6 +1874,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -1891,9 +1894,15 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       msg: "",
+      visible: 1,
+      main_img: "",
+      include_video: 0,
+      file_cnt: 0,
       disableUploadButton: true,
       imgPrivate: [],
       dropzoneOptions: {
+        // url: 'api/DropUp',
+        //21.03.21 김태영, url 앞에 '/' 없으면 web.php 을 바라보게 됨
         url: 'api/DropUp',
         thumbnailWidth: 130,
         thumbnailHeight: 130,
@@ -1911,9 +1920,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    //mounted - vue js 처음 실행될 때
     this.$el.removeChild(this.$refs.more);
     var dropzone = this.$refs.myVueDropzone.dropzone;
-    dropzone.element.appendChild(this.$refs.more);
+    dropzone.element.appendChild(this.$refs.more); //재정렬 drag and drop 사용
+
     $('#dropzone').sortable({
       container: '#dropzone',
       nodes: '.dz-preview'
@@ -1926,7 +1937,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     sendingEvent: function sendingEvent(file, xhr, formData) {
       formData.append('id', this.currentUser);
-      formData.append('msg', this.msg); //var str = file.previewElement.querySelector("#private" + file.name.toString()).value;
+      formData.append('msg', this.msg); //21.03.20 김태영, tweet 공개여부
+
+      formData.append('visible', this.visible); //21.03.22 김태영, tweets table 파일 총 개수
+
+      formData.append('file_cnt', this.file_cnt); //21.03.22 김태영, video 포함 여부 체크
+
+      formData.append('include_video', this.include_video); //21.03.22 김태영, 전체공개 대표 이미지 찾기
+
+      formData.append('main_img', this.main_img); //var str = file.previewElement.querySelector("#private" + file.name.toString()).value;
 
       var str = file.previewElement.querySelector("input[name='private'");
       this.imgPrivate.push($(str).val());
@@ -2063,8 +2082,12 @@ __webpack_require__.r(__webpack_exports__);
         this.disableUploadButton = true;
       }
     },
-    processQueue: function processQueue() {
-      var files = this.$refs.myVueDropzone.dropzone.files;
+    processQueue: function processQueue(visible) {
+      //21.03.20 김태영, visible 1 투고 저장, visible 0 임시저장(비공개)
+      this.visible = visible;
+      var files = this.$refs.myVueDropzone.dropzone.files; //21.03.22 김태영, tweets table 파일 총 개수
+
+      this.file_cnt = files.length;
 
       var _i,
           _len,
@@ -2094,20 +2117,33 @@ __webpack_require__.r(__webpack_exports__);
 
       files.sort(function (a, b) {
         return $(a.previewElement).index() > $(b.previewElement).index() ? 1 : -1;
-      }); // Clear the dropzone queue
-
-      this.$refs.myVueDropzone.dropzone.removeAllFiles(); // Add the reordered files to the queue
-      // this.$refs.myVueDropzone.dropzone.handleFiles(files);
-
-      var i = 0;
-
-      for (i; i < files.length; i++) {
-        this.$refs.myVueDropzone.dropzone.addFile(files[i]);
-      } // 전체공개 이미지 check 반복문에 file remove 버튼 제거 로직이 있었으나 check 통과 후로 변경
-
+      }); //21.03.21 김태영, removeAllFiles, addFile 기능 필요 없음
+      // // Clear the dropzone queue
+      // this.$refs.myVueDropzone.dropzone.removeAllFiles();
+      // // Add the reordered files to the queue
+      // // this.$refs.myVueDropzone.dropzone.handleFiles(files);
+      // var i = 0;
+      // for(i; i < files.length; i++){
+      //     this.$refs.myVueDropzone.dropzone.addFile(files[i]);
+      // }
+      // 전체공개 이미지 check 반복문에 file remove 버튼 제거 로직이 있었으나 check 통과 후로 변경
 
       for (_i = 0, _len = files.length; _i < _len; _i++) {
-        files[_i].previewElement.querySelector(".dz-remove").remove();
+        files[_i].previewElement.querySelector(".dz-remove").remove(); //21.03.22 김태영, video 포함 여부 체크
+
+
+        var filetype = files[_i].type.split('/');
+
+        if (filetype[0] === 'video') {
+          this.include_video++;
+        } //21.03.22 김태영, 전체공개 대표 이미지 찾기
+
+
+        if (files[_i].previewElement.querySelector(".inPrivate").value === '0') {
+          if (this.main_img === "") {
+            this.main_img = files[_i].name;
+          }
+        }
       }
 
       this.disableUploadButton = true;
@@ -2115,7 +2151,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     successEvent: function successEvent(file, response) {
       setTimeout(function () {
-        window.location.href = '/creator';
+        window.location.href = '/creator/index';
       }, 3000);
     }
   }
@@ -2187,12 +2223,13 @@ var routes = [{
   component: (vue_datetime__WEBPACK_IMPORTED_MODULE_1___default().default)
 }, // { path: '/creator_write', component: require('./components/FormWrite.vue').default }
 {
-  path: '/creator_write',
+  path: '/creator/write',
   component: __webpack_require__(/*! ./components/Dropzone.vue */ "./resources/js/components/Dropzone.vue").default
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
   routes: routes,
-  mode: "history"
+  mode: "history" // base: 'creator'//prefix같은 개념
+
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_4__.default({
   router: router
@@ -7407,7 +7444,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#dropzone {\n    background-color: #ffffff;\n    border: 0px;\n}\n.dropzone .dz-preview.dz-image-preview  {\n    margin-bottom: 55px;\n    /*width: 50%;*/\n}\n.dropzone .dz-preview .btnPrivate {\n    cursor: pointer;\n    z-index: 30;\n    position: absolute;\n    border: 3px #9ac5ea solid;\n    color:#9ac5ea;\n    /*margin-left: 135px;*/\n    margin-left: 10px;\n    /*bottom: 165px;*/\n    bottom: -45px;\n    background-color: #ffffff;\n    border-radius: 20px;\n    font-size: 20px;\n    width: 115px;\n    text-align: center;\n}\n.dropzone .dz-preview .dz-remove {\n    cursor: pointer;\n    border: 0px;\n    margin-left: 120px;\n    bottom: -55px;\n    font-size: 25px;\n    opacity: 1;\n}\n.more {\n    display: inline-block;\n    margin: 16px;\n    /*border: 3px dashed lightgray;*/\n    border: 0px dashed lightgray;\n    width: 130px;\n    height: 130px;\n    box-sizing: border-box;\n    color: lightgray;\n    /*border-radius: 8px;*/\n    font-size: 60px;\n    text-align: center;\n    line-height: 130px;\n    /*pointer-events: none;*/\n    background-color: #f3f3f3;\n    cursor: pointer;\n}\n.more:hover {\n    background-color: #e8e8e8;\n}\n.msg {\n    margin-top: 50px;\n    width: 100%;\n}\n.msgTextarea {\n    width: 100%;\n    border-color: #e7e7e7;\n}\n.btn {\n    width: 100%;\n}\n.btnUpload {\n    width: 100%;\n    color: #ffffff;\n    background-color: #b15a68;\n    border-radius: 10px;\n    border: 0px;\n    height: 50px;\n}\n.btnUpload:disabled {\n    background-color: #Ddabb4;\n}\n.dropzone .dz-preview .dz-progress {\n    opacity: 0;\n}\n.dropzone .dz-preview {\n    width: 130px;\n    height: 130px;\n}\n.vue-dropzone>.dz-preview .dz-details {\n    background-color: #Ddabb4;\n    /*z-index: 0;*/\n}\n.vue-dropzone>.dz-preview.dz-image-preview .dz-details {\n    /*z-index: 0;*/\n    opacity: 0;\n}\n.dropzone .dz-preview:hover .dz-image img {\n    transform: scale(1.05, 1.05);\n    filter: blur(0px);\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#dropzone {\n    background-color: #ffffff;\n    border: 0px;\n}\n.dropzone .dz-preview.dz-image-preview  {\n    margin-bottom: 55px;\n    /*width: 50%;*/\n}\n.dropzone .dz-preview .btnPrivate {\n    cursor: pointer;\n    z-index: 30;\n    position: absolute;\n    border: 3px #9ac5ea solid;\n    color:#9ac5ea;\n    /*margin-left: 135px;*/\n    margin-left: 10px;\n    /*bottom: 165px;*/\n    bottom: -45px;\n    background-color: #ffffff;\n    border-radius: 20px;\n    font-size: 20px;\n    width: 115px;\n    text-align: center;\n}\n.dropzone .dz-preview .dz-remove {\n    cursor: pointer;\n    border: 0px;\n    margin-left: 120px;\n    bottom: -55px;\n    font-size: 25px;\n    opacity: 1;\n}\n.more {\n    display: inline-block;\n    margin: 16px;\n    /*border: 3px dashed lightgray;*/\n    border: 0px dashed lightgray;\n    width: 130px;\n    height: 130px;\n    box-sizing: border-box;\n    color: lightgray;\n    /*border-radius: 8px;*/\n    font-size: 60px;\n    text-align: center;\n    line-height: 130px;\n    /*pointer-events: none;*/\n    background-color: #f3f3f3;\n    cursor: pointer;\n}\n.more:hover {\n    background-color: #e8e8e8;\n}\n.msg {\n    margin-top: 50px;\n    width: 100%;\n}\n.msgTextarea {\n    width: 100%;\n    border-color: #e7e7e7;\n}\n.btnDropUp {\n    width: 100%;\n    margin-bottom: 10px;\n}\n.btnUpload {\n    width: 100%;\n    color: #ffffff;\n    background-color: #b15a68;\n    border-radius: 10px;\n    border: 0px;\n    height: 50px;\n}\n.btnUpload:hover {\n    background-color: #b96b77;\n}\n.btnUpload:disabled {\n    background-color: #Ddabb4;\n}\n.btnInvisible {\n    width: 100%;\n    color: #e0a3ad;\n    background-color: #ffffff;\n    border-color: #e0a3ad;\n    border-radius: 10px;\n    height: 50px;\n}\n.btnInvisible:hover {\n    background-color: #f7f7f7;\n}\n.dropzone .dz-preview .dz-progress {\n    opacity: 0;\n}\n.dropzone .dz-preview {\n    width: 130px;\n    height: 130px;\n}\n.vue-dropzone>.dz-preview .dz-details {\n    background-color: #Ddabb4;\n    /*z-index: 0;*/\n}\n.vue-dropzone>.dz-preview.dz-image-preview .dz-details {\n    /*z-index: 0;*/\n    opacity: 0;\n}\n.dropzone .dz-preview:hover .dz-image img {\n    transform: scale(1.05, 1.05);\n    filter: blur(0px);\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -51209,15 +51246,35 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [
+      _c("div", { staticClass: "btnDropUp" }, [
         _c(
           "button",
           {
             staticClass: "btnUpload",
             attrs: { disabled: _vm.disableUploadButton },
-            on: { click: _vm.processQueue }
+            on: {
+              click: function($event) {
+                return _vm.processQueue(1)
+              }
+            }
           },
           [_vm._v("投稿する")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "btnDropUp" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btnInvisible",
+            attrs: { disabled: _vm.disableUploadButton },
+            on: {
+              click: function($event) {
+                return _vm.processQueue(0)
+              }
+            }
+          },
+          [_vm._v("下書き保存")]
         )
       ])
     ],

@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('クリエイター新規登録画面') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ __('/admin_creatorReg') }}">
+                        <form method="POST" action="{{ __('/admin/creatorReg') }}">
                             @csrf
 
                             <div class="form-group row">

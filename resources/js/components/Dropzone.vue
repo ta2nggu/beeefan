@@ -47,6 +47,7 @@ export default {
             msg:"",
             visible:1,
             main_img:"",
+            main_img_idx:0,
             include_video:0,
             file_cnt:0,
             disableUploadButton: true,
@@ -95,6 +96,8 @@ export default {
             formData.append('include_video', this.include_video);
             //21.03.22 김태영, 전체공개 대표 이미지 찾기
             formData.append('main_img', this.main_img);
+            //21.03.25 김태영, 전체공개 대표 이미지 index 추가
+            formData.append('main_img_idx', this.main_img_idx);
 
             //var str = file.previewElement.querySelector("#private" + file.name.toString()).value;
             var str = file.previewElement.querySelector("input[name='private'");
@@ -301,6 +304,7 @@ export default {
                 if (files[_i].previewElement.querySelector(".inPrivate").value === '0') {
                     if (this.main_img === "") {
                         this.main_img = files[_i].name;
+                        this.main_img_idx = _i;
                     }
                 }
             }

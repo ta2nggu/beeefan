@@ -20,5 +20,9 @@ mix.js('resources/js/app.js', 'public/js')
     //21.03.14 김태영, 추가
     .js('resources/js/creator.js', 'public/js')
     //21.03.23 김태영, 추가 timeline ajax 작성
-    .js('resources/js/main.js', 'public/js');
+    .js('resources/js/main.js', 'public/js')
+    //21.03.25 김태영, 추가 owl carousel(timeline image slider)
+    .js('resources/js/owl.carousel.js', 'public/js')
+    .postCss('resources/css/owl.carousel.css', 'public/css')
+    .postCss('resources/css/owl.theme.default.min.css', 'public/css');
 

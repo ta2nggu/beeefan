@@ -2,5 +2,8 @@
     "/js/app.js": "/js/app.js",
     "/js/creator.js": "/js/creator.js",
     "/js/main.js": "/js/main.js",
-    "/css/app.css": "/css/app.css"
+    "/js/owl.carousel.js": "/js/owl.carousel.js",
+    "/css/app.css": "/css/app.css",
+    "/css/owl.theme.default.min.css": "/css/owl.theme.default.min.css",
+    "/css/owl.carousel.css": "/css/owl.carousel.css"
 }

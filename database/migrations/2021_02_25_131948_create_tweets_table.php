@@ -21,6 +21,7 @@ class CreateTweetsTable extends Migration
             $table->boolean('visible')->default(1);//공개여부, 기본 1 (공개), 0 (비공개)
             //21.03.21 김태영, 대표 이미지, 비디오 포함 여부, 파일 개수 추가
             $table->string('main_img')->nullable();
+            $table->integer('main_img_idx')->nullable();
             $table->boolean('include_video')->default(0);
             $table->integer('file_cnt')->default(0);
             $table->timestamps();

@@ -72,8 +72,17 @@ function time_ago($sec) {
                 @endphp
             </div>
         </div>
-        <div class="tweet_img">
-            <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet->path) }}"/>
+        <div class="owl-carousel owl-theme">
+            <div class="tweet_img">
+                <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet->path) }}"/>
+            </div>
+            @foreach($tweet_images as $tweet_image)
+                @if($tweet->id == $tweet_image->tweet_id)
+                    <div class="tweet_img">
+                        <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet_image->path) }}"/>
+                    </div>
+                @endif
+            @endforeach
         </div>
         <div class="tweet_bottom">
             {{ $tweet->msg }}

@@ -51,7 +51,12 @@ window.Vue = require('vue').default;
 const routes = [
     { path: '/register', component: Datetime.default },
     // { path: '/creator_write', component: require('./components/FormWrite.vue').default }
+    //Creator 투고 page에서 사용하는 file drag & drop
     { path: '/creator/write', component: require('./components/Dropzone.vue').default }
+    //21.03.25 김태영, TimelineSlider.vue 제거
+    // //Timeline image slider
+    // //path 동적으로 매칭할 땐 앞에 : 을 표기, ex):creator
+    // { path: '/:creator/timeline/:start', component: require('./components/TimelineSlider.vue').default }
 ]
 
 const router = new VueRouter({

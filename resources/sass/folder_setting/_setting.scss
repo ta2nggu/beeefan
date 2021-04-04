@@ -1,0 +1,148 @@
+
+/*responsive*/
+$sp: 480px;
+$sp_i5: 360px;
+
+/*sitesize*/
+$wrap: 640px;
+$wrap_inner: 520px;
+
+/*color*/
+//creator
+$color_c: #b15a68;
+$color_c_sub: #dfa4ad;
+$color_c_bk: #faf0ef;
+$color_c_g1: #ffdde1;
+$color_c_g2: #ee9ca7;
+//fan
+$color_f: #5489ab;
+$color_f_sub: #9bc5eb;
+$color_f_bk: #f4f8fa;
+$color_f_g1: #e3edf4;
+$color_f_g2: #98c7e4;
+//administrator
+$color_a: #2c3e50;
+$color_a_sub: #68727d;
+$color_a_bk: #bdc3c7;
+$color_a_g1: #bdc3c7;
+$color_a_g2: $color_a;
+//base
+$color_b: #2e2c2a;
+$color_b_sub: #aaaaaa;
+$color_b_bk: #f4f4f4;
+
+/*margin*/
+$mg: 20px;
+
+/*gradation*/
+@mixin grade($gradeTop:$color_c_sub,$gradeBottom:$color_f_sub){
+    background: linear-gradient($gradeTop,$gradeBottom);
+}
+
+/*font*/
+@mixin font_jp{
+    font-family: a-otf-gothic-bbb-pr6n,sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+@mixin font_head{
+    font-family: a-otf-midashi-go-mb31-pr6n,sans-serif;
+	font-weight: 600;
+	font-style: normal;
+}
+
+/*responsive*/
+@mixin sp {
+  @media (max-width: ($sp)) {
+    @content;
+  }
+}
+@mixin sp_i5 {
+  @media (max-width: ($sp_i5)) {
+    @content;
+  }
+}
+
+/*flex*/
+@mixin flex{
+	display:-webkit-box;
+	display:-ms-flexbox;
+	display:flex;
+}
+@mixin fw{
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+@mixin fc{
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+}
+@mixin fr{
+  	-webkit-box-orient: horizontal;
+  	-webkit-box-direction: reverse;
+  	-ms-flex-direction: row-reverse;
+  	flex-direction: row-reverse;
+}
+@mixin je{
+	-webkit-box-pack: end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+}
+@mixin jst{
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+}
+@mixin js{
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+}
+@mixin jc{
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+@mixin ae{
+	-webkit-box-align: end;
+	-ms-flex-align: end;
+	align-items: flex-end;
+}
+@mixin as{
+	-webkit-box-align: start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+}
+@mixin ac{
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.flex{@include flex}
+.fw{@include fw}
+.fc{@include fc}
+.fr{@include fr}
+.je{@include je}
+.js{@include js}
+.jc{@include jc}
+.ae{@include ae}
+.as{@include as}
+.ac{@include ac}
+
+/*wrap*/
+@mixin wrap{
+	max-width:$wrap;
+	margin-left:auto;
+	margin-right:auto;
+}
+@mixin wrap_inner{
+	max-width:$wrap_inner;
+	width: 90%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.wrap{@include wrap}
+.wrap_inner{@include wrap_inner}

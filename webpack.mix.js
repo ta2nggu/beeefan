@@ -24,5 +24,7 @@ mix.js('resources/js/app.js', 'public/js')
     //21.03.25 김태영, 추가 owl carousel(timeline image slider)
     .js('resources/js/owl.carousel.js', 'public/js')
     .postCss('resources/css/owl.carousel.css', 'public/css')
-    .postCss('resources/css/owl.theme.default.min.css', 'public/css');
+    .postCss('resources/css/owl.theme.default.min.css', 'public/css')
+    //21.04.02 kondo, 추가 style
+    .sass('resources/sass/style.scss', 'public/css');
 

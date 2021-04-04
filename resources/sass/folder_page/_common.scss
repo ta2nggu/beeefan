@@ -1,0 +1,70 @@
+
+/*topPage*
+*******************************/
+.topPage{
+    #contentWrap {
+        @include grade;
+        .title{
+            color: #fff;
+            .logo{
+                filter: brightness(0) invert(1);
+            }
+        }
+        ul {
+            @include wrap_inner;
+        }
+    }
+    #footer{
+        color: #fff;
+    }
+}
+
+/*login*
+*******************************/
+.login{
+    #contentWrap {
+        .formBox{
+            @include wrap_inner;
+            color: #fff;
+        }
+        .saveCheck{
+            padding: 2px 10px;
+            text-align: left;
+        }
+        .linkBox{
+            .noLink{
+                text-align: left;
+            }
+            p{
+                padding-top: 10px;
+            }
+            a{
+                text-decoration: underline;
+            }
+        }
+        &.fan{
+            @include grade($color_f_g1,$color_f_g2);
+            .title{
+                color: $color_f;
+            }
+            .btn{background-color: $color_f; color: #fff;}
+        }
+        &.creator{
+            @include grade($color_c_g1,$color_c_g2);
+            .title{
+                color: $color_c;
+            }
+            .btn{background-color: $color_c; color: #fff;}
+        }
+        &.admin{
+            @include grade($color_a_g1,$color_a_g2);
+            .title{
+                color: $color_a;
+            }
+            .btn{background-color: $color_a; color: #fff;}
+        }
+    }
+    #footer{
+        color: #fff;
+    }
+}

@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use App\Models\Prefecture;
+
 class RegisterController extends Controller
 {
     /*
@@ -52,11 +54,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+//            'name' => ['required', 'string', 'max:255'],
+//        21.04.04 김태영, account_id, prefecture_id 추가, nickname 제거
+            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/'],
+            'prefecture_id' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             //'nickname' => ['required','string','min:2','unique:users','regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-            'nickname' => ['required','string','min:2','unique:users','regex:/^\S*$/u'],
+//            'nickname' => ['required','string','min:2','unique:users','regex:/^\S*$/u'],
         ]);
     }
 
@@ -78,10 +83,15 @@ class RegisterController extends Controller
 
         //21.02.21 김태영, role 부여
         $user = User::create([
-            'name' => $data['name'],
+//            21.04.04 김태영, 일반 user 이름 제거
+//            'name' => $data['name'],
+//            21.04.04 김태영, account_id, sex, prefecture_id 추가, nickname 제거
+            'account_id' => $data['account_id'],
+            'sex' => $data['sex'],
+            'prefecture_id' => $data['prefecture_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'nickname' => $data['nickname'],
+//            'nickname' => $data['nickname'],
             'birth_date' => $data['birth_date'],
         ]);
 
@@ -96,4 +106,12 @@ class RegisterController extends Controller
         }
         return $user;
     }
+
+//    21.04.02 김태영, 생성
+    protected function showRegistrationForm() {
+        $Prefectures = Prefecture::select('id', 'name')->orderby('id')->get();
+
+        return view('auth.register', compact('Prefectures'));
+    }
+
 }

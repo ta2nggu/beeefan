@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+//21.03.30 김태영, 회원가입 email 인증 customize
+use App\Notifications;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -22,7 +24,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'nickname',
+        'account_id',
+        'sex',
+        'prefecture_id',
+//        'nickname',
         'birth_date',// 모델에 fillable 에 추가해야 db 필드에 값이 들어감
     ];
 
@@ -45,4 +50,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'birth_date' => 'datetime',
     ];
+
+//    21.03.30 김태영, 회원가입 email 인증 customize
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new Notifications\VerifyEmail); // Replace this with your custom notification class
+    }
 }

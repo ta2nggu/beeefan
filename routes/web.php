@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Auth::routes();
+Auth::routes();//이렇게 작성하면 verification.verify, resend.. 등 자동으로 router가 생김
 
 Auth::routes(['verify' => true]);
 

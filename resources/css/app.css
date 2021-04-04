@@ -78,3 +78,9 @@
 .inputfile ~ label:hover {
     background-color: #e4e4e4;
 }
+
+.vdatetime-input {
+    border: 0px;
+    width: 100%;
+    /*height: 100%;*/
+}

@@ -1,0 +1,223 @@
+/*btn *****
+********************************/
+.btn{
+    display: block;
+    text-align: center;
+    border-radius: 10px;
+    height: 64px;
+    line-height: 64px;
+    background-color: $color_b_bk;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    @include font_head;
+    font-size: 1.2em;
+}
+.btnCircle{
+    display: block;
+    text-align: center;
+    border-radius: 25px;
+    height: 50px;
+    line-height: 50px;
+    background-color: $color_b_bk;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+.btnBox{
+    &>p,
+    &>li{
+        &:not(:first-of-type){
+            margin-top: 12px;
+        }
+    }
+}
+/*btnStyle*/
+.btnBor{
+    background-color: #fff;
+    border: 2px solid $color_b;
+}
+.btnBorLp{ border-color: $color_c_sub; color: $color_c_sub;}
+.btnPi{ background-color: $color_c; color: #fff;}
+.btnLp{ background-color: $color_c_sub; color: #fff;}
+.btnBl{ background-color: $color_f; color: #fff;}
+
+/*form *****
+********************************/
+.formBox {
+    &>div{
+        &:not(:first-of-type){
+            margin-top: 15px;
+        }
+    }
+    input[type="text"],input[type="email"],input[type="password"],button[type="submit"],input[type="button"],textarea,select{
+        -webkit-box-sizing: content-box;
+        -webkit-appearance: button;
+        appearance: button;
+        box-sizing: border-box;
+        cursor: pointer;
+        border: none;
+        width: 100%;
+        font-size: 16px;
+        padding: 0;
+        &:focus {
+            outline: none;
+        }
+    }
+    input::placeholder{color: #aaa;}
+    textarea::placeholder{color: #aaa;}
+    input:-ms-input-placeholder{color: #aaa;}
+    textarea:-ms-input-placeholder{color: #aaa;}
+    input::-webkit-input-placeholder{color: #aaa;}
+    textarea::-webkit-input-placeholder{color: #aaa;}
+    input:-webkit-autofill {
+        transition: background-color 5000s ease-in-out 0s !important;
+    }
+    input[type="text"],input[type="email"],input[type="password"]{
+        border-radius: 5px;
+        padding: 15px 10px;
+        background-color: rgba(#fff,0.7) !important;
+    }
+    input[type="checkbox"]{
+        display: none;
+    }
+    input[type="checkbox"]+label{
+        position: relative;
+        padding-left: 26px;
+    }
+    input[type="checkbox"]+label::before{
+        content: "";
+        display: block;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 52%;
+        left: 0;
+        transform: translateY(-50%);
+        cursor: pointer;
+        background-color: rgba(#fff,0.7);
+    }
+    input[type="checkbox"]:checked+label::after {
+        content: "";
+        display: block;
+        width: 12px;
+        height: 12px;
+        background-color: $color_b;
+        position: absolute;
+        top: 52%;
+        left: 4px;
+        transform: translateY(-50%);
+    }
+}
+
+/*moreArea *****
+********************************/
+.moreArea{
+    position: relative;
+    padding-bottom: 30px;
+    .moreBtn{
+        position: absolute;;
+        bottom: 0;
+        right: 0;
+        color: $color_b_sub;
+        text-decoration: underline;
+    }
+}
+
+/*profile *****
+********************************/
+/*profileHeader*/
+#profileHeader{
+    padding-bottom: 18%;
+    .imgbox{
+        position: relative;
+        background: no-repeat center/cover;
+        padding-top: 46%;
+        div{
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%,50%);
+            width: 36%;
+            border-radius: 50%;
+            border: 3px solid $color_c_sub;
+            overflow: hidden;
+        }
+    }
+}
+/*profileBox*/
+#profileBox{
+    @include wrap_inner;
+    .name{
+        text-align: center;
+        font-size: 1.6em;
+        line-height: 1.4;
+        @include font_head;
+        margin-top: $mg;
+    }
+    .score{
+        @include flex;
+        @include jc;
+        margin-top: $mg;
+        dl{
+            @include flex;
+            @include ac;
+            @include font_head;
+            &:not(:first-of-type){
+                margin-top: 5px;
+            }
+        }
+        dt{
+            width: 60px;
+            margin-right: 10px;
+            text-align: center;
+            background-color: $color_c_bk;
+        }
+        dd{
+            font-size: 1.3em;
+            line-height: 1;
+        }
+    }
+    .btnBox{
+        margin-top: $mg*1.5;
+    }
+    .text{
+        margin-top: $mg;
+    }
+    .sns{
+        margin-top: $mg;
+        @include flex;
+        li{
+            &:not(:last-of-type){
+                margin-right: 10px;
+            }
+        }
+        a{
+            display: block;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: $color_c_bk no-repeat center / 50%;
+            text-indent: -999px;
+            overflow: hidden;
+            &.insta{ background-image: url("icon_grid_pi.png");}
+            &.tw{ background-image: url("icon_grid_pi.png");}
+            &.youtube{ background-image: url("icon_grid_pi.png");}
+        }
+    }
+}
+
+/*postList *****
+********************************/
+#postList{
+    margin-top: $mg*2;
+    ul{
+        @include flex;
+        @include fw;
+        li{
+            width: 33%;
+            &:not(:nth-of-type(3n)){
+                margin-right: 0.5%;
+            }
+            &:nth-of-type(n+4){
+                margin-top: 0.5%;
+            }
+        }
+    }
+}

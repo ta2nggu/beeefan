@@ -39,9 +39,10 @@ class LoginController extends Controller
             //return redirect('/creator/'.$user->nickname);
             return redirect('/creator/index');
         }
-        if($user->hasRole('user')){
-            return redirect('/user');
-        }
+//        21.04.08 김태영, 로그인 후 이전 페이지로 이동하기 위해 주석처리
+//        if($user->hasRole('user')){
+//            return redirect('/user');
+//        }
     }
 
     /**
@@ -52,5 +53,17 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+//21.04.08 김태영, 로그인 후 이전 페이지로 이동하기 위해 추가
+        $this->redirectTo = url()->previous();
+    }
+
+//21.04.08 김태영, 로그인 후 이전 페이지로 이동하기 위해 showLoginForm 추가
+    public function showLoginForm()
+    {
+        if(!session()->has('url.intended'))
+        {
+            session(['url.intended' => url()->previous()]);
+        }
+        return view('auth.login');
     }
 }

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function __construct(){
-        $this->middleware('role:user|administrator|creator');
+//        21.04.06 김태영, 생성자에 role check 제거, 비 로그인 user 에게도 보여주기 위함
+//        $this->middleware('role:user|administrator|creator');
     }
 
     public function index(){
@@ -17,13 +18,15 @@ class UserController extends Controller
     }
 
 //    21.03.28 김태영, parameter Request $request 추가
-    public function creatorIndex(Request $request, $creator_nick) {
+    public function creatorIndex(Request $request, $account_id) {
         $this->middleware('auth');
         $this->user =  \Auth::user();
 
         $creator = DB::table("users")
             ->select(DB::raw('users.name, users.nickname, users.instruction'))
-            ->where('nickname', '=', $creator_nick)
+//            ->where('nickname', '=', $creator_nick)
+//                21.04.06 김태영, $creator_nick -> account_id
+            ->where('account_id', '=', $account_id)
             ->get();
 
         $tweets = DB::table('tweets', 'tweets')
@@ -39,9 +42,10 @@ class UserController extends Controller
 //            ->orderBy('tweets.id', 'desc')
 //            ->orderBy('tweet_images.idx')
 
-            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, users.nickname, tweets.id, tweets.include_video, tweets.file_cnt"))
+            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, users.nickname, tweets.id, tweets.include_video, tweets.file_cnt, users.account_id"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
-            ->where('users.nickname', $creator_nick)
+//            ->where('users.nickname', $creator_nick)
+            ->where('users.account_id', $account_id)
             ->where('tweets.visible', 1)
             ->orderBy('tweets.id', 'desc')
 //            ->get();
@@ -67,13 +71,13 @@ class UserController extends Controller
         return view('main', compact('creator', 'tweets'));
     }
 
-    public function timeline(Request $request, $creator_nick, $startTweet) {
+    public function timeline(Request $request, $account_id, $startTweet) {
         //main tweet
         //nowTweet -> 사용자가 click한 tweet, timeline에서 최상단에 위치
         $nowTweet = DB::table('tweets', 'tweets')
             ->select(DB::raw("users.name, users.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
-            ->where('users.nickname', $creator_nick)
+            ->where('users.account_id', $account_id)
             ->where('tweets.id', $startTweet)
             ->where('tweets.visible', 1)
             ->get();
@@ -81,7 +85,7 @@ class UserController extends Controller
         $otherTweets = DB::table('tweets', 'tweets')
             ->select(DB::raw("users.name, users.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
-            ->where('users.nickname', $creator_nick)
+            ->where('users.account_id', $account_id)
             ->where('tweets.id','<>', $startTweet)
             ->where('tweets.visible', 1)
             ->orderBy('tweets.id', 'desc')
@@ -97,7 +101,7 @@ class UserController extends Controller
                 ->select(DB::raw("tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path"))
                 ->join('users', 'users.id', '=', 'tweets.user_id')
                 ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
-                ->where('users.nickname', $creator_nick)
+                ->where('users.account_id', $account_id)
                 ->where('tweets.id', $tweet->id)
                 ->where('tweet_images.idx','<>', $tweet->main_img_idx)//무료공개 = main image는 이미 tweet 정보 가져올 때 가져옴, main image 제외하고 조회
                 ->where('tweets.visible', 1)

@@ -12,6 +12,21 @@
                             @csrf
 
                             <div class="form-group row">
+                                <label for="account_id" class="col-md-4 col-form-label text-md-right">{{ __('Account ID') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="account_id" type="text" class="form-control @error('account_id') is-invalid @enderror" name="account_id" value="{{ old('account_id') }}" required autocomplete="account_id" autofocus>
+
+                                    @error('account_id')
+                                    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ __('Account ID는 영문, 숫자, -_ 만 사용할 수 있습니다.') }}</strong>
+{{--                                        <strong>{{ $message }}</strong>--}}
+                                </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
@@ -32,6 +47,24 @@
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                     @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="sex" class="col-md-4 col-form-label text-md-right">{{ __('성별') }}</label>
+
+                                <div class="col-md-6">
+                                    <div class="sex">
+                                        <input type="radio" id="male" value=1 name="sex" checked>
+                                        <label for="male">남자</label>
+                                        <input type="radio" id="female" value=0 name="sex">
+                                        <label for="female">여자</label>
+                                    </div>
+                                    @error('sex')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

@@ -24,8 +24,12 @@
                         <br>
 {{--                        <a href="/creator_write/{{ $user[0]->nickname }}">신규투고</a><br>--}}
 {{--                        <a href="/creator_write">테스트 업로드 페이지로 이동</a><br>--}}
-                        <a href="/creator/write">신규투고</a>
-                        <a href="">설정변경</a>
+                        <div>
+                            <a href="/creator/write">投稿する 투고하기</a>
+                        </div>
+                        <div>
+                            <a href="/creator/mypage">マイページ 설정변경</a>
+                        </div>
 
                         <div class="tweets">
                             <div class="flex_images">

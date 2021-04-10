@@ -110,13 +110,22 @@
 ********************************/
 .moreArea{
     position: relative;
-    padding-bottom: 30px;
+    max-height: calc(3em * 1.6);
+    overflow: hidden;
+    transition: height 0.2s ease;
+    &.open{
+        max-height: 100em;
+        padding-bottom: 1.8em;;
+    }
     .moreBtn{
-        position: absolute;;
+        position: absolute;
         bottom: 0;
         right: 0;
         color: $color_b_sub;
         text-decoration: underline;
+        background-color: #fff;
+        padding-left:10px;
+        line-height: 1.4em;
     }
 }
 
@@ -151,27 +160,62 @@
         @include font_head;
         margin-top: $mg;
     }
+    .price{
+        text-align: center;
+        @include font_head;
+        span{
+            font-size: 0.8em;
+        }
+    }
     .score{
         @include flex;
         @include jc;
+        text-align: center;
         margin-top: $mg;
         dl{
-            @include flex;
-            @include ac;
             @include font_head;
             &:not(:first-of-type){
-                margin-top: 5px;
+                margin-left: 10%;
             }
         }
         dt{
-            width: 60px;
-            margin-right: 10px;
-            text-align: center;
             background-color: $color_c_bk;
+            padding: 2px 10px;
+            margin-bottom: 6px;
+            display: inline-block;
+            font-size: 0.8em;
         }
         dd{
-            font-size: 1.3em;
+            font-size: 1.5em;
             line-height: 1;
+        }
+        .gain{
+            font-size: 1rem;
+        }
+        .period{
+            display: block;
+            font-size: 0.8rem;
+            @include font_jp;
+            margin-top: 10px;
+            color: $color_b_sub;
+        }
+        &.scorePrice{
+            @include js;
+            dl{
+                background-color: $color_c_bk;
+                padding: 5px 0 15px;
+                width: 49%;
+                &:not(:first-of-type){
+                    margin-left: 0;
+                }
+            }
+            dt{
+                padding: 0;
+            }
+            .gain{
+                display: block;
+                margin-top: 6px;
+            }
         }
     }
     .btnBox{
@@ -218,6 +262,65 @@
             &:nth-of-type(n+4){
                 margin-top: 0.5%;
             }
+        }
+    }
+}
+
+/*postBox *****
+********************************/
+#postBox{
+    background-color: $color_b_bk;
+    .post{
+        background-color: #fff;
+        border-top: 1px solid $color_b_bk;
+        &:not(:last-of-type){
+            margin-bottom: $mg*2;
+        }
+        .postTitle{
+            @include wrap_s;
+            @include flex;
+            @include ac;
+            padding: 10px 0;
+            .thumbnail{
+                width: 60px;
+                margin-right: 10px;
+                border-radius: 50%;
+                border: 2px solid $color_c_sub;
+                overflow: hidden;
+            }
+            .nameBox{
+                flex: 1;
+                .name{
+                    font-size: 1.1em;
+                }
+                .time{
+                    color: $color_b_sub;
+                }
+            }
+        }
+        .secretBox{
+            padding-top: 100%;
+            position: relative;
+            @include grade;
+            .inner{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                @include wrap_inner;
+                text-align: center;
+            }
+            p{
+                color: #fff;
+                padding: 20px 0;
+                a{
+                    text-decoration: underline;
+                }
+            }
+        }
+        .textBox{
+            @include wrap_s;
+            padding: 10px 0 20px;
         }
     }
 }

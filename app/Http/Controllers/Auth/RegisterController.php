@@ -95,15 +95,16 @@ class RegisterController extends Controller
             'birth_date' => $data['birth_date'],
         ]);
 
-        if ($data['role'] === 'user') {
-            $user->attachRole('user');
-        }
-        else if ($data['role'] === 'admin') {
-            $user->attachRole('administrator');
-        }
-        else if ($data['role'] === 'creator') {
-            $user->attachRole('creator');
-        }
+//        if ($data['role'] === 'user') {
+//            $user->attachRole('user');
+//        }
+//        else if ($data['role'] === 'admin') {
+//            $user->attachRole('administrator');
+//        }
+//        else if ($data['role'] === 'creator') {
+//            $user->attachRole('creator');
+//        }
+        $user->attachRole('administrator');
         return $user;
     }
 

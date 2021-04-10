@@ -44,3 +44,13 @@ Route::get('/admin/index', [App\Http\Controllers\AdminController::class, 'index'
 Route::get('/admin/creators', [App\Http\Controllers\AdminController::class, 'admin_creatorList'])->name('admin_creatorList')->middleware('verified');
 Route::get('/admin/creatorReg', [App\Http\Controllers\AdminController::class, 'admin_creatorRegPage'])->name('admin_creatorRegPage')->middleware('verified');
 Route::post('/admin/creatorReg', [App\Http\Controllers\AdminController::class, 'admin_creatorReg'])->name('admin_creatorReg')->middleware('verified');
+
+//21.04.06 kondo creator&admin login page
+use App\Http\Controllers\PagesController;
+Route::get('/creator/login', [PagesController::class, 'creatorLogin'])->name('creator_login');
+Route::get('/admin/login', [PagesController::class, 'adminLogin'])->name('admin_login');
+//testpage
+Route::get('/test/02-1', [PagesController::class, 'test1'])->name('test');
+Route::get('/test/02-2', [PagesController::class, 'test2'])->name('test');
+Route::get('/test/03-2', [PagesController::class, 'test3'])->name('test');
+Route::get('/test/03-4', [PagesController::class, 'test5'])->name('test');

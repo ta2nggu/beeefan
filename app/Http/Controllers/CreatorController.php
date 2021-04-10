@@ -23,7 +23,8 @@ class CreatorController extends Controller
 
         $user = DB::table("users")
 //                       ->select(DB::raw("COUNT(1) as cnt"))
-            ->where('nickname', '=', $this->user->nickname)
+//            ->where('nickname', '=', $this->user->nickname)
+            ->where('account_id', '=', $this->user->account_id)
             ->get();
 
 //        21.03.07 김태영, 크리에이터 tweet 가져오기
@@ -69,6 +70,20 @@ class CreatorController extends Controller
 //    }
     public function write(){
         return view('creator.write');
+    }
+
+//    21.04.08 김태영, 크리에이터 mypage 추가
+    public function mypage(){
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+
+        $user = DB::table("users")
+            ->where('account_id', '=', $this->user->account_id)
+            ->get();
+
+        return view('creator.mypage', [
+            'user' => $user
+        ]);
     }
 
 //    21.03.07 김태영, dropzone js 사용으로 변경, 현재 사용 안함

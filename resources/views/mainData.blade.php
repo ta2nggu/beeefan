@@ -1,6 +1,8 @@
 @foreach($tweets as $key=>$value)
     <div class="thumbnail_image">
-        <a href="{{ $value->nickname }}/timeline/{{ $value->id }}">
+{{--        <a href="{{ $value->nickname }}/timeline/{{ $value->id }}">--}}
+{{--        21.04.08 김태영, nickname에서 account_id로 변경--}}
+        <a href="{{ $value->account_id }}/timeline/{{ $value->id }}">
             <img class="img-thumbnail" src="{{ asset('storage/images/'.$value->path) }}"/>
         </a>
         {{--                                {{ $key }} $key는 foreach index --}}

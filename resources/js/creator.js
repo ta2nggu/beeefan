@@ -74,3 +74,55 @@ Array.prototype.forEach.call( inputs, function( input )
         }
     });
 });
+
+/*21.04.08 김태영, creator mypage background_img, profile_img */
+$(document).ready(function (e) {
+    $('#input_background_img').change(function(){
+        let reader = new FileReader();
+
+        reader.onload = (e) => {
+            $('#preview_background_img').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    $('#input_profile_img').change(function(){
+        let reader = new FileReader();
+
+        reader.onload = (e) => {
+            $('#preview_profile_img').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    // 21.04.10 김태영, add link
+    $('#btnLinkSave').click(function() {
+        $('.required_alert.display_text').css('display', 'none');
+        $('.required_alert.url').css('display', 'none');
+
+        // 표시 문자
+        var display_text = $('#display_text').val();
+        var url = $('#url').val();
+
+        if (display_text === ""){
+            $('.required_alert.display_text').css('display', 'block');
+            $('#display_text').focus();
+            return;
+        }
+        if (url === ""){
+            $('.required_alert.url').css('display', 'block');
+            $('#url').focus();
+            return;
+        }
+
+        $('#display_text').val('');
+        $('#url').val('');
+        var result = '<a href="' + url + '" target="_blank" >' + display_text +  '</a>';
+        $('#instruction').append(result);
+        $('#add_link').modal('hide');
+    });
+});
+
+// 21.04.09 김태영, add hyper link
+//div 수정할 수 있도록 해준다
+document.getElementById("instruction").contentEditable='true';

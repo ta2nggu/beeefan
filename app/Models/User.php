@@ -27,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'account_id',
         'sex',
         'prefecture_id',
-//        'nickname',
+        'nickname',
         'birth_date',// 모델에 fillable 에 추가해야 db 필드에 값이 들어감
     ];
 

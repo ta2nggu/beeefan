@@ -13,6 +13,8 @@ class AdminController extends Controller
 
     public function admin_creatorReg(Request $request){
         $user = User::create([
+            'account_id' => $request->input('account_id'),
+            'sex' => $request->input('sex'),
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),

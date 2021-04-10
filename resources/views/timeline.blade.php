@@ -7,7 +7,7 @@
         @include('timelineData')
     </div>
 
-    <div class="영">
+    <div class="ajax-load text-center">
         <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
     </div>
 @endsection

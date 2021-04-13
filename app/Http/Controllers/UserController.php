@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\tweet;
+use App\Models\User;
+use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -121,5 +125,80 @@ class UserController extends Controller
 //        return view('timeline', [
 //            'tweets' => $tweet
 //        ]);
+    }
+
+    public function change_password() {
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+
+        $user = DB::table("users")
+            ->where('id', '=', $this->user->id)
+            ->get();
+
+        return view('auth.passwords.change', [
+            'user' => $user
+        ]);
+    }
+
+    public function change_password_store(Request $request) {
+        $attributes = [
+            'current_password' => '現在のパスワード',
+            'new_password' => '新しいパスワード',
+            'new_confirm_password' => '新しいパスワード(確認)'
+        ];
+
+        $rules = [
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password']
+        ];
+
+        $this->validate($request, $rules, [], $attributes);
+
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+
+//        21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
+        if (auth()->user()->hasRole('creator')){
+            return redirect('/creator/mypage');
+        }
+
+        return redirect()->back();
+    }
+
+    public function change_email() {
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+
+        $user = DB::table("users")
+            ->where('id', '=', $this->user->id)
+            ->get();
+
+        return view('auth.email.change', [
+            'user' => $user
+        ]);
+    }
+
+    public function change_email_store(Request $request) {
+        $attributes = [
+            'email' => '新しいメールアドレス',
+            'confirm_email' => '新しいメールアドレス(確認)'
+        ];
+
+        $rules = [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'confirm_email' => ['same:email']
+        ];
+
+        $this->validate($request, $rules, [], $attributes);
+
+        //User::find(auth()->user()->id)->update(['email'=> $request->email, 'email_verified_ata'=>null,]);
+        User::find(auth()->user()->id)->update(['email' => $request->email, 'email_verified_at' => null]);
+
+//        21.04.12 김태영, creator가 email 변경 후 mypage로 이동
+        if (auth()->user()->hasRole('creator')){
+            return redirect('/creator/mypage');
+        }
+
+        return redirect()->back();
     }
 }

@@ -4,13 +4,14 @@
 @include('creator.partials.link')
 
 @section('content')
-    <form method="POST" enctype="multipart/form-data" id="upload-image" action="{{ url('upload-image') }}" >
+    <form method="POST" enctype="multipart/form-data" id="upload-image" action="{{ __('/creator/mypage') }}" >
+        @csrf
 
         <div class="image-upload">
 {{--            background_img--}}
             <div class="background_img">background_img
                 <label for="input_background_img">
-                    <img id="preview_background_img" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"/>
+                    <img id="preview_background_img" src="@if (isset($user[0]->background_img)) {{ asset('storage/images/'.$user[0]->id.'/'.$user[0]->background_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif"/>
                 </label>
 
                 <input id="input_background_img" name="background_img" type="file"/>
@@ -23,7 +24,7 @@
 {{--            profile_img--}}
             <div class="profile_img">profile_img
                 <label for="input_profile_img">
-                    <img id="preview_profile_img" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"/>
+                    <img id="preview_profile_img" src="@if (isset($user[0]->profile_img)) {{ asset('storage/images/'.$user[0]->id.'/'.$user[0]->profile_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif"/>
                 </label>
 
                 <input id="input_profile_img" name="profile_img" type="file"/>
@@ -35,24 +36,24 @@
         </div>
 
         <div class="creator_name">クリエイター名</div>
-        <input name="creator_name" type="text" value="{{ $user[0]->name }}">
+        <input name="name" type="text" value="{{ $user[0]->name }}">
 
         <div class="nickname">Nickname</div>
         <input name="nickname" type="text" value="{{ $user[0]->nickname }}">
 
         <div class="email">メールアドレス</div>
         <input name="email" type="text" value="{{ $user[0]->email }}" readonly>
+        <a href="{{ __('/email/change') }}">メールアドレスを変更します。</a>
 
         <div class="password">パスワード</div>
         <input name="password" type="password" value="{{ $user[0]->password }}" readonly>
+        <a href="{{ __('/password/change') }}">パスワードを変更します。</a>
 
-        <div class="instruction">説明文</div>
-{{--        <textarea name="instruction" placeholder="テキストを入力してください (2000文字以内)">{{ $user[0]->instruction }}--}}
-{{--            <a href="https://www.google.com/">hi</a>--}}
-{{--        </textarea>--}}
-        <div id="instruction">
-            <h4>My Links</h4>
-            <p><a href="https://www.google.com/" title="Mouseover Description">Link Text Description</a></p>
+        <div class="instruction">説明文
+            <div id="instruction">
+                {!! $user[0]->instruction !!}
+            </div>
+            <input id="c_mypage_instruction" name="instruction" type="hidden" value="" readonly>
         </div>
 
         <div class="instruction_link">
@@ -63,10 +64,8 @@
 
         </div>
 
-
-
         <div class="submit">
-            <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+            <button type="submit" class="btn btn-primary" id="c_mypage_submit">Submit</button>
         </div>
     </form>
 

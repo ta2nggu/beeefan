@@ -8,7 +8,7 @@
                     <div class="card-header">{{ $creator[0]->name }}/{{ $creator[0]->nickname }}</div>
 
                     <div class="card-body">
-                        <div class="instruction">{{ $creator[0]->instruction }}</div>
+                        <div class="instruction">{!! $creator[0]->instruction  !!}</div>
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}

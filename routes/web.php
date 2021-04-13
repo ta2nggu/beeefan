@@ -40,7 +40,8 @@ Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::
 //Route::get('/creator/{creator}', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');
 Route::get('/creator/index', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');
 Route::get('/creator/write', [App\Http\Controllers\CreatorController::class, 'write'])->name('write')->middleware('verified');
-Route::get('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage'])->name('mypage”')->middleware('verified');
+Route::get('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage'])->name('mypage')->middleware('verified');
+Route::post('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage_store']);
 //Route::post('/upload', [App\Http\Controllers\ImageController::class, 'store'])->name('/app/upload')->middleware('verified');
 Route::post('/creator/creator_write/preview/',[App\Http\Controllers\CreatorController::class, 'preview'])->name('creator_write.preview');
 Route::get('image/{filename}', [App\Http\Controllers\ImageController::class,'getPubliclyStorgeFile'])->name('image.displayImage');
@@ -49,3 +50,9 @@ Route::get('/admin/index', [App\Http\Controllers\AdminController::class, 'index'
 Route::get('/admin/creators', [App\Http\Controllers\AdminController::class, 'admin_creatorList'])->name('admin_creatorList')->middleware('verified');
 Route::get('/admin/creatorReg', [App\Http\Controllers\AdminController::class, 'admin_creatorRegPage'])->name('admin_creatorRegPage')->middleware('verified');
 Route::post('/admin/creatorReg', [App\Http\Controllers\AdminController::class, 'admin_creatorReg'])->name('admin_creatorReg')->middleware('verified');
+
+Route::get('/password/change', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');
+Route::post('/password/change', [App\Http\Controllers\UserController::class, 'change_password_store'])->middleware('verified');
+
+Route::get('/email/change', [App\Http\Controllers\UserController::class, 'change_email'])->middleware('verified');
+Route::post('/email/change', [App\Http\Controllers\UserController::class, 'change_email_store'])->middleware('verified');

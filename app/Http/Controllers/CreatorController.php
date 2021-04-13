@@ -86,6 +86,80 @@ class CreatorController extends Controller
         ]);
     }
 
+    public function mypage_store(Request $request){
+
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+
+        $background_imgName = '';
+        $profile_imgName = '';
+
+        if ($request->hasFile('background_img')) {
+            //  Let's do everything here
+            if ($request->file('background_img')->isValid()) {
+//                $validated = $request->validate([
+//                    'name' => 'string|max:40',
+//                    'image' => 'mimes:jpeg,png|max:1014',
+//                ]);
+                $image = $request->file('background_img');
+                $background_imgName = $image->getClientOriginalName();
+                $image->move(storage_path('app/public/images/'.$this->user->id), $background_imgName);
+
+                //참고 https://mactavish10101.medium.com/how-to-upload-images-in-laravel-7-7a7f9982ebba
+//                $extension = $request->image->extension();
+//                $request->image->storeAs('/public', $validated['name'].".".$extension);
+//                $url = Storage::url($validated['name'].".".$extension);
+//                $file = File::create([
+//                    'name' => $validated['name'],
+//                    'url' => $url,
+//                ]);
+//                Session::flash('success', "Success!");
+//                return \Redirect::back();
+
+                User::where('id', $this->user->id)
+                    ->update(['background_img' => trim($background_imgName) === "" ? NULL : $background_imgName]);
+            }
+        }
+//        abort(500, 'Could not upload image :(');
+
+        if ($request->hasFile('profile_img')) {
+            //  Let's do everything here
+            if ($request->file('profile_img')->isValid()) {
+                $image = $request->file('profile_img');
+                $profile_imgName = $image->getClientOriginalName();
+                $image->move(storage_path('app/public/images/'.$this->user->id), $profile_imgName);
+            }
+
+            User::where('id', $this->user->id)
+                ->update(['profile_img'=>trim($profile_imgName) === "" ? NULL : $profile_imgName]);
+        }
+
+        User::where('id', $this->user->id)
+            ->update(['name'=>$request->input('name'),
+                    'nickname'=>$request->input('nickname'),
+                    'instruction'=>$request->input('instruction')]);
+
+
+//        정보 수정 후 index 화면으로 이동
+        $user = DB::table("users")
+            ->where('account_id', '=', $this->user->account_id)
+            ->get();
+
+        $tweets = DB::table('tweets', 'tweets')
+            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt"))
+            ->where('tweets.user_id', $this->user->id)
+            ->where('tweets.visible', 1)
+            ->orderBy('tweets.id', 'desc')
+            ->get();
+
+
+        return view('creator.index', [
+            'user' => $user,
+            'tweets' => $tweets
+        ]);
+
+    }
+
 //    21.03.07 김태영, dropzone js 사용으로 변경, 현재 사용 안함
 //    21.02.28 김태영, 업로드 전 파일 미리보기
     public function preview(Request $request){

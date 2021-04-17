@@ -21,7 +21,13 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name',
+//        'name',
+//        21.04.15 김태영
+//        name -> last_name, first_name
+//        price_month 月額 추가
+        'last_name',
+        'first_name',
+        'month_price',
         'email',
         'password',
         'account_id',

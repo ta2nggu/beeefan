@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
 {{--                    <div class="card-header">{{ __('Creator Dashboard') }}</div>--}}
-                    <div class="card-header">{{ $user[0]->name }}/{{ $user[0]->nickname }}</div>
+                    <div class="card-header">{{ $user[0]->last_name }}/{{ $user[0]->first_name }}/{{ $user[0]->nickname }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -33,23 +33,12 @@
 
                         <div class="tweets">
                             <div class="flex_images">
-{{--                                @foreach($tweets as $tweet)--}}
-                            @foreach($tweets as $key=>$value)
-                                <div class="thumbnail_image">
-                                    <a href="">
-                                        <img class="img-thumbnail" src="{{ asset('storage/images/'.$value->path) }}"/>
-                                    </a>
-    {{--                                {{ $key }} $key는 foreach index --}}
-{{--                                    @if(strstr($value->mime_type,'/', true) === 'image')--}}
-                                    @if($value->include_video === 0)
-                                        @if($value->file_cnt > 1)
-                                            <div class="file_cnt">image {{ $value->file_cnt }}</div>
-                                        @endif
-                                    @else
-                                        <div class="file_cnt">video</div>
-                                    @endif
+                                <div class="post-data">
+                                    @include('creator/indexData')
                                 </div>
-                            @endforeach
+                                <div class="ajax-load text-center">
+                                    <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
+                                </div>
                             </div>
                         </div>
                     </div>

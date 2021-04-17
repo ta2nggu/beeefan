@@ -11060,3 +11060,8 @@ a.text-dark:focus {
     display: none;
 }
 
+.creator_info {
+    height: 300px;
+    border: 1px solid #545b62;
+}
+

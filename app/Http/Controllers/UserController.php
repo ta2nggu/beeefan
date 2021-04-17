@@ -27,7 +27,7 @@ class UserController extends Controller
         $this->user =  \Auth::user();
 
         $creator = DB::table("users")
-            ->select(DB::raw('users.name, users.nickname, users.instruction'))
+            ->select(DB::raw('users.last_name, users.first_name, users.nickname, users.instruction'))
 //            ->where('nickname', '=', $creator_nick)
 //                21.04.06 김태영, $creator_nick -> account_id
             ->where('account_id', '=', $account_id)
@@ -79,7 +79,7 @@ class UserController extends Controller
         //main tweet
         //nowTweet -> 사용자가 click한 tweet, timeline에서 최상단에 위치
         $nowTweet = DB::table('tweets', 'tweets')
-            ->select(DB::raw("users.name, users.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->select(DB::raw("users.last_name, users.first_name, users.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->where('users.account_id', $account_id)
             ->where('tweets.id', $startTweet)
@@ -87,7 +87,7 @@ class UserController extends Controller
             ->get();
         //otherTweets -> 사용자가 click한 tweet을 제외한 나머지를 등록 역순으로 조회
         $otherTweets = DB::table('tweets', 'tweets')
-            ->select(DB::raw("users.name, users.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->select(DB::raw("users.last_name, users.first_name, users.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->where('users.account_id', $account_id)
             ->where('tweets.id','<>', $startTweet)

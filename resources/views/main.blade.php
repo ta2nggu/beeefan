@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ $creator[0]->name }}/{{ $creator[0]->nickname }}</div>
+                    <div class="card-header">{{ $creator[0]->last_name }}/{{ $creator[0]->first_name }}/{{ $creator[0]->nickname }}</div>
 
                     <div class="card-body">
                         <div class="instruction">{!! $creator[0]->instruction  !!}</div>

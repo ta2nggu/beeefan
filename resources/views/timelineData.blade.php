@@ -64,7 +64,7 @@ function time_ago($sec) {
     <div class="tweet">
         <div class="tweet_top">
             <div class="tweet_name">
-                {{ $tweet->name }} / {{ $tweet->nickname }}
+                {{ $tweet->last_name }} / {{ $tweet->first_name }} / {{ $tweet->nickname }}
             </div>
             <div class="tweet_time">
                 @php

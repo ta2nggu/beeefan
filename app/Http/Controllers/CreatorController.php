@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Creator;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -15,29 +16,14 @@ class CreatorController extends Controller
         $this->middleware('role:creator');
     }
 
-    //public function index($user_nick){
-    public function index(){
+    public function index(Request $request){
         $this->middleware('auth');
         $this->user =  \Auth::user();
-//        dd($this->user->nickname);
 
         $user = DB::table("users")
-//                       ->select(DB::raw("COUNT(1) as cnt"))
-//            ->where('nickname', '=', $this->user->nickname)
-            ->where('account_id', '=', $this->user->account_id)
+            ->join('creators', 'creators.user_id', '=', 'users.id')
+            ->where('users.id', '=', $this->user->id)
             ->get();
-
-//        21.03.07 김태영, 크리에이터 tweet 가져오기
-//        $tweets = DB::table('tweets', 'tweets')
-////            ->select('tweets.user_id', 'tweets.id', 'tweet_images.name')
-//            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweets.id"))
-//            ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
-//            ->where('tweets.user_id', $this->user->id)
-//            ->where('tweet_images.idx', 0)
-//            ->orderBy('tweets.id', 'desc')
-//            ->orderBy('tweet_images.idx')
-////            ->limit(1)
-//            ->get();
 
         $tweets = DB::table('tweets', 'tweets')
 //            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweets.id, tweet_images.mime_type, A.images_cnt"))
@@ -49,13 +35,16 @@ class CreatorController extends Controller
 //            ->where('tweet_images.private', 0)
 //            ->orderBy('tweets.id', 'desc')
 //            ->orderBy('tweet_images.idx')
-
             ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt"))
             ->where('tweets.user_id', $this->user->id)
             ->where('tweets.visible', 1)
             ->orderBy('tweets.id', 'desc')
-            ->get();
+            ->paginate(15);
 
+        if ($request->ajax()) {
+            $view = view('creator.indexData', compact( 'tweets'))->render();
+            return response()->json(['html'=>$view]);
+        }
 
         return view('creator.index', [
             'user' => $user,
@@ -78,6 +67,7 @@ class CreatorController extends Controller
         $this->user =  \Auth::user();
 
         $user = DB::table("users")
+            ->join('creators', 'creators.user_id', '=', 'users.id')
             ->where('account_id', '=', $this->user->account_id)
             ->get();
 
@@ -86,7 +76,7 @@ class CreatorController extends Controller
         ]);
     }
 
-    public function mypage_store(Request $request){
+    public function mypage_store(Request $request) {
 
         $this->middleware('auth');
         $this->user =  \Auth::user();
@@ -116,7 +106,9 @@ class CreatorController extends Controller
 //                Session::flash('success', "Success!");
 //                return \Redirect::back();
 
-                User::where('id', $this->user->id)
+//                User::where('id', $this->user->id)
+//                21.04.17 김태영, background_img field table 이동 Users -> Creators
+                Creator::where('user_id', $this->user->id)
                     ->update(['background_img' => trim($background_imgName) === "" ? NULL : $background_imgName]);
             }
         }
@@ -130,34 +122,39 @@ class CreatorController extends Controller
                 $image->move(storage_path('app/public/images/'.$this->user->id), $profile_imgName);
             }
 
-            User::where('id', $this->user->id)
+//            User::where('id', $this->user->id)
+//            21.04.17 김태영, background_img field table 이동 Users -> Creators
+            Creator::where('user_id', $this->user->id)
                 ->update(['profile_img'=>trim($profile_imgName) === "" ? NULL : $profile_imgName]);
         }
 
+//        User::where('id', $this->user->id)
+//            21.04.17 김태영, background_img field table 이동 Users -> Creators
         User::where('id', $this->user->id)
-            ->update(['name'=>$request->input('name'),
-                    'nickname'=>$request->input('nickname'),
+            ->update(['last_name'=>$request->input('last_name'),
+                'first_name'=>$request->input('first_name')]);
+        Creator::where('user_id', $this->user->id)
+            ->update(['nickname'=>$request->input('nickname'),
                     'instruction'=>$request->input('instruction')]);
 
-
-//        정보 수정 후 index 화면으로 이동
-        $user = DB::table("users")
-            ->where('account_id', '=', $this->user->account_id)
-            ->get();
-
-        $tweets = DB::table('tweets', 'tweets')
-            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt"))
-            ->where('tweets.user_id', $this->user->id)
-            ->where('tweets.visible', 1)
-            ->orderBy('tweets.id', 'desc')
-            ->get();
-
-
-        return view('creator.index', [
-            'user' => $user,
-            'tweets' => $tweets
-        ]);
-
+////        정보 수정 후 index 화면으로 이동
+//        $user = DB::table("users")
+//            ->where('account_id', '=', $this->user->account_id)
+//            ->get();
+//
+//        $tweets = DB::table('tweets', 'tweets')
+//            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt"))
+//            ->where('tweets.user_id', $this->user->id)
+//            ->where('tweets.visible', 1)
+//            ->orderBy('tweets.id', 'desc')
+//            ->get();
+//
+//        return view('creator.index', [
+//            'user' => $user,
+//            'tweets' => $tweets
+//        ]);
+//        21.04.17 김태영, redirect 직접 url 호출로 변경
+        return redirect('/creator/index')->with('verified', true);
     }
 
 //    21.03.07 김태영, dropzone js 사용으로 변경, 현재 사용 안함

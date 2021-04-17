@@ -11,7 +11,7 @@
 {{--            background_img--}}
             <div class="background_img">background_img
                 <label for="input_background_img">
-                    <img id="preview_background_img" src="@if (isset($user[0]->background_img)) {{ asset('storage/images/'.$user[0]->id.'/'.$user[0]->background_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif"/>
+                    <img id="preview_background_img" src="@if (isset($user[0]->background_img)) {{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif"/>
                 </label>
 
                 <input id="input_background_img" name="background_img" type="file"/>
@@ -24,7 +24,7 @@
 {{--            profile_img--}}
             <div class="profile_img">profile_img
                 <label for="input_profile_img">
-                    <img id="preview_profile_img" src="@if (isset($user[0]->profile_img)) {{ asset('storage/images/'.$user[0]->id.'/'.$user[0]->profile_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif"/>
+                    <img id="preview_profile_img" src="@if (isset($user[0]->profile_img)) {{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->profile_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif"/>
                 </label>
 
                 <input id="input_profile_img" name="profile_img" type="file"/>
@@ -36,7 +36,8 @@
         </div>
 
         <div class="creator_name">クリエイター名</div>
-        <input name="name" type="text" value="{{ $user[0]->name }}">
+        <input name="last_name" type="text" value="{{ $user[0]->last_name }}" placeholder="last name">
+        <input name="first_name" type="text" value="{{ $user[0]->first_name }}" placeholder="first name">
 
         <div class="nickname">Nickname</div>
         <input name="nickname" type="text" value="{{ $user[0]->nickname }}">
@@ -65,8 +66,12 @@
         </div>
 
         <div class="submit">
-            <button type="submit" class="btn btn-primary" id="c_mypage_submit">Submit</button>
+            <button type="submit" class="btn btn-primary" id="c_mypage_submit">変更する</button>
         </div>
+        <div>
+            <a href="{{ __('/creator/index') }}" class="btn btn-secondary">変更せずに戻る</a>
+        </div>
+
     </form>
 
 

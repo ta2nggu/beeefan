@@ -35,6 +35,9 @@ Route::get('/{creator}', [App\Http\Controllers\UserController::class, 'creatorIn
 //21.04.06 김태영, middleware 제거 비로그인 user 접근도 허용
 //Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline'])->middleware('verified');
 Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline']);
+Route::get('/{creator}/join', [App\Http\Controllers\UserController::class, 'join'])->middleware('verified');
+Route::post('/join', [App\Http\Controllers\UserController::class, 'joinStore']);
+Route::get('/{creator}/joinOk', [App\Http\Controllers\UserController::class, 'joinOk'])->middleware('verified');
 
 //Route::get('/creator', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');
 //Route::get('/creator/{creator}', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');

@@ -28,7 +28,7 @@ function loadMoreData(page) {
     })
     .done(function (data) {
         if (data.html.trim() == "") {
-            $(".ajax-load").html("No more records found");
+            $(".ajax-load").html("これ以上のレコードが見つかりません");
             return;
         }
         $(".ajax-load").hide();
@@ -105,7 +105,7 @@ if ($(".post-data").length > 0) {
         $('.owl-carousel').owlCarousel({
             center: true,
             items:1,
-            loop:false,
+            loop:true,
             margin:10
         });
     });
@@ -117,7 +117,7 @@ $(document).ready(function(){
         $('.owl-carousel').owlCarousel({
             center: true,
             items: 1,
-            loop: false,
+            loop: true,
             margin: 10
         });
     }
@@ -131,4 +131,13 @@ $('#search_creator_input').on('keyup',function() {
 //21.04.17 김태영, admin index page sorting select combo box
 $('#search_creator_select').change(function () {
     loadMoreDataWithoutPage();
+});
+
+//21.04.19 김태영, 입회 이용약관 동의 체크 박스
+$('#join_chk').change(function () {
+    if (this.checked) {
+        $('#join_submit').attr('disabled', false);
+    } else {
+        $('#join_submit').attr('disabled', true);
+    }
 });

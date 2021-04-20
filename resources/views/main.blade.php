@@ -6,6 +6,12 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ $creator[0]->last_name }}/{{ $creator[0]->first_name }}/{{ $creator[0]->nickname }}</div>
+                    <div class="background_img" style="width: 150px; height: 150px;">background_img
+                        <img id="preview_background_img" src="@if (isset($creator[0]->background_img)) {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
+                    </div>
+                    <div class="profile_img" style="width: 150px; height: 150px;">profile_img
+                        <img id="preview_profile_img" src="@if (isset($creator[0]->profile_img)) {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
+                    </div>
 
                     <div class="card-body">
                         <div class="instruction">{!! $creator[0]->instruction  !!}</div>
@@ -15,26 +21,14 @@
                             </div>
                         @endif
 
+                        @if($follow === 0)
+                            <div><a href="{{ $creator[0]->account_id }}{{ __('/join') }}">入会する 입회하다</a></div>
+                        @endif
+                        <div><a href="">マイページにログイン 마이페이지 로그인</a></div>
+
                         <div class="tweets">
                             <div class="flex_images post-data">
-{{--                            21.03.28 김태영, mainData.balde.php 로 이동--}}
                                 @include('mainData')
-{{--                                @foreach($tweets as $key=>$value)--}}
-{{--                                    <div class="thumbnail_image">--}}
-{{--                                        <a href="{{ $value->nickname }}/timeline/{{ $value->id }}">--}}
-{{--                                            <img class="img-thumbnail" src="{{ asset('storage/images/'.$value->path) }}"/>--}}
-{{--                                        </a>--}}
-{{--                                        --}}{{--                                {{ $key }} $key는 foreach index --}}
-{{--                                        @if(strstr($value->mime_type,'/', true) === 'image')--}}
-{{--                                        @if($value->include_video === 0)--}}
-{{--                                            @if($value->file_cnt > 1)--}}
-{{--                                                <div class="file_cnt">image {{ $value->file_cnt }}</div>--}}
-{{--                                            @endif--}}
-{{--                                        @else--}}
-{{--                                            <div class="file_cnt">video</div>--}}
-{{--                                        @endif--}}
-{{--                                    </div>--}}
-{{--                                @endforeach--}}
                             </div>
                         </div>
 

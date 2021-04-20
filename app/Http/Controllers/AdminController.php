@@ -101,11 +101,8 @@ class AdminController extends Controller
                 ->paginate(3);
         }
 
-
-//        return dd($request->search);
 //        21.04.16 김태영, creator list ajax
         if ($request->ajax()) {
-
             $view = view('admin.indexData', compact( 'creator_list'))->render();
             return response()->json(['html'=>$view]);
         }

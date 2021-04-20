@@ -9,9 +9,9 @@
 
         <div class="image-upload">
 {{--            background_img--}}
-            <div class="background_img">background_img
+            <div class="background_img" style="width: 200px; height: 200px;">background_img
                 <label for="input_background_img">
-                    <img id="preview_background_img" src="@if (isset($user[0]->background_img)) {{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif"/>
+                    <img id="preview_background_img" src="@if (isset($user[0]->background_img)) {{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
                 </label>
 
                 <input id="input_background_img" name="background_img" type="file"/>
@@ -22,9 +22,9 @@
             </div>
 
 {{--            profile_img--}}
-            <div class="profile_img">profile_img
+            <div class="profile_img" style="width: 200px; height: 200px;">profile_img
                 <label for="input_profile_img">
-                    <img id="preview_profile_img" src="@if (isset($user[0]->profile_img)) {{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->profile_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif"/>
+                    <img id="preview_profile_img" src="@if (isset($user[0]->profile_img)) {{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->profile_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
                 </label>
 
                 <input id="input_profile_img" name="profile_img" type="file"/>

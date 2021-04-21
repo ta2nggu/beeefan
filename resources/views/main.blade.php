@@ -24,7 +24,7 @@
                         @if($follow === 0)
                             <div><a href="{{ $creator[0]->account_id }}{{ __('/join') }}">入会する 입회하다</a></div>
                         @endif
-                        <div><a href="">マイページにログイン 마이페이지 로그인</a></div>
+                        <div><a href="{{ __('/mypage') }}">マイページにログイン 마이페이지 로그인</a></div>
 
                         <div class="tweets">
                             <div class="flex_images post-data">

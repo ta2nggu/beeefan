@@ -26,7 +26,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 
-Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user')->middleware('verified');
+Route::get('/mypage', [App\Http\Controllers\UserController::class, 'index'])->name('user')->middleware('verified');
 
 //21.03.21 김태영, User가 Creator 페이지 접속
 //21.04.06 김태영, middleware 제거 비로그인 user 접근도 허용

@@ -53,7 +53,8 @@ class VerificationController extends Controller
             return redirect('/creator/index')->with('verified', true);
         }
         if($user->hasRole('user')){
-            return redirect('/user')->with('verified', true);
+//            return redirect('/user')->with('verified', true);
+            return redirect('/mypage')->with('verified', true);
         }
     }
 

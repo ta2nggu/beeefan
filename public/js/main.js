@@ -111,6 +111,8 @@ if ($(".post-data").length > 0) {
       center: true,
       items: 1,
       loop: true,
+      onInitialized: counter,
+      onTranslated: counter,
       margin: 10
     });
   });
@@ -123,10 +125,23 @@ $(document).ready(function () {
       center: true,
       items: 1,
       loop: true,
+      onInitialized: counter,
+      onTranslated: counter,
       margin: 10
     });
   }
-}); //21.04.17 김태영, admin index page 에서 creator 검색
+});
+
+function counter(event) {
+  var items = $(event.target).find(".owl-dot").length; // Number of items
+
+  var item = $(event.target).find(".owl-dot.active").index() + 1; // Position of the current item
+  // console.log(item+" / "+items);
+  // console.log($(event.target));
+
+  $(event.target).find('.counter').html(item + " / " + items);
+} //21.04.17 김태영, admin index page 에서 creator 검색
+
 
 $('#search_creator_input').on('keyup', function () {
   loadMoreDataWithoutPage();

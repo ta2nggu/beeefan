@@ -89,13 +89,13 @@ class AdminController extends Controller
 //            ->paginate(3);
 
         if ($request->sorting != null) {
-            $creator_list = DB::table("creators")
+            $creators = DB::table("creators")
                 ->where('creators.nickname', 'LIKE','%'.$request->search."%")
                 ->orderBy($request->sorting, $request->direction)
                 ->paginate(3);
         }
         else {
-            $creator_list = DB::table("creators")
+            $creators = DB::table("creators")
                 ->where('creators.nickname', 'LIKE','%'.$request->search === null?$request->search:''."%")
                 ->orderBy('created_at', 'desc')
                 ->paginate(3);
@@ -103,14 +103,14 @@ class AdminController extends Controller
 
 //        21.04.16 김태영, creator list ajax
         if ($request->ajax()) {
-            $view = view('admin.indexData', compact( 'creator_list'))->render();
+            $view = view('admin.indexData', compact( 'creators'))->render();
             return response()->json(['html'=>$view]);
         }
 
         return view('admin.index',[
             'creators_cnt'=>$creators_cnt,
             'users_cnt'=>$users_cnt,
-            'creator_list'=>$creator_list
+            'creators'=>$creators
         ]);
     }
 }

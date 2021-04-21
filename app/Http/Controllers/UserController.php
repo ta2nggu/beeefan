@@ -18,8 +18,24 @@ class UserController extends Controller
 //        $this->middleware('role:user|administrator|creator');
     }
 
-    public function index(){
-        return view('user.index');
+    public function index(Request $request){
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+
+        $creators = Following::join('creators', 'creators.user_id', '=', 'followings.creator_id')
+                                ->where('followings.user_id', '=', $this->user->id)
+                                ->orderby('creators.nickname', 'asc')
+                                ->paginate(5);
+
+        if ($request->ajax()) {
+            $view = view('user.indexData', compact( 'creators'))->render();
+            return response()->json(['html'=>$view]);
+        }
+
+        return view('user.index', [
+            'user' => $this->user,
+            'creators' => $creators
+        ]);
     }
 
     public function creator_info_withAccId($account_id) {
@@ -163,10 +179,10 @@ class UserController extends Controller
         }
 
         if ($request->ajax()) {
-            $view = view('timelineData', compact('tweets', 'tweet_images', 'follow'))->render();
+            $view = view('timelineData', compact('tweets', 'tweet_images', 'follow', 'creator'))->render();
             return response()->json(['html'=>$view]);
         }
-        return view('timeline', compact('tweets', 'tweet_images', 'follow'));//compact 할 때 var_name이 위에 선언한 $tweets 과 이름이 같아야 된다
+        return view('timeline', compact('tweets', 'tweet_images', 'follow', 'creator'));//compact 할 때 var_name이 위에 선언한 $tweets 과 이름이 같아야 된다
 //        return view('timeline', [
 //            'tweets' => $tweet
 //        ]);

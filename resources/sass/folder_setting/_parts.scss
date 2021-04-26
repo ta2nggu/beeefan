@@ -50,6 +50,13 @@
 .btnBl{ background-color: $color_f; color: #fff;}
 .btnAd{ background-color: $color_a; color: #fff;}
 
+/*loadingIcon*/
+.loadingIcon{
+    width: 50px;
+    margin: 20px auto;
+}
+
+
 /*form *****
 ********************************/
 .formBox {
@@ -217,6 +224,7 @@
         position: relative;
         background: no-repeat center/cover;
         padding-top: 46%;
+        background-color: $color_c_bk;
         div{
             position: absolute;
             bottom: 0;
@@ -238,6 +246,15 @@
         line-height: 1.4;
         @include font_head;
         margin-top: $mg;
+    }
+    .text{
+        a{
+            color: $color_f;
+            text-decoration: underline;
+            &:hover{
+                text-decoration: none;
+            }
+        }
     }
     .price{
         text-align: center;

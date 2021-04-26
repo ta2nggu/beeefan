@@ -102,40 +102,40 @@
                     @enderror
                 </dd>
             </dl>
-            <!--sex-->
-            <dl>
-                <dt>{{ __('性別') }}<span class="required">{{ __('必須') }}</span></dt>
-                <dd>
-                    <div class="clm2 sexBox">
-                        <div>
-                            <input type="radio" id="male" value=1 name="sex">
-                            <label for="male">{{ __('男性') }}</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="female" value=0 name="sex">
-                            <label for="female">{{ __('女性') }}</label>
-                        </div>
-                    </div>
-                    @error('sex')
-                    <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-                    @enderror
-                </dd>
-            </dl>
-            <!--birth_date-->
-            <dl>
-                <dt><label for="birth_date">{{ __('誕生日') }}</label><span class="required">{{ __('必須') }}</span></dt>
-                <dd>
-                    {{--                                <input id="birth_date" type="text" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus>--}}
-                    <datetime id="birth_date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus type="date" format="yyyy-MM-dd" ref="DatetimePicker"></datetime>
-                    @error('birth_date')
-                    <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                    @enderror
-                </dd>
-            </dl>
+{{--            <!--sex-->--}}
+{{--            <dl>--}}
+{{--                <dt>{{ __('性別') }}<span class="required">{{ __('必須') }}</span></dt>--}}
+{{--                <dd>--}}
+{{--                    <div class="clm2 sexBox">--}}
+{{--                        <div>--}}
+{{--                            <input type="radio" id="male" value=1 name="sex">--}}
+{{--                            <label for="male">{{ __('男性') }}</label>--}}
+{{--                        </div>--}}
+{{--                        <div>--}}
+{{--                            <input type="radio" id="female" value=0 name="sex">--}}
+{{--                            <label for="female">{{ __('女性') }}</label>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    @error('sex')--}}
+{{--                    <span class="invalid-feedback" role="alert">--}}
+{{--                <strong>{{ $message }}</strong>--}}
+{{--            </span>--}}
+{{--                    @enderror--}}
+{{--                </dd>--}}
+{{--            </dl>--}}
+{{--            <!--birth_date-->--}}
+{{--            <dl>--}}
+{{--                <dt><label for="birth_date">{{ __('誕生日') }}</label><span class="required">{{ __('必須') }}</span></dt>--}}
+{{--                <dd>--}}
+{{--                    --}}{{--                                <input id="birth_date" type="text" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus>--}}
+{{--                    <datetime id="birth_date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus type="date" format="yyyy-MM-dd" ref="DatetimePicker"></datetime>--}}
+{{--                    @error('birth_date')--}}
+{{--                    <span class="invalid-feedback" role="alert">--}}
+{{--                    <strong>{{ $message }}</strong>--}}
+{{--                </span>--}}
+{{--                    @enderror--}}
+{{--                </dd>--}}
+{{--            </dl>--}}
 
             <!--送信-->
             <input id="role" name="role" type="hidden" value="{{ __('creator') }}">
@@ -143,7 +143,6 @@
                 <li><button type="submit" class="btn btnAd submitBtn">{{ __('クリエイターを登録する') }}</button></li>
                 <li><button onClick="history.back()" class="btn btnBor btnBorGy">{{ __('登録せずに戻る') }}</button></li>
             </ul>
-            {{--                        <datetime type="datetime" use12-hour></datetime>--}}
         </form>
     </div><!--/contentWrap-->
 @endsection

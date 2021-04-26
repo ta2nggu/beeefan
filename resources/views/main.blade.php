@@ -18,13 +18,19 @@
     <!--contentWrap-->
     <div id="contentWrap">
         <div id="app">
-
             <div id="profileHeader">
-                <div class="imgbox" style="background-image: url({{ asset('storage/test/test_creater_profile_header.jpeg') }})">
-                    <div class="thumbnail"><img src="{{ asset('storage/test/test_creater_profile_thumbnail.jpeg') }}" alt="クリエイターニックネーム"></div>
+                @if (isset($creator[0]->background_img))
+                    <div class="imgbox" style="background-image: {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }}">
+                @else
+                    <div class="imgbox">
+                @endif
+                    @if (isset($creator[0]->profile_img))
+                        <div class="thumbnail"><img src="{{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }}" alt="{{ $creator[0]->nickname }}"></div>
+                    @else
+                        <div class="thumbnail"><img src="{{ asset('storage/icon/no_images_c.png') }}" alt="{{ $creator[0]->nickname }}"></div>
+                    @endif
                 </div>
             </div>
-            <div class="instruction">{{ $creator[0]->instruction }}</div>
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
@@ -32,58 +38,49 @@
             @endif
             <div id="profileBox">
                 <h1 class="name">{{ $creator[0]->nickname }}</h1>
-                <p class="text moreArea">テキストが入ります<br>
-                    <br>
-                    <a href="" target="_blank">Instagram📷</a><br>
-                    <a href="" target="_blank">イチナナライブ👗💕</a><span class="moreBtn ">..続きを読む</span></p>
+                <div class="text moreArea">{!! $creator[0]->instruction !!}</div>
                 <div class="btnBox">
                     @guest
-                        <p><a href="" class="btn btnPi">入会する</a></p>
-                        <p><a href="{{ url('/home') }}" class="btn btnLp">マイページにログイン</a></p>
+                        <p><a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn btnPi">{{ __('入会する') }}</a></p>
+                        <p><a href="{{ url('/home') }}" class="btn btnLp">{{ __('マイページにログイン') }}</a></p>
                     @else
                         @role('user')
-                            <p><a href="" class="btn btnPi">入会する</a></p>
+                            @if($follow === 0)
+                                <p><a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn btnPi">{{ __('入会する') }}</a></p>
+                            @endif
                         @else
-                            <p><span class="btn line2">このアカウントでは<br>入会できません</span></p>
+                            <p><span class="btn line2">{{ __('このアカウントでは') }}<br>{{ __('入会できません') }}</span></p>
                         @endrole
                         @if( Auth::id() === $creator[0]->id)
-                            <p><a href="{{ url('/creator/index') }}" class="btn btnLp">マイページへ</a></p>
+                            <p><a href="{{ url('/creator/index') }}" class="btn btnLp">{{ __('マイページへ') }}</a></p>
                         @endif
                     @endguest
                 </div>
             </div>
-
-            <img id="preview_background_img" src="@if (isset($creator[0]->background_img)) {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
-            <img id="preview_profile_img" src="@if (isset($creator[0]->profile_img)) {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
-
-            @if($follow === 0)
-                <div><a href="{{ $creator[0]->account_id }}{{ __('/join') }}">入会する 입회하다</a></div>
-            @endif
 
             <!--postList(parts)-->
             <div id="postList">
                 <ul>
                     {{--                            21.03.28 김태영, mainData.balde.php 로 이동--}}
                     @include('mainData')
-
-                    <div class="ajax-load text-center">
-                        <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
-                    </div>
                 </ul>
+                <div class="ajax-load text-center">
+                    <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+                </div>
             </div>
             <div id="bottomPost" class="bottomFixed">
                 <div class="inner">
                     <div class="nameBox">
                         <p class="name">{{ $creator[0]->nickname }}</p>
-                        <p class="price">月額 0円</p>
+                        <p class="price">{{ __('月額') }} {{ $creator[0]->month_price }}{{ __('円') }}</p>
                     </div>
                     @guest
-                        <a href="" class="btnCircle btnPi">入会する</a>
+                        <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
                     @else
                         @role('user')
-                            <a href="" class="btnCircle btnPi">入会する</a>
+                            <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
                         @else
-                            <span class="btnCircle line2">このアカウントでは<br>入会できません</span>
+                            <span class="btnCircle line2">{{ __('このアカウントでは') }}<br>{{ __('入会できません') }}</span>
                         @endrole
                     @endguest
                 </div>

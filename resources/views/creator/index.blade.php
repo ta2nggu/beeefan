@@ -58,33 +58,12 @@
         </div>
         <!--postList(parts)-->
         <div id="postList">
-            <div class="tweets">
-                <div class="flex_images">
-                    <div class="post-data">
-                        @include('creator/indexData')
-                    </div>
-                    <div class="ajax-load text-center">
-                        <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
-                    </div>
-                </div>
-            </div>
             <ul>
-                @foreach($tweets as $key=>$value)
-                    @if($value->include_video === 0)
-                        @if($value->file_cnt > 1)
-                            <li class="postMulti">
-                        @else
-                            <li class="postSingle">
-                        @endif
-                    @else
-                    <li class="postVideo">
-                        @endif
-                        <a href="/{{ $user[0]->account_id }}/timeline/{{ $value->id }}">
-                            <img src="{{ asset('storage/images/'.$value->path) }}" alt="">
-                        </a>
-                    </li>
-                @endforeach
+                @include('creator/indexData')
             </ul>
+            <div class="ajax-load-center">
+                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="データを持ってきています。"></div>
+            </div>
         </div>
         <div id="bottomCreatorMypage" class="bottomFixed">
             <ul class="inner">

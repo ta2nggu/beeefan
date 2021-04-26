@@ -305,8 +305,8 @@ body {
 }
 
 #header .logo {
-  max-width: 200px;
-  width: 40%;
+  max-width: 140px;
+  width: 34%;
   position: relative;
   z-index: 11;
 }
@@ -433,7 +433,7 @@ body {
 }
 
 #menuDrawerContent li a.icon_setting:before {
-  background-image: url(/images/icon_setting.png?969bbe400f7e7ccc5c333c1f9414e9a6);
+  background-image: url(/images/icon_setting.png?c564d309ee1b38395658a898b4d966e8);
 }
 
 #menuDrawerContent li a.icon_draft:before {
@@ -669,6 +669,13 @@ body {
 .btnAd {
   background-color: #2c3e50;
   color: #fff;
+}
+
+/*loadingIcon*/
+
+.loadingIcon {
+  width: 50px;
+  margin: 20px auto;
 }
 
 /*form *****
@@ -924,6 +931,7 @@ body {
   position: relative;
   background: no-repeat center/cover;
   padding-top: 46%;
+  background-color: #faf0ef;
 }
 
 #profileHeader .imgbox div {
@@ -954,6 +962,15 @@ body {
   font-weight: 600;
   font-style: normal;
   margin-top: 20px;
+}
+
+#profileBox .text a {
+  color: #5489ab;
+  text-decoration: underline;
+}
+
+#profileBox .text a:hover {
+  text-decoration: none;
 }
 
 #profileBox .price {
@@ -1187,7 +1204,7 @@ body {
 }
 
 #bottomAdminMypage li a.setting:before {
-  background-image: url(/images/icon_setting.png?969bbe400f7e7ccc5c333c1f9414e9a6);
+  background-image: url(/images/icon_setting.png?c564d309ee1b38395658a898b4d966e8);
 }
 
 .admin #profileBox {

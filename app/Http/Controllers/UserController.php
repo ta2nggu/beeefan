@@ -23,7 +23,8 @@ class UserController extends Controller
         $this->user =  \Auth::user();
 
         $creator = DB::table("users")
-            ->select(DB::raw('users.name, users.nickname, users.instruction'))
+//            21.04.14 kondo user.id追加
+            ->select(DB::raw('users.id, users.name, users.nickname, users.instruction'))
 //            ->where('nickname', '=', $creator_nick)
 //                21.04.06 김태영, $creator_nick -> account_id
             ->where('account_id', '=', $account_id)

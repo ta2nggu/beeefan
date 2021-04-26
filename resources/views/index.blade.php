@@ -11,14 +11,28 @@
     <div id="contentWrap">
         <div>
             <div class="title">
-                <h1 class="logo"><img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}"></h1>
+                <h1 class="logo"><img src="{{ asset('storage/common/logo.png') }}" alt="{{ config('app.name') }}"></h1>
                 <p>○○なファンコミュニティ</p>
             </div>
             <ul class="btnBox">
                 @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ url('/home') }}" class="btn">マイページ</a></li>
-                        <li><a href="{{ route('logout') }}" class="btn">ログアウト</a></li>
+                        @role('creator')
+                            <li><a href="{{ url('/creator/index') }}" class="btn">マイページ</a></li>
+                        @endrole
+                        @role('user')
+                            <li><a href="{{ url('/user/index') }}" class="btn">マイページ</a></li>
+                        @endrole
+                        @role('administrator')
+                            <li><a href="{{ url('/admin/index') }}" class="btn">マイページ</a></li>
+                        @endrole
+                        <li><a class="btn" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">ログアウト</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
                     @else
                         <li><a href="{{ url('/home') }}" class="btn">ログイン</a></li>
                         @if (Route::has('register'))

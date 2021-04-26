@@ -54,8 +54,3 @@ Route::post('/admin/creatorReg', [App\Http\Controllers\AdminController::class, '
 use App\Http\Controllers\PagesController;
 Route::get('/creator/login', [PagesController::class, 'creatorLogin'])->name('creator_login');
 Route::get('/admin/login', [PagesController::class, 'adminLogin'])->name('admin_login');
-//testpage
-Route::get('/test/02-1', [PagesController::class, 'test1'])->name('test');
-Route::get('/test/02-2', [PagesController::class, 'test2'])->name('test');
-Route::get('/test/03-2', [PagesController::class, 'test3'])->name('test');
-Route::get('/test/03-4', [PagesController::class, 'test5'])->name('test');

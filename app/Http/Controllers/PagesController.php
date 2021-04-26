@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class PagesController extends Controller
 {
@@ -15,10 +16,11 @@ class PagesController extends Controller
     public function adminLogin(){
         return view('auth/login', ['userFlag' => '運営者']);
     }
-
-    // testpage
-    public function test1(){ return view('test/02-1');}
-    public function test2(){ return view('test/02-2');}
-    public function test3(){ return view('test/03-2');}
-    public function test5(){ return view('test/03-4');}
+}
+class homeController extends Controller
+{
+    public function ブレード名(){
+        $auths = Auth::user();
+        return view('home', [ 'auths' => $auths ]);
+    }
 }

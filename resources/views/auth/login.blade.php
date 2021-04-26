@@ -19,7 +19,7 @@
     @endif
         <div>
             <div class="title">
-                <p class="logo"><a href="{{ url('/') }}"><img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}"></a></p>
+                <p class="logo"><a href="{{ url('/') }}"><img src="{{ asset('storage/common/logo.png') }}" alt="{{ config('app.name') }}"></a></p>
                 @if(isset( $userFlag ))
                     <h1>{{$userFlag}}ログイン</h1>
                 @else

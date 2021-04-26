@@ -79,12 +79,13 @@
         @include ac;
     }
     .nameBox {
-        flex: 1;
         .price {
             font-size: 0.9em;
         }
     }
     .btnCircle{
-        padding: 0 10%;
+        flex: 1;
+        max-width: 150px;
+        margin-left: auto;
     }
 }

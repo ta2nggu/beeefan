@@ -26,9 +26,17 @@ body{
     @include flex;
     @include ac;
     @include jc;
+    &.border{
+        border-bottom: 1px solid $color_b_sub2;
+        &+#contentWrap{
+            margin-top: $mg*1.5;
+        }
+    }
     .logo{
         max-width: 200px;
         width: 40%;
+        position: relative;
+        z-index: 11;
     }
     .txtTitle{
         @include font_head;
@@ -58,6 +66,7 @@ body{
         position: absolute;
         top: 50%;
         right: 2%;
+        z-index: 11;
         transform: translateY(-50%);
         @include flex;
         li{
@@ -80,7 +89,56 @@ body{
             }
             &.menu{
                 background-image: url("icon_menu.png");
+                transition: all 0.4s;
+                cursor: pointer;
+                &.active{
+                    background-image: url("icon_close.png");
+                }
             }
+        }
+    }
+}
+#menuDrawerContent{
+    @include wrap;
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    padding-top: 70px;
+    transition: all 0.6s ease-in-out;
+    &.active{
+        bottom: 0;
+    }
+    li{
+        border-top: 1px solid $color_b_sub;
+        &:last-of-type{
+            border-bottom: 1px solid $color_b_sub;
+        }
+        a{
+            display: block;
+            padding: 17px 8%;
+            &:before{
+                content: "";
+                display: inline-block;
+                width: 26px;
+                height: 26px;
+                background-size: cover;
+                vertical-align: -7px;
+                margin-right: 16px;
+            }
+            &.icon_mypage:before{background-image: url("icon_user.png");}
+            &.icon_post:before{background-image: url("icon_grid.png");}
+            &.icon_setting:before{background-image: url("icon/icon_setting.png");}
+            &.icon_draft:before{background-image: url("icon_hidden.png");}
+            &.icon_help:before{background-image: url("icon_help.png");}
+            &.icon_rule:before{background-image: url("icon_scroll.png");}
+            &.icon_policy:before{background-image: url("icon_lock.png");}
+            &.icon_law:before{background-image: url("icon_book.png");}
+            &.icon_logout:before{background-image: url("icon_logout.png");}
         }
     }
 }
@@ -163,7 +221,9 @@ body{
         height: 70px;
     }
 }
-#bottomCreatorMypage {
+#bottomCreatorMypage,
+#bottomAdminMypage,
+#bottomUserMypage {
     .inner{
         @include flex;
     }

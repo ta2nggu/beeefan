@@ -7,13 +7,13 @@
         color: $color_b_sub;
         a{
             &.pCreate:before{
-                background-image: url("../images/icon_grid_pi.png");
+                background-image: url("icon_grid_pi.png");
             }
             &.post:before{
-                background-image: url("../images/icon_time_pi.png");
+                background-image: url("icon_time_pi.png");
             }
             &.mypage:before{
-                background-image: url("../images/icon_user_pi.png");
+                background-image: url("icon_user_pi.png");
             }
         }
     }

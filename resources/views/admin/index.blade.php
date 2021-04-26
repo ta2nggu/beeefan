@@ -1,30 +1,66 @@
-@extends('layouts.app')
+@extends('layouts.base')
+
+@section('title','マイページ')
+@section('pageCss')
+    <link rel="stylesheet" href="{{ asset('css/style_admin.css') }}">
+@endsection
+@section('body','admin')
 
 @section('content')
-{{-- 運営者管理画面 운영자관리화면 --}}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Admin Dashboard') }}</div>
+    @component ('components.header')
+    @endcomponent
+    <!--contentWrap-->
+    <div id="contentWrap">
 
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                            クリエイター数 : {{ $creators_cnt }}<br>
-                            会員数 : {{ $users_cnt }}<br>
-                            ..
-                    </div>
-                </div>
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <div id="profileBox">
+            <div class="score clm3">
+                <dl>
+                    <dt>クリエイター数</dt>
+                    <dd>{{ $creators_cnt }}</dd>
+                </dl>
+                <dl>
+                    <dt>総会員数</dt>
+                    <dd>{{ $users_cnt }}</dd>
+                </dl>
+                <dl>
+                    <dt>入会総件数</dt>
+                    <dd>0</dd>
+                </dl>
+            </div>
+            <div class="score">
+                <dl>
+                    <dt>総売上額</dt>
+                    <dd>0</dd>
+                </dl>
+            </div>
+            <div class="score">
+                <dl>
+                    <dt>総利益額（総売上から20％引いた額）</dt>
+                    <dd>0</dd>
+                </dl>
             </div>
         </div>
-    </div>
 
-    <div>
-        <a href="/admin/creators">クリエイター情報管理</a><br>
-        <a href="">運営者情報管理</a>
-    </div>
+        <div id="creatorRegBtn" class="btnBox">
+            <p><a href="{{ url('/admin/creatorReg') }}" class="btn btnAd">クリエイター新規登録</a></p>
+        </div>
+
+        <!--creatorList(parts)-->
+        <div id="creatorList">
+            <p>전 크리에이터 정보</p>
+        </div>
+
+        <div id="bottomAdminMypage" class="bottomFixed">
+            <ul class="inner">
+                <li><a href="{{ url('/admin/index') }}" class="mypage">マイページ</a></li>
+                <li><a href="{{ url('/admin/creators') }}" class="setting">設定変更</a></li>
+            </ul>
+        </div>
+    </div><!--/contentWrap-->
 @endsection

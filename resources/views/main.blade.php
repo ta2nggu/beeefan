@@ -1,50 +1,85 @@
-@extends('layouts.app')
+@extends('layouts.base')
+
+@section('title','Beee Fan!')
+@section('pageCss')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="{{ asset('js/app.js') }}" defer></script>
+@endsection
+@section('body','')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ $creator[0]->name }}/{{ $creator[0]->nickname }}</div>
+    @component ('components.header')
+    @endcomponent
+{{--    <header id="header">--}}
+{{--        <button onClick="history.back()" class="back">戻る</button>--}}
+{{--        <h1 class="txtTitle"><span class="name">{{ $creator[0]->nickname }}</span>投稿</h1>--}}
+{{--    </header>--}}
 
-                    <div class="card-body">
-                        <div class="instruction">{{ $creator[0]->instruction }}</div>
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
+    <!--contentWrap-->
+    <div id="contentWrap">
+        <div id="app">
+
+            <div id="profileHeader">
+                <div class="imgbox" style="background-image: url({{ asset('storage/test/test_creater_profile_header.jpeg') }})">
+                    <div class="thumbnail"><img src="{{ asset('storage/test/test_creater_profile_thumbnail.jpeg') }}" alt="クリエイターニックネーム"></div>
+                </div>
+            </div>
+            <div class="instruction">{{ $creator[0]->instruction }}</div>
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+            <div id="profileBox">
+                <h1 class="name">{{ $creator[0]->nickname }}</h1>
+                <p class="text moreArea">テキストが入ります<br>
+                    <br>
+                    <a href="" target="_blank">Instagram📷</a><br>
+                    <a href="" target="_blank">イチナナライブ👗💕</a><span class="moreBtn ">..続きを読む</span></p>
+                <div class="btnBox">
+                    @guest
+                        <p><a href="" class="btn btnPi">入会する</a></p>
+                        <p><a href="{{ url('/home') }}" class="btn btnLp">マイページにログイン</a></p>
+                    @else
+                        @role('user')
+                            <p><a href="" class="btn btnPi">入会する</a></p>
+                        @else
+                            <p><span class="btn line2">このアカウントでは<br>入会できません</span></p>
+                        @endrole
+                        @if( Auth::id() === $creator[0]->id)
+                            <p><a href="{{ url('/creator/index') }}" class="btn btnLp">マイページへ</a></p>
                         @endif
+                    @endguest
+                </div>
+            </div>
+            <!--postList(parts)-->
+            <div id="postList">
+                <ul>
+                    {{--                            21.03.28 김태영, mainData.balde.php 로 이동--}}
+                    @include('mainData')
 
-                        <div class="tweets">
-                            <div class="flex_images post-data">
-{{--                            21.03.28 김태영, mainData.balde.php 로 이동--}}
-                                @include('mainData')
-{{--                                @foreach($tweets as $key=>$value)--}}
-{{--                                    <div class="thumbnail_image">--}}
-{{--                                        <a href="{{ $value->nickname }}/timeline/{{ $value->id }}">--}}
-{{--                                            <img class="img-thumbnail" src="{{ asset('storage/images/'.$value->path) }}"/>--}}
-{{--                                        </a>--}}
-{{--                                        --}}{{--                                {{ $key }} $key는 foreach index --}}
-{{--                                        @if(strstr($value->mime_type,'/', true) === 'image')--}}
-{{--                                        @if($value->include_video === 0)--}}
-{{--                                            @if($value->file_cnt > 1)--}}
-{{--                                                <div class="file_cnt">image {{ $value->file_cnt }}</div>--}}
-{{--                                            @endif--}}
-{{--                                        @else--}}
-{{--                                            <div class="file_cnt">video</div>--}}
-{{--                                        @endif--}}
-{{--                                    </div>--}}
-{{--                                @endforeach--}}
-                            </div>
-                        </div>
-
-                        <div class="ajax-load text-center">
-                            <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
-                        </div>
+                    <div class="ajax-load text-center">
+                        <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
                     </div>
+                </ul>
+            </div>
+            <div id="bottomPost" class="bottomFixed">
+                <div class="inner">
+                    <div class="nameBox">
+                        <p class="name">{{ $creator[0]->nickname }}</p>
+                        <p class="price">月額 0円</p>
+                    </div>
+                    @guest
+                        <a href="" class="btnCircle btnPi">入会する</a>
+                    @else
+                        @role('user')
+                            <a href="" class="btnCircle btnPi">入会する</a>
+                        @else
+                            <span class="btnCircle line2">このアカウントでは<br>入会できません</span>
+                        @endrole
+                    @endguest
                 </div>
             </div>
         </div>
-    </div>
+    </div><!--/contentWrap-->
 @endsection
-

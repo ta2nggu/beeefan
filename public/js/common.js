@@ -46,6 +46,13 @@ $(function () {
       $(this).parent().addClass('open');
     }
   });
+}); //menuDrawer
+
+$(function () {
+  $('#menuDrawer').on('click', function () {
+    $(this).toggleClass('active');
+    $("#menuDrawerContent").toggleClass('active');
+  });
 });
 /******/ })()
 ;

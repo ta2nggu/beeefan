@@ -58,6 +58,16 @@
         </div>
         <!--postList(parts)-->
         <div id="postList">
+            <div class="tweets">
+                <div class="flex_images">
+                    <div class="post-data">
+                        @include('creator/indexData')
+                    </div>
+                    <div class="ajax-load text-center">
+                        <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
+                    </div>
+                </div>
+            </div>
             <ul>
                 @foreach($tweets as $key=>$value)
                     @if($value->include_video === 0)

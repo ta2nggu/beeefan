@@ -112,13 +112,17 @@ $(document).ready(function (e) {
 
     $('#display_text').val('');
     $('#url').val('');
-    var result = '<a href="' + url + '" target="_blank" >' + display_text + '</a>';
+    var result = '<p><a href="' + url + '" target="_blank" >' + display_text + '</a></p>';
     $('#instruction').append(result);
     $('#add_link').modal('hide');
+  });
+  $('#c_mypage_submit').click(function () {
+    $('#c_mypage_instruction').val($('#instruction').html());
+    console.log($('#input_background_img').val());
   });
 }); // 21.04.09 김태영, add hyper link
 //div 수정할 수 있도록 해준다
 
-document.getElementById("instruction").contentEditable = 'true';
+if (document.getElementById("instruction") != null) document.getElementById("instruction").contentEditable = 'true';
 /******/ })()
 ;

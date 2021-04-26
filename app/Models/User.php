@@ -21,7 +21,13 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name',
+//        'name',
+//        21.04.15 김태영
+//        name -> last_name, first_name
+//        price_month 月額 추가
+        'last_name',
+        'first_name',
+        'month_price',
         'email',
         'password',
         'account_id',
@@ -29,6 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'prefecture_id',
         'nickname',
         'birth_date',// 모델에 fillable 에 추가해야 db 필드에 값이 들어감
+        'email_verified_at',//21.04.14 김태영, email_verified_at 추가, fillable에 있어야지만 필드에 insert 나 update 할 수 있음
     ];
 
     /**

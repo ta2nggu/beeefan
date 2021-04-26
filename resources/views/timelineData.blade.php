@@ -64,7 +64,7 @@ function time_ago($sec) {
     <div class="tweet">
         <div class="tweet_top">
             <div class="tweet_name">
-                {{ $tweet->name }} / {{ $tweet->nickname }}
+                {{ $tweet->last_name }} / {{ $tweet->first_name }} / {{ $tweet->nickname }}
             </div>
             <div class="tweet_time">
                 @php
@@ -72,14 +72,27 @@ function time_ago($sec) {
                 @endphp
             </div>
         </div>
-        <div class="owl-carousel owl-theme">
-            <div class="tweet_img">
-                <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet->path) }}"/>
+        <div class="owl-carousel owl-theme" style="width: 300px;">
+            <div class="tweet_img" style="width: 300px; height: 300px;">
+                <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet->path) }}" style="width: 100%; height: 100%;"/>
+{{--                @if ($tweet->file_cnt > 1)<div class="counter" style="position: absolute; top: 0px; left: 250px; color: white; background-color: rgba(16,16,16,0.5);">{{ __('1 / ') }}{{ $tweet->file_cnt }}</div>@endif--}}
+                @if ($tweet->file_cnt > 1)<div class="counter" style="position: absolute; top: 0px; left: 250px; color: white; background-color: rgba(16,16,16,0.5);"></div>@endif
             </div>
             @foreach($tweet_images as $tweet_image)
                 @if($tweet->id == $tweet_image->tweet_id)
-                    <div class="tweet_img">
-                        <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet_image->path) }}"/>
+                    <div class="tweet_img" style="width: 300px; height: 300px;">
+                        <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet_image->path) }}" style="width: 100%; height: 100%;"/>
+                        @if ($tweet->file_cnt > 1)<div class="counter" style="position: absolute; top: 0px; left: 250px; color: white; background-color: rgba(16,16,16,0.5); z-index: 1;"></div>@endif
+                        {{-- 21.04.20 김태영, $follow === 0 미입회 user 일 때 img tag 위에 가입 안내 div 표시 --}}
+                        @if($follow === 0)
+                            <div style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; color: white; background-color: rgba(16,16,16,0.5);">
+                                <div>このコンテンツを観るには</div>
+                                <div>ファンクラブへの入会が必要です。</div>
+                                <div style="background-color: white;"><a href="../../{{ $creator[0]->account_id }}{{ __('/join') }}">入会する</a></div>
+                                <div style="background-color: white;"><a href="">マイページにログイン</a></div>
+                                <div>支払い方法について</div>
+                            </div>
+                        @endif
                     </div>
                 @endif
             @endforeach

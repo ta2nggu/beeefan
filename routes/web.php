@@ -26,7 +26,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 
-Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user')->middleware('verified');
+Route::get('/mypage', [App\Http\Controllers\UserController::class, 'index'])->name('user')->middleware('verified');
 
 //21.03.21 김태영, User가 Creator 페이지 접속
 //21.04.06 김태영, middleware 제거 비로그인 user 접근도 허용
@@ -35,12 +35,16 @@ Route::get('/{creator}', [App\Http\Controllers\UserController::class, 'creatorIn
 //21.04.06 김태영, middleware 제거 비로그인 user 접근도 허용
 //Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline'])->middleware('verified');
 Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline']);
+Route::get('/{creator}/join', [App\Http\Controllers\UserController::class, 'join'])->middleware('verified');
+Route::post('/join', [App\Http\Controllers\UserController::class, 'joinStore']);
+Route::get('/{creator}/joinOk', [App\Http\Controllers\UserController::class, 'joinOk'])->middleware('verified');
 
 //Route::get('/creator', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');
 //Route::get('/creator/{creator}', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');
 Route::get('/creator/index', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');
 Route::get('/creator/write', [App\Http\Controllers\CreatorController::class, 'write'])->name('write')->middleware('verified');
-Route::get('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage'])->name('mypage”')->middleware('verified');
+Route::get('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage'])->name('mypage')->middleware('verified');
+Route::post('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage_store']);
 //Route::post('/upload', [App\Http\Controllers\ImageController::class, 'store'])->name('/app/upload')->middleware('verified');
 Route::post('/creator/creator_write/preview/',[App\Http\Controllers\CreatorController::class, 'preview'])->name('creator_write.preview');
 Route::get('image/{filename}', [App\Http\Controllers\ImageController::class,'getPubliclyStorgeFile'])->name('image.displayImage');
@@ -54,3 +58,10 @@ Route::post('/admin/creatorReg', [App\Http\Controllers\AdminController::class, '
 use App\Http\Controllers\PagesController;
 Route::get('/creator/login', [PagesController::class, 'creatorLogin'])->name('creator_login');
 Route::get('/admin/login', [PagesController::class, 'adminLogin'])->name('admin_login');
+
+//21.04.26 김태영
+Route::get('/password/change', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');
+Route::post('/password/change', [App\Http\Controllers\UserController::class, 'change_password_store'])->middleware('verified');
+
+Route::get('/email/change', [App\Http\Controllers\UserController::class, 'change_email'])->middleware('verified');
+Route::post('/email/change', [App\Http\Controllers\UserController::class, 'change_email_store'])->middleware('verified');

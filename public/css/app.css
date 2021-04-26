@@ -11045,7 +11045,8 @@ a.text-dark:focus {
 
 #instruction {
     width: 400px;
-    margin: 0 auto;
+    height: 200px;
+    /*margin: 0 auto;*/
     overflow: auto;
     border: 1px solid #0f0;
     padding: 2px;
@@ -11057,5 +11058,10 @@ a.text-dark:focus {
 {
     color: red;
     display: none;
+}
+
+.creator_info {
+    height: 300px;
+    border: 1px solid #545b62;
 }
 

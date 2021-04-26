@@ -52,6 +52,14 @@
                     @endguest
                 </div>
             </div>
+
+            <img id="preview_background_img" src="@if (isset($creator[0]->background_img)) {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
+            <img id="preview_profile_img" src="@if (isset($creator[0]->profile_img)) {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
+
+            @if($follow === 0)
+                <div><a href="{{ $creator[0]->account_id }}{{ __('/join') }}">入会する 입회하다</a></div>
+            @endif
+
             <!--postList(parts)-->
             <div id="postList">
                 <ul>

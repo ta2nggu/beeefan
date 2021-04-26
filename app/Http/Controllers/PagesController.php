@@ -17,10 +17,10 @@ class PagesController extends Controller
         return view('auth/login', ['userFlag' => '運営者']);
     }
 }
-class homeController extends Controller
-{
-    public function ブレード名(){
-        $auths = Auth::user();
-        return view('home', [ 'auths' => $auths ]);
-    }
-}
+//class homeController extends Controller
+//{
+//    public function ブレード名(){
+//        $auths = Auth::user();
+//        return view('home', [ 'auths' => $auths ]);
+//    }
+//}

@@ -60,6 +60,9 @@ class LoginController extends Controller
 //21.04.08 김태영, 로그인 후 이전 페이지로 이동하기 위해 showLoginForm 추가
     public function showLoginForm()
     {
+        //21.04.19 김태영, 로그인 이전 페이지로 이동
+        session(['url.intended' => url()->previous()]);
+
         if(!session()->has('url.intended'))
         {
             session(['url.intended' => url()->previous()]);

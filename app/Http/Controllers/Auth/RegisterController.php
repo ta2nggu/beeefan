@@ -33,7 +33,8 @@ class RegisterController extends Controller
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
     //21.02.21 김태영, 계정 생성 후 리다이렉션 경로 변경
-    protected $redirectTo = '/user';
+//    protected $redirectTo = '/user';
+    protected $redirectTo = '/mypage';
 
     /**
      * Create a new controller instance.

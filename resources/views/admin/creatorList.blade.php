@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+{{--    21.04.15 김태영--}}
+{{--    index 화면에서 바로 creator 등록 화면으로 이동--}}
+{{--    index 화면에 creator list 보여줌--}}
+{{--    creatorList.blade.php는 사용 안함--}}
     {{-- 運営者管理画面 운영자관리화면 --}}
     <div class="container">
         <div class="row justify-content-center">

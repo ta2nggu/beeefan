@@ -1,0 +1,37 @@
+
+/*クリエイターマイページ*
+*******************************/
+#bottomCreatorMypage {
+    background-color: $color_c_bk;
+    li{
+        color: $color_b_sub;
+        a{
+            &.pCreate:before{
+                background-image: url("icon_grid_pi.png");
+            }
+            &.post:before{
+                background-image: url("icon_time_pi.png");
+            }
+            &.mypage:before{
+                background-image: url("icon_user_pi.png");
+            }
+        }
+    }
+}
+
+/*新規投稿・投稿修正*
+*******************************/
+#postCreate{
+    @include wrap_inner;
+    .post{
+        @include flex;
+        @include fw;
+        li{
+            width: 49%;
+            margin-bottom: 2%;
+            &:nth-of-type(2n){
+                margin-left: 2%
+            }
+        }
+    }
+}

@@ -36,7 +36,8 @@ Route::get('/{creator}', [App\Http\Controllers\UserController::class, 'creatorIn
 //Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline'])->middleware('verified');
 Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline']);
 Route::get('/{creator}/join', [App\Http\Controllers\UserController::class, 'join'])->middleware('verified');
-Route::post('/join', [App\Http\Controllers\UserController::class, 'joinStore']);
+//Route::post('/join', [App\Http\Controllers\UserController::class, 'joinStore']);
+Route::post('/join', [App\Http\Controllers\CurlController::class, 'postCurl']);
 Route::get('/{creator}/joinOk', [App\Http\Controllers\UserController::class, 'joinOk'])->middleware('verified');
 
 //Route::get('/creator', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');

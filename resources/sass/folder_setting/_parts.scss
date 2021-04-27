@@ -10,6 +10,11 @@
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     @include font_head;
     font-size: 1.2em;
+    &.line2{
+        padding-top: 10px;
+        line-height: 22px;
+        font-size: 1em;
+    }
 }
 .btnCircle{
     display: block;
@@ -19,6 +24,11 @@
     line-height: 50px;
     background-color: $color_b_bk;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    &.line2{
+        padding-top: 6px;
+        line-height: 18px;
+        font-size: 0.9em;
+    }
 }
 .btnBox{
     &>p,
@@ -34,9 +44,18 @@
     border: 2px solid $color_b;
 }
 .btnBorLp{ border-color: $color_c_sub; color: $color_c_sub;}
+.btnBorGy{ border-color: $color_b_sub2; color: $color_b_sub;}
 .btnPi{ background-color: $color_c; color: #fff;}
 .btnLp{ background-color: $color_c_sub; color: #fff;}
 .btnBl{ background-color: $color_f; color: #fff;}
+.btnAd{ background-color: $color_a; color: #fff;}
+
+/*loadingIcon*/
+.loadingIcon{
+    width: 50px;
+    margin: 20px auto;
+}
+
 
 /*form *****
 ********************************/
@@ -46,18 +65,20 @@
             margin-top: 15px;
         }
     }
-    input[type="text"],input[type="email"],input[type="password"],button[type="submit"],input[type="button"],textarea,select{
+    input[type="text"],input[type="email"],input[type="password"],button,input[type="button"],textarea,select{
         -webkit-box-sizing: content-box;
         -webkit-appearance: button;
         appearance: button;
         box-sizing: border-box;
         cursor: pointer;
-        border: none;
         width: 100%;
         font-size: 16px;
         padding: 0;
         &:focus {
             outline: none;
+        }
+        &:not(.btnBor){
+            border: none;
         }
     }
     input::placeholder{color: #aaa;}
@@ -74,35 +95,100 @@
         padding: 15px 10px;
         background-color: rgba(#fff,0.7) !important;
     }
-    input[type="checkbox"]{
+    input[type="radio"]{
         display: none;
     }
-    input[type="checkbox"]+label{
+    input[type="radio"]+label{
         position: relative;
-        padding-left: 26px;
+        padding-left: 40px;
     }
-    input[type="checkbox"]+label::before{
+    input[type="radio"]+label::before{
         content: "";
         display: block;
-        width: 20px;
-        height: 20px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 1px solid $color_b_sub2;
         position: absolute;
-        top: 52%;
+        top: 50%;
         left: 0;
         transform: translateY(-50%);
         cursor: pointer;
-        background-color: rgba(#fff,0.7);
+        transition: .3s;
     }
-    input[type="checkbox"]:checked+label::after {
-        content: "";
-        display: block;
-        width: 12px;
-        height: 12px;
-        background-color: $color_b;
+    input[type="radio"] + label::after {
         position: absolute;
-        top: 52%;
-        left: 4px;
-        transform: translateY(-50%);
+        content: '';
+        display: block;
+        width: 8px;
+        height: 12px;
+        transform: translateY(-50%) rotate(45deg) scale(0, 0);
+        border-right: 3px solid #fff;
+        border-bottom: 3px solid #fff;
+        left: 9px;
+        top: 49%;
+        transition: .3s;
+    }
+    input[type="radio"]:checked{
+        & + label::before {
+            background-color: $color_f_sub;
+        }
+        & + label::after {
+            transform: translateY(-50%) rotate(45deg) scale(1, 1);
+        }
+    }
+}
+.formBox.normalFormBox{
+    @include wrap_inner;
+    dl {
+        &:not(:first-of-type) {
+            margin-top: 15px;
+        }
+    }
+    dt{
+        @include font_head;
+        margin-bottom: 5px;
+    }
+    .clm2{
+        @include flex;
+        &>div{
+            &:not(:last-of-type){
+                margin-right: 20px;
+            }
+        }
+    }
+    .required{
+        color: $color_c;
+        font-size: 0.9em;
+        margin-left: 10px;
+    }
+    .att{
+        @include font_jp;
+        display: block;;
+        padding: 2px 0;
+        font-size: 0.9em;
+        color: $color_b_sub;
+    }
+    input{
+        border: 1px solid $color_b_sub2 !important;
+    }
+    .sexBox{
+        padding: 5px 0 10px;
+    }
+    .monthly_priceBox{
+        position: relative;
+        &:before{
+            content: "円";
+            position: absolute;
+            top: 50%;
+            right: 5%;
+            transform: translateY(-50%);
+            @include font_head;
+            line-height: 1;
+        }
+    }
+    .btnBox{
+        margin-top: $mg*2;
     }
 }
 
@@ -110,13 +196,22 @@
 ********************************/
 .moreArea{
     position: relative;
-    padding-bottom: 30px;
+    max-height: calc(3em * 1.6);
+    overflow: hidden;
+    transition: height 0.2s ease;
+    &.open{
+        max-height: 100em;
+        padding-bottom: 1.8em;;
+    }
     .moreBtn{
-        position: absolute;;
+        position: absolute;
         bottom: 0;
         right: 0;
         color: $color_b_sub;
         text-decoration: underline;
+        background-color: #fff;
+        padding-left:10px;
+        line-height: 1.4em;
     }
 }
 
@@ -129,6 +224,7 @@
         position: relative;
         background: no-repeat center/cover;
         padding-top: 46%;
+        background-color: $color_c_bk;
         div{
             position: absolute;
             bottom: 0;
@@ -151,27 +247,71 @@
         @include font_head;
         margin-top: $mg;
     }
+    .text{
+        a{
+            color: $color_f;
+            text-decoration: underline;
+            &:hover{
+                text-decoration: none;
+            }
+        }
+    }
+    .price{
+        text-align: center;
+        @include font_head;
+        span{
+            font-size: 0.8em;
+        }
+    }
     .score{
         @include flex;
         @include jc;
+        text-align: center;
         margin-top: $mg;
         dl{
-            @include flex;
-            @include ac;
             @include font_head;
             &:not(:first-of-type){
-                margin-top: 5px;
+                margin-left: 10%;
             }
         }
         dt{
-            width: 60px;
-            margin-right: 10px;
-            text-align: center;
             background-color: $color_c_bk;
+            padding: 2px 10px;
+            margin-bottom: 6px;
+            display: inline-block;
+            font-size: 0.8em;
         }
         dd{
-            font-size: 1.3em;
+            font-size: 1.5em;
             line-height: 1;
+        }
+        .gain{
+            font-size: 1rem;
+        }
+        .period{
+            display: block;
+            font-size: 0.8rem;
+            @include font_jp;
+            margin-top: 10px;
+            color: $color_b_sub;
+        }
+        &.scorePrice{
+            @include js;
+            dl{
+                background-color: $color_c_bk;
+                padding: 5px 0 15px;
+                width: 49%;
+                &:not(:first-of-type){
+                    margin-left: 0;
+                }
+            }
+            dt{
+                padding: 0;
+            }
+            .gain{
+                display: block;
+                margin-top: 6px;
+            }
         }
     }
     .btnBox{
@@ -179,27 +319,6 @@
     }
     .text{
         margin-top: $mg;
-    }
-    .sns{
-        margin-top: $mg;
-        @include flex;
-        li{
-            &:not(:last-of-type){
-                margin-right: 10px;
-            }
-        }
-        a{
-            display: block;
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: $color_c_bk no-repeat center / 50%;
-            text-indent: -999px;
-            overflow: hidden;
-            &.insta{ background-image: url("icon_grid_pi.png");}
-            &.tw{ background-image: url("icon_grid_pi.png");}
-            &.youtube{ background-image: url("icon_grid_pi.png");}
-        }
     }
 }
 
@@ -218,6 +337,85 @@
             &:nth-of-type(n+4){
                 margin-top: 0.5%;
             }
+            a{
+                display: block;
+                position: relative;
+                &:before{
+                    content: "";
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    background-size: cover;
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                }
+            }
+            &.postMulti a:before{
+                background-image: url("icon_pictures.png");
+            }
+            &.postVideo a:before{
+                background-image: url("icon_video.png");
+            }
+        }
+    }
+}
+
+/*postBox *****
+********************************/
+#postBox{
+    background-color: $color_b_bk;
+    .post{
+        background-color: #fff;
+        border-top: 1px solid $color_b_bk;
+        &:not(:last-of-type){
+            margin-bottom: $mg*2;
+        }
+        .postTitle{
+            @include wrap_s;
+            @include flex;
+            @include ac;
+            padding: 10px 0;
+            .thumbnail{
+                width: 60px;
+                margin-right: 10px;
+                border-radius: 50%;
+                border: 2px solid $color_c_sub;
+                overflow: hidden;
+            }
+            .nameBox{
+                flex: 1;
+                .name{
+                    font-size: 1.1em;
+                }
+                .time{
+                    color: $color_b_sub;
+                }
+            }
+        }
+        .secretBox{
+            padding-top: 100%;
+            position: relative;
+            @include grade;
+            .inner{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                @include wrap_inner;
+                text-align: center;
+            }
+            p{
+                color: #fff;
+                padding: 20px 0;
+                a{
+                    text-decoration: underline;
+                }
+            }
+        }
+        .textBox{
+            @include wrap_s;
+            padding: 10px 0 20px;
         }
     }
 }

@@ -1,0 +1,55 @@
+
+/*クリエイターマイページ*
+*******************************/
+#bottomAdminMypage {
+    background-color: $color_b_bk;
+    li{
+        color: $color_b_sub;
+        a{
+            &.mypage:before{
+                background-image: url("icon_user.png");
+            }
+            &.setting:before{
+                background-image: url("icon_setting.png");
+            }
+        }
+    }
+}
+.admin{
+    #profileBox{
+        max-width: 100%;
+        width: 100%;
+        margin-top: 0;
+        padding: $mg 0;
+        background-color: $color_b_bk;
+        .score.clm3{
+            margin-top: 0;
+            @include wrap_inner;
+            dl{
+                width: 32%;
+                margin-left: 2%;
+                padding: 6px 0;
+                background-color: #fff;
+                &:first-of-type{
+                    margin-left: 0;
+                }
+                dt{
+                    background-color: transparent;
+                    padding: 0;
+                }
+            }
+        }
+        .score:not(.clm3){
+            dt{
+                background-color: #fff;
+            }
+        }
+    }
+    #creatorRegBtn{
+        @include wrap_inner;
+        margin-top: $mg;
+    }
+}
+
+/*新規投稿・投稿修正*
+*******************************/

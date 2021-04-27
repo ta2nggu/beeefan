@@ -26,5 +26,9 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/owl.carousel.css', 'public/css')
     .postCss('resources/css/owl.theme.default.min.css', 'public/css')
     //21.04.02 kondo, 추가 style
-    .sass('resources/sass/style.scss', 'public/css');
+    .sass('resources/sass/style.scss', 'public/css')
+    .sass('resources/sass/style_creator.scss', 'public/css')
+    .sass('resources/sass/style_admin.scss', 'public/css')
+    .sass('resources/sass/style_user.scss', 'public/css')
+    .js('resources/js/common.js', 'public/js');
 

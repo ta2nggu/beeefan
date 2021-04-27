@@ -68,3 +68,24 @@
         color: #fff;
     }
 }
+
+/*クリエイター露出ページ*
+*******************************/
+#bottomPost {
+    background-color: $color_c_bk;
+    .inner{
+        @include wrap_s;
+        @include flex;
+        @include ac;
+    }
+    .nameBox {
+        .price {
+            font-size: 0.9em;
+        }
+    }
+    .btnCircle{
+        flex: 1;
+        max-width: 150px;
+        margin-left: auto;
+    }
+}

@@ -1,44 +1,90 @@
-@extends('layouts.app')
+@extends('layouts.base')
+
+@section('title','Beee Fan!')
+@section('pageCss')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="{{ asset('js/app.js') }}" defer></script>
+@endsection
+@section('body','')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ $creator[0]->last_name }}/{{ $creator[0]->first_name }}/{{ $creator[0]->nickname }}</div>
-                    <div class="background_img" style="width: 150px; height: 150px;">background_img
-                        <img id="preview_background_img" src="@if (isset($creator[0]->background_img)) {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
-                    </div>
-                    <div class="profile_img" style="width: 150px; height: 150px;">profile_img
-                        <img id="preview_profile_img" src="@if (isset($creator[0]->profile_img)) {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }} @else https://www.riobeauty.co.uk/images/product_image_not_found.gif @endif" style="height: 100%; width: 100%;"/>
-                    </div>
+    @component ('components.header')
+    @endcomponent
+{{--    <header id="header">--}}
+{{--        <button onClick="history.back()" class="back">戻る</button>--}}
+{{--        <h1 class="txtTitle"><span class="name">{{ $creator[0]->nickname }}</span>投稿</h1>--}}
+{{--    </header>--}}
 
-                    <div class="card-body">
-                        <div class="instruction">{!! $creator[0]->instruction  !!}</div>
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
+    <!--contentWrap-->
+    <div id="contentWrap">
+        <div id="app">
+            <div id="profileHeader">
+                @if (isset($creator[0]->background_img))
+                    <div class="imgbox" style="background-image: {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }}">
+                @else
+                    <div class="imgbox">
+                @endif
+                    @if (isset($creator[0]->profile_img))
+                        <div class="thumbnail"><img src="{{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }}" alt="{{ $creator[0]->nickname }}"></div>
+                    @else
+                        <div class="thumbnail"><img src="{{ asset('storage/icon/no_images_c.png') }}" alt="{{ $creator[0]->nickname }}"></div>
+                    @endif
+                </div>
+            </div>
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+            <div id="profileBox">
+                <h1 class="name">{{ $creator[0]->nickname }}</h1>
+                <div class="text moreArea">{!! $creator[0]->instruction !!}</div>
+                <div class="btnBox">
+                    @guest
+                        <p><a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn btnPi">{{ __('入会する') }}</a></p>
+                        <p><a href="{{ url('/home') }}" class="btn btnLp">{{ __('マイページにログイン') }}</a></p>
+                    @else
+                        @role('user')
+                            @if($follow === 0)
+                                <p><a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn btnPi">{{ __('入会する') }}</a></p>
+                            @endif
+                        @else
+                            <p><span class="btn line2">{{ __('このアカウントでは') }}<br>{{ __('入会できません') }}</span></p>
+                        @endrole
+                        @if( Auth::id() === $creator[0]->id)
+                            <p><a href="{{ url('/creator/index') }}" class="btn btnLp">{{ __('マイページへ') }}</a></p>
                         @endif
+                    @endguest
+                </div>
+            </div>
 
-                        @if($follow === 0)
-                            <div><a href="{{ $creator[0]->account_id }}{{ __('/join') }}">入会する 입회하다</a></div>
-                        @endif
-                        <div><a href="{{ __('/mypage') }}">マイページにログイン 마이페이지 로그인</a></div>
-
-                        <div class="tweets">
-                            <div class="flex_images post-data">
-                                @include('mainData')
-                            </div>
-                        </div>
-
-                        <div class="ajax-load text-center">
-                            <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
-                        </div>
+            <!--postList(parts)-->
+            <div id="postList">
+                <ul>
+                    {{--                            21.03.28 김태영, mainData.balde.php 로 이동--}}
+                    @include('mainData')
+                </ul>
+                <div class="ajax-load text-center">
+                    <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+                </div>
+            </div>
+            <div id="bottomPost" class="bottomFixed">
+                <div class="inner">
+                    <div class="nameBox">
+                        <p class="name">{{ $creator[0]->nickname }}</p>
+                        <p class="price">{{ __('月額') }} {{ $creator[0]->month_price }}{{ __('円') }}</p>
                     </div>
+                    @guest
+                        <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
+                    @else
+                        @role('user')
+                            <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
+                        @else
+                            <span class="btnCircle line2">{{ __('このアカウントでは') }}<br>{{ __('入会できません') }}</span>
+                        @endrole
+                    @endguest
                 </div>
             </div>
         </div>
-    </div>
+    </div><!--/contentWrap-->
 @endsection
-

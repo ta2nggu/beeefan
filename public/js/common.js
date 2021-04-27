@@ -33,6 +33,26 @@
   };
 
   s.parentNode.insertBefore(tk, s);
-})(document);
+})(document); //moreArea
+
+
+$(function () {
+  $('.moreBtn').on('click', function () {
+    if ($(this).parent().hasClass('open')) {
+      $(this).html('..続きを読む');
+      $(this).parent().removeClass('open');
+    } else {
+      $(this).html('閉じる');
+      $(this).parent().addClass('open');
+    }
+  });
+}); //menuDrawer
+
+$(function () {
+  $('#menuDrawer').on('click', function () {
+    $(this).toggleClass('active');
+    $("#menuDrawerContent").toggleClass('active');
+  });
+});
 /******/ })()
 ;

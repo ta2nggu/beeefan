@@ -1188,127 +1188,51 @@ body {
   padding: 10px 0 20px;
 }
 
-/*topPage*
+/*クリエイターマイページ*
 *******************************/
 
-.topPage #contentWrap {
-  background: linear-gradient(#dfa4ad, #9bc5eb);
-}
-
-.topPage #contentWrap .title {
-  color: #fff;
-}
-
-.topPage #contentWrap .title .logo {
-  filter: brightness(0) invert(1);
-}
-
-.topPage #contentWrap ul {
-  max-width: 520px;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.topPage #footer {
-  color: #fff;
-}
-
-/*login*
-*******************************/
-
-.login #contentWrap .formBox {
-  max-width: 520px;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  color: #fff;
-}
-
-.login #contentWrap .saveCheck {
-  padding: 2px 10px;
-  text-align: left;
-}
-
-.login #contentWrap .linkBox .noLink {
-  text-align: left;
-}
-
-.login #contentWrap .linkBox p {
-  padding-top: 10px;
-}
-
-.login #contentWrap .linkBox a {
-  text-decoration: underline;
-}
-
-.login #contentWrap.fan {
-  background: linear-gradient(#e3edf4, #98c7e4);
-}
-
-.login #contentWrap.fan .title {
-  color: #5489ab;
-}
-
-.login #contentWrap.fan .btn {
-  background-color: #5489ab;
-  color: #fff;
-}
-
-.login #contentWrap.creator {
-  background: linear-gradient(#ffdde1, #ee9ca7);
-}
-
-.login #contentWrap.creator .title {
-  color: #b15a68;
-}
-
-.login #contentWrap.creator .btn {
-  background-color: #b15a68;
-  color: #fff;
-}
-
-.login #contentWrap.admin {
-  background: linear-gradient(#bdc3c7, #2c3e50);
-}
-
-.login #contentWrap.admin .title {
-  color: #2c3e50;
-}
-
-.login #contentWrap.admin .btn {
-  background-color: #2c3e50;
-  color: #fff;
-}
-
-.login #footer {
-  color: #fff;
-}
-
-/*クリエイター露出ページ*
-*******************************/
-
-#bottomPost {
+#bottomCreatorMypage {
   background-color: #faf0ef;
 }
 
-#bottomPost .inner {
-  max-width: 640px;
+#bottomCreatorMypage li {
+  color: #aaaaaa;
+}
+
+#bottomCreatorMypage li a.pCreate:before {
+  background-image: url(/images/icon_grid_pi.png?6cdc9e55f12f08ed0b8db5aa594fdc88);
+}
+
+#bottomCreatorMypage li a.post:before {
+  background-image: url(/images/icon_time_pi.png?0e9f5155045b6f4d4361a72b0e6df5be);
+}
+
+#bottomCreatorMypage li a.mypage:before {
+  background-image: url(/images/icon_user_pi.png?b2fe26aed399f0d358aa8e17b87b7d56);
+}
+
+/*新規投稿・投稿修正*
+*******************************/
+
+#postCreate {
+  max-width: 520px;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+}
+
+#postCreate .post {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
 }
 
-#bottomPost .nameBox .price {
-  font-size: 0.9em;
+#postCreate .post li {
+  width: 49%;
+  margin-bottom: 2%;
 }
 
-#bottomPost .btnCircle {
-  flex: 1;
-  max-width: 150px;
-  margin-left: auto;
+#postCreate .post li:nth-of-type(2n) {
+  margin-left: 2%;
 }
 
 

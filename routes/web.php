@@ -55,6 +55,12 @@ Route::get('/admin/creators', [App\Http\Controllers\AdminController::class, 'adm
 Route::get('/admin/creatorReg', [App\Http\Controllers\AdminController::class, 'admin_creatorRegPage'])->name('admin_creatorRegPage')->middleware('verified');
 Route::post('/admin/creatorReg', [App\Http\Controllers\AdminController::class, 'admin_creatorReg'])->name('admin_creatorReg')->middleware('verified');
 
+//21.04.06 kondo creator&admin login page
+use App\Http\Controllers\PagesController;
+Route::get('/creator/login', [PagesController::class, 'creatorLogin'])->name('creator_login');
+Route::get('/admin/login', [PagesController::class, 'adminLogin'])->name('admin_login');
+
+//21.04.26 김태영
 Route::get('/password/change', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');
 Route::post('/password/change', [App\Http\Controllers\UserController::class, 'change_password_store'])->middleware('verified');
 

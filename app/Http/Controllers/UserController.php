@@ -62,11 +62,13 @@ class UserController extends Controller
         $this->middleware('auth');
         $this->user =  \Auth::user();
 
+
 //        $creator = DB::table("creators")
 //            ->join('users', 'users.id', '=', 'creators.user_id')
 //            ->where('users.account_id', '=', $account_id)
 //            ->get();
         $creator = $this->creator_info_withAccId($account_id);
+
 
         $tweets = DB::table('tweets', 'tweets')
 //            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweets.id, tweet_images.mime_type, A.images_cnt"))

@@ -1,5 +1,5 @@
-<header id="header">
-    <p class="logo"><a href="{{ url('/') }}"><img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}"></a></p>
+<header id="header" class="@yield('headerClass')">
+    <p class="logo"><a href="{{ url('/') }}"><img src="{{ asset('storage/common/logo.png') }}" alt="{{ config('app.name') }}"></a></p>
     <ul class="nav">
         @guest
             @if (Route::has('login'))
@@ -7,9 +7,8 @@
             @endif
         @else
             <li><span id="menuDrawer" class="icon menu">メニュー</span></li>
-            <div id="menuDrawerContent">
-
-            </div>
         @endguest
     </ul>
+    @component ('components.header_nav')
+    @endcomponent
 </header>

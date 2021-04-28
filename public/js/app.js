@@ -1877,6 +1877,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -1905,8 +1906,8 @@ __webpack_require__.r(__webpack_exports__);
         // url: 'api/DropUp',
         //21.03.21 김태영, url 앞에 '/' 없으면 web.php 을 바라보게 됨
         url: 'api/DropUp',
-        thumbnailWidth: 130,
-        thumbnailHeight: 130,
+        thumbnailWidth: 320,
+        thumbnailHeight: 320,
         headers: {
           "My-Awesome-Header": "header value"
         },
@@ -7453,7 +7454,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#dropzone {\n    background-color: #ffffff;\n    border: 0px;\n}\n.dropzone .dz-preview.dz-image-preview  {\n    margin-bottom: 55px;\n    /*width: 50%;*/\n}\n.dropzone .dz-preview .btnPrivate {\n    cursor: pointer;\n    z-index: 30;\n    position: absolute;\n    border: 3px #9ac5ea solid;\n    color:#9ac5ea;\n    /*margin-left: 135px;*/\n    margin-left: 10px;\n    /*bottom: 165px;*/\n    bottom: -45px;\n    background-color: #ffffff;\n    border-radius: 20px;\n    font-size: 20px;\n    width: 115px;\n    text-align: center;\n}\n.dropzone .dz-preview .dz-remove {\n    cursor: pointer;\n    border: 0px;\n    margin-left: 120px;\n    bottom: -55px;\n    font-size: 25px;\n    opacity: 1;\n}\n.more {\n    display: inline-block;\n    margin: 16px;\n    /*border: 3px dashed lightgray;*/\n    border: 0px dashed lightgray;\n    width: 130px;\n    height: 130px;\n    box-sizing: border-box;\n    color: lightgray;\n    /*border-radius: 8px;*/\n    font-size: 60px;\n    text-align: center;\n    line-height: 130px;\n    /*pointer-events: none;*/\n    background-color: #f3f3f3;\n    cursor: pointer;\n}\n.more:hover {\n    background-color: #e8e8e8;\n}\n.msg {\n    margin-top: 50px;\n    width: 100%;\n}\n.msgTextarea {\n    width: 100%;\n    border-color: #e7e7e7;\n}\n.btnDropUp {\n    width: 100%;\n    margin-bottom: 10px;\n}\n.btnUpload {\n    width: 100%;\n    color: #ffffff;\n    background-color: #b15a68;\n    border-radius: 10px;\n    border: 0px;\n    height: 50px;\n}\n.btnUpload:hover {\n    background-color: #b96b77;\n}\n.btnUpload:disabled {\n    background-color: #Ddabb4;\n}\n.btnInvisible {\n    width: 100%;\n    color: #e0a3ad;\n    background-color: #ffffff;\n    border-color: #e0a3ad;\n    border-radius: 10px;\n    height: 50px;\n}\n.btnInvisible:hover {\n    background-color: #f7f7f7;\n}\n.dropzone .dz-preview .dz-progress {\n    opacity: 0;\n}\n.dropzone .dz-preview {\n    width: 130px;\n    height: 130px;\n}\n.vue-dropzone>.dz-preview .dz-details {\n    background-color: #Ddabb4;\n    /*z-index: 0;*/\n}\n.vue-dropzone>.dz-preview.dz-image-preview .dz-details {\n    /*z-index: 0;*/\n    opacity: 0;\n}\n.dropzone .dz-preview:hover .dz-image img {\n    transform: scale(1.05, 1.05);\n    filter: blur(0px);\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.infoTxt{\n    padding: 30px 0;\n    color: #aaaaaa;\n}\n#dropzone {\n    padding: 0;\n    border: none;\n    background-color: #fff;\n    display:flex;\n    flex-wrap: wrap;\n    justify-content: space-between;\n}\n.dropzone .dz-preview{\n    width: 49%;\n    height: auto;\n    padding-bottom: 60px;\n    margin: 0 0 50px;\n    background-color: #fff;\n}\n.dropzone .dz-preview img {\n    width: 100%;\n}\n.dropzone .dz-preview .btnPrivate {\n    cursor: pointer;\n    z-index: 30;\n    position: absolute;\n    border: 2px #9ac5ea solid;\n    color:#9ac5ea;\n    left: 0;\n    bottom: 10px;\n    background-color: #ffffff;\n    border-radius: 20px;\n    font-size: 14px;\n    height: 34px;\n    line-height: 34px;\n    max-width: 200px;\n    width: 80%;\n    text-align: center;\n}\n.dropzone .dz-preview .dz-remove {\n    cursor: pointer;\n    opacity: 1;\n    font-size: 0;\n    position: absolute;\n    bottom: 10px;\n    right: 0;\n    border: none;\n    width: 20%;\n    height: 36px;\n}\n.dropzone .dz-preview .dz-remove:before{\n    content: \"\";\n    display: block;\n    width: 70%;\n    height: 100%;\n    background: url('/storage/icon/icon_delete.png') no-repeat center/contain #fff;\n    position: absolute;\n    top: 0;\n    left: 15%;\n}\n.more {\n    width: 100%;\n    padding-top: 100%;\n    cursor: pointer;\n    position: relative;\n}\n.more div{\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    padding-top: 100%;\n    background-color: #f3f3f3;\n}\n.more div:before{\n    content: \"+\";\n    color: lightgray;\n    font-size: 60px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%,-50%);\n}\n.dz-preview + .more{\n    width: 49%;\n    padding-top: 49%;\n}\n.msg {\n    margin-top: 50px;\n    width: 100%;\n}\n.msgTextarea {\n    width: 100%;\n    border-color: #e7e7e7;\n    height: 140px;\n    padding: 20px 5%;\n    border-radius: 5px;\n    margin-bottom: 20px;\n}\n.btnDropUp {\n    width: 100%;\n    margin-bottom: 10px;\n}\n.btnUpload {\n    width: 100%;\n    line-height: 60px;\n}\n.btnUpload:disabled {\n    opacity: 0.6;\n}\n.btnInvisible {\n    width: 100%;\n    line-height: 60px;\n}\n.dropzone .dz-preview .dz-progress {\n    opacity: 0;\n}\n.vue-dropzone>.dz-preview .dz-details {\n    background-color: #Ddabb4;\n    opacity: 0;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -51284,6 +51285,10 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("p", { staticClass: "infoTxt" }, [
+        _vm._v("投稿後に画像の変更・並び替えはできません。")
+      ]),
+      _vm._v(" "),
       _c("vue-dropzone", {
         ref: "myVueDropzone",
         attrs: { id: "dropzone", options: _vm.dropzoneOptions },
@@ -51295,7 +51300,7 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { ref: "more", staticClass: "more" }, [_vm._v("+")]),
+      _c("div", { ref: "more", staticClass: "more" }, [_c("div")]),
       _vm._v(" "),
       _c("div", { staticClass: "msg" }, [
         _c("textarea", {
@@ -51325,7 +51330,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btnUpload",
+            staticClass: "btnUpload btn btnPi",
             attrs: { disabled: _vm.disableUploadButton },
             on: {
               click: function($event) {
@@ -51341,7 +51346,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btnInvisible",
+            staticClass: "btnInvisible btn btnBorLp",
             attrs: { disabled: _vm.disableUploadButton },
             on: {
               click: function($event) {

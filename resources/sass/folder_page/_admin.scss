@@ -1,20 +1,6 @@
 
 /*クリエイターマイページ*
 *******************************/
-#bottomAdminMypage {
-    background-color: $color_b_bk;
-    li{
-        color: $color_b_sub;
-        a{
-            &.mypage:before{
-                background-image: url("icon_user.png");
-            }
-            &.setting:before{
-                background-image: url("icon_setting.png");
-            }
-        }
-    }
-}
 .admin{
     #profileBox{
         max-width: 100%;

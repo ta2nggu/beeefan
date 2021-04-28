@@ -1,8 +1,26 @@
-@extends('layouts.creator')
+@extends('layouts.base')
+
+@section('title',"新規投稿")
+@section('pageCss')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/main.js') }}" defer></script>
+@endsection
+@section('body','')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+    @component ('components.header')
+        @section('page_back')
+            <div class="formBox"><button onClick="history.back()" class="back">{{ __('戻る') }}</button></div>
+        @endsection
+        @slot('header_title')
+            新規投稿
+        @endslot
+    @endcomponent
+
+    <!--contentWrap-->
+    <div id="contentWrap">
+        <div id="app" class="wrap_s">
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
@@ -22,10 +40,9 @@
                     {{ session('message') }}
                 </div>
             @endif
-
             <router-view :current-user="{{ auth()->id() }}"></router-view>
         </div>
-    </div>
+    </div><!--/contentWrap-->
 
     {{--                                                    21.03.16 김태영, 테스트용--}}
     {{--                                                <input type="file" name="file" id="file" class="inputfile" multiple>--}}

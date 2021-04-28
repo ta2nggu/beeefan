@@ -18,11 +18,15 @@ body{
 *******************************/
 #header{
     width: 100%;
-    height: 60px;
+    @include wrap;
+    height: 56px;
     background-color: #fff;
-    position: absolute;
+    border-bottom: 1px solid $color_b_sub2;
+    position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
     @include flex;
     @include ac;
     @include jc;
@@ -58,7 +62,7 @@ body{
         transform: translateY(-50%);
         width: 40px;
         height: 40px;
-        background: url("icon_left_circle_pi.png") no-repeat center/76%;
+        background: url("../storage/icon/icon_left_circle_pi.png") no-repeat center/76%;
         overflow: hidden;
         text-indent: -999px;
     }
@@ -101,18 +105,15 @@ body{
 #menuDrawerContent{
     @include wrap;
     position: fixed;
-    bottom: -100%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    right: 0;
     background-color: #fff;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     z-index: 10;
-    padding-top: 70px;
+    padding-top: 56px;
     transition: all 0.6s ease-in-out;
-    &.active{
-        bottom: 0;
-    }
+    display: none;
     li{
         border-top: 1px solid $color_b_sub;
         &:last-of-type{
@@ -148,7 +149,7 @@ body{
 #contentWrap{
     overflow: hidden;
     min-height: 100vh;
-    padding: 60px 0 70px;
+    padding: 56px 0 70px;
 }
 .view1{
     overflow: hidden;
@@ -163,9 +164,9 @@ body{
         .title{
             margin-bottom: 40px;
             .logo{
-                width: 60%;
-                max-width: 240px;
-                margin: 0 auto 10px;
+                width: 40%;
+                max-width: 200px;
+                margin: 0 auto 15px;
             }
             .txtTitle{
                 @include font_head;
@@ -241,6 +242,37 @@ body{
                 height: 30px;
                 margin:0 auto 5px;
                 background: no-repeat center/cover;
+            }
+        }
+    }
+}
+#bottomCreatorMypage {
+    background-color: $color_c_bk;
+    li{
+        color: $color_b_sub;
+        a{
+            &.pCreate:before{
+                background-image: url("icon_grid_pi.png");
+            }
+            &.post:before{
+                background-image: url("icon_time_pi.png");
+            }
+            &.mypage:before{
+                background-image: url("icon_user_pi.png");
+            }
+        }
+    }
+}
+#bottomAdminMypage {
+    background-color: $color_b_bk;
+    li{
+        color: $color_b_sub;
+        a{
+            &.mypage:before{
+                background-image: url("icon_user.png");
+            }
+            &.setting:before{
+                background-image: url("icon_setting.png");
             }
         }
     }

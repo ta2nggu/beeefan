@@ -1,24 +1,4 @@
 
-/*クリエイターマイページ*
-*******************************/
-#bottomCreatorMypage {
-    background-color: $color_c_bk;
-    li{
-        color: $color_b_sub;
-        a{
-            &.pCreate:before{
-                background-image: url("icon_grid_pi.png");
-            }
-            &.post:before{
-                background-image: url("icon_time_pi.png");
-            }
-            &.mypage:before{
-                background-image: url("icon_user_pi.png");
-            }
-        }
-    }
-}
-
 /*新規投稿・投稿修正*
 *******************************/
 #postCreate{
@@ -35,3 +15,4 @@
         }
     }
 }
+

@@ -25,7 +25,7 @@ $(function() {
 $(function() {
     $('#menuDrawer').on('click', function() {
         $(this).toggleClass('active');
-        $("#menuDrawerContent").toggleClass('active');
+        $("#menuDrawerContent").fadeToggle();
     });
 });
 

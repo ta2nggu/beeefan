@@ -190,6 +190,7 @@ class CreatorController extends Controller
         }
     }
 
+    //21.04.29 김태영, 비공개 투고 list 화면으로
     public function invisible() {
         return view('creator/invisibleTweets');
     }

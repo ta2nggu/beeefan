@@ -67,7 +67,7 @@
 
 {{--            21.04.29 김태영, 下書き投稿一覧 page 개발을 위해 anchor 여기에 추가 나중에 지우세요 --}}
             <div>
-                <a href="{{__('../creator/invisible')}}">{{__('to 下書き投稿一覧')}}</a>
+                <a href="{{__('../creator/invisible')}}">{{__('to 下書き投稿一覧 비공개 화면')}}</a>
             </div>
 
         </div>

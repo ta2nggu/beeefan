@@ -212,7 +212,7 @@ class CreatorController extends Controller
             ->where('tweets.user_id', $this->user->id)
             ->where('tweets.visible', 0)//0 비공개
             ->orderBy('tweets.id', 'desc')
-            ->paginate(5);
+            ->paginate(15);
 
         if ($request->ajax()) {
             $view = view('creator.invisibleTweetsData', compact( 'tweets','user'))->render();

@@ -16,14 +16,24 @@ class CreatorController extends Controller
         $this->middleware('role:creator');
     }
 
+    public function getCreatorInfoWithUserId($user_id) {
+        $user = DB::table("users")
+            ->join('creators', 'creators.user_id', '=', 'users.id')
+            ->where('users.id', '=', $user_id)
+            ->get();
+
+        return $user;
+    }
+
     public function index(Request $request){
         $this->middleware('auth');
         $this->user =  \Auth::user();
 
-        $user = DB::table("users")
-            ->join('creators', 'creators.user_id', '=', 'users.id')
-            ->where('users.id', '=', $this->user->id)
-            ->get();
+//        $user = DB::table("users")
+//            ->join('creators', 'creators.user_id', '=', 'users.id')
+//            ->where('users.id', '=', $this->user->id)
+//            ->get();
+        $user = $this->getCreatorInfoWithUserId($this->user->id);
 
         $tweets = DB::table('tweets', 'tweets')
 //            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweets.id, tweet_images.mime_type, A.images_cnt"))
@@ -191,8 +201,84 @@ class CreatorController extends Controller
     }
 
     //21.04.29 김태영, 비공개 투고 list 화면으로
-    public function invisible() {
-        return view('creator/invisibleTweets');
+    public function invisibleTweets(Request $request) {
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+
+        $user = $this->getCreatorInfoWithUserId($this->user->id);
+
+        $tweets = DB::table('tweets', 'tweets')
+            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt"))
+            ->where('tweets.user_id', $this->user->id)
+            ->where('tweets.visible', 0)//0 비공개
+            ->orderBy('tweets.id', 'desc')
+            ->paginate(5);
+
+        if ($request->ajax()) {
+            $view = view('creator.invisibleTweetsData', compact( 'tweets','user'))->render();
+            return response()->json(['html'=>$view]);
+        }
+
+        return view('creator.invisibleTweets', [
+            'user' => $user,
+            'tweets' => $tweets
+        ]);
+    }
+
+    public function invisibleTweetsTime(Request $request, $startTweet) {
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+
+        $creator = DB::table("creators")
+            ->join('users', 'users.id', '=', 'creators.user_id')
+            ->where('users.id', '=', $this->user->id)
+            ->get();
+
+        //main tweet
+        //nowTweet -> 사용자가 click한 tweet, timeline에서 최상단에 위치
+        $nowTweet = DB::table('tweets', 'tweets')
+            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->join('users', 'users.id', '=', 'tweets.user_id')
+            ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
+            ->where('users.id', $this->user->id)
+            ->where('tweets.id', $startTweet)
+            ->where('tweets.visible', 0)//0 비공개
+            ->get();
+        //otherTweets -> 사용자가 click한 tweet을 제외한 나머지를 등록 역순으로 조회
+        $otherTweets = DB::table('tweets', 'tweets')
+            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->join('users', 'users.id', '=', 'tweets.user_id')
+            ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
+            ->where('users.id', $this->user->id)
+            ->where('tweets.id','<>', $startTweet)
+            ->where('tweets.visible', 0)
+            ->orderBy('tweets.id', 'desc')
+            ->get();
+        //nowTweet + otherTweets 합침
+        //forPage는 페이징 처리, 5개
+        $tweets = $nowTweet->merge($otherTweets)->forPage($request->page,5);
+
+        $tweet_images = new \Illuminate\Support\Collection;
+        foreach ($tweets as $tweet) {
+            $loop = DB::table('tweets', 'tweets')
+                ->select(DB::raw("tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path"))
+                ->join('users', 'users.id', '=', 'tweets.user_id')
+                ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
+                ->where('users.id', $this->user->id)
+                ->where('tweets.id', $tweet->id)
+                ->where('tweet_images.idx','<>', $tweet->main_img_idx)//무료공개 = main image는 이미 tweet 정보 가져올 때 가져옴, main image 제외하고 조회
+//                ->where('tweets.visible', 1) -> 어차피 비공개 0 으로 가져옴
+                ->orderBy('tweet_images.idx', 'asc')
+                ->get();
+
+            $tweet_images = $tweet_images->merge($loop);
+        }
+
+        if ($request->ajax()) {
+            $view = view('creator.invisibleTimeData', compact('tweets', 'tweet_images', 'creator'))->render();
+            return response()->json(['html'=>$view]);
+        }
+        return view('creator.invisibleTime', compact('tweets', 'tweet_images', 'creator'));//compact 할 때 var_name이 위에 선언한 $tweets 과 이름이 같아야 된다
     }
 }
 

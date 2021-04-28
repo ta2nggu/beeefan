@@ -46,6 +46,8 @@ Route::get('/creator/index', [App\Http\Controllers\CreatorController::class, 'in
 Route::get('/creator/write', [App\Http\Controllers\CreatorController::class, 'write'])->name('write')->middleware('verified');
 Route::get('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage'])->name('mypage')->middleware('verified');
 Route::post('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage_store']);
+//21.04.29 김태영, 下書き投稿一覧 초안 투고 리스트 화면, 비공개 투고 조회 화면
+Route::get('/creator/invisible', [App\Http\Controllers\CreatorController::class, 'invisible'])->middleware('verified');
 //Route::post('/upload', [App\Http\Controllers\ImageController::class, 'store'])->name('/app/upload')->middleware('verified');
 Route::post('/creator/creator_write/preview/',[App\Http\Controllers\CreatorController::class, 'preview'])->name('creator_write.preview');
 Route::get('image/{filename}', [App\Http\Controllers\ImageController::class,'getPubliclyStorgeFile'])->name('image.displayImage');

@@ -189,5 +189,9 @@ class CreatorController extends Controller
 
         }
     }
+
+    public function invisible() {
+        return view('creator/invisibleTweets');
+    }
 }
 

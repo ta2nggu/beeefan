@@ -5,10 +5,10 @@
     "/js/owl.carousel.js": "/js/owl.carousel.js",
     "/js/common.js": "/js/common.js",
     "/css/app.css": "/css/app.css",
-    "/css/owl.theme.default.min.css": "/css/owl.theme.default.min.css",
-    "/css/owl.carousel.css": "/css/owl.carousel.css",
     "/css/style_admin.css": "/css/style_admin.css",
     "/css/style_creator.css": "/css/style_creator.css",
     "/css/style.css": "/css/style.css",
+    "/css/owl.theme.default.min.css": "/css/owl.theme.default.min.css",
+    "/css/owl.carousel.css": "/css/owl.carousel.css",
     "/css/style_user.css": "/css/style_user.css"
 }

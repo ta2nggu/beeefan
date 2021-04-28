@@ -42,7 +42,7 @@
                                 </div>
                             </section>
 
-                            <a href="">투고한다</a><br>
+                            <a href="">투고한다 </a><br>
                             <a href="">비공개투고</a>
                     </div>
                 </div>

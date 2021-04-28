@@ -1,26 +1,25 @@
 @extends('layouts.base')
 
-@section('title','Beee Fan!')
+@section('title',$creator[0]->nickname)
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/main.js') }}" defer></script>
 @endsection
 @section('body','')
 
 @section('content')
     @component ('components.header')
+        @slot('header_title')
+            {{ $creator[0]->nickname }}
+        @endslot
     @endcomponent
-{{--    <header id="header">--}}
-{{--        <button onClick="history.back()" class="back">戻る</button>--}}
-{{--        <h1 class="txtTitle"><span class="name">{{ $creator[0]->nickname }}</span>投稿</h1>--}}
-{{--    </header>--}}
 
     <!--contentWrap-->
     <div id="contentWrap">
         <div id="app">
             <div id="profileHeader">
                 @if (isset($creator[0]->background_img))
-                    <div class="imgbox" style="background-image: {{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }}">
+                    <div class="imgbox" style="background-image: url({{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }})">
                 @else
                     <div class="imgbox">
                 @endif
@@ -49,7 +48,7 @@
                                 <p><a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn btnPi">{{ __('入会する') }}</a></p>
                             @endif
                         @else
-                            <p><span class="btn line2">{{ __('このアカウントでは') }}<br>{{ __('入会できません') }}</span></p>
+                            <p><span class="btn line2">{!! 'このアカウントでは<br>入会できません' !!}</span></p>
                         @endrole
                         @if( Auth::id() === $creator[0]->id)
                             <p><a href="{{ url('/creator/index') }}" class="btn btnLp">{{ __('マイページへ') }}</a></p>
@@ -60,19 +59,20 @@
 
             <!--postList(parts)-->
             <div id="postList">
-                <ul>
+                <ul class="post-data">
                     {{--                            21.03.28 김태영, mainData.balde.php 로 이동--}}
                     @include('mainData')
                 </ul>
-                <div class="ajax-load text-center">
+                <div class="ajax-load">
                     <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
                 </div>
             </div>
+
             <div id="bottomPost" class="bottomFixed">
                 <div class="inner">
                     <div class="nameBox">
                         <p class="name">{{ $creator[0]->nickname }}</p>
-                        <p class="price">{{ __('月額') }} {{ $creator[0]->month_price }}{{ __('円') }}</p>
+                        <p class="price">{{ __('月額') . $creator[0]->month_price .('円') }}</p>
                     </div>
                     @guest
                         <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
@@ -80,7 +80,7 @@
                         @role('user')
                             <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
                         @else
-                            <span class="btnCircle line2">{{ __('このアカウントでは') }}<br>{{ __('入会できません') }}</span>
+                            <span class="btnCircle line2">{!! 'このアカウントでは<br>入会できません' !!}</span>
                         @endrole
                     @endguest
                 </div>

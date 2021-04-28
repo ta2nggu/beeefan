@@ -74,11 +74,6 @@
             <p>전 크리에이터 정보</p>
         </div>
 
-        <div id="bottomAdminMypage" class="bottomFixed">
-            <ul class="inner">
-                <li><a href="{{ url('/admin/index') }}" class="mypage">マイページ</a></li>
-                <li><a href="{{ url('/admin/creators') }}" class="setting">設定変更</a></li>
-            </ul>
-        </div>
+
     </div><!--/contentWrap-->
 @endsection

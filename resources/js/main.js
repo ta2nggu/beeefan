@@ -28,7 +28,8 @@ function loadMoreData(page) {
     })
     .done(function (data) {
         if (data.html.trim() == "") {
-            $(".ajax-load").html("これ以上のレコードが見つかりません");
+            //21.04.27 kon, 注意文言なし
+            $(".ajax-load").html("");
             return;
         }
         $(".ajax-load").hide();
@@ -65,26 +66,26 @@ function loadMoreDataWithoutPage() {
             $(".ajax-load").show();
         }
     })
-        //검색 호출 끝날 때
-        .done(function (data) {
-            //loading image 숨김
-            $(".ajax-load").hide();
+    //검색 호출 끝날 때
+    .done(function (data) {
+        //loading image 숨김
+        $(".ajax-load").hide();
 
-            //검색 결과 없을 때
-            if (data.html.trim() == "") {
-                $('.post-data').html("データがありません。");
-                return;
-            }
+        //검색 결과 없을 때
+        if (data.html.trim() == "") {
+            $('.post-data').html("データがありません。");
+            return;
+        }
 
-            //검색 결과
-            $('.post-data').html(data.html);
-            //21.04.17 김태영, 검색 후 page 초기화 해줘야 다시 infinite scrolling 작동함
-            page=1;
-        })
-        //검색 실패
-        .fail(function(jqXHR,ajaxOptions,thrownError) {
-            console.log("Server not responding..");
-        });
+        //검색 결과
+        $('.post-data').html(data.html);
+        //21.04.17 김태영, 검색 후 page 초기화 해줘야 다시 infinite scrolling 작동함
+        page=1;
+    })
+    //검색 실패
+    .fail(function(jqXHR,ajaxOptions,thrownError) {
+        console.log("Server not responding..");
+    });
 }
 
 var page = 1;
@@ -102,14 +103,16 @@ if ($(".post-data").length > 0) {
 
         // 21.03.28 김태영, ajax infinite scrolling 실행 될 때도 owl-carousel 선언해야 함, 선언 안하면 ajax로 html 붙일 때 적용 안됨
         // $('.owl-carousel').owlCarousel 선언이 없다면  div class에 owl-loaded owl-drag 안생긴다. image slider를 사용할 수 없음
-        $('.owl-carousel').owlCarousel({
-            center: true,
-            items:1,
-            loop:true,
-            onInitialized : counter,
-            onTranslated : counter,
-            margin:10
-        });
+        if ($(".owl-carousel").length > 0) {
+            $('.owl-carousel').owlCarousel({
+                center: true,
+                items: 1,
+                loop: true,
+                onInitialized: counter,
+                onTranslated: counter,
+                margin: 10
+            });
+        }
     });
 }
 

@@ -12,13 +12,13 @@
         <div>
             <div class="title">
                 <h1 class="logo"><img src="{{ asset('storage/common/logo.png') }}" alt="{{ config('app.name') }}"></h1>
-                <p>○○なファンコミュニティ</p>
+                <p>{{ __('○○なファンコミュニティ')}}</p>
             </div>
             <ul class="btnBox">
                 @if (Route::has('login'))
                     @auth
                         @role('creator')
-                            <li><a href="{{ url('/creator/index') }}" class="btn">マイページ</a></li>
+                            <li><a href="{{ url('/creator/index') }}" class="btn">{{ __('マイページ') }}</a></li>
                         @endrole
                         @role('user')
                             <li><a href="{{ url('/user/index') }}" class="btn">マイページ</a></li>

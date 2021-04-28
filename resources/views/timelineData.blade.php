@@ -61,44 +61,60 @@ function time_ago($sec) {
 }
 ?>
 @foreach($tweets as $tweet)
-    <div class="tweet">
+    <li class="post">
         <div class="tweet_top">
-            <div class="tweet_name">
-                {{ $tweet->last_name }} / {{ $tweet->first_name }} / {{ $tweet->nickname }}
-            </div>
-            <div class="tweet_time">
-                @php
-                    echo time_ago($tweet->past_time);
-                @endphp
+            <div class="postTitle">
+                <div class="thumbnail">
+                    @if (isset($creator[0]->profile_img))
+                        <img src="{{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }}" alt="{{ $creator[0]->nickname }}">
+                    @else
+                        <img src="{{ asset('storage/icon/no_images_c.png') }}" alt="{{ $creator[0]->nickname }}">
+                    @endif
+                </div>
+                <div class="nameBox">
+                    <p class="name">{{ $tweet->nickname }}</p>
+                    <p class="time">
+                        @php
+                            echo time_ago($tweet->past_time);
+                        @endphp
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="owl-carousel owl-theme" style="width: 300px;">
-            <div class="tweet_img" style="width: 300px; height: 300px;">
-                <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet->path) }}" style="width: 100%; height: 100%;"/>
+        <div class="owl-carousel owl-theme">
+            <div class="postImgBox">
+                <img src="{{ asset('storage/images/'.$tweet->path) }}" alt="">
 {{--                @if ($tweet->file_cnt > 1)<div class="counter" style="position: absolute; top: 0px; left: 250px; color: white; background-color: rgba(16,16,16,0.5);">{{ __('1 / ') }}{{ $tweet->file_cnt }}</div>@endif--}}
-                @if ($tweet->file_cnt > 1)<div class="counter" style="position: absolute; top: 0px; left: 250px; color: white; background-color: rgba(16,16,16,0.5);"></div>@endif
+                @if ($tweet->file_cnt > 1)
+                    <div class="counter"></div>
+                @endif
             </div>
             @foreach($tweet_images as $tweet_image)
                 @if($tweet->id == $tweet_image->tweet_id)
-                    <div class="tweet_img" style="width: 300px; height: 300px;">
-                        <img class="img-thumbnail" src="{{ asset('storage/images/'.$tweet_image->path) }}" style="width: 100%; height: 100%;"/>
-                        @if ($tweet->file_cnt > 1)<div class="counter" style="position: absolute; top: 0px; left: 250px; color: white; background-color: rgba(16,16,16,0.5); z-index: 1;"></div>@endif
+                    <div class="postImgBox">
+                        <img src="{{ asset('storage/images/'.$tweet_image->path) }}" alt="">
+                        @if ($tweet->file_cnt > 1)
+                            <div class="counter"></div>
+                        @endif
                         {{-- 21.04.20 김태영, $follow === 0 미입회 user 일 때 img tag 위에 가입 안내 div 표시 --}}
                         @if($follow === 0)
-                            <div style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; color: white; background-color: rgba(16,16,16,0.5);">
-                                <div>このコンテンツを観るには</div>
-                                <div>ファンクラブへの入会が必要です。</div>
-                                <div style="background-color: white;"><a href="../../{{ $creator[0]->account_id }}{{ __('/join') }}">入会する</a></div>
-                                <div style="background-color: white;"><a href="">マイページにログイン</a></div>
-                                <div>支払い方法について</div>
+                            <div class="secretBox">
+                                <div class="inner">
+                                    <p>このコンテンツを観るには<br>ファンクラブへの入会が必要です。</p>
+                                    <ul class="btnBox">
+                                        <li><a href="../../{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn">入会する</a></li>
+                                        <li><a href="{{ url('/home') }}" class="btn">ログイン</a></li>
+                                    </ul>
+                                    <p><a href="" target="_blank">支払い方法について</a></p>
+                                </div>
                             </div>
                         @endif
                     </div>
                 @endif
             @endforeach
         </div>
-        <div class="tweet_bottom">
-            {{ $tweet->msg }}
+        <div class="textBox">
+            <div class="text moreArea">{{ $tweet->msg }}</div>
         </div>
-    </div>
+    </li>
 @endforeach

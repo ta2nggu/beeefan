@@ -1,6 +1,7 @@
 <template>
 <div>
 <!--    <textarea v-model="msg" placeholder="メッセージを入力してください"></textarea>-->
+    <p class="infoTxt">投稿後に画像の変更・並び替えはできません。</p>
     <vue-dropzone
         ref="myVueDropzone"
         id="dropzone"
@@ -11,16 +12,16 @@
         v-on:vdropzone-success="successEvent"
     >
     </vue-dropzone>
-    <div class='more' ref='more'>+</div>
+    <div class='more' ref='more'><div></div></div>
     <div class="msg">
         <textarea class="msgTextarea" v-model="msg" placeholder="テキストを入力してください (400文字以内)"></textarea>
     </div>
+
     <div class="btnDropUp">
-<!--        <button class="btn btn-success" v-on:click="processQueue" :disabled="disableUploadButton">投稿する</button>-->
-        <button class="btnUpload" v-on:click="processQueue(1)" :disabled="disableUploadButton">投稿する</button>
+        <button class="btnUpload btn btnPi" v-on:click="processQueue(1)" :disabled="disableUploadButton">投稿する</button>
     </div>
     <div class="btnDropUp">
-        <button class="btnInvisible" v-on:click="processQueue(0)" :disabled="disableUploadButton">下書き保存</button>
+        <button class="btnInvisible btn btnBorLp" v-on:click="processQueue(0)" :disabled="disableUploadButton">下書き保存</button>
     </div>
 </div>
 </template>
@@ -56,8 +57,8 @@ export default {
                 // url: 'api/DropUp',
                 //21.03.21 김태영, url 앞에 '/' 없으면 web.php 을 바라보게 됨
                 url: 'api/DropUp',
-                thumbnailWidth: 130,
-                thumbnailHeight: 130,
+                thumbnailWidth: 320,
+                thumbnailHeight: 320,
                 headers: { "My-Awesome-Header": "header value" },
                 addRemoveLinks: true,
                 autoProcessQueue: false,
@@ -322,58 +323,98 @@ export default {
 </script>
 
 <style>
+.infoTxt{
+    padding: 30px 0;
+    color: #aaaaaa;
+}
 #dropzone {
-    background-color: #ffffff;
-    border: 0px;
+    padding: 0;
+    border: none;
+    background-color: #fff;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
 }
 
-.dropzone .dz-preview.dz-image-preview  {
-    margin-bottom: 55px;
-    /*width: 50%;*/
+.dropzone .dz-preview{
+    width: 49%;
+    height: auto;
+    padding-bottom: 60px;
+    margin: 0 0 50px;
+    background-color: #fff;
+}
+.dropzone .dz-preview img {
+    width: 100%;
 }
 .dropzone .dz-preview .btnPrivate {
     cursor: pointer;
     z-index: 30;
     position: absolute;
-    border: 3px #9ac5ea solid;
+    border: 2px #9ac5ea solid;
     color:#9ac5ea;
-    /*margin-left: 135px;*/
-    margin-left: 10px;
-    /*bottom: 165px;*/
-    bottom: -45px;
+    left: 0;
+    bottom: 10px;
     background-color: #ffffff;
     border-radius: 20px;
-    font-size: 20px;
-    width: 115px;
+    font-size: 14px;
+    height: 34px;
+    line-height: 34px;
+    max-width: 200px;
+    width: 80%;
     text-align: center;
 }
 .dropzone .dz-preview .dz-remove {
     cursor: pointer;
-    border: 0px;
-    margin-left: 120px;
-    bottom: -55px;
-    font-size: 25px;
     opacity: 1;
+    font-size: 0;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    border: none;
+    width: 20%;
+    height: 36px;
+}
+.dropzone .dz-preview .dz-remove:before{
+    content: "";
+    display: block;
+    width: 70%;
+    height: 100%;
+    background: url('/storage/icon/icon_delete.png') no-repeat center/contain #fff;
+    position: absolute;
+    top: 0;
+    left: 15%;
 }
 .more {
-    display: inline-block;
-    margin: 16px;
-    /*border: 3px dashed lightgray;*/
-    border: 0px dashed lightgray;
-    width: 130px;
-    height: 130px;
-    box-sizing: border-box;
-    color: lightgray;
-    /*border-radius: 8px;*/
-    font-size: 60px;
-    text-align: center;
-    line-height: 130px;
-    /*pointer-events: none;*/
-    background-color: #f3f3f3;
+    width: 100%;
+    padding-top: 100%;
     cursor: pointer;
+    position: relative;
 }
-.more:hover {
-    background-color: #e8e8e8;
+.more div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 100%;
+    background-color: #f3f3f3;
+}
+.more div:before{
+    content: "+";
+    color: lightgray;
+    font-size: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.dz-preview + .more{
+    width: 49%;
+    padding-top: 49%;
 }
 .msg {
     margin-top: 50px;
@@ -382,6 +423,10 @@ export default {
 .msgTextarea {
     width: 100%;
     border-color: #e7e7e7;
+    height: 140px;
+    padding: 20px 5%;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 .btnDropUp {
     width: 100%;
@@ -389,52 +434,21 @@ export default {
 }
 .btnUpload {
     width: 100%;
-    color: #ffffff;
-    background-color: #b15a68;
-    border-radius: 10px;
-    border: 0px;
-    height: 50px;
-}
-.btnUpload:hover {
-    background-color: #b96b77;
+    line-height: 60px;
 }
 .btnUpload:disabled {
-    background-color: #Ddabb4;
+    opacity: 0.6;
 }
 .btnInvisible {
     width: 100%;
-    color: #e0a3ad;
-    background-color: #ffffff;
-    border-color: #e0a3ad;
-    border-radius: 10px;
-    height: 50px;
-}
-.btnInvisible:hover {
-    background-color: #f7f7f7;
+    line-height: 60px;
 }
 .dropzone .dz-preview .dz-progress {
     opacity: 0;
 }
-.dropzone .dz-preview {
-    width: 130px;
-    height: 130px;
-}
 .vue-dropzone>.dz-preview .dz-details {
     background-color: #Ddabb4;
-    /*z-index: 0;*/
-}
-.vue-dropzone>.dz-preview.dz-image-preview .dz-details {
-    /*z-index: 0;*/
     opacity: 0;
-}
-.dropzone .dz-preview:hover .dz-image img {
-    -webkit-transform: scale(1.05, 1.05);
-    -moz-transform: scale(1.05, 1.05);
-    -ms-transform: scale(1.05, 1.05);
-    -o-transform: scale(1.05, 1.05);
-    transform: scale(1.05, 1.05);
-    -webkit-filter: blur(8px);
-    filter: blur(0px);
 }
 
 </style>

@@ -1,8 +1,9 @@
 @extends('layouts.base')
 
-@section('title','Beee Fan!')
+@section('title', 'マイページ')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style_creator.css') }}">
+    <script src="{{ asset('js/main.js') }}" defer></script>
 @endsection
 @section('body','')
 
@@ -19,8 +20,16 @@
         @endif
 
         <div id="profileHeader">
-            <div class="imgbox" style="background-image: url({{ asset('storage/test/test_creater_profile_header.jpeg') }})">
-                <div class="thumbnail"><img src="{{ asset('storage/test/test_creater_profile_thumbnail.jpeg') }}" alt="クリエイターニックネーム"></div>
+            @if (isset($user[0]->background_img))
+                <div class="imgbox" style="background-image: url({{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }})">
+            @else
+                <div class="imgbox">
+            @endif
+                @if (isset($user[0]->profile_img))
+                    <div class="thumbnail"><img src="{{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->profile_img) }}" alt="{{ $user[0]->nickname }}"></div>
+                @else
+                    <div class="thumbnail"><img src="{{ asset('storage/icon/no_images_c.png') }}" alt="{{ $user[0]->nickname }}"></div>
+                @endif
             </div>
         </div>
         <div id="profileBox">
@@ -58,19 +67,18 @@
         </div>
         <!--postList(parts)-->
         <div id="postList">
-            <ul>
+            <ul class="post-data">
                 @include('creator/indexData')
             </ul>
-            <div class="ajax-load-center">
-                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="データを持ってきています。"></div>
+            <div class="ajax-load">
+                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
             </div>
         </div>
-        <div id="bottomCreatorMypage" class="bottomFixed">
-            <ul class="inner">
-                <li><a href="{{ url('/creator/write') }}" class="pCreate">投稿する</a></li>
-                <li><a href="/{{ $user[0]->account_id }}/timeline/0" class="post">タイムライン</a></li>
-                <li><a href="{{ url('/creator/index') }}" class="mypage">マイページ</a></li>
-            </ul>
-        </div>
+
+        @component ('components.bottomFixed')
+            @slot('bottomFixed_id')
+                {{ $user[0]->account_id }}
+            @endslot
+        @endcomponent
     </div><!--/contentWrap-->
 @endsection

@@ -34,7 +34,8 @@ function loadMoreData(page) {
     }
   }).done(function (data) {
     if (data.html.trim() == "") {
-      $(".ajax-load").html("これ以上のレコードが見つかりません");
+      //21.04.27 kon, 注意文言なし
+      $(".ajax-load").html("");
       return;
     }
 
@@ -107,14 +108,16 @@ if ($(".post-data").length > 0) {
     // $('.owl-carousel').owlCarousel 선언이 없다면  div class에 owl-loaded owl-drag 안생긴다. image slider를 사용할 수 없음
 
 
-    $('.owl-carousel').owlCarousel({
-      center: true,
-      items: 1,
-      loop: true,
-      onInitialized: counter,
-      onTranslated: counter,
-      margin: 10
-    });
+    if ($(".owl-carousel").length > 0) {
+      $('.owl-carousel').owlCarousel({
+        center: true,
+        items: 1,
+        loop: true,
+        onInitialized: counter,
+        onTranslated: counter,
+        margin: 10
+      });
+    }
   });
 }
 

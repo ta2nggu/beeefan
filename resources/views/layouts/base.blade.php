@@ -7,7 +7,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
+    <title>
+        @if(isset( $title ))
+            {{ config('app.name') }}
+        @else
+            @yield('title') | {{ config('app.name') }}
+        @endif
+    </title>
     <meta name="description" content="">
 
     <link rel="icon" href="../../img/common/favicon.ico">

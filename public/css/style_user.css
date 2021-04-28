@@ -286,11 +286,17 @@ body {
 
 #header {
   width: 100%;
-  height: 60px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 56px;
   background-color: #fff;
-  position: absolute;
+  border-bottom: 1px solid #ededed;
+  position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -368,17 +374,17 @@ body {
 }
 
 #header .nav .icon.login {
-  background-image: url(/images/icon_login.png?7ff5119eb9956246e58fd899fcd49ead);
+  background-image: url(/images/icon_login.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #header .nav .icon.menu {
-  background-image: url(/images/icon_menu.png?0e5a2f52774b1704d3c671898595cb04);
+  background-image: url(/images/icon_menu.png?31d6cfe0d16ae931b73c59d7e0c089c0);
   transition: all 0.4s;
   cursor: pointer;
 }
 
 #header .nav .icon.menu.active {
-  background-image: url(/images/icon_close.png?4591953d4706dbfb9f6d4c9cc9fc21d9);
+  background-image: url(/images/icon_close.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #menuDrawerContent {
@@ -386,19 +392,15 @@ body {
   margin-left: auto;
   margin-right: auto;
   position: fixed;
-  bottom: -100%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  right: 0;
   background-color: #fff;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 10;
-  padding-top: 70px;
+  padding-top: 56px;
   transition: all 0.6s ease-in-out;
-}
-
-#menuDrawerContent.active {
-  bottom: 0;
+  display: none;
 }
 
 #menuDrawerContent li {
@@ -425,11 +427,11 @@ body {
 }
 
 #menuDrawerContent li a.icon_mypage:before {
-  background-image: url(/images/icon_user.png?c42822e0297a2597b69dbd52dc750c6a);
+  background-image: url(/images/icon_user.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #menuDrawerContent li a.icon_post:before {
-  background-image: url(/images/icon_grid.png?416afbc897047d03dccd45ef0a7f8e70);
+  background-image: url(/images/icon_grid.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #menuDrawerContent li a.icon_setting:before {
@@ -437,19 +439,19 @@ body {
 }
 
 #menuDrawerContent li a.icon_draft:before {
-  background-image: url(/images/icon_hidden.png?8d7b929a324e981d9cd98bc86e7bc6f1);
+  background-image: url(/images/icon_hidden.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #menuDrawerContent li a.icon_help:before {
-  background-image: url(/images/icon_help.png?d8ebd099b6241871bcaa75e20090eb1f);
+  background-image: url(/images/icon_help.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #menuDrawerContent li a.icon_rule:before {
-  background-image: url(/images/icon_scroll.png?92ba4ca819036e0f56b2217386eab2d8);
+  background-image: url(/images/icon_scroll.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #menuDrawerContent li a.icon_policy:before {
-  background-image: url(/images/icon_lock.png?5c227e37f048958259f9f22fed81fb16);
+  background-image: url(/images/icon_lock.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #menuDrawerContent li a.icon_law:before {
@@ -457,7 +459,7 @@ body {
 }
 
 #menuDrawerContent li a.icon_logout:before {
-  background-image: url(/images/icon_logout.png?537ec2b7da6a7e9691191a7b8723aab6);
+  background-image: url(/images/icon_logout.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 /*contentWrap*
@@ -466,7 +468,7 @@ body {
 #contentWrap {
   overflow: hidden;
   min-height: 100vh;
-  padding: 60px 0 70px;
+  padding: 56px 0 70px;
 }
 
 .view1 {
@@ -489,9 +491,9 @@ body {
 }
 
 .view1 #contentWrap .title .logo {
-  width: 60%;
-  max-width: 240px;
-  margin: 0 auto 10px;
+  width: 40%;
+  max-width: 200px;
+  margin: 0 auto 15px;
 }
 
 .view1 #contentWrap .title .txtTitle {
@@ -590,6 +592,42 @@ body {
   background: no-repeat center/cover;
 }
 
+#bottomCreatorMypage {
+  background-color: #faf0ef;
+}
+
+#bottomCreatorMypage li {
+  color: #aaaaaa;
+}
+
+#bottomCreatorMypage li a.pCreate:before {
+  background-image: url(/images/icon_grid_pi.png?6cdc9e55f12f08ed0b8db5aa594fdc88);
+}
+
+#bottomCreatorMypage li a.post:before {
+  background-image: url(/images/icon_time_pi.png?0e9f5155045b6f4d4361a72b0e6df5be);
+}
+
+#bottomCreatorMypage li a.mypage:before {
+  background-image: url(/images/icon_user_pi.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+}
+
+#bottomAdminMypage {
+  background-color: #f4f4f4;
+}
+
+#bottomAdminMypage li {
+  color: #aaaaaa;
+}
+
+#bottomAdminMypage li a.mypage:before {
+  background-image: url(/images/icon_user.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+}
+
+#bottomAdminMypage li a.setting:before {
+  background-image: url(/images/icon_setting.png?c564d309ee1b38395658a898b4d966e8);
+}
+
 /*btn *****
 ********************************/
 
@@ -611,6 +649,27 @@ body {
   padding-top: 10px;
   line-height: 22px;
   font-size: 1em;
+}
+
+button.btn {
+  -webkit-box-sizing: content-box;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+       appearance: button;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  padding: 0;
+  border: none;
+}
+
+button.btn:focus {
+  outline: none;
+}
+
+button.btn:not(.btnBor) {
+  border: none;
 }
 
 .btnCircle {
@@ -671,11 +730,24 @@ body {
   color: #fff;
 }
 
-/*loadingIcon*/
+.noDateText {
+  color: #aaaaaa;
+}
+
+/*loading*/
+
+.ajax-load {
+  margin-top: 20px;
+  height: 50px;
+  position: relative;
+}
 
 .loadingIcon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 50px;
-  margin: 20px auto;
 }
 
 /*form *****
@@ -776,21 +848,23 @@ body {
   background-color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.formBox input[type=radio] {
+.formBox input[type=radio],
+.formBox input[type=checkbox] {
   display: none;
 }
 
-.formBox input[type=radio] + label {
+.formBox input[type=radio] + label,
+.formBox input[type=checkbox] + label {
   position: relative;
   padding-left: 40px;
 }
 
-.formBox input[type=radio] + label::before {
+.formBox input[type=radio] + label::before,
+.formBox input[type=checkbox] + label::before {
   content: "";
   display: block;
   width: 26px;
   height: 26px;
-  border-radius: 50%;
   border: 1px solid #ededed;
   position: absolute;
   top: 50%;
@@ -800,7 +874,12 @@ body {
   transition: 0.3s;
 }
 
-.formBox input[type=radio] + label::after {
+.formBox input[type=radio] + label::before {
+  border-radius: 50%;
+}
+
+.formBox input[type=radio] + label::after,
+.formBox input[type=checkbox] + label::after {
   position: absolute;
   content: "";
   display: block;
@@ -810,16 +889,17 @@ body {
   border-right: 3px solid #fff;
   border-bottom: 3px solid #fff;
   left: 9px;
-  top: 49%;
+  top: 48%;
   transition: 0.3s;
+}
+
+.formBox input[type=radio]:checked + label::after,
+.formBox input[type=checkbox]:checked + label::after {
+  transform: translateY(-50%) rotate(45deg) scale(1, 1);
 }
 
 .formBox input[type=radio]:checked + label::before {
   background-color: #9bc5eb;
-}
-
-.formBox input[type=radio]:checked + label::after {
-  transform: translateY(-50%) rotate(45deg) scale(1, 1);
 }
 
 .formBox.normalFormBox {
@@ -1100,11 +1180,11 @@ body {
 }
 
 #postList ul li.postMulti a:before {
-  background-image: url(/images/icon_pictures.png?ff05b8d5954b138b1df3007f9aa63953);
+  background-image: url(/images/icon_pictures.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #postList ul li.postVideo a:before {
-  background-image: url(/images/icon_video.png?7ab382363dd9be5546b4ba9ac162f436);
+  background-image: url(/images/icon_video.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 /*postBox *****
@@ -1153,9 +1233,27 @@ body {
   color: #aaaaaa;
 }
 
+#postBox .post .counter {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 60px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  z-index: 1;
+}
+
 #postBox .post .secretBox {
+  width: 100%;
   padding-top: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   background: linear-gradient(#dfa4ad, #9bc5eb);
 }
 
@@ -1208,7 +1306,7 @@ body {
 }
 
 #bottomCreatorMypage li a.mypage:before {
-  background-image: url(/images/icon_user_pi.png?b2fe26aed399f0d358aa8e17b87b7d56);
+  background-image: url(/images/icon_user_pi.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 /*新規投稿・投稿修正*

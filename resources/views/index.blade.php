@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title','Beee Fan!')
+@section('title','○○なファンコミュニティ')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection

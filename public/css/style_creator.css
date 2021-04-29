@@ -272,12 +272,17 @@ body {
   font-style: normal;
 }
 
+a:hover {
+  color: inherit;
+}
+
 #wrapper {
   max-width: 640px;
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
   position: relative;
+  background-color: #fff;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -455,7 +460,7 @@ body {
 }
 
 #menuDrawerContent li a.icon_law:before {
-  background-image: url(/images/icon_book.png?21a1daf556e68bcde40a3e728dbb5d1f);
+  background-image: url(/images/icon_book.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #menuDrawerContent li a.icon_logout:before {
@@ -637,6 +642,7 @@ body {
   border-radius: 10px;
   height: 64px;
   line-height: 64px;
+  padding: 0;
   background-color: #f4f4f4;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
@@ -649,6 +655,10 @@ body {
   padding-top: 10px;
   line-height: 22px;
   font-size: 1em;
+}
+
+.btn:hover {
+  color: inherit !important;
 }
 
 button.btn {
@@ -670,6 +680,10 @@ button.btn:focus {
 
 button.btn:not(.btnBor) {
   border: none;
+}
+
+button.btn:hover {
+  color: inherit !important;
 }
 
 .btnCircle {
@@ -708,6 +722,11 @@ button.btn:not(.btnBor) {
 .btnBorGy {
   border-color: #ededed;
   color: #aaaaaa;
+}
+
+.btnBk {
+  background-color: #2e2c2a;
+  color: #fff;
 }
 
 .btnPi {
@@ -848,6 +867,20 @@ button.btn:not(.btnBor) {
   background-color: rgba(255, 255, 255, 0.7) !important;
 }
 
+.formBox .readonlyBox {
+  padding-top: 10px;
+}
+
+.formBox .readonlyBox .readonly {
+  padding-top: 5px;
+  bottom: 5px;
+  border: none !important;
+}
+
+.formBox .readonlyBox .inputCss {
+  padding: 5px 10px;
+}
+
 .formBox input[type=radio],
 .formBox input[type=checkbox] {
   display: none;
@@ -948,6 +981,18 @@ button.btn:not(.btnBor) {
   border: 1px solid #ededed !important;
 }
 
+.formBox.normalFormBox .nameBox {
+  display: flex;
+}
+
+.formBox.normalFormBox .nameBox input {
+  width: 100%;
+}
+
+.formBox.normalFormBox .nameBox input:not(:first-of-type) {
+  margin-left: 10px;
+}
+
 .formBox.normalFormBox .sexBox {
   padding: 5px 0 10px;
 }
@@ -970,6 +1015,17 @@ button.btn:not(.btnBor) {
 
 .formBox.normalFormBox .btnBox {
   margin-top: 40px;
+}
+
+/*errow *****
+********************************/
+
+.invalid-feedback {
+  font-size: 0.9em;
+  text-align: left;
+  display: block;
+  margin: 5px 0;
+  color: #b15a68;
 }
 
 /*moreArea *****
@@ -1023,6 +1079,16 @@ button.btn:not(.btnBor) {
   border-radius: 50%;
   border: 3px solid #dfa4ad;
   overflow: hidden;
+  height: 78%;
+}
+
+#profileHeader .imgbox div img {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
 }
 
 /*profileBox*/
@@ -1286,6 +1352,42 @@ button.btn:not(.btnBor) {
   padding: 10px 0 20px;
 }
 
+/* 21.04.29 kondo, Overrides the Modal */
+
+.modal-content {
+  border-radius: 20px;
+}
+
+.modal-header {
+  display: block;
+  border-bottom: none;
+}
+
+.modal-header .titleText {
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.modal-header .close {
+  position: absolute;
+  top: 20px;
+  right: 5%;
+}
+
+.modal-footer {
+  display: block;
+  border-top: none;
+}
+
+.modal-footer.btnBox {
+  width: 280px;
+  width: 70%;
+  margin: 0 auto;
+}
+
 /*新規投稿・投稿修正*
 *******************************/
 
@@ -1308,6 +1410,125 @@ button.btn:not(.btnBor) {
 
 #postCreate .post li:nth-of-type(2n) {
   margin-left: 2%;
+}
+
+/*プロフィール修正*
+*******************************/
+
+#profileEditImg {
+  position: relative;
+}
+
+#profileEditImg input {
+  display: none;
+}
+
+#profileEditImg label {
+  cursor: pointer;
+  display: block;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #faf0ef;
+}
+
+#profileEditImg label:after {
+  content: "";
+  display: block;
+  width: 34px;
+  height: 34px;
+  background: url(/images/icon_camera.png?6a136a431e2180ef4ba95685380cd447) no-repeat center/cover;
+  position: absolute;
+}
+
+#profileEditImg img {
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+#profileEditImg .background_img {
+  position: relative;
+  padding-bottom: 46%;
+  overflow: hidden;
+}
+
+#profileEditImg .background_img label:after {
+  bottom: 10px;
+  right: 20px;
+}
+
+#profileEditImg .profile_img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 36%;
+  height: 78%;
+  border-radius: 50%;
+  border: 3px solid #dfa4ad;
+  overflow: hidden;
+}
+
+#profileEditImg .profile_img label:after {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.profileEdit .normalFormBox {
+  width: 100%;
+  max-width: none;
+}
+
+#profileEditText {
+  padding-top: 23%;
+  background-color: #fff;
+}
+
+#profileEditText dd > a {
+  text-align: right;
+  margin-top: 10px;
+  display: block;
+  color: #aaaaaa;
+  text-decoration: underline;
+}
+
+#profileEditText .nav-link {
+  text-align: left;
+  padding: 10px 0 0;
+}
+
+#profileEditText .nav-link:before {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  vertical-align: -8px;
+  margin-right: 10px;
+  background: url(/images/icon_add.png?1929369870c3e8b2d91f199b7f79faa6) no-repeat center/80% #dfa4ad;
+}
+
+#instruction {
+  width: 100%;
+  height: 200px;
+  overflow: scroll;
+  border-radius: 5px;
+  padding: 15px 10px;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid #ededed;
+  background-color: #fff;
+}
+
+#instruction a {
+  color: #b15a68;
+  text-decoration: underline;
 }
 
 

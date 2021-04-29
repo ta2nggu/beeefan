@@ -6,6 +6,7 @@
     border-radius: 10px;
     height: 64px;
     line-height: 64px;
+    padding: 0;
     background-color: $color_b_bk;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     @include font_head;
@@ -14,6 +15,9 @@
         padding-top: 10px;
         line-height: 22px;
         font-size: 1em;
+    }
+    &:hover{
+        color: inherit !important;
     }
 }
 button.btn {
@@ -31,6 +35,9 @@ button.btn {
     }
     &:not(.btnBor){
         border: none;
+    }
+    &:hover{
+        color: inherit !important;
     }
 }
 .btnCircle{
@@ -62,6 +69,7 @@ button.btn {
 }
 .btnBorLp{ border-color: $color_c_sub; color: $color_c_sub;}
 .btnBorGy{ border-color: $color_b_sub2; color: $color_b_sub;}
+.btnBk{ background-color: $color_b; color: #fff;}
 .btnPi{ background-color: $color_c; color: #fff;}
 .btnLp{ background-color: $color_c_sub; color: #fff;}
 .btnBl{ background-color: $color_f; color: #fff;}
@@ -83,7 +91,6 @@ button.btn {
     transform: translateX(-50%);
     width: 50px;
 }
-
 
 /*form *****
 ********************************/
@@ -122,6 +129,17 @@ button.btn {
         border-radius: 5px;
         padding: 15px 10px;
         background-color: rgba(#fff,0.7) !important;
+    }
+    .readonlyBox{
+        padding-top: 10px;
+        .readonly{
+            padding-top:5px;
+            bottom:5px;
+            border: none !important;
+        }
+        .inputCss{
+            padding: 5px 10px;
+        }
     }
     input[type="radio"],input[type="checkbox"]{
         display: none;
@@ -210,6 +228,15 @@ button.btn {
     input{
         border: 1px solid $color_b_sub2 !important;
     }
+    .nameBox{
+        @include flex;
+        input{
+            width: 100%;
+            &:not(:first-of-type){
+                margin-left: 10px;
+            }
+        }
+    }
     .sexBox{
         padding: 5px 0 10px;
     }
@@ -228,6 +255,16 @@ button.btn {
     .btnBox{
         margin-top: $mg*2;
     }
+}
+
+/*errow *****
+********************************/
+.invalid-feedback{
+    font-size: 0.9em;
+    text-align: left;
+    display: block;
+    margin: 5px 0;
+    color: $color_c;
 }
 
 /*moreArea *****
@@ -267,11 +304,20 @@ button.btn {
             position: absolute;
             bottom: 0;
             left: 50%;
-            transform: translate(-50%,50%);
+            transform: translate(-50%, 50%);
             width: 36%;
             border-radius: 50%;
-            border: 3px solid $color_c_sub;
+            border: 3px solid #dfa4ad;
             overflow: hidden;
+            height: 78%;
+            img{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                width: 100%;
+            }
         }
     }
 }
@@ -472,5 +518,33 @@ button.btn {
             @include wrap_s;
             padding: 10px 0 20px;
         }
+    }
+}
+
+/* 21.04.29 kondo, Overrides the Modal */
+.modal-content{
+    border-radius: 20px;
+}
+.modal-header{
+    display: block;
+    border-bottom: none;
+    .titleText {
+        @include font_head;
+        text-align: center;
+        font-size: 1.2em;
+    }
+    .close{
+        position: absolute;
+        top: 20px;
+        right: 5%;
+    }
+}
+.modal-footer{
+    display: block;
+    border-top: none;
+    &.btnBox{
+        width: 280px;
+        width: 70%;
+        margin: 0 auto;
     }
 }

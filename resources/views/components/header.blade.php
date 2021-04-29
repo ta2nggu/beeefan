@@ -15,6 +15,6 @@
             <li><span id="menuDrawer" class="icon menu">メニュー</span></li>
         @endguest
     </ul>
-    @component ('components.header_nav')
+    @component ('components.headerNav')
     @endcomponent
 </header>

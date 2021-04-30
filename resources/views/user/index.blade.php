@@ -1,18 +1,56 @@
-@extends('layouts.app')
+@extends('layouts.base')
+
+@section('title', 'マイページ')
+@section('pageCss')
+    <link rel="stylesheet" href="{{ asset('css/style_user.css') }}">
+    <script src="{{ asset('js/main.js') }}" defer></script>
+@endsection
+@section('body','')
 
 @section('content')
-    <div>
-        <h2>{{ __("MEMBER'S CARD") }}</h2>
-        <h3>{{ $user->account_id }}</h3>
-        <div>アカウントID</div>
-    </div>
-    <div>
-        <h2>{{ __('入会済みファンクラブ') }}</h2>
-        <div class="post-data">
-            @include('user/indexData')
+    @component ('components.header')
+    @endcomponent
+    <!--contentWrap-->
+    <div id="contentWrap">
+
+        <div class="flashMsg">
+            <p>パスワードの変更が完了しました</p>
         </div>
-        <div class="ajax-load text-center">
-            <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
+
+        <div id="infoBox">
+            <ul>
+                <li>
+                    <p class="ttl">title</p>
+                    <p class="txt">text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,</p>
+                </li>
+                <li>
+                    <p class="ttl">title</p>
+                    <p class="txt">text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,</p>
+                </li>
+            </ul>
         </div>
-    </div>
+
+        <div id="memberCard">
+            <div class="inner">
+                <h2>{{ __("MEMBER'S CARD") }}</h2>
+                <div class="box">
+                    <p class="id">{{ $user->account_id }}</p>
+                    <p>{{ __("アカウントID") }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="fanclubList">
+            <h2>{{ __('入会済みファンクラブ') }}</h2>
+            <ul class="post-data">
+                @include('user/indexData')
+            </ul>
+            <div class="ajax-load">
+                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+            </div>
+        </div>
+
+        @component ('components.bottomFixed')
+        @endcomponent
+    </div><!--/contentWrap-->
 @endsection

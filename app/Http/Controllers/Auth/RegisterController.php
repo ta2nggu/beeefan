@@ -57,7 +57,9 @@ class RegisterController extends Controller
         return Validator::make($data, [
 //            'name' => ['required', 'string', 'max:255'],
 //        21.04.04 김태영, account_id, prefecture_id 추가, nickname 제거
+//        21.04.29 kondo, sex 추가
             'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/'],
+            'sex' => ['required'],
             'prefecture_id' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],

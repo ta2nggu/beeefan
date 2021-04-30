@@ -4,7 +4,7 @@
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
-@section('body','view1 login fan')
+@section('body','view1 login')
 
 @section('content')
     <!--contentWrap-->

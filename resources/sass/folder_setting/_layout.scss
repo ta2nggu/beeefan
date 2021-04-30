@@ -137,7 +137,9 @@ a:hover{
             }
             &.icon_mypage:before{background-image: url("icon_user.png");}
             &.icon_post:before{background-image: url("icon_grid.png");}
-            &.icon_setting:before{background-image: url("icon/icon_setting.png");}
+            &.icon_setting:before{background-image: url("icon_setting.png");}
+            &.icon_card:before{background-image: url("icon_card.png");}
+            &.icon_payment:before{background-image: url("icon_payment.png");}
             &.icon_draft:before{background-image: url("icon_hidden.png");}
             &.icon_help:before{background-image: url("icon_help.png");}
             &.icon_rule:before{background-image: url("icon_scroll.png");}
@@ -154,6 +156,14 @@ a:hover{
     overflow: hidden;
     min-height: 100vh;
     padding: 56px 0 70px;
+    &.contentTopMar{
+        padding-top: 90px;
+        @include flex;
+        @include ac;
+        &>div{
+            width: 100%;
+        }
+    }
 }
 .view1{
     overflow: hidden;
@@ -267,6 +277,21 @@ a:hover{
         }
     }
 }
+#bottomUserMypage {
+    background-color: $color_f_bk;
+    li{
+        color: $color_f_sub;
+        a{
+            &.post:before{
+                background-image: url("icon_time_bl.png");
+            }
+            &.mypage:before{
+                background-image: url("icon_user_bl.png");
+            }
+        }
+    }
+}
+
 #bottomAdminMypage {
     background-color: $color_b_bk;
     li{

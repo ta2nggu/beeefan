@@ -1,37 +1,82 @@
 
-/*クリエイターマイページ*
+/*マイページ*
 *******************************/
-#bottomCreatorMypage {
-    background-color: $color_c_bk;
+/*お知らせ*/
+#infoBox{
     li{
-        color: $color_b_sub;
-        a{
-            &.pCreate:before{
-                background-image: url("icon_grid_pi.png");
+        color: $color_c;
+        background-color: $color_c_bk;
+        &:nth-of-type(even){
+            background-color: #eedee1;
+        }
+        p{
+            @include wrap_inner;
+        }
+        .ttl{
+            padding: 8px 0 ;
+            position: relative;
+            &:before{
+                content: "※";
             }
-            &.post:before{
-                background-image: url("icon_time_pi.png");
+            &:after{
+                content: "";
+                display: block;
+                width: 24px;
+                height: 24px;
+                background: url("icon_close_pi.png") no-repeat center/cover;
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%) rotate(45deg);
+                transition: all 0.4s;
             }
-            &.mypage:before{
-                background-image: url("icon_user_pi.png");
+            &.active{
+                &:after {
+                    transform: translateY(-50%) rotate(0);
+                }
             }
+        }
+        .txt{
+            overflow-wrap: break-word;
+            padding-bottom: 10px;
+            display: none;
         }
     }
 }
-
-/*新規投稿・投稿修正*
-*******************************/
-#postCreate{
-    @include wrap_inner;
-    .post{
-        @include flex;
-        @include fw;
-        li{
-            width: 49%;
-            margin-bottom: 2%;
-            &:nth-of-type(2n){
-                margin-left: 2%
-            }
+/*お知らせ*/
+#memberCard{
+    margin-top: $mg*2;
+    .inner{
+        @include wrap_inner;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        overflow: hidden;
+        text-align: center;
+    }
+    h2{
+        background-color: $color_f_sub;
+        color: #fff;
+        font-size: 1.1em;
+        padding: 10px 0;
+        @include font_head;
+    }
+    .box{
+        padding: 20px 0;
+        p:nth-of-type(2){
+            color: $color_b_sub;
+            font-size: 0.8em;
+        }
+    }
+    .id{
+        @include font_head;
+        font-size: 1.3em;
+        &:before{
+            content: "";
+            display: block;
+            width: 30px;
+            height: 30px;
+            background: url("icon_user.png") no-repeat center/cover;
+            margin: 0 auto 5px;
         }
     }
 }

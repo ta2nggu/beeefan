@@ -62,6 +62,10 @@ Route::post('/admin/creatorReg', [App\Http\Controllers\AdminController::class, '
 use App\Http\Controllers\PagesController;
 Route::get('/creator/login', [PagesController::class, 'creatorLogin'])->name('creator_login');
 Route::get('/admin/login', [PagesController::class, 'adminLogin'])->name('admin_login');
+Route::get('/page/rule', [PagesController::class, 'pageRule'])->name('pageRule');
+Route::get('/page/policy', [PagesController::class, 'pagePolicy'])->name('pagePolicy');
+Route::get('/page/law', [PagesController::class, 'pageLaw'])->name('pageLaw');
+Route::get('/page/help', [PagesController::class, 'pageHelp'])->name('pageHelp');
 
 //21.04.26 김태영
 Route::get('/password/change', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');

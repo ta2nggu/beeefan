@@ -1,48 +1,59 @@
-@extends('layouts.app')
+@extends('layouts.base')
+
+@section('title','メールアドレス変更')
+@section('pageCss')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+@endsection
+@section('body','')
 
 @section('content')
-    <h1>メールアドレス変更</h1>
+    @component ('components.header')
+        @slot('header_title')
+            {{ __('メールアドレス変更') }}
+        @endslot
+    @endcomponent
 
-    <h2>{{ __('現在のメールアドレス') }}</h2>
-    <h3>{{ $user[0]->email }}</h3>
+    <!--contentWrap-->
+    <div id="contentWrap" class="contentTopMar">
+        <div>
+            <form method="POST" action="{{ __('/email/change') }}" class="formBox normalFormBox">
+                @csrf
 
-    <form method="POST" action="{{ __('/email/change') }}" >
-        @csrf
+                <dl class="readonlyBox">
+                    <dt>{{ __('現在のメールアドレス') }}</dt>
+                    <dd><p class="readonly inputCss">{{ $user[0]->email }}</p></dd>
+                </dl>
+                <dl>
+                    <dt><label for="new_email">{{__('新しいメールアドレス')}}</label><span class="required">{{ __("必須") }}</span></dt>
+                    <dd>
+                        <input id="new_email" type="text" class="form-control" name="email" autocomplete="off">
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><label for="confirm_email">{{__('新しいメールアドレス(確認)')}}</label><span class="required">{{ __("必須") }}</span></dt>
+                    <dd><input id="confirm_email" type="text" class="form-control" name="confirm_email" autocomplete="off"></dd>
+                </dl>
 
-        @foreach ($errors->all() as $error)
-            <p class="text-danger">{{ $error }}</p>
-        @endforeach
+                @foreach ($errors->all() as $error)
+                    <span class="invalid-feedback" role="alert"><strong>{{ $error }}</strong></span>
+                @endforeach
 
-        <div class="form-group row">
-            <label for="new_email" class="col-md-4 col-form-label text-md-right">{{__('新しいメールアドレス')}}</label>
+                <ul class="btnBox">
+                    @role('creator')
+                        <li><button type="submit" class="btn btnPi">{{ __('変更する') }}</button></li>
+                        <li><button onclick="history.back();" class="btn btnBor btnBorLp">{{ __('変更せずに戻る') }}</button></li>
+                    @endrole
+                    @role('user')
+                        <li><button type="submit" class="btn btnBl">{{ __('変更する') }}</button></li>
+                        <li><button onclick="history.back();" class="btn btnBor btnBorGy">{{ __('変更せずに戻る') }}</button></li>
+                    @endrole
+                    @role('administrator')
+                        <li><button type="submit" class="btn btnAd">{{ __('変更する') }}</button></li>
+                        <li><button onclick="history.back();" class="btn btnBor btnBorGy">{{ __('変更せずに戻る') }}</button></li>
+                    @endrole
+                </ul>
+            </form>
 
-            <div class="col-md-6">
-                <input id="new_email" type="text" class="form-control" name="email" autocomplete="off">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="confirm_email" class="col-md-4 col-form-label text-md-right">{{__('新しいメールアドレス(確認)')}}</label>
-
-            <div class="col-md-6">
-                <input id="confirm_email" type="text" class="form-control" name="confirm_email" autocomplete="off">
-            </div>
-        </div>
-
-        <div class="form-group row mb-0">
-            <div class="col-md-8 offset-md-4">
-                <button type="submit" class="btn btn-primary">
-                    変更する
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <div class="form-group row mb-0">
-        <div class="col-md-8 offset-md-4">
-            <button class="btn btn-secondary" onclick="history.back();">
-                変更せずに戻る
-            </button>
-        </div>
-    </div>
+        </div><!--/contentWrap-->
+    </div><!--/contentWrap-->
 @endsection

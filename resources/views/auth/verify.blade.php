@@ -1,33 +1,40 @@
-@extends('layouts.app')
+@extends('layouts.base')
+
+@section('title','仮登録完了')
+@section('pageCss')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+@endsection
+@section('body','view1')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-{{--                <div class="card-header">{{ __('Verify Your Email Address') }}</div>--}}
-                <div class="card-header">{{ __('メールを認証してください。') }}</div>
 
-                <div class="card-body">
+    <!--contentWrap-->
+    <div id="contentWrap">
+        <div>
+            <div id="stepBox">
+                <div class="normalTitleBox">
+                    <h2>{{ __("仮登録完了") }}</h2>
                     @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-{{--                            {{ __('A fresh verification link has been sent to your email address.') }}--}}
-                            {{ __('継続する前に、Eメールから確認リンクを確認してください。 もしあなたがメールをもらえなかったら') }}
-                        </div>
+                        <p>{!! ("ご登録いただいたメールアドレスに<br>受信確認用メールを送信しました。<br>メールが届かない場合は下記の宛先まで<br>お問い合わせください。<br>beeefun@example.com") !!}</p>
+                    @else
+                        <p>{!! ("ご登録いただいたメールアドレスに<br>受信確認用メールを送信しました。<br>メールに記載されたURLから<br>BeeeFan!への登録を完了してください。") !!}</p>
                     @endif
-
-{{--                    {{ __('Before proceeding, please check your email for a verification link.') }}--}}
-{{--                    {{ __('If you did not receive the email') }},--}}
-                    {{ __('継続する前に、Eメールから確認リンクを確認してください。') }}
-                    {{ __('もしあなたがメールをもらえなかったら') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-{{--                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.--}}
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('他の要請は、こちらをクリックしてください。') }}</button>.
-                    </form>
                 </div>
+                <ol>
+                    <li></li>
+                    <li class="active"><p>{{ __("仮登録完了") }}</p></li>
+                    <li></li>
+                    <li></li>
+                </ol>
             </div>
+
+            <form class="formBox" method="POST" action="{{ route('verification.resend') }}">
+                @csrf
+                <ul class="btnBox wrap_inner">
+                    <li><button type="submit" class="btn btnS btnCircle btnBorGy">{{ __('メールを再度送信する') }}</button></li>
+                </ul>
+            </form>
         </div>
-    </div>
-</div>
+
+    </div><!--/contentWrap-->
 @endsection

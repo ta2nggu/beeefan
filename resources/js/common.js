@@ -29,4 +29,22 @@ $(function() {
     });
 });
 
+//infoBox
+$(function() {
+    $('#infoBox .ttl').on('click', function() {
+        $(this).toggleClass('active');
+        $(this).next().slideToggle();
+    });
+});
+
+//infoBox
+$(function() {
+    $('.helpBox dt').on('click', function() {
+        $(this).toggleClass('active');
+        $(this).next().slideToggle();
+    });
+});
+
+
+
 

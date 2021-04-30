@@ -21,7 +21,7 @@
                             <li><a href="{{ url('/creator/index') }}" class="btn">{{ __('マイページ') }}</a></li>
                         @endrole
                         @role('user')
-                            <li><a href="{{ url('/user/index') }}" class="btn">マイページ</a></li>
+                            <li><a href="{{ url('/mypage') }}" class="btn">マイページ</a></li>
                         @endrole
                         @role('administrator')
                             <li><a href="{{ url('/admin/index') }}" class="btn">マイページ</a></li>
@@ -34,7 +34,7 @@
                             </form>
                         </li>
                     @else
-                        <li><a href="{{ url('/home') }}" class="btn">ログイン</a></li>
+                        <li><a href="{{ url('/login') }}" class="btn">ログイン</a></li>
                         @if (Route::has('register'))
                             <li><a href="{{ route('register') }}" class="btn">新規会員登録</a></li>
                         @endif

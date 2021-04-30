@@ -379,11 +379,11 @@ a:hover {
 }
 
 #header .nav .icon.login {
-  background-image: url(/images/icon_login.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url(/images/icon_login.png?7ff5119eb9956246e58fd899fcd49ead);
 }
 
 #header .nav .icon.menu {
-  background-image: url(/images/icon_menu.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url(/images/icon_menu.png?0e5a2f52774b1704d3c671898595cb04);
   transition: all 0.4s;
   cursor: pointer;
 }
@@ -440,7 +440,15 @@ a:hover {
 }
 
 #menuDrawerContent li a.icon_setting:before {
-  background-image: url(/images/icon_setting.png?c564d309ee1b38395658a898b4d966e8);
+  background-image: url(/images/icon_setting.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+}
+
+#menuDrawerContent li a.icon_card:before {
+  background-image: url(/images/icon_card.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+}
+
+#menuDrawerContent li a.icon_payment:before {
+  background-image: url(/images/icon_payment.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #menuDrawerContent li a.icon_draft:before {
@@ -448,19 +456,19 @@ a:hover {
 }
 
 #menuDrawerContent li a.icon_help:before {
-  background-image: url(/images/icon_help.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url(/images/icon_help.png?d8ebd099b6241871bcaa75e20090eb1f);
 }
 
 #menuDrawerContent li a.icon_rule:before {
-  background-image: url(/images/icon_scroll.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url(/images/icon_scroll.png?92ba4ca819036e0f56b2217386eab2d8);
 }
 
 #menuDrawerContent li a.icon_policy:before {
-  background-image: url(/images/icon_lock.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url(/images/icon_lock.png?5c227e37f048958259f9f22fed81fb16);
 }
 
 #menuDrawerContent li a.icon_law:before {
-  background-image: url(/images/icon_book.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url(/images/icon_book.png?21a1daf556e68bcde40a3e728dbb5d1f);
 }
 
 #menuDrawerContent li a.icon_logout:before {
@@ -474,6 +482,16 @@ a:hover {
   overflow: hidden;
   min-height: 100vh;
   padding: 56px 0 70px;
+}
+
+#contentWrap.contentTopMar {
+  padding-top: 90px;
+  display: flex;
+  align-items: center;
+}
+
+#contentWrap.contentTopMar > div {
+  width: 100%;
 }
 
 .view1 {
@@ -606,15 +624,31 @@ a:hover {
 }
 
 #bottomCreatorMypage li a.pCreate:before {
-  background-image: url(/images/icon_grid_pi.png?6cdc9e55f12f08ed0b8db5aa594fdc88);
+  background-image: url(/images/icon_grid_pi.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #bottomCreatorMypage li a.post:before {
-  background-image: url(/images/icon_time_pi.png?0e9f5155045b6f4d4361a72b0e6df5be);
+  background-image: url(/images/icon_time_pi.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #bottomCreatorMypage li a.mypage:before {
   background-image: url(/images/icon_user_pi.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+}
+
+#bottomUserMypage {
+  background-color: #f4f8fa;
+}
+
+#bottomUserMypage li {
+  color: #9bc5eb;
+}
+
+#bottomUserMypage li a.post:before {
+  background-image: url(/images/icon_time_bl.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+}
+
+#bottomUserMypage li a.mypage:before {
+  background-image: url(/images/icon_user_bl.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 #bottomAdminMypage {
@@ -630,7 +664,7 @@ a:hover {
 }
 
 #bottomAdminMypage li a.setting:before {
-  background-image: url(/images/icon_setting.png?c564d309ee1b38395658a898b4d966e8);
+  background-image: url(/images/icon_setting.png?31d6cfe0d16ae931b73c59d7e0c089c0);
 }
 
 /*btn *****
@@ -657,10 +691,6 @@ a:hover {
   font-size: 1em;
 }
 
-.btn:hover {
-  color: inherit !important;
-}
-
 button.btn {
   -webkit-box-sizing: content-box;
   -webkit-appearance: button;
@@ -671,7 +701,6 @@ button.btn {
   width: 100%;
   font-size: 16px;
   padding: 0;
-  border: none;
 }
 
 button.btn:focus {
@@ -700,6 +729,16 @@ button.btn:hover {
   padding-top: 6px;
   line-height: 18px;
   font-size: 0.9em;
+}
+
+.btnS {
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btnCansell {
+  color: #aaaaaa;
 }
 
 .btnBox > p:not(:first-of-type),
@@ -741,6 +780,11 @@ button.btn:hover {
 
 .btnBl {
   background-color: #5489ab;
+  color: #fff;
+}
+
+.btnLb {
+  background-color: #9bc5eb;
   color: #fff;
 }
 
@@ -861,7 +905,8 @@ button.btn:hover {
 
 .formBox input[type=text],
 .formBox input[type=email],
-.formBox input[type=password] {
+.formBox input[type=password],
+.formBox select {
   border-radius: 5px;
   padding: 15px 10px;
   background-color: rgba(255, 255, 255, 0.7) !important;
@@ -940,6 +985,7 @@ button.btn:hover {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
 }
 
 .formBox.normalFormBox dl:not(:first-of-type) {
@@ -977,7 +1023,8 @@ button.btn:hover {
   color: #aaaaaa;
 }
 
-.formBox.normalFormBox input {
+.formBox.normalFormBox input,
+.formBox.normalFormBox select {
   border: 1px solid #ededed !important;
 }
 
@@ -1017,6 +1064,20 @@ button.btn:hover {
   margin-top: 40px;
 }
 
+.formBox.normalFormBox .txtLink {
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: #aaaaaa;
+}
+
+.formBox.normalFormBox .txtLink a {
+  text-decoration: underline;
+}
+
+.formBox.normalFormBox .txtLink.center {
+  text-align: center;
+}
+
 /*errow *****
 ********************************/
 
@@ -1024,8 +1085,30 @@ button.btn:hover {
   font-size: 0.9em;
   text-align: left;
   display: block;
-  margin: 5px 0;
+  margin: 10px 0;
+  padding: 10px;
   color: #b15a68;
+  background-color: #faf0ef;
+}
+
+.invalid-feedback:before {
+  content: "※";
+}
+
+/*flashMsg *****
+********************************/
+
+.flashMsg {
+  background-color: #f4f8fa;
+  padding: 30px 0;
+}
+
+.flashMsg p {
+  max-width: 520px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  color: #5489ab;
 }
 
 /*moreArea *****
@@ -1250,7 +1333,7 @@ button.btn:hover {
 }
 
 #postList ul li.postVideo a:before {
-  background-image: url(/images/icon_video.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url(/images/icon_video.png?7ab382363dd9be5546b4ba9ac162f436);
 }
 
 /*postBox *****
@@ -1352,6 +1435,25 @@ button.btn:hover {
   padding: 10px 0 20px;
 }
 
+/*postList *****
+********************************/
+
+#fanclubList {
+  margin-top: 40px;
+  max-width: 640px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#fanclubList h2 {
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
 /* 21.04.29 kondo, Overrides the Modal */
 
 .modal-content {
@@ -1386,6 +1488,31 @@ button.btn:hover {
   width: 280px;
   width: 70%;
   margin: 0 auto;
+}
+
+/*normalTitleBox*
+*******************************/
+
+.normalTitleBox {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.normalTitleBox h2 {
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.2em;
+}
+
+.normalTitleBox p {
+  margin-top: 10px;
+  line-height: 2;
+  font-size: 0.9em;
+}
+
+.normalTitleBox .btn {
+  margin-top: 30px;
 }
 
 /*topPage*
@@ -1509,6 +1636,186 @@ button.btn:hover {
   flex: 1;
   max-width: 150px;
   margin-left: auto;
+}
+
+/*新規会員登録*
+*******************************/
+
+#stepBox {
+  margin: 40px 0 60px;
+}
+
+#stepBox .normalTitleBox {
+  margin-bottom: 60px;
+}
+
+#stepBox ol {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 340px;
+  margin: 0 auto;
+  counter-reset: step;
+  position: relative;
+}
+
+#stepBox ol:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: #9bc5eb;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+#stepBox li {
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+}
+
+#stepBox li p {
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #aaaaaa;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 15px;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+#stepBox li p:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 6px 0 6px;
+  border-color: #aaaaaa transparent transparent transparent;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+}
+
+#stepBox li:after {
+  display: block;
+  counter-increment: step;
+  content: counter(step);
+  width: 24px;
+  height: 24px;
+  line-height: 23px;
+  background-color: #9bc5eb;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+}
+
+#stepBox li.active p {
+  opacity: 1;
+}
+
+#stepBox li.active:after {
+  background-color: #5489ab;
+}
+
+/* Overrides birth_date */
+
+.vdatetime-popup__header,
+.vdatetime-calendar__month__day--selected > span > span,
+.vdatetime-calendar__month__day--selected:hover > span > span {
+  background-color: #5489ab !important;
+}
+
+.vdatetime-popup__actions__button {
+  color: #5489ab !important;
+}
+
+/*固定ページ*
+*******************************/
+
+.helpBox {
+  padding-bottom: 50px;
+}
+
+.helpBox h1,
+.helpBox h2,
+.helpBox h3,
+.helpBox p,
+.helpBox dt,
+.helpBox dd {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.helpBox h1,
+.helpBox h2,
+.helpBox h3 {
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.helpBox h1 {
+  font-size: 1.4em;
+}
+
+.helpBox h2 {
+  margin-top: 35px;
+  font-size: 1.1em;
+  background-color: #f4f4f4;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.helpBox h3 {
+  margin-top: 30px;
+}
+
+.helpBox p {
+  margin-top: 10px;
+  line-height: 1.8;
+}
+
+.helpBox dt,
+.helpBox dd {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.helpBox dt {
+  background-color: #f4f8fa;
+  margin-top: 10px;
+  padding-right: 50px;
+  padding-right: calc(5% + 30px);
+  position: relative;
+}
+
+.helpBox dt:after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(/images/icon_close.png?31d6cfe0d16ae931b73c59d7e0c089c0) no-repeat center/cover;
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.helpBox dt.active:after {
+  transform: translateY(-50%) rotate(0);
+}
+
+.helpBox dd {
+  display: none;
 }
 
 

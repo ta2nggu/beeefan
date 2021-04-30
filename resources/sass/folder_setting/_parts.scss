@@ -16,9 +16,6 @@
         line-height: 22px;
         font-size: 1em;
     }
-    &:hover{
-        color: inherit !important;
-    }
 }
 button.btn {
     -webkit-box-sizing: content-box;
@@ -29,7 +26,6 @@ button.btn {
     width: 100%;
     font-size: 16px;
     padding: 0;
-    border:none;
     &:focus {
         outline: none;
     }
@@ -54,6 +50,14 @@ button.btn {
         font-size: 0.9em;
     }
 }
+.btnS{
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btnCansell{
+    color: $color_b_sub;
+}
 .btnBox{
     &>p,
     &>li{
@@ -73,6 +77,7 @@ button.btn {
 .btnPi{ background-color: $color_c; color: #fff;}
 .btnLp{ background-color: $color_c_sub; color: #fff;}
 .btnBl{ background-color: $color_f; color: #fff;}
+.btnLb{ background-color: $color_f_sub; color: #fff;}
 .btnAd{ background-color: $color_a; color: #fff;}
 
 .noDateText{
@@ -125,7 +130,7 @@ button.btn {
     input:-webkit-autofill {
         transition: background-color 5000s ease-in-out 0s !important;
     }
-    input[type="text"],input[type="email"],input[type="password"]{
+    input[type="text"],input[type="email"],input[type="password"],select{
         border-radius: 5px;
         padding: 15px 10px;
         background-color: rgba(#fff,0.7) !important;
@@ -196,6 +201,7 @@ button.btn {
 }
 .formBox.normalFormBox{
     @include wrap_inner;
+    text-align: left;
     dl {
         &:not(:first-of-type) {
             margin-top: 15px;
@@ -225,7 +231,7 @@ button.btn {
         font-size: 0.9em;
         color: $color_b_sub;
     }
-    input{
+    input,select{
         border: 1px solid $color_b_sub2 !important;
     }
     .nameBox{
@@ -255,6 +261,17 @@ button.btn {
     .btnBox{
         margin-top: $mg*2;
     }
+    .txtLink{
+        margin-top: 30px;
+        font-size: 0.9em;
+        color: $color_b_sub;
+        a{
+            text-decoration: underline;
+        }
+        &.center{
+            text-align: center;
+        }
+    }
 }
 
 /*errow *****
@@ -263,8 +280,23 @@ button.btn {
     font-size: 0.9em;
     text-align: left;
     display: block;
-    margin: 5px 0;
+    margin: 10px 0;
+    padding: 10px;
     color: $color_c;
+    background-color: $color_c_bk;
+    &:before{
+        content: "※";
+    }
+}
+/*flashMsg *****
+********************************/
+.flashMsg{
+    background-color: $color_f_bk;
+    padding: 30px 0;
+    p{
+        @include wrap_inner;
+        color: $color_f;
+    }
 }
 
 /*moreArea *****
@@ -520,6 +552,21 @@ button.btn {
         }
     }
 }
+
+/*postList *****
+********************************/
+#fanclubList {
+    margin-top: $mg*2;
+    @include wrap_s;
+    h2{
+        @include font_head;
+        font-size: 1.2em;
+        margin-bottom: $mg;
+    }
+    ul {
+    }
+}
+
 
 /* 21.04.29 kondo, Overrides the Modal */
 .modal-content{

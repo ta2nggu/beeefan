@@ -1,47 +1,47 @@
-@extends('layouts.app')
+@extends('layouts.base')
+
+@section('title','パスワード再設定')
+@section('pageCss')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+@endsection
+@section('body','view1')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Rewset Password') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <!--contentWrap-->
+    <div id="contentWrap">
+        <div>
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+            @if (session('status'))
+                <div class="normalTitleBox">
+                    <h2>{{ __("パスワード再設定") }}</h2>
+                    <p>{!! ("ご登録のメールアドレス宛に<br>URLをお送りしております。<br>1時間以内にパスワードの再設定をしてください。") !!}</p>
+                    <a class="btn btnS btnBl" href="{{ url('/login') }}">{{ __('ログイン画面へ') }}</a></div>
                 </div>
-            </div>
+            @else
+                <div class="normalTitleBox">
+                    <h2>{{ __("パスワード再設定") }}</h2>
+                    <p>{!! ("パスワード再設定用のURLを<br>メールアドレスにお送りします。") !!}</p>
+                </div>
+                <form method="POST" action="{{ route('password.email') }}" class="formBox normalFormBox">
+                    @csrf
+                    <dl>
+                        <dt><label for="email">{{ __('メールアドレス') }}</label><span class="required">{{ __("必須") }}</span></dt>
+                        <dd>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('メールアドレスをご入力ください') }}">
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <p class="txtLink center">{!! ("メールアドレスをお忘れの方は<br>下記の宛先までお問い合わせください<br>beeefun@example.com</p>") !!}
+                        </dd>
+                    </dl>
+                    <div class="btnBox"><button type="submit" class="btn btnS btnBl">{{ __('送信') }}</button></div>
+                </form>
+            @endif
+
         </div>
-    </div>
-</div>
+
+    </div><!--/contentWrap-->
 @endsection

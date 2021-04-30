@@ -105,5 +105,13 @@ function time_ago($sec) {
         <div class="textBox">
             <div class="text moreArea">{{ $tweet->msg }}</div>
         </div>
+        <form method="POST" action="{{ __('/creator/delTweet') }}" >
+            @csrf
+
+            <input type="hidden" name="user_id" value="{{ $creator[0]->user_id }}">
+            <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+            <button type="submit" class="btn btnPi">{{ __('삭제') }}</button>
+        </form>
+        <a href="" class="btn btn-outline-primary">편집</a>
     </li>
 @endforeach

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Creator;
 use App\Models\Image;
+use App\Models\tweet;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class CreatorController extends Controller
 {
@@ -279,6 +281,17 @@ class CreatorController extends Controller
             return response()->json(['html'=>$view]);
         }
         return view('creator.invisibleTime', compact('tweets', 'tweet_images', 'creator'));//compact 할 때 var_name이 위에 선언한 $tweets 과 이름이 같아야 된다
+    }
+
+    public function delTweet(Request $request) {
+        $result = tweet::where('id', $request->tweet_id)->delete();
+
+        if ($result === 1) {
+            File::deleteDirectory(storage_path('app/public/images/'.$request->user_id.'/'.$request->tweet_id));
+        }
+
+        return redirect('/creator/invisible');
+
     }
 }
 

@@ -11,14 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-// // 21.05.01 kondo, Webpackの速度改善
-// var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
-// mix.webpackConfig({
-//     plugins: [
-//         new HardSourceWebpackPlugin()
-//     ]
-// })
-
 mix.js('resources/js/app.js', 'public/js')
     .vue()
     .postCss('resources/css/app.css', 'public/css', [
@@ -39,4 +31,3 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/style_admin.scss', 'public/css')
     .sass('resources/sass/style_user.scss', 'public/css')
     .js('resources/js/common.js', 'public/js');
-

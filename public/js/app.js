@@ -44096,9 +44096,12 @@ exports.Zone = Zone;
 /*!****************************************!*\
   !*** ./resources/sass/style_user.scss ***!
   \****************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/css-loader/dist/cjs.js):\nError: Can't resolve './folder_setting/icon_menu.png' in '/var/www/html/resources/sass'\n    at finishWithoutResolve (/var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:293:18)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:362:15\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/DescriptionFilePlugin.js:87:43\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/DescriptionFilePlugin.js:87:43\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at processResult (/var/www/html/node_modules/webpack/lib/NormalModule.js:676:19)\n    at /var/www/html/node_modules/webpack/lib/NormalModule.js:778:5\n    at /var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:399:11\n    at /var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:251:18\n    at context.callback (/var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:124:13)\n    at Object.loader (/var/www/html/node_modules/css-loader/dist/index.js:154:5)\n    at processTicksAndRejections (node:internal/process/task_queues:94:5)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -44158,9 +44161,12 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************!*\
   !*** ./resources/sass/style.scss ***!
   \***********************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/css-loader/dist/cjs.js):\nError: Can't resolve './folder_setting/icon_menu.png' in '/var/www/html/resources/sass'\n    at finishWithoutResolve (/var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:293:18)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:362:15\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/DescriptionFilePlugin.js:87:43\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/DescriptionFilePlugin.js:87:43\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at processResult (/var/www/html/node_modules/webpack/lib/NormalModule.js:676:19)\n    at /var/www/html/node_modules/webpack/lib/NormalModule.js:778:5\n    at /var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:399:11\n    at /var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:251:18\n    at context.callback (/var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:124:13)\n    at Object.loader (/var/www/html/node_modules/css-loader/dist/index.js:154:5)\n    at processTicksAndRejections (node:internal/process/task_queues:94:5)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -44168,9 +44174,12 @@ throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugi
 /*!*******************************************!*\
   !*** ./resources/sass/style_creator.scss ***!
   \*******************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/css-loader/dist/cjs.js):\nError: Can't resolve './folder_setting/icon_menu.png' in '/var/www/html/resources/sass'\n    at finishWithoutResolve (/var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:293:18)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:362:15\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/DescriptionFilePlugin.js:87:43\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/DescriptionFilePlugin.js:87:43\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at processResult (/var/www/html/node_modules/webpack/lib/NormalModule.js:676:19)\n    at /var/www/html/node_modules/webpack/lib/NormalModule.js:778:5\n    at /var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:399:11\n    at /var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:251:18\n    at context.callback (/var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:124:13)\n    at Object.loader (/var/www/html/node_modules/css-loader/dist/index.js:154:5)\n    at processTicksAndRejections (node:internal/process/task_queues:94:5)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -44178,9 +44187,12 @@ throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugi
 /*!*****************************************!*\
   !*** ./resources/sass/style_admin.scss ***!
   \*****************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/css-loader/dist/cjs.js):\nError: Can't resolve './folder_setting/icon_menu.png' in '/var/www/html/resources/sass'\n    at finishWithoutResolve (/var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:293:18)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:362:15\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/DescriptionFilePlugin.js:87:43\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at /var/www/html/node_modules/enhanced-resolve/lib/DescriptionFilePlugin.js:87:43\n    at /var/www/html/node_modules/enhanced-resolve/lib/Resolver.js:410:5\n    at eval (eval at create (/var/www/html/node_modules/enhanced-resolve/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at processResult (/var/www/html/node_modules/webpack/lib/NormalModule.js:676:19)\n    at /var/www/html/node_modules/webpack/lib/NormalModule.js:778:5\n    at /var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:399:11\n    at /var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:251:18\n    at context.callback (/var/www/html/node_modules/loader-runner/lib/LoaderRunner.js:124:13)\n    at Object.loader (/var/www/html/node_modules/css-loader/dist/index.js:154:5)\n    at processTicksAndRejections (node:internal/process/task_queues:94:5)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -67364,8 +67376,12 @@ module.exports = JSON.parse('{"name":"weekstart","version":"1.1.0","description"
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
 /******/ 			"css/app": 0,
+/******/ 			"css/style_admin": 0,
+/******/ 			"css/style_creator": 0,
+/******/ 			"css/style": 0,
 /******/ 			"css/owl.theme.default.min": 0,
-/******/ 			"css/owl.carousel": 0
+/******/ 			"css/owl.carousel": 0,
+/******/ 			"css/style_user": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -67413,15 +67429,15 @@ module.exports = JSON.parse('{"name":"weekstart","version":"1.1.0","description"
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/owl.theme.default.min","css/owl.carousel"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/owl.theme.default.min","css/owl.carousel"], () => (__webpack_require__("./resources/sass/app.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/owl.theme.default.min","css/owl.carousel"], () => (__webpack_require__("./resources/sass/style.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/owl.theme.default.min","css/owl.carousel"], () => (__webpack_require__("./resources/sass/style_creator.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/owl.theme.default.min","css/owl.carousel"], () => (__webpack_require__("./resources/sass/style_admin.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/owl.theme.default.min","css/owl.carousel"], () => (__webpack_require__("./resources/sass/style_user.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/owl.theme.default.min","css/owl.carousel"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/owl.theme.default.min","css/owl.carousel"], () => (__webpack_require__("./resources/css/owl.carousel.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/owl.theme.default.min","css/owl.carousel"], () => (__webpack_require__("./resources/css/owl.theme.default.min.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/style_admin","css/style_creator","css/style","css/owl.theme.default.min","css/owl.carousel","css/style_user"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/style_admin","css/style_creator","css/style","css/owl.theme.default.min","css/owl.carousel","css/style_user"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/style_admin","css/style_creator","css/style","css/owl.theme.default.min","css/owl.carousel","css/style_user"], () => (__webpack_require__("./resources/sass/style.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/style_admin","css/style_creator","css/style","css/owl.theme.default.min","css/owl.carousel","css/style_user"], () => (__webpack_require__("./resources/sass/style_creator.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/style_admin","css/style_creator","css/style","css/owl.theme.default.min","css/owl.carousel","css/style_user"], () => (__webpack_require__("./resources/sass/style_admin.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/style_admin","css/style_creator","css/style","css/owl.theme.default.min","css/owl.carousel","css/style_user"], () => (__webpack_require__("./resources/sass/style_user.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/style_admin","css/style_creator","css/style","css/owl.theme.default.min","css/owl.carousel","css/style_user"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/style_admin","css/style_creator","css/style","css/owl.theme.default.min","css/owl.carousel","css/style_user"], () => (__webpack_require__("./resources/css/owl.carousel.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/style_admin","css/style_creator","css/style","css/owl.theme.default.min","css/owl.carousel","css/style_user"], () => (__webpack_require__("./resources/css/owl.theme.default.min.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

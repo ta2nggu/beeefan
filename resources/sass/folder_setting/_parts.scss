@@ -493,10 +493,10 @@ button.btn {
                 }
             }
             &.postMulti a:before{
-                background-image: url("icon_pictures.png");
+                background-image: url("/storage/icon/icon_pictures.png");
             }
             &.postVideo a:before{
-                background-image: url("icon_video.png");
+                background-image: url("/storage/icon/icon_video.png");
             }
         }
     }

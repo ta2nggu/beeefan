@@ -31,4 +31,3 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/style_admin.scss', 'public/css')
     .sass('resources/sass/style_user.scss', 'public/css')
     .js('resources/js/common.js', 'public/js');
-

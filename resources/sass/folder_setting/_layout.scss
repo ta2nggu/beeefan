@@ -66,7 +66,7 @@ a:hover{
         transform: translateY(-50%);
         width: 40px;
         height: 40px;
-        background: url("../storage/icon/icon_left_circle_pi.png") no-repeat center/76%;
+        background: url("/storage/icon/icon_left_circle_pi.png") no-repeat center/76%;
         overflow: hidden;
         text-indent: -999px;
     }
@@ -93,14 +93,14 @@ a:hover{
             letter-spacing: 0;
             color: $color_b_sub;
             &.login{
-                background-image: url("icon_login.png");
+                background-image: url("/storage/icon/icon_login.png");
             }
             &.menu{
-                background-image: url("icon_menu.png");
+                background-image: url("/storage/icon/icon_menu.png");
                 transition: all 0.4s;
                 cursor: pointer;
                 &.active{
-                    background-image: url("icon_close.png");
+                    background-image: url("/storage/icon/icon_close.png");
                 }
             }
         }
@@ -135,17 +135,17 @@ a:hover{
                 vertical-align: -7px;
                 margin-right: 16px;
             }
-            &.icon_mypage:before{background-image: url("icon_user.png");}
-            &.icon_post:before{background-image: url("icon_grid.png");}
-            &.icon_setting:before{background-image: url("icon_setting.png");}
-            &.icon_card:before{background-image: url("icon_card.png");}
-            &.icon_payment:before{background-image: url("icon_payment.png");}
-            &.icon_draft:before{background-image: url("icon_hidden.png");}
-            &.icon_help:before{background-image: url("icon_help.png");}
-            &.icon_rule:before{background-image: url("icon_scroll.png");}
-            &.icon_policy:before{background-image: url("icon_lock.png");}
-            &.icon_law:before{background-image: url("icon_book.png");}
-            &.icon_logout:before{background-image: url("icon_logout.png");}
+            &.icon_mypage:before{background-image: url("/storage/icon/icon_user.png");}
+            &.icon_post:before{background-image: url("/storage/icon/icon_grid.png");}
+            &.icon_setting:before{background-image: url("/storage/icon/icon_setting.png");}
+            &.icon_card:before{background-image: url("/storage/icon/icon_card.png");}
+            &.icon_payment:before{background-image: url("/storage/icon/icon_payment.png");}
+            &.icon_draft:before{background-image: url("/storage/icon/icon_hidden.png");}
+            &.icon_help:before{background-image: url("/storage/icon/icon_help.png");}
+            &.icon_rule:before{background-image: url("/storage/icon/icon_scroll.png");}
+            &.icon_policy:before{background-image: url("/storage/icon/icon_lock.png");}
+            &.icon_law:before{background-image: url("/storage/icon/icon_book.png");}
+            &.icon_logout:before{background-image: url("/storage/icon/icon_logout.png");}
         }
     }
 }
@@ -163,6 +163,9 @@ a:hover{
         &>div{
             width: 100%;
         }
+    }
+    &.contentBtmMar{
+        padding-bottom: 120px;
     }
 }
 .view1{
@@ -266,13 +269,13 @@ a:hover{
         color: $color_b_sub;
         a{
             &.pCreate:before{
-                background-image: url("icon_grid_pi.png");
+                background-image: url("/storage/icon/icon_grid_pi.png");
             }
             &.post:before{
-                background-image: url("icon_time_pi.png");
+                background-image: url("/storage/icon/icon_time_pi.png");
             }
             &.mypage:before{
-                background-image: url("icon_user_pi.png");
+                background-image: url("/storage/icon/icon_user_pi.png");
             }
         }
     }
@@ -283,10 +286,10 @@ a:hover{
         color: $color_f_sub;
         a{
             &.post:before{
-                background-image: url("icon_time_bl.png");
+                background-image: url("/storage/icon/icon_time_bl.png");
             }
             &.mypage:before{
-                background-image: url("icon_user_bl.png");
+                background-image: url("/storage/icon/icon_user_bl.png");
             }
         }
     }
@@ -298,10 +301,10 @@ a:hover{
         color: $color_b_sub;
         a{
             &.mypage:before{
-                background-image: url("icon_user.png");
+                background-image: url("/storage/icon/icon_user.png");
             }
             &.setting:before{
-                background-image: url("icon_setting.png");
+                background-image: url("/storage/icon/icon_setting.png");
             }
         }
     }

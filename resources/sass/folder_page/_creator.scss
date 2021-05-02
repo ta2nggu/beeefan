@@ -38,7 +38,7 @@
             display: block;
             width: 34px;
             height: 34px;
-            background: url("icon_camera.png") no-repeat center/cover;
+            background: url("/images/icon_camera.png") no-repeat center/cover;
             position: absolute;
         }
     }
@@ -104,7 +104,7 @@
             height: 30px;
             vertical-align: -8px;
             margin-right: 10px;
-            background: url("icon_add.png") no-repeat center/80% $color_c_sub;
+            background: url("/images/icon_add.png") no-repeat center/80% $color_c_sub;
         }
     }
 }

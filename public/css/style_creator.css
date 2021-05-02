@@ -1,23 +1,13 @@
 @charset "UTF-8";
-
 /*initial*/
-
 /*responsive*/
-
 /*sitesize*/
-
 /*color*/
-
 /*margin*/
-
 /*gradation*/
-
 /*font*/
-
 /*responsive*/
-
 /*flex*/
-
 .flex {
   display: flex;
 }
@@ -59,7 +49,6 @@
 }
 
 /*wrap*/
-
 .wrap {
   max-width: 640px;
   margin-left: auto;
@@ -80,84 +69,15 @@
   margin-right: auto;
 }
 
-*,
-*:before,
-*:after {
+*, *:before, *:after {
   -o-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-html,
-body,
-div,
-span,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-abbr,
-address,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-samp,
-small,
-strong,
-sub,
-sup,
-var,
-b,
-i,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section,
-summary,
-time,
-mark,
-audio,
-video,
-span {
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var,
+b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header,
+hgroup, menu, nav, section, summary, time, mark, audio, video, span {
   margin: 0;
   padding: 0;
   border: 0;
@@ -168,39 +88,23 @@ span {
   font-weight: inherit;
 }
 
-_:lang(x)::-ms-backdrop,
-body {
+_:lang(x)::-ms-backdrop, body {
   font-family: "メイリオ", Meiryo, sans-serif;
 }
 
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
-ol,
-ul {
+ol, ul {
   list-style: none;
 }
 
-blockquote,
-q {
+blockquote, q {
   quotes: none;
 }
 
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
+blockquote:before, blockquote:after, q:before, q:after {
   content: "";
   content: none;
 }
@@ -244,8 +148,7 @@ del {
   text-decoration: line-through;
 }
 
-abbr[title],
-dfn[title] {
+abbr[title], dfn[title] {
   border-bottom: 1px dotted;
   cursor: help;
 }
@@ -261,7 +164,6 @@ hr {
 
 /*body*
 *******************************/
-
 body {
   color: #2e2c2a;
   line-height: 1.6;
@@ -288,7 +190,6 @@ a:hover {
 
 /*header*
 *******************************/
-
 #header {
   width: 100%;
   max-width: 640px;
@@ -306,22 +207,18 @@ a:hover {
   align-items: center;
   justify-content: center;
 }
-
 #header.border {
   border-bottom: 1px solid #ededed;
 }
-
 #header.border + #contentWrap {
   margin-top: 30px;
 }
-
 #header .logo {
   max-width: 140px;
   width: 34%;
   position: relative;
   z-index: 11;
 }
-
 #header .txtTitle {
   font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
   font-weight: 600;
@@ -330,7 +227,6 @@ a:hover {
   font-size: 1.4em;
   line-height: 1.4;
 }
-
 #header .txtTitle span {
   display: block;
   font-size: 0.8rem;
@@ -339,7 +235,6 @@ a:hover {
   font-style: normal;
   color: #aaaaaa;
 }
-
 #header .back {
   display: block;
   position: absolute;
@@ -348,11 +243,10 @@ a:hover {
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
-  background: url(/images/icon_left_circle_pi.png?62352b9f8a914ae6b65d19d444c0396a) no-repeat center/76%;
+  background: url("/storage/icon/icon_left_circle_pi.png") no-repeat center/76%;
   overflow: hidden;
   text-indent: -999px;
 }
-
 #header .nav {
   position: absolute;
   top: 50%;
@@ -361,11 +255,9 @@ a:hover {
   transform: translateY(-50%);
   display: flex;
 }
-
 #header .nav li:not(:last-of-type) {
   margin-right: 10px;
 }
-
 #header .nav .icon {
   display: block;
   width: 40px;
@@ -377,19 +269,16 @@ a:hover {
   letter-spacing: 0;
   color: #aaaaaa;
 }
-
 #header .nav .icon.login {
-  background-image: url(/images/icon_login.png?7ff5119eb9956246e58fd899fcd49ead);
+  background-image: url("/storage/icon/icon_login.png");
 }
-
 #header .nav .icon.menu {
-  background-image: url(/images/icon_menu.png?0e5a2f52774b1704d3c671898595cb04);
+  background-image: url("/storage/icon/icon_menu.png");
   transition: all 0.4s;
   cursor: pointer;
 }
-
 #header .nav .icon.menu.active {
-  background-image: url(/images/icon_close.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_close.png");
 }
 
 #menuDrawerContent {
@@ -407,20 +296,16 @@ a:hover {
   transition: all 0.6s ease-in-out;
   display: none;
 }
-
 #menuDrawerContent li {
   border-top: 1px solid #aaaaaa;
 }
-
 #menuDrawerContent li:last-of-type {
   border-bottom: 1px solid #aaaaaa;
 }
-
 #menuDrawerContent li a {
   display: block;
   padding: 17px 8%;
 }
-
 #menuDrawerContent li a:before {
   content: "";
   display: inline-block;
@@ -430,133 +315,111 @@ a:hover {
   vertical-align: -7px;
   margin-right: 16px;
 }
-
 #menuDrawerContent li a.icon_mypage:before {
-  background-image: url(/images/icon_user.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_user.png");
 }
-
 #menuDrawerContent li a.icon_post:before {
-  background-image: url(/images/icon_grid.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_grid.png");
 }
-
 #menuDrawerContent li a.icon_setting:before {
-  background-image: url(/images/icon_setting.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_setting.png");
 }
-
 #menuDrawerContent li a.icon_card:before {
-  background-image: url(/images/icon_card.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_card.png");
 }
-
 #menuDrawerContent li a.icon_payment:before {
-  background-image: url(/images/icon_payment.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_payment.png");
 }
-
 #menuDrawerContent li a.icon_draft:before {
-  background-image: url(/images/icon_hidden.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_hidden.png");
 }
-
 #menuDrawerContent li a.icon_help:before {
-  background-image: url(/images/icon_help.png?d8ebd099b6241871bcaa75e20090eb1f);
+  background-image: url("/storage/icon/icon_help.png");
 }
-
 #menuDrawerContent li a.icon_rule:before {
-  background-image: url(/images/icon_scroll.png?92ba4ca819036e0f56b2217386eab2d8);
+  background-image: url("/storage/icon/icon_scroll.png");
 }
-
 #menuDrawerContent li a.icon_policy:before {
-  background-image: url(/images/icon_lock.png?5c227e37f048958259f9f22fed81fb16);
+  background-image: url("/storage/icon/icon_lock.png");
 }
-
 #menuDrawerContent li a.icon_law:before {
-  background-image: url(/images/icon_book.png?21a1daf556e68bcde40a3e728dbb5d1f);
+  background-image: url("/storage/icon/icon_book.png");
 }
-
 #menuDrawerContent li a.icon_logout:before {
-  background-image: url(/images/icon_logout.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_logout.png");
 }
 
 /*contentWrap*
 *******************************/
-
 #contentWrap {
   overflow: hidden;
   min-height: 100vh;
   padding: 56px 0 70px;
 }
-
 #contentWrap.contentTopMar {
   padding-top: 90px;
   display: flex;
   align-items: center;
 }
-
 #contentWrap.contentTopMar > div {
   width: 100%;
+}
+#contentWrap.contentBtmMar {
+  padding-bottom: 120px;
 }
 
 .view1 {
   overflow: hidden;
 }
-
 .view1 #contentWrap {
   display: flex;
   align-items: center;
   padding-top: 30px;
 }
-
 .view1 #contentWrap > div {
   width: 100%;
   text-align: center;
 }
-
 .view1 #contentWrap .title {
   margin-bottom: 40px;
 }
-
 .view1 #contentWrap .title .logo {
   width: 40%;
   max-width: 200px;
   margin: 0 auto 15px;
 }
-
 .view1 #contentWrap .title .txtTitle {
   font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
   font-weight: 600;
   font-style: normal;
   font-size: 1.4em;
 }
-
 .view1 #contentWrap .att {
   margin-bottom: 50px;
 }
 
 /*footer*
 *******************************/
-
 #footer {
   width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
 }
-
 #footer ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
-
 #footer ul li {
   text-align: center;
 }
-
 #footer ul li a {
   display: inline-block;
   font-size: 0.8em;
   padding: 5px 10px;
   text-decoration: underline;
 }
-
 #footer .copy {
   text-align: center;
   padding: 10px 0;
@@ -565,7 +428,6 @@ a:hover {
 
 /*bottomFixed*
 *******************************/
-
 .bottomFixed {
   position: fixed;
   bottom: 0;
@@ -578,7 +440,6 @@ a:hover {
   margin-right: auto;
   z-index: 1;
 }
-
 .bottomFixed .inner {
   height: 70px;
 }
@@ -588,7 +449,6 @@ a:hover {
 #bottomUserMypage .inner {
   display: flex;
 }
-
 #bottomCreatorMypage li,
 #bottomAdminMypage li,
 #bottomUserMypage li {
@@ -596,14 +456,12 @@ a:hover {
   text-align: center;
   font-size: 10px;
 }
-
 #bottomCreatorMypage li a,
 #bottomAdminMypage li a,
 #bottomUserMypage li a {
   display: block;
   padding-top: 12px;
 }
-
 #bottomCreatorMypage li a:before,
 #bottomAdminMypage li a:before,
 #bottomUserMypage li a:before {
@@ -618,58 +476,47 @@ a:hover {
 #bottomCreatorMypage {
   background-color: #faf0ef;
 }
-
 #bottomCreatorMypage li {
   color: #aaaaaa;
 }
-
 #bottomCreatorMypage li a.pCreate:before {
-  background-image: url(/images/icon_grid_pi.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_grid_pi.png");
 }
-
 #bottomCreatorMypage li a.post:before {
-  background-image: url(/images/icon_time_pi.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_time_pi.png");
 }
-
 #bottomCreatorMypage li a.mypage:before {
-  background-image: url(/images/icon_user_pi.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_user_pi.png");
 }
 
 #bottomUserMypage {
   background-color: #f4f8fa;
 }
-
 #bottomUserMypage li {
   color: #9bc5eb;
 }
-
 #bottomUserMypage li a.post:before {
-  background-image: url(/images/icon_time_bl.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_time_bl.png");
 }
-
 #bottomUserMypage li a.mypage:before {
-  background-image: url(/images/icon_user_bl.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_user_bl.png");
 }
 
 #bottomAdminMypage {
   background-color: #f4f4f4;
 }
-
 #bottomAdminMypage li {
   color: #aaaaaa;
 }
-
 #bottomAdminMypage li a.mypage:before {
-  background-image: url(/images/icon_user.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_user.png");
 }
-
 #bottomAdminMypage li a.setting:before {
-  background-image: url(/images/icon_setting.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_setting.png");
 }
 
 /*btn *****
 ********************************/
-
 .btn {
   display: block;
   text-align: center;
@@ -684,7 +531,6 @@ a:hover {
   font-style: normal;
   font-size: 1.2em;
 }
-
 .btn.line2 {
   padding-top: 10px;
   line-height: 22px;
@@ -702,15 +548,12 @@ button.btn {
   font-size: 16px;
   padding: 0;
 }
-
 button.btn:focus {
   outline: none;
 }
-
 button.btn:not(.btnBor) {
   border: none;
 }
-
 button.btn:hover {
   color: inherit !important;
 }
@@ -724,7 +567,6 @@ button.btn:hover {
   background-color: #f4f4f4;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 .btnCircle.line2 {
   padding-top: 6px;
   line-height: 18px;
@@ -741,13 +583,11 @@ button.btn:hover {
   color: #aaaaaa;
 }
 
-.btnBox > p:not(:first-of-type),
-.btnBox > li:not(:first-of-type) {
+.btnBox > p:not(:first-of-type), .btnBox > li:not(:first-of-type) {
   margin-top: 12px;
 }
 
 /*btnStyle*/
-
 .btnBor {
   background-color: #fff;
   border: 2px solid #2e2c2a;
@@ -756,6 +596,11 @@ button.btn:hover {
 .btnBorLp {
   border-color: #dfa4ad;
   color: #dfa4ad;
+}
+
+.btnBorBl {
+  border-color: #5489ab;
+  color: #5489ab;
 }
 
 .btnBorGy {
@@ -798,7 +643,6 @@ button.btn:hover {
 }
 
 /*loading*/
-
 .ajax-load {
   margin-top: 20px;
   height: 50px;
@@ -815,18 +659,10 @@ button.btn:hover {
 
 /*form *****
 ********************************/
-
 .formBox > div:not(:first-of-type) {
   margin-top: 15px;
 }
-
-.formBox input[type=text],
-.formBox input[type=email],
-.formBox input[type=password],
-.formBox button,
-.formBox input[type=button],
-.formBox textarea,
-.formBox select {
+.formBox input[type=text], .formBox input[type=email], .formBox input[type=password], .formBox button, .formBox input[type=button], .formBox textarea, .formBox select {
   -webkit-box-sizing: content-box;
   -webkit-appearance: button;
   -moz-appearance: button;
@@ -837,106 +673,70 @@ button.btn:hover {
   font-size: 16px;
   padding: 0;
 }
-
-.formBox input[type=text]:focus,
-.formBox input[type=email]:focus,
-.formBox input[type=password]:focus,
-.formBox button:focus,
-.formBox input[type=button]:focus,
-.formBox textarea:focus,
-.formBox select:focus {
+.formBox input[type=text]:focus, .formBox input[type=email]:focus, .formBox input[type=password]:focus, .formBox button:focus, .formBox input[type=button]:focus, .formBox textarea:focus, .formBox select:focus {
   outline: none;
 }
-
-.formBox input[type=text]:not(.btnBor),
-.formBox input[type=email]:not(.btnBor),
-.formBox input[type=password]:not(.btnBor),
-.formBox button:not(.btnBor),
-.formBox input[type=button]:not(.btnBor),
-.formBox textarea:not(.btnBor),
-.formBox select:not(.btnBor) {
+.formBox input[type=text]:not(.btnBor), .formBox input[type=email]:not(.btnBor), .formBox input[type=password]:not(.btnBor), .formBox button:not(.btnBor), .formBox input[type=button]:not(.btnBor), .formBox textarea:not(.btnBor), .formBox select:not(.btnBor) {
   border: none;
 }
-
 .formBox input::-moz-placeholder {
   color: #aaa;
 }
-
 .formBox input:-ms-input-placeholder {
   color: #aaa;
 }
-
 .formBox input::placeholder {
   color: #aaa;
 }
-
 .formBox textarea::-moz-placeholder {
   color: #aaa;
 }
-
 .formBox textarea:-ms-input-placeholder {
   color: #aaa;
 }
-
 .formBox textarea::placeholder {
   color: #aaa;
 }
-
 .formBox input:-ms-input-placeholder {
   color: #aaa;
 }
-
 .formBox textarea:-ms-input-placeholder {
   color: #aaa;
 }
-
 .formBox input::-webkit-input-placeholder {
   color: #aaa;
 }
-
 .formBox textarea::-webkit-input-placeholder {
   color: #aaa;
 }
-
 .formBox input:-webkit-autofill {
   -webkit-transition: background-color 5000s ease-in-out 0s !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
-
-.formBox input[type=text],
-.formBox input[type=email],
-.formBox input[type=password],
-.formBox select {
+.formBox input[type=text], .formBox input[type=email], .formBox input[type=password], .formBox select {
   border-radius: 5px;
   padding: 15px 10px;
   background-color: rgba(255, 255, 255, 0.7) !important;
 }
-
 .formBox .readonlyBox {
   padding-top: 10px;
 }
-
 .formBox .readonlyBox .readonly {
   padding-top: 5px;
   bottom: 5px;
   border: none !important;
 }
-
 .formBox .readonlyBox .inputCss {
   padding: 5px 10px;
 }
-
-.formBox input[type=radio],
-.formBox input[type=checkbox] {
+.formBox input[type=radio], .formBox input[type=checkbox] {
   display: none;
 }
-
 .formBox input[type=radio] + label,
 .formBox input[type=checkbox] + label {
   position: relative;
   padding-left: 40px;
 }
-
 .formBox input[type=radio] + label::before,
 .formBox input[type=checkbox] + label::before {
   content: "";
@@ -951,11 +751,9 @@ button.btn:hover {
   cursor: pointer;
   transition: 0.3s;
 }
-
 .formBox input[type=radio] + label::before {
   border-radius: 50%;
 }
-
 .formBox input[type=radio] + label::after,
 .formBox input[type=checkbox] + label::after {
   position: absolute;
@@ -970,14 +768,19 @@ button.btn:hover {
   top: 48%;
   transition: 0.3s;
 }
-
 .formBox input[type=radio]:checked + label::after,
 .formBox input[type=checkbox]:checked + label::after {
   transform: translateY(-50%) rotate(45deg) scale(1, 1);
 }
-
 .formBox input[type=radio]:checked + label::before {
   background-color: #9bc5eb;
+}
+.formBox input[type=checkbox].colorPi + label::after {
+  border-right-color: #dfa4ad;
+  border-bottom-color: #dfa4ad;
+}
+.formBox label a {
+  text-decoration: underline;
 }
 
 .formBox.normalFormBox {
@@ -987,32 +790,26 @@ button.btn:hover {
   margin-right: auto;
   text-align: left;
 }
-
 .formBox.normalFormBox dl:not(:first-of-type) {
   margin-top: 15px;
 }
-
 .formBox.normalFormBox dt {
   font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
   font-weight: 600;
   font-style: normal;
   margin-bottom: 5px;
 }
-
 .formBox.normalFormBox .clm2 {
   display: flex;
 }
-
 .formBox.normalFormBox .clm2 > div:not(:last-of-type) {
   margin-right: 20px;
 }
-
 .formBox.normalFormBox .required {
   color: #b15a68;
   font-size: 0.9em;
   margin-left: 10px;
 }
-
 .formBox.normalFormBox .att {
   font-family: a-otf-gothic-bbb-pr6n, sans-serif;
   font-weight: 400;
@@ -1022,32 +819,24 @@ button.btn:hover {
   font-size: 0.9em;
   color: #aaaaaa;
 }
-
-.formBox.normalFormBox input,
-.formBox.normalFormBox select {
+.formBox.normalFormBox input, .formBox.normalFormBox select {
   border: 1px solid #ededed !important;
 }
-
 .formBox.normalFormBox .nameBox {
   display: flex;
 }
-
 .formBox.normalFormBox .nameBox input {
   width: 100%;
 }
-
 .formBox.normalFormBox .nameBox input:not(:first-of-type) {
   margin-left: 10px;
 }
-
 .formBox.normalFormBox .sexBox {
   padding: 5px 0 10px;
 }
-
 .formBox.normalFormBox .monthly_priceBox {
   position: relative;
 }
-
 .formBox.normalFormBox .monthly_priceBox:before {
   content: "円";
   position: absolute;
@@ -1059,28 +848,26 @@ button.btn:hover {
   font-style: normal;
   line-height: 1;
 }
-
 .formBox.normalFormBox .btnBox {
   margin-top: 40px;
 }
-
 .formBox.normalFormBox .txtLink {
   margin-top: 30px;
   font-size: 0.9em;
   color: #aaaaaa;
 }
-
 .formBox.normalFormBox .txtLink a {
   text-decoration: underline;
 }
-
 .formBox.normalFormBox .txtLink.center {
+  text-align: center;
+}
+.formBox.normalFormBox .centerCheckbox {
   text-align: center;
 }
 
 /*errow *****
 ********************************/
-
 .invalid-feedback {
   font-size: 0.9em;
   text-align: left;
@@ -1090,19 +877,16 @@ button.btn:hover {
   color: #b15a68;
   background-color: #faf0ef;
 }
-
 .invalid-feedback:before {
   content: "※";
 }
 
 /*flashMsg *****
 ********************************/
-
 .flashMsg {
   background-color: #f4f8fa;
   padding: 30px 0;
 }
-
 .flashMsg p {
   max-width: 520px;
   width: 90%;
@@ -1113,19 +897,16 @@ button.btn:hover {
 
 /*moreArea *****
 ********************************/
-
 .moreArea {
   position: relative;
   max-height: calc(3em * 1.6);
   overflow: hidden;
   transition: height 0.2s ease;
 }
-
 .moreArea.open {
   max-height: 100em;
   padding-bottom: 1.8em;
 }
-
 .moreArea .moreBtn {
   position: absolute;
   bottom: 0;
@@ -1139,20 +920,16 @@ button.btn:hover {
 
 /*profile *****
 ********************************/
-
 /*profileHeader*/
-
 #profileHeader {
   padding-bottom: 18%;
 }
-
 #profileHeader .imgbox {
   position: relative;
   background: no-repeat center/cover;
   padding-top: 46%;
   background-color: #faf0ef;
 }
-
 #profileHeader .imgbox div {
   position: absolute;
   bottom: 0;
@@ -1164,7 +941,6 @@ button.btn:hover {
   overflow: hidden;
   height: 78%;
 }
-
 #profileHeader .imgbox div img {
   display: block;
   position: absolute;
@@ -1173,16 +949,28 @@ button.btn:hover {
   transform: translateY(-50%);
   width: 100%;
 }
+#profileHeader.profileHeaderNoBk {
+  padding-bottom: 0;
+}
+#profileHeader.profileHeaderNoBk .imgbox {
+  background-color: transparent;
+  padding-top: 30px;
+}
+#profileHeader.profileHeaderNoBk .imgbox div {
+  position: relative;
+  transform: translateX(-50%);
+  width: 36%;
+  padding-top: 35%;
+  height: auto;
+}
 
 /*profileBox*/
-
 #profileBox {
   max-width: 520px;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
-
 #profileBox .name {
   text-align: center;
   font-size: 1.6em;
@@ -1192,44 +980,36 @@ button.btn:hover {
   font-style: normal;
   margin-top: 20px;
 }
-
 #profileBox .text a {
   color: #5489ab;
   text-decoration: underline;
 }
-
 #profileBox .text a:hover {
   text-decoration: none;
 }
-
 #profileBox .price {
   text-align: center;
   font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
   font-weight: 600;
   font-style: normal;
 }
-
 #profileBox .price span {
   font-size: 0.8em;
 }
-
 #profileBox .score {
   display: flex;
   justify-content: center;
   text-align: center;
   margin-top: 20px;
 }
-
 #profileBox .score dl {
   font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
   font-weight: 600;
   font-style: normal;
 }
-
 #profileBox .score dl:not(:first-of-type) {
   margin-left: 10%;
 }
-
 #profileBox .score dt {
   background-color: #faf0ef;
   padding: 2px 10px;
@@ -1237,16 +1017,13 @@ button.btn:hover {
   display: inline-block;
   font-size: 0.8em;
 }
-
 #profileBox .score dd {
   font-size: 1.5em;
   line-height: 1;
 }
-
 #profileBox .score .gain {
   font-size: 1rem;
 }
-
 #profileBox .score .period {
   display: block;
   font-size: 0.8rem;
@@ -1256,67 +1033,53 @@ button.btn:hover {
   margin-top: 10px;
   color: #aaaaaa;
 }
-
 #profileBox .score.scorePrice {
   justify-content: space-between;
 }
-
 #profileBox .score.scorePrice dl {
   background-color: #faf0ef;
   padding: 5px 0 15px;
   width: 49%;
 }
-
 #profileBox .score.scorePrice dl:not(:first-of-type) {
   margin-left: 0;
 }
-
 #profileBox .score.scorePrice dt {
   padding: 0;
 }
-
 #profileBox .score.scorePrice .gain {
   display: block;
   margin-top: 6px;
 }
-
 #profileBox .btnBox {
   margin-top: 30px;
 }
-
 #profileBox .text {
   margin-top: 20px;
 }
 
 /*postList *****
 ********************************/
-
 #postList {
   margin-top: 40px;
 }
-
 #postList ul {
   display: flex;
   flex-wrap: wrap;
 }
-
 #postList ul li {
   width: 33%;
 }
-
 #postList ul li:not(:nth-of-type(3n)) {
   margin-right: 0.5%;
 }
-
 #postList ul li:nth-of-type(n+4) {
   margin-top: 0.5%;
 }
-
 #postList ul li a {
   display: block;
   position: relative;
 }
-
 #postList ul li a:before {
   content: "";
   display: block;
@@ -1327,31 +1090,25 @@ button.btn:hover {
   top: 5px;
   right: 5px;
 }
-
 #postList ul li.postMulti a:before {
-  background-image: url(/images/icon_pictures.png?31d6cfe0d16ae931b73c59d7e0c089c0);
+  background-image: url("/storage/icon/icon_pictures.png");
 }
-
 #postList ul li.postVideo a:before {
-  background-image: url(/images/icon_video.png?7ab382363dd9be5546b4ba9ac162f436);
+  background-image: url("/storage/icon/icon_video.png");
 }
 
 /*postBox *****
 ********************************/
-
 #postBox {
   background-color: #f4f4f4;
 }
-
 #postBox .post {
   background-color: #fff;
   border-top: 1px solid #f4f4f4;
 }
-
 #postBox .post:not(:last-of-type) {
   margin-bottom: 40px;
 }
-
 #postBox .post .postTitle {
   max-width: 640px;
   width: 90%;
@@ -1361,7 +1118,6 @@ button.btn:hover {
   align-items: center;
   padding: 10px 0;
 }
-
 #postBox .post .postTitle .thumbnail {
   width: 60px;
   margin-right: 10px;
@@ -1369,19 +1125,15 @@ button.btn:hover {
   border: 2px solid #dfa4ad;
   overflow: hidden;
 }
-
 #postBox .post .postTitle .nameBox {
   flex: 1;
 }
-
 #postBox .post .postTitle .nameBox .name {
   font-size: 1.1em;
 }
-
 #postBox .post .postTitle .nameBox .time {
   color: #aaaaaa;
 }
-
 #postBox .post .counter {
   position: absolute;
   top: 10px;
@@ -1396,7 +1148,6 @@ button.btn:hover {
   color: #fff;
   z-index: 1;
 }
-
 #postBox .post .secretBox {
   width: 100%;
   padding-top: 100%;
@@ -1405,7 +1156,6 @@ button.btn:hover {
   left: 0;
   background: linear-gradient(#dfa4ad, #9bc5eb);
 }
-
 #postBox .post .secretBox .inner {
   position: absolute;
   top: 50%;
@@ -1417,16 +1167,13 @@ button.btn:hover {
   margin-right: auto;
   text-align: center;
 }
-
 #postBox .post .secretBox p {
   color: #fff;
   padding: 20px 0;
 }
-
 #postBox .post .secretBox p a {
   text-decoration: underline;
 }
-
 #postBox .post .textBox {
   max-width: 640px;
   width: 90%;
@@ -1437,7 +1184,6 @@ button.btn:hover {
 
 /*postList *****
 ********************************/
-
 #fanclubList {
   margin-top: 40px;
   max-width: 640px;
@@ -1445,7 +1191,6 @@ button.btn:hover {
   margin-left: auto;
   margin-right: auto;
 }
-
 #fanclubList h2 {
   font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
   font-weight: 600;
@@ -1453,9 +1198,7 @@ button.btn:hover {
   font-size: 1.2em;
   margin-bottom: 20px;
 }
-
 /* 21.04.29 kondo, Overrides the Modal */
-
 .modal-content {
   border-radius: 20px;
 }
@@ -1464,7 +1207,6 @@ button.btn:hover {
   display: block;
   border-bottom: none;
 }
-
 .modal-header .titleText {
   font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
   font-weight: 600;
@@ -1472,7 +1214,6 @@ button.btn:hover {
   text-align: center;
   font-size: 1.2em;
 }
-
 .modal-header .close {
   position: absolute;
   top: 20px;
@@ -1483,7 +1224,6 @@ button.btn:hover {
   display: block;
   border-top: none;
 }
-
 .modal-footer.btnBox {
   width: 280px;
   width: 70%;
@@ -1492,39 +1232,32 @@ button.btn:hover {
 
 /*新規投稿・投稿修正*
 *******************************/
-
 #postCreate {
   max-width: 520px;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
-
 #postCreate .post {
   display: flex;
   flex-wrap: wrap;
 }
-
 #postCreate .post li {
   width: 49%;
   margin-bottom: 2%;
 }
-
 #postCreate .post li:nth-of-type(2n) {
   margin-left: 2%;
 }
 
 /*プロフィール修正*
 *******************************/
-
 #profileEditImg {
   position: relative;
 }
-
 #profileEditImg input {
   display: none;
 }
-
 #profileEditImg label {
   cursor: pointer;
   display: block;
@@ -1536,16 +1269,14 @@ button.btn:hover {
   left: 0;
   background-color: #faf0ef;
 }
-
 #profileEditImg label:after {
   content: "";
   display: block;
   width: 34px;
   height: 34px;
-  background: url(/images/icon_camera.png?6a136a431e2180ef4ba95685380cd447) no-repeat center/cover;
+  background: url("/images/icon_camera.png") no-repeat center/cover;
   position: absolute;
 }
-
 #profileEditImg img {
   display: block;
   width: 100%;
@@ -1554,18 +1285,15 @@ button.btn:hover {
   left: 0;
   transform: translateY(-50%);
 }
-
 #profileEditImg .background_img {
   position: relative;
   padding-bottom: 46%;
   overflow: hidden;
 }
-
 #profileEditImg .background_img label:after {
   bottom: 10px;
   right: 20px;
 }
-
 #profileEditImg .profile_img {
   position: absolute;
   bottom: 0;
@@ -1577,7 +1305,6 @@ button.btn:hover {
   border: 3px solid #dfa4ad;
   overflow: hidden;
 }
-
 #profileEditImg .profile_img label:after {
   top: 50%;
   left: 50%;
@@ -1593,7 +1320,6 @@ button.btn:hover {
   padding-top: 23%;
   background-color: #fff;
 }
-
 #profileEditText dd > a {
   text-align: right;
   margin-top: 10px;
@@ -1601,12 +1327,10 @@ button.btn:hover {
   color: #aaaaaa;
   text-decoration: underline;
 }
-
 #profileEditText .nav-link {
   text-align: left;
   padding: 10px 0 0;
 }
-
 #profileEditText .nav-link:before {
   content: "";
   display: inline-block;
@@ -1614,7 +1338,7 @@ button.btn:hover {
   height: 30px;
   vertical-align: -8px;
   margin-right: 10px;
-  background: url(/images/icon_add.png?1929369870c3e8b2d91f199b7f79faa6) no-repeat center/80% #dfa4ad;
+  background: url("/images/icon_add.png") no-repeat center/80% #dfa4ad;
 }
 
 #instruction {
@@ -1627,10 +1351,7 @@ button.btn:hover {
   border: 1px solid #ededed;
   background-color: #fff;
 }
-
 #instruction a {
   color: #b15a68;
   text-decoration: underline;
 }
-
-

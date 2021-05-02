@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class tweet extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'visible',
+        'msg',
+        'main_img',
+        'main_img_idx',
+    ];
 }

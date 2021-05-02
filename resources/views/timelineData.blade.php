@@ -67,7 +67,7 @@ function time_ago($sec) {
                 <div class="thumbnail">
                     <a href="{{url($creator[0]->account_id)}}">
                         @if (isset($creator[0]->profile_img))
-                            <img src="{{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }}" alt="{{ $creator[0]->nickname }}">
+                  {          <img src="{{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }}" alt="{{ $creator[0]->nickname }}">
                         @else
                             <img src="{{ asset('storage/icon/no_images_c.png') }}" alt="{{ $creator[0]->nickname }}">
                         @endif

@@ -112,6 +112,6 @@ function time_ago($sec) {
             <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
             <button type="submit" class="btn btnPi">{{ __('삭제') }}</button>
         </form>
-        <a href="" class="btn btn-outline-primary">편집</a>
+        <a href="../edit/{{$tweet->id}}" class="btn btn-outline-primary">{{__('편집')}}</a>
     </li>
 @endforeach

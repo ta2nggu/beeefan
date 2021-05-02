@@ -57,6 +57,9 @@ const routes = [
     // //Timeline image slider
     // //path 동적으로 매칭할 땐 앞에 : 을 표기, ex):creator
     // { path: '/:creator/timeline/:start', component: require('./components/TimelineSlider.vue').default }
+
+    //21.05.01 김태영, 투고 편집
+    , { path: '/creator/edit/:tweet_id', component: require('./components/Dropzone.vue').default }
 ]
 
 const router = new VueRouter({

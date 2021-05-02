@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Creator;
 use App\Models\Image;
 use App\Models\tweet;
+use App\Models\Tweet_image;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -292,6 +293,21 @@ class CreatorController extends Controller
 
         return redirect('/creator/invisible');
 
+    }
+
+    public function edit(Request $request) {
+        //$images = Tweet_image::select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+        $images = tweet::select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) as path, tweet_images.name, tweet_images.idx, tweet_images.private, tweet_images.mime_type, tweets.id as tweet_id, tweet_images.id as tweet_image_id, tweets.msg"))
+            ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
+            ->where('tweets.id', $request->tweet_id)
+            ->orderby('idx', 'asc')
+            ->get();
+
+//        foreach ($images as $image) {
+//            $image['path'] = storage_path($image['path']);
+//        }
+
+        return view('creator.edit', compact('images'));
     }
 }
 

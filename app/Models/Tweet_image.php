@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Tweet_image extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'private',
+    ];
 }

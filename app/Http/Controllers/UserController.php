@@ -23,6 +23,8 @@ class UserController extends Controller
         $this->user =  \Auth::user();
 
         $creators = Following::join('creators', 'creators.user_id', '=', 'followings.creator_id')
+//                                21.05.02 kondo,account_id取得の為にjoin追加
+                                ->join('users', 'users.id', '=', 'creators.user_id')
                                 ->where('followings.user_id', '=', $this->user->id)
                                 ->orderby('creators.nickname', 'asc')
                                 ->paginate(5);
@@ -300,4 +302,14 @@ class UserController extends Controller
 
         return view('joinOk', compact('creator'));
     }
+
+//    21.05.03 kondo, ファンクラブ詳細（途中）
+    public function joinCreator(Request $request){
+        $account_id = $request->id;
+        $user = DB::table("users")
+            ->where('account_id', $account_id)
+            ->first();
+        return view('user.fanclub',['user' => $user]);
+    }
 }
+

@@ -34,7 +34,7 @@
                             </form>
                         </li>
                     @else
-                        <li><a href="{{ url('/login') }}" class="btn">ログイン</a></li>
+                        <li><a href="{{ url('/login?root=top') }}" class="btn">ログイン</a></li>
                         @if (Route::has('register'))
                             <li><a href="{{ route('register') }}" class="btn">新規会員登録</a></li>
                         @endif

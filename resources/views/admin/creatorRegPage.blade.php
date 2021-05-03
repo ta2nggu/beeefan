@@ -7,12 +7,14 @@
 @section('body','')
 
 @section('content')
-    <header id="header" class="border">
-        <h1 class="txtTitle">{{ __('クリエイター新規登録') }}</h1>
-    </header>
+    @component ('components.header')
+        @slot('header_title')
+            {{ __("クリエイター新規登録") }}
+        @endslot
+    @endcomponent
 
     <!--contentWrap-->
-    <div id="contentWrap">
+    <div id="contentWrap" class="contentTopMar">
 
         <form method="POST" action="{{ __('/admin/creatorReg') }}" class="formBox normalFormBox">
             @csrf
@@ -20,8 +22,10 @@
             <dl>
                 <dt><label for="name">{{ __('名前') }}</label><span class="required">{{ __('必須') }}</span></dt>
                 <dd>
-                    <input type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus placeholder="性">
-                    <input type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder="名">
+                    <div class="nameBox">
+                        <input type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus placeholder="性">
+                        <input type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder="名">
+                    </div>
                     @error('last_name')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -102,40 +106,6 @@
                     @enderror
                 </dd>
             </dl>
-{{--            <!--sex-->--}}
-{{--            <dl>--}}
-{{--                <dt>{{ __('性別') }}<span class="required">{{ __('必須') }}</span></dt>--}}
-{{--                <dd>--}}
-{{--                    <div class="clm2 sexBox">--}}
-{{--                        <div>--}}
-{{--                            <input type="radio" id="male" value=1 name="sex">--}}
-{{--                            <label for="male">{{ __('男性') }}</label>--}}
-{{--                        </div>--}}
-{{--                        <div>--}}
-{{--                            <input type="radio" id="female" value=0 name="sex">--}}
-{{--                            <label for="female">{{ __('女性') }}</label>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    @error('sex')--}}
-{{--                    <span class="invalid-feedback" role="alert">--}}
-{{--                <strong>{{ $message }}</strong>--}}
-{{--            </span>--}}
-{{--                    @enderror--}}
-{{--                </dd>--}}
-{{--            </dl>--}}
-{{--            <!--birth_date-->--}}
-{{--            <dl>--}}
-{{--                <dt><label for="birth_date">{{ __('誕生日') }}</label><span class="required">{{ __('必須') }}</span></dt>--}}
-{{--                <dd>--}}
-{{--                    --}}{{--                                <input id="birth_date" type="text" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus>--}}
-{{--                    <datetime id="birth_date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus type="date" format="yyyy-MM-dd" ref="DatetimePicker"></datetime>--}}
-{{--                    @error('birth_date')--}}
-{{--                    <span class="invalid-feedback" role="alert">--}}
-{{--                    <strong>{{ $message }}</strong>--}}
-{{--                </span>--}}
-{{--                    @enderror--}}
-{{--                </dd>--}}
-{{--            </dl>--}}
 
             <!--送信-->
             <input id="role" name="role" type="hidden" value="{{ __('creator') }}">

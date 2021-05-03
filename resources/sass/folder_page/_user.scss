@@ -80,3 +80,40 @@
         }
     }
 }
+
+/*ファンクラブ詳細*
+*******************************/
+.fanclub{
+    dt,dd {
+        padding-left:5%;
+        padding-right:5%;
+    }
+    dt{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: $color_b_bk;
+        @include font_head;
+        font-size: 1.2em;
+    }
+    dd{
+        padding-top: 20px;
+        padding-bottom: 50px;
+        .methods{
+            margin-bottom: 20px;
+            span{
+                display: block;
+                color: $color_b_sub;
+                font-size: 0.9em;
+                margin-top: 5px;
+            }
+        }
+    }
+    .removeLink{
+        margin-bottom: 30px;
+        text-align: right;
+        a{
+            color: $color_b_sub;
+            text-decoration: underline;
+        }
+    }
+}

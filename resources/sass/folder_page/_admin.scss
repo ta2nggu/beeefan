@@ -33,7 +33,15 @@
     }
     #creatorRegBtn{
         @include wrap_inner;
-        margin-top: $mg;
+        margin: $mg auto;
+    }
+    #fanclubList li{
+        .iconBox:before{
+            background-image: url("/storage/icon/icon_right-circle.png");
+        }
+        .imgbox{
+            border: none;
+        }
     }
 }
 

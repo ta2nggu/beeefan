@@ -47,7 +47,8 @@
                 </dl>
             </div>
         </div>
-
+{{--        21.05.03 김태영, 공지사항    --}}
+        <div><a href="/admin/">{{__('공지사항')}}</a></div>
         <div><a href="/admin/creatorReg">{{__('クリエイター新規登録크리에이터신규등록')}}</a></div>
         <div>{{ __('クリエイター名で検索する 크리에이터 이름 검색') }}</div>
         <input id="search_creator_input" type="text" placeholder="nicknameを入力してください。">

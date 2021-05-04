@@ -64,6 +64,9 @@ Route::get('/admin/index', [App\Http\Controllers\AdminController::class, 'index'
 Route::get('/admin/creators', [App\Http\Controllers\AdminController::class, 'admin_creatorList'])->name('admin_creatorList')->middleware('verified');
 Route::get('/admin/creatorReg', [App\Http\Controllers\AdminController::class, 'admin_creatorRegPage'])->name('admin_creatorRegPage')->middleware('verified');
 Route::post('/admin/creatorReg', [App\Http\Controllers\AdminController::class, 'admin_creatorReg'])->name('admin_creatorReg')->middleware('verified');
+//21.05.04 김태영, 공지사항
+Route::get('/admin/notice', [App\Http\Controllers\AdminController::class, 'notice'])->middleware('verified');
+
 
 //21.04.06 kondo creator&admin login page
 use App\Http\Controllers\PagesController;

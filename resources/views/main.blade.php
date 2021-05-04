@@ -68,23 +68,28 @@
                 </div>
             </div>
 
-            <div id="bottomPost" class="bottomFixed">
-                <div class="inner">
-                    <div class="nameBox">
-                        <p class="name">{{ $creator[0]->nickname }}</p>
-                        <p class="price">{{ __('月額') . $creator[0]->month_price .('円') }}</p>
-                    </div>
-                    @guest
-                        <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
-                    @else
-                        @role('user')
+            @if($follow === 0)
+                <div id="bottomPost" class="bottomFixed">
+                    <div class="inner">
+                        <div class="nameBox">
+                            <p class="name">{{ $creator[0]->nickname }}</p>
+                            <p class="price">{{ __('月額') . $creator[0]->month_price .('円') }}</p>
+                        </div>
+                        @guest
                             <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
                         @else
-                            <span class="btnCircle line2">{!! 'このアカウントでは<br>入会できません' !!}</span>
-                        @endrole
-                    @endguest
+                            @role('user')
+                                <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
+                            @else
+                                <span class="btnCircle line2">{!! 'このアカウントでは<br>入会できません' !!}</span>
+                            @endrole
+                        @endguest
+                    </div>
                 </div>
-            </div>
+            @else
+                @component ('components.bottomFixed')
+                @endcomponent
+            @endif
         </div>
     </div><!--/contentWrap-->
 @endsection

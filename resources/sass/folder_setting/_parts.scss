@@ -106,7 +106,7 @@ button.btn {
             margin-top: 15px;
         }
     }
-    input[type="text"],input[type="email"],input[type="password"],button,input[type="button"],textarea,select{
+    input[type="text"],input[type="email"],input[type="password"],input[type="number"],button,input[type="button"],textarea,select{
         -webkit-box-sizing: content-box;
         -webkit-appearance: button;
         appearance: button;
@@ -131,7 +131,7 @@ button.btn {
     input:-webkit-autofill {
         transition: background-color 5000s ease-in-out 0s !important;
     }
-    input[type="text"],input[type="email"],input[type="password"],select{
+    input[type="text"],input[type="email"],input[type="password"],input[type="number"],select{
         border-radius: 5px;
         padding: 15px 10px;
         background-color: rgba(#fff,0.7) !important;
@@ -282,6 +282,27 @@ button.btn {
     }
     .centerCheckbox{
         text-align: center;
+    }
+    .searchBox{
+        position: relative;
+        input[type='image']{
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: $color_a;
+            width: 50px;
+            height: 50px;
+            padding: 12px;
+        }
+    }
+    .selectBox{
+        select{
+            background-color: $color_b_bk !important;
+            -webkit-appearance:none;
+            appearance:none;
+            position: relative;
+            background: url("/storage/icon/icon_bottom.png") no-repeat right 14px center/14px;
+        }
     }
 }
 
@@ -588,7 +609,60 @@ button.btn {
         font-size: 1.2em;
         margin-bottom: $mg;
     }
-    ul {
+    li{
+        position: relative;
+        padding-right: 26px;
+        @include flex;
+        @include ac;
+        &:not(:first-of-type){
+            margin-top: 30px;
+        }
+        .imgbox{
+            width: 80px;
+            height: 80px;
+            margin-right: 5%;
+            border-radius: 50%;
+            border: 3px solid $color_c_sub;
+            overflow: hidden;
+            position: relative;
+            img{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                width: 100%;
+            }
+        }
+        .txtBox{
+            flex: 1;
+            .name{
+                font-size: 1.2em;
+                @include font_head;
+            }
+            a{
+                display: inline-block;
+                margin-top: 5px;
+                color: $color_b_sub;
+                text-decoration: underline;
+            }
+        }
+        .iconBox{
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            display: block;
+            width: 24px;
+            height: 24px;
+            &:before{
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: url("/storage/icon/icon_right-circle_bl.png") no-repeat center/cover;
+            }
+        }
     }
 }
 

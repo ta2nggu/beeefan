@@ -41,7 +41,7 @@ class LoginController extends Controller
         }
 //        21.04.08 김태영, 로그인 후 이전 페이지로 이동하기 위해 주석처리
 //        if($user->hasRole('user')){
-//            return redirect('/user');
+//            return redirect('/mypage');
 //        }
     }
 
@@ -58,15 +58,23 @@ class LoginController extends Controller
     }
 
 //21.04.08 김태영, 로그인 후 이전 페이지로 이동하기 위해 showLoginForm 추가
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
-        //21.04.19 김태영, 로그인 이전 페이지로 이동
-        session(['url.intended' => url()->previous()]);
-
-        if(!session()->has('url.intended'))
-        {
+//        21.05.02 kondo, toppageからloginする時はmypageへ
+        $date = [
+            'param'=>$request->root
+        ];
+        if($date['param']){
+            session(['url.intended' => '/mypage']);
+        } else {
+            //21.04.19 김태영, 로그인 이전 페이지로 이동
             session(['url.intended' => url()->previous()]);
+
+            if (!session()->has('url.intended')) {
+                session(['url.intended' => url()->previous()]);
+            }
         }
         return view('auth.login');
+
     }
 }

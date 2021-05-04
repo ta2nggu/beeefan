@@ -51,7 +51,7 @@
                     @if(isset( $userFlag ))
                         @if($userFlag == "クリエイター")
                             <p class="noLink">{{ __("アカウントID・パスワードを忘れてしまった場合は、担当者までお問い合わせください。")}}</p>
-                            <p><a href="{{ url('/login') }}">{{__("ファンの方はこちら")}}</a></p>
+                            <p><a href="{{ url('/login?root=top') }}">{{__("ファンの方はこちら")}}</a></p>
                         @else
                             <p class="noLink">{{_("アカウントID・パスワードを忘れてしまった場合は、管理者までお問い合わせください。")}}</p>
                         @endif

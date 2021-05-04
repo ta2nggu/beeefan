@@ -3,6 +3,7 @@
 @section('title','マイページ')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style_admin.css') }}">
+    <script src="{{ asset('js/main.js') }}" defer></script>
 @endsection
 @section('body','admin')
 
@@ -47,6 +48,7 @@
                 </dl>
             </div>
         </div>
+<<<<<<< HEAD
 {{--        21.05.03 김태영, 공지사항    --}}
         <div><a href="/admin/">{{__('공지사항')}}</a></div>
         <div><a href="/admin/creatorReg">{{__('クリエイター新規登録크리에이터신규등록')}}</a></div>
@@ -65,16 +67,38 @@
         <div class="ajax-load text-center">
             <p><img src="{{ asset('storage/images/loading.gif') }}"/>データを持ってきています。</p>
         </div>
+=======
+>>>>>>> main
 
         <div id="creatorRegBtn" class="btnBox">
             <p><a href="{{ url('/admin/creatorReg') }}" class="btn btnAd">クリエイター新規登録</a></p>
         </div>
 
-        <!--creatorList(parts)-->
-        <div id="creatorList">
-            <p>전 크리에이터 정보</p>
+        <div class="formBox normalFormBox">
+            <div class="searchBox">
+                <input id="search_creator_input" type="text" placeholder="クリエイター名で検索する。">
+                <input type="image" src="{{ asset('storage/icon/icon_search.png') }}">
+            </div>
+            <div class="selectBox">
+                <select id="search_creator_select" name="sortCreators">
+                    {{--                                <option value="" selected disabled hidden>お選びください.</option>--}}
+                    <option value="{{ __("created_at,desc") }}">{{ __('登錄日が新しい順に表示') }}</option>
+                    <option value="{{ __("created_at,asc") }}">{{ __('登錄日が古い順に表示') }}</option>
+                </select>
+            </div>
         </div>
 
+        <div id="fanclubList">
+            <ul class="post-data">
+                @include('admin/indexData')
+            </ul>
+            <div class="ajax-load">
+                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+            </div>
+        </div>
+
+        @component ('components.bottomFixed')
+        @endcomponent
 
     </div><!--/contentWrap-->
 @endsection

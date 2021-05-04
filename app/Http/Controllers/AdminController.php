@@ -113,4 +113,9 @@ class AdminController extends Controller
             'creators'=>$creators
         ]);
     }
+
+    public function notice() {
+
+        return view('admin.notice');
+    }
 }

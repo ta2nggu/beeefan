@@ -19,7 +19,7 @@ class CreateNoticesTable extends Migration
             $table->bigInteger('to_user_id')->nullable();
             $table->string('title', 400);
             $table->text('body');
-            $table->boolean('del')->default(0);//1 삭제, 0 미삭제
+//            $table->boolean('del')->default(0);//1 삭제, 0 미삭제
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Creator;
+use App\Models\Notice;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -115,7 +116,29 @@ class AdminController extends Controller
     }
 
     public function notice() {
+        $notices = Notice::orderby('created_at', 'desc')->get();
 
-        return view('admin.notice');
+        return view('admin.notice', compact('notices'));
+    }
+
+    public function notice_store(Request $request) {
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+
+        //공지하기
+        Notice::create([
+            'from_user_id' => $this->user->id,//작성자
+//            'to_user_id' => 받는사람이 null이면 전체 공개
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
+        ]);
+
+        return redirect('/admin/notice');
+    }
+
+    public function notice_delete(Request $request) {
+        Notice::find($request->notice_id)->delete();
+
+        return redirect('/admin/notice');
     }
 }

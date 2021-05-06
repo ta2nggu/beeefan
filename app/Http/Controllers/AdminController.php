@@ -15,21 +15,32 @@ class AdminController extends Controller
         $this->middleware('role:administrator');
     }
 
+    //21.05.06 김태영, 잘못이해하고 만들었다.. 사용 안함
 //    아직 미완 크리에이터 벨리데이션 체크 꼭 완성 시키기
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
+//    protected function validator(array $data)
+//    {
+//        return Validator::make($data, [
+//            'last_name' => ['required', 'string', 'max:255'],
+//            'first_name' => ['required', 'string', 'max:255'],
+//            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/'],
+//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+//            'password' => ['required', 'string', 'min:8', 'confirmed'],
+//            'nickname' => ['required','string','min:2','unique:users','regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+////            'nickname' => ['required','string','min:2','unique:users','regex:/^\S*$/u'],
+//        ]);
+//    }
+
+    public function admin_creatorReg(Request $request){
+        //21.05.06 김태영, validation check 추가
+        $validated = $request->validate([
             'last_name' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
             'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'nickname' => ['required','string','min:2','unique:users','regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-//            'nickname' => ['required','string','min:2','unique:users','regex:/^\S*$/u'],
+            'nickname' => ['required','string','min:2'],//,'unique:creators','regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
         ]);
-    }
 
-    public function admin_creatorReg(Request $request){
         $user = User::create([
             'account_id' => $request->input('account_id'),
             'last_name' => $request->input('last_name'),

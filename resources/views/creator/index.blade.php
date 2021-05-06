@@ -77,12 +77,16 @@
         </div>
         <!--postList(parts)-->
         <div id="postList">
-            <ul class="post-data">
-                @include('creator/indexData')
-            </ul>
-            <div class="ajax-load">
-                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
-            </div>
+            @if(count($tweets)>=1)
+                <ul class="post-data">
+                    @include('creator/indexData')
+                </ul>
+                <div class="ajax-load">
+                    <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+                </div>
+            @else
+                <div class="noDateBox noDateBoxBorder"><p class="noDateText">{{ __('投稿がありません') }}</p></div>
+            @endif
         </div>
 
         @component ('components.bottomFixed')

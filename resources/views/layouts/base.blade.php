@@ -16,17 +16,32 @@
     </title>
     <meta name="description" content="">
 
-    <link rel="icon" href="../../img/common/favicon.ico">
+    <link rel="icon" href="{{ asset('storage/common/favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('storage/common/apple-touch-icon.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/common.js') }}" defer></script>
+
     @yield('pageCss')
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="{{ asset('js/common.js') }}" defer></script>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ config('app.name') }}">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="{{ config('app.name') }}">
+    <meta property="og:image" content="{{ asset('storage/common/sns.gif') }}">
+    <meta property="og:image:secure_url" content="{{ asset('storage/common/sns.gif') }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ config('app.name') }}">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="{{ asset('storage/common/sns.gif') }}">
 </head>
 
 <body class="@yield('body')">
 
     <!--wrapper-->
-    <div id="wrapper">
+    <div id="app">
         @yield('content')
     </div><!--/wrapper-->
 

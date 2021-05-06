@@ -54,6 +54,11 @@ Route::get('/creator/invisible', [App\Http\Controllers\CreatorController::class,
 Route::get('/creator/invisibleTime/{start}', [App\Http\Controllers\CreatorController::class, 'invisibleTweetsTime'])->middleware('verified');
 //21.04.30 김태영, 비공개 투고 삭제
 Route::post('/creator/delTweet', [App\Http\Controllers\CreatorController::class, 'delTweet']);
+//21.05.06 kondo, 공개투고→삭제
+Route::post('/creator/delTweetPost', [App\Http\Controllers\CreatorController::class, 'delTweetPost']);
+//21.05.06 kondo, 공개투고/비공개 変更
+Route::post('/creator/ChangeTweetInvisible', [App\Http\Controllers\CreatorController::class, 'ChangeTweetInvisible']);
+Route::post('/creator/ChangeTweetPost', [App\Http\Controllers\CreatorController::class, 'ChangeTweetPost']);
 //21.04.30 김태영, 투고 편집
 Route::get('/creator/edit/{tweet_id}', [App\Http\Controllers\CreatorController::class, 'edit'])->name('edit')->middleware('verified');
 //Route::post('/upload', [App\Http\Controllers\ImageController::class, 'store'])->name('/app/upload')->middleware('verified');

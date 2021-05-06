@@ -174,11 +174,7 @@ body {
   font-style: normal;
 }
 
-a:hover {
-  color: inherit;
-}
-
-#wrapper {
+#app {
   max-width: 640px;
   margin-left: auto;
   margin-right: auto;
@@ -281,32 +277,14 @@ a:hover {
   background-image: url("/storage/icon/icon_close.png");
 }
 
-#menuDrawerContent {
-  max-width: 640px;
-  margin-left: auto;
-  margin-right: auto;
-  position: fixed;
-  top: 0;
-  right: 0;
-  background-color: #fff;
-  width: 100%;
-  height: 100vh;
-  z-index: 10;
-  padding-top: 56px;
-  transition: all 0.6s ease-in-out;
-  display: none;
-}
-#menuDrawerContent li {
-  border-top: 1px solid #aaaaaa;
-}
-#menuDrawerContent li:last-of-type {
+#menuDr li {
   border-bottom: 1px solid #aaaaaa;
 }
-#menuDrawerContent li a {
+#menuDr li a {
   display: block;
   padding: 17px 8%;
 }
-#menuDrawerContent li a:before {
+#menuDr li a:before {
   content: "";
   display: inline-block;
   width: 26px;
@@ -315,37 +293,37 @@ a:hover {
   vertical-align: -7px;
   margin-right: 16px;
 }
-#menuDrawerContent li a.icon_mypage:before {
+#menuDr li a.icon_mypage:before {
   background-image: url("/storage/icon/icon_user.png");
 }
-#menuDrawerContent li a.icon_post:before {
+#menuDr li a.icon_post:before {
   background-image: url("/storage/icon/icon_grid.png");
 }
-#menuDrawerContent li a.icon_setting:before {
+#menuDr li a.icon_setting:before {
   background-image: url("/storage/icon/icon_setting.png");
 }
-#menuDrawerContent li a.icon_card:before {
+#menuDr li a.icon_card:before {
   background-image: url("/storage/icon/icon_card.png");
 }
-#menuDrawerContent li a.icon_payment:before {
+#menuDr li a.icon_payment:before {
   background-image: url("/storage/icon/icon_payment.png");
 }
-#menuDrawerContent li a.icon_draft:before {
+#menuDr li a.icon_draft:before {
   background-image: url("/storage/icon/icon_hidden.png");
 }
-#menuDrawerContent li a.icon_help:before {
+#menuDr li a.icon_help:before {
   background-image: url("/storage/icon/icon_help.png");
 }
-#menuDrawerContent li a.icon_rule:before {
+#menuDr li a.icon_rule:before {
   background-image: url("/storage/icon/icon_scroll.png");
 }
-#menuDrawerContent li a.icon_policy:before {
+#menuDr li a.icon_policy:before {
   background-image: url("/storage/icon/icon_lock.png");
 }
-#menuDrawerContent li a.icon_law:before {
+#menuDr li a.icon_law:before {
   background-image: url("/storage/icon/icon_book.png");
 }
-#menuDrawerContent li a.icon_logout:before {
+#menuDr li a.icon_logout:before {
   background-image: url("/storage/icon/icon_logout.png");
 }
 
@@ -554,9 +532,6 @@ button.btn:focus {
 button.btn:not(.btnBor) {
   border: none;
 }
-button.btn:hover {
-  color: inherit !important;
-}
 
 .btnCircle {
   display: block;
@@ -638,8 +613,19 @@ button.btn:hover {
   color: #fff;
 }
 
+.noDateBox {
+  width: 100% !important;
+  padding: 50px 0;
+  background-color: #fff;
+}
+.noDateBox.noDateBoxBorder {
+  border-top: 1px solid #ededed;
+}
+
 .noDateText {
   color: #aaaaaa;
+  text-align: center;
+  font-size: 0.9em;
 }
 
 /*loading*/
@@ -672,6 +658,9 @@ button.btn:hover {
   width: 100%;
   font-size: 16px;
   padding: 0;
+  font-family: a-otf-gothic-bbb-pr6n, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 .formBox input[type=text]:focus, .formBox input[type=email]:focus, .formBox input[type=password]:focus, .formBox input[type=number]:focus, .formBox button:focus, .formBox input[type=button]:focus, .formBox textarea:focus, .formBox select:focus {
   outline: none;
@@ -713,7 +702,7 @@ button.btn:hover {
   -webkit-transition: background-color 5000s ease-in-out 0s !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
-.formBox input[type=text], .formBox input[type=email], .formBox input[type=password], .formBox input[type=number], .formBox select {
+.formBox input[type=text], .formBox input[type=email], .formBox input[type=password], .formBox input[type=number], .formBox textarea, .formBox select {
   border-radius: 5px;
   padding: 15px 10px;
   background-color: rgba(255, 255, 255, 0.7) !important;
@@ -819,7 +808,7 @@ button.btn:hover {
   font-size: 0.9em;
   color: #aaaaaa;
 }
-.formBox.normalFormBox input, .formBox.normalFormBox select {
+.formBox.normalFormBox input, .formBox.normalFormBox select, .formBox.normalFormBox textarea {
   border: 1px solid #ededed !important;
 }
 .formBox.normalFormBox .nameBox {
@@ -1194,6 +1183,26 @@ button.btn:hover {
 #postBox .post .secretBox p a {
   text-decoration: underline;
 }
+#postBox .post .editBtn {
+  display: block;
+  position: relative;
+  width: 30px;
+  margin: -30px 5% 0 auto;
+  z-index: 1;
+}
+#postBox .post .postEditBox li button, #postBox .post .postEditBox li a {
+  background-color: transparent;
+  padding: 20px 0;
+  display: block;
+  text-align: center;
+  font-size: 16px;
+}
+#postBox .post .postEditBox li .postEditDelete {
+  color: #b15a68;
+}
+#postBox .post .postEditBox li .postEditInvisible {
+  border-top: 1px solid #ededed;
+}
 #postBox .post .textBox {
   max-width: 640px;
   width: 90%;
@@ -1201,8 +1210,17 @@ button.btn:hover {
   margin-right: auto;
   padding: 10px 0 20px;
 }
+#postBox .owl-carousel.owl-loaded {
+  padding-bottom: 40px;
+}
+#postBox .owl-theme .owl-nav.disabled + .owl-dots {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-/*postList *****
+/*fanclubList *****
 ********************************/
 #fanclubList {
   margin-top: 40px;
@@ -1277,8 +1295,45 @@ button.btn:hover {
 }
 
 /* 21.04.29 kondo, Overrides the Modal */
+.modal {
+  padding: 0 10px;
+  max-width: 640px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.modal-dialog {
+  height: 100vh;
+}
+
 .modal-content {
+  border: none;
+  border-radius: 20px 20px 0 0;
+  justify-content: flex-end;
   border-radius: 20px;
+  background-color: transparent;
+}
+
+.modal.fade .modal-dialog {
+  transform: translate(0, 50px);
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+}
+
+.modal-dialog {
+  margin: 0;
+  max-width: none;
+}
+
+.modal-dialog-bottom {
+  display: flex;
+  align-items: flex-end;
 }
 
 .modal-header {
@@ -1298,13 +1353,39 @@ button.btn:hover {
   right: 5%;
 }
 
+.modal-body {
+  background-color: #fff;
+  padding: 0;
+  border-radius: 20px;
+  max-height: 80vh;
+  overflow: scroll;
+}
+
 .modal-footer {
   display: block;
+  margin: 10px 0;
   border-top: none;
+  background-color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  display: block;
+}
+.modal-footer .close {
+  font-size: 1em;
+  opacity: 1;
+  font-family: a-otf-gothic-bbb-pr6n, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  float: none;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
 }
 .modal-footer.btnBox {
-  width: 280px;
-  width: 70%;
+  width: 300px;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -1356,3 +1437,63 @@ button.btn:hover {
 
 /*新規投稿・投稿修正*
 *******************************/
+#adminNotice .ttlBox {
+  max-width: 520px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+#adminNotice .ttlBox h2 {
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+#adminNotice .ttlBox p {
+  color: #aaaaaa;
+  font-size: 0.9em;
+}
+#adminNotice .noList {
+  text-align: center;
+  color: #aaaaaa;
+  font-size: 0.9em;
+}
+
+#adminNoticeList {
+  margin-bottom: 50px;
+}
+#adminNoticeList li {
+  border-top: 1px solid #aaaaaa;
+  padding: 10px 0;
+}
+#adminNoticeList li:last-of-type {
+  border-bottom: 1px solid #aaaaaa;
+}
+#adminNoticeList li .inner {
+  max-width: 520px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#adminNoticeList li h3 {
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+#adminNoticeList li h3:before {
+  content: "※";
+}
+#adminNoticeList li p {
+  font-size: 0.9em;
+}
+#adminNoticeList li button {
+  width: 60px;
+  margin-left: auto;
+  background-color: transparent;
+  text-align: right;
+  text-decoration: underline;
+  font-size: 0.9em;
+  display: block;
+}

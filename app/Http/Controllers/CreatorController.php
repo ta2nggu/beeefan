@@ -284,15 +284,41 @@ class CreatorController extends Controller
         return view('creator.invisibleTime', compact('tweets', 'tweet_images', 'creator'));//compact 할 때 var_name이 위에 선언한 $tweets 과 이름이 같아야 된다
     }
 
+    //21.04.30 김태영, 비공개 투고 삭제
     public function delTweet(Request $request) {
         $result = tweet::where('id', $request->tweet_id)->delete();
-
         if ($result === 1) {
             File::deleteDirectory(storage_path('app/public/images/'.$request->user_id.'/'.$request->tweet_id));
         }
-
         return redirect('/creator/invisible');
-
+    }
+    //21.05.06 kondo, 공개투고 삭제
+    public function delTweetPost(Request $request) {
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+        $result = tweet::where('id', $request->tweet_id)->delete();
+        if ($result === 1) {
+            File::deleteDirectory(storage_path('app/public/images/'.$request->user_id.'/'.$request->tweet_id));
+        }
+        $url = '/'.$this->user->account_id.'/timeline/0';
+        return redirect($url)->with('flash_message', '投稿を削除しました');
+    }
+    //21.05.06 kondo, 공개투고→비공개
+    public function ChangeTweetInvisible(Request $request) {
+        $result = tweet::where('id', $request->tweet_id)->first();
+        $result->visible = 0;
+        $result->save();
+        return redirect('/creator/invisible')->with('flash_message', '下書きに変更しました');
+    }
+    //21.05.06 kondo, 비공개투고→공개
+    public function ChangeTweetPost(Request $request) {
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+        $result = tweet::where('id', $request->tweet_id)->first();
+        $result->visible = 1;
+        $result->save();
+        $url = '/'.$this->user->account_id.'/timeline/'.$request->tweet_id;
+        return redirect($url)->with('flash_message', '投稿しました');
     }
 
     public function edit(Request $request) {

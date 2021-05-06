@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body formBox normalFormBox">
+            <div class="formBox normalFormBox">
                 <dl>
                     <dt>{{ __('表示文字') }}</dt>
                     <dd><input id="display_text" name="display_text" type="text" placeholder="{{ __('テキストを入力') }}"></dd>

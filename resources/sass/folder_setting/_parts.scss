@@ -32,9 +32,6 @@ button.btn {
     &:not(.btnBor){
         border: none;
     }
-    &:hover{
-        color: inherit !important;
-    }
 }
 .btnCircle{
     display: block;
@@ -81,8 +78,18 @@ button.btn {
 .btnLb{ background-color: $color_f_sub; color: #fff;}
 .btnAd{ background-color: $color_a; color: #fff;}
 
+.noDateBox{
+    width: 100% !important;
+    padding: 50px 0;
+    background-color: #fff;
+    &.noDateBoxBorder{
+        border-top: 1px solid $color_b_sub2;
+    }
+}
 .noDateText{
     color: $color_b_sub;
+    text-align: center;
+    font-size: 0.9em;
 }
 /*loading*/
 .ajax-load{
@@ -115,6 +122,7 @@ button.btn {
         width: 100%;
         font-size: 16px;
         padding: 0;
+        @include font_jp;
         &:focus {
             outline: none;
         }
@@ -131,7 +139,7 @@ button.btn {
     input:-webkit-autofill {
         transition: background-color 5000s ease-in-out 0s !important;
     }
-    input[type="text"],input[type="email"],input[type="password"],input[type="number"],select{
+    input[type="text"],input[type="email"],input[type="password"],input[type="number"],textarea,select{
         border-radius: 5px;
         padding: 15px 10px;
         background-color: rgba(#fff,0.7) !important;
@@ -239,7 +247,7 @@ button.btn {
         font-size: 0.9em;
         color: $color_b_sub;
     }
-    input,select{
+    input,select,textarea{
         border: 1px solid $color_b_sub2 !important;
     }
     .nameBox{
@@ -592,14 +600,47 @@ button.btn {
                 }
             }
         }
+        .editBtn{
+            display: block;
+            position: relative;
+            width: 30px;
+            margin: -30px 5% 0 auto;
+            z-index: 1;
+        }
+        .postEditBox{
+            li{
+                button,a{
+                    background-color: transparent;
+                    padding: 20px 0;
+                    display: block;
+                    text-align: center;
+                    font-size: 16px;
+                }
+                .postEditDelete{
+                    color: $color_c;
+                }
+                .postEditInvisible{
+                    border-top: 1px solid $color_b_sub2;
+                }
+            }
+        }
         .textBox{
             @include wrap_s;
             padding: 10px 0 20px;
         }
     }
+    .owl-carousel.owl-loaded{
+        padding-bottom: 40px;
+    }
+    .owl-theme .owl-nav.disabled+.owl-dots{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
-/*postList *****
+/*fanclubList *****
 ********************************/
 #fanclubList {
     margin-top: $mg*2;
@@ -668,8 +709,36 @@ button.btn {
 
 
 /* 21.04.29 kondo, Overrides the Modal */
+.modal{
+    padding: 0 10px;
+    @include wrap_s;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.modal-dialog{
+    height: 100vh;
+}
 .modal-content{
+    border: none;
+    border-radius: 20px 20px 0 0;
+    @include je;
     border-radius: 20px;
+    background-color: transparent;
+}
+.modal.fade .modal-dialog{
+    transform: translate(0, 50px);
+}
+.modal.show .modal-dialog{
+    transform: none;
+}
+.modal-dialog{
+    margin: 0;
+    max-width: none;
+}
+.modal-dialog-bottom{
+    @include flex;
+    @include ae;
 }
 .modal-header{
     display: block;
@@ -685,12 +754,35 @@ button.btn {
         right: 5%;
     }
 }
+.modal-body{
+    background-color: #fff;
+    padding: 0;
+    border-radius: 20px;
+    max-height: 80vh;
+    overflow: scroll;
+}
 .modal-footer{
     display: block;
+    margin: 10px 0;
     border-top: none;
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    display: block;
+    .close{
+        font-size: 1em;
+        opacity: 1;
+        @include font_jp;
+        float: none;
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 10px 0;
+        text-align: center;
+    }
     &.btnBox{
-        width: 280px;
-        width: 70%;
+        width: 300px;
+        width: 90%;
         margin: 0 auto;
     }
 }

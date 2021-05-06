@@ -18,57 +18,33 @@
 @section('content')
     @component ('components.header')
 @section('page_back')
-    <div class="formBox"><button onClick="history.back()" class="back">{{ __('戻る') }}</button></div>
+    <div class="formBox"><a href="{{url('creator/invisible')}}" class="back">{{ __('戻る') }}</a></div>
 @endsection
 @slot('header_title')
-    <span class="name">{{ $creator[0]->nickname }}</span>{{ __('投稿') }}
+    {{ __('下書き投稿') }}
 @endslot
 @endcomponent
 
 <!--contentWrap-->
 <div id="contentWrap">
-    <div id="app">
 
-        {{--    <div id="post-data" class="timeline_image">--}}
-        {{--    21.03.28 김태영, main.blade.php에서도 ajax infinite scrolling 같이 사용하기 위해 클래스(.post-data) 로 변경--}}
+    {{--    <div id="post-data" class="timeline_image">--}}
+    {{--    21.03.28 김태영, main.blade.php에서도 ajax infinite scrolling 같이 사용하기 위해 클래스(.post-data) 로 변경--}}
+    @if(count($tweets)>=1)
         <ul id="postBox" class="timeline_image post-data">
             @include('creator/invisibleTimeData')
         </ul>
         <div class="ajax-load">
             <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
         </div>
-
-    </div>
-
-    {{--        21.04.27 kondo footer fixed(ユーザー別)--}}
-    @if( Auth::id() === $creator[0]->id)
-        @component ('components.bottomFixed')
-            @slot('bottomFixed_id')
-                {{ $creator[0]->account_id }}
-            @endslot
-        @endcomponent
     @else
-        <div id="bottomPost" class="bottomFixed">
-            <div class="inner">
-                <div class="nameBox">
-                    <p class="name">{{ $creator[0]->nickname }}</p>
-                    <p class="price">{{ __('月額') . $creator[0]->month_price .('円') }}</p>
-                </div>
-                @guest
-                    <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
-                @else
-                    @role('user')
-                    @if($follow === 0)
-                        <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
-                    @else
-                        <span class="btnCircle line2">{{ __('入会中です') }}</span>
-                    @endif
-                    @else
-                        <span class="btnCircle line2">{!! 'このアカウントでは<br>入会できません' !!}</span>
-                        @endrole
-                    @endguest
-            </div>
-        </div>
+        <div class="noDateBox"><p class="noDateText">{{ __('下書きがありません') }}</p></div>
     @endif
+
+    @component ('components.bottomFixed')
+        @slot('bottomFixed_id')
+            {{ $creator[0]->account_id }}
+        @endslot
+    @endcomponent
 </div><!--/contentWrap-->
 @endsection

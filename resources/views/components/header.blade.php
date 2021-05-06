@@ -12,9 +12,11 @@
                 <li><a href="{{ route('login') }}" class="icon login">ログイン</a></li>
             @endif
         @else
-            <li><span id="menuDrawer" class="icon menu">メニュー</span></li>
+            <li><a class="icon menu"
+               data-toggle="modal"
+               data-target="#menuDr">{{ __('メニュー') }}</a></li>
         @endguest
     </ul>
-    @component ('components.headerNav')
-    @endcomponent
 </header>
+@component ('components.headerNav')
+@endcomponent

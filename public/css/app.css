@@ -10001,27 +10001,8 @@ h3 {
     border-color: #dee2e6;
   }
 }
-
-/*21.03.09 김태영, 주석 dropzone 사용하기 이전 업로드 때 작성한 코드*/
-/*#image-form-wrapper {*/
-/*    padding-top: 20px;*/
-/*    background: #f7f7f7;*/
-/*}*/
-/*#images {*/
-/*    background: #eee;*/
-/*    padding: 20px 0;*/
-/*}*/
-/*.thumbnail img{*/
-/*    height: 300px;*/
-/*    width: 450px;*/
-/*}*/
-
-.flex_images {
-    display: flex;
-    flex-direction: row;
-    flex-flow: row wrap;
-    /*flex-wrap: wrap;*/
-    justify-content: center;
+a:hover{
+    color: inherit;
 }
 
 .flex_images img {
@@ -10029,10 +10010,6 @@ h3 {
     height: 200px;
 }
 
-.timeline_image img {
-    width: 500px;
-    height: 500px;
-}
 
 .ajax-load.text-center {
     display: none;

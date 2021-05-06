@@ -47,13 +47,6 @@ $(function () {
       $(this).parent().addClass('open');
     }
   });
-}); //menuDrawer
-
-$(function () {
-  $('#menuDrawer').on('click', function () {
-    $(this).toggleClass('active');
-    $("#menuDrawerContent").fadeToggle();
-  });
 }); //infoBox
 
 $(function () {
@@ -61,7 +54,7 @@ $(function () {
     $(this).toggleClass('active');
     $(this).next().slideToggle();
   });
-}); //infoBox
+}); //helpBox
 
 $(function () {
   $('.helpBox dt').on('click', function () {

@@ -47,9 +47,18 @@ function loadMoreData(page) {
   }).fail(function (jqXHR, ajaxOptions, thrownError) {
     console.log("Server not responding..");
   });
-} //21.04.18 김태영, search 검색이나 sorting 정렬은 infinite scrolling 과 다르게 다시 조회 됨
-//append가 아닌 html 내용을 새롭게 출력하기 위함
+} //21.05.06 kondo, first view hide
 
+
+$(function () {
+  var loadRange = $(".ajax-load").offset().top;
+  var windowSize = $(window).height();
+
+  if (loadRange < windowSize) {
+    $(".ajax-load").hide();
+  }
+}); //21.04.18 김태영, search 검색이나 sorting 정렬은 infinite scrolling 과 다르게 다시 조회 됨
+//append가 아닌 html 내용을 새롭게 출력하기 위함
 
 function loadMoreDataWithoutPage() {
   $search = $('#search_creator_input').length > 0 ? $('#search_creator_input').val() : null;

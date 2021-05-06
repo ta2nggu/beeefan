@@ -16,14 +16,25 @@
     <!--contentWrap-->
     <div id="contentWrap">
 
-        <div id="postList">
-            <ul class="post-data">
-                @include('creator/invisibleTweetsData')
-            </ul>
-            <div class="ajax-load">
-                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+        @if (session('flash_message'))
+            <div class="flashMsg">
+                <p>{{ session('flash_message') }}</p>
             </div>
-        </div>
+        @endif
+
+        @if(count($tweets)>=1)
+            <div id="postList">
+
+                <ul class="post-data">
+                    @include('creator/invisibleTweetsData')
+                </ul>
+                <div class="ajax-load">
+                    <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+                </div>
+            </div>
+        @else
+            <div class="noDateBox"><p class="noDateText">{{ __('下書きがありません') }}</p></div>
+        @endif
 
     @component ('components.bottomFixed')
     @slot('bottomFixed_id')

@@ -10,9 +10,6 @@
 
 @section('content')
     @component ('components.header')
-        @section('page_back')
-            <div class="formBox"><button onClick="history.back()" class="back">{{ __('戻る') }}</button></div>
-        @endsection
         @slot('header_title')
             新規投稿
         @endslot
@@ -20,7 +17,7 @@
 
     <!--contentWrap-->
     <div id="contentWrap">
-        <div id="app" class="wrap_s">
+        <div class="wrap_s">
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}

@@ -102,16 +102,39 @@ function time_ago($sec) {
                 @endif
             @endforeach
         </div>
+        <a class="editBtn"
+           data-toggle="modal"
+           data-target="#edit{{$tweet->id}}"><img src="{{ asset('storage/icon/icon_leader.png') }}" alt="{{__('編集')}}"></a>
+        <div class="modal fade postEditBox" id="edit{{$tweet->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-bottom" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form method="POST" action="{{ __('/creator/delTweet') }}" class="formBox">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $creator[0]->user_id }}">
+                            <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+                            <ul>
+                                <li><button type="submit" class="postEditDelete">{{ __('削除') }}</button></li>
+                                <li><a href="/creator/edit/{{$tweet->id}}">{{__('編集')}}</a></li>
+                            </ul>
+                        </form>
+                        <form method="POST" action="{{ __('/creator/ChangeTweetPost') }}" class="formBox">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $creator[0]->user_id }}">
+                            <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+                            <ul>
+                                <li><button type="submit" class="postEditInvisible">{{ __('投稿する') }}</button></li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">{{__('キャンセル')}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="textBox">
             <div class="text moreArea">{{ $tweet->msg }}</div>
         </div>
-        <form method="POST" action="{{ __('/creator/delTweet') }}" >
-            @csrf
-
-            <input type="hidden" name="user_id" value="{{ $creator[0]->user_id }}">
-            <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
-            <button type="submit" class="btn btnPi">{{ __('삭제') }}</button>
-        </form>
-        <a href="../edit/{{$tweet->id}}" class="btn btn-outline-primary">{{__('편집')}}</a>
     </li>
 @endforeach

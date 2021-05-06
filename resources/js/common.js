@@ -21,14 +21,6 @@ $(function() {
     });
 });
 
-//menuDrawer
-$(function() {
-    $('#menuDrawer').on('click', function() {
-        $(this).toggleClass('active');
-        $("#menuDrawerContent").fadeToggle();
-    });
-});
-
 //infoBox
 $(function() {
     $('#infoBox .ttl').on('click', function() {
@@ -37,7 +29,7 @@ $(function() {
     });
 });
 
-//infoBox
+//helpBox
 $(function() {
     $('.helpBox dt').on('click', function() {
         $(this).toggleClass('active');

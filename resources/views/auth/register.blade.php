@@ -3,7 +3,6 @@
 @section('title','新規会員登録')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
 @section('body','')
 
@@ -35,7 +34,7 @@
             <dl>
                 <dt><label for="account_id">{{ __("アカウントID") }}</label><span class="required">{{ __("必須") }}</span><span class="att">{{ __("※半角英数字と「_ -」が使用できます") }}</span></dt>
                 <dd>
-                    <input id="account_id" type="text" class="form-control @error('account_id') is-invalid @enderror" name="account_id" value="{{ old('account_id') }}" required autocomplete="account_id" autofocus>
+                    <input id="account_id" type="text" class="@error('account_id') is-invalid @enderror" name="account_id" value="{{ old('account_id') }}" required autocomplete="account_id" autofocus>
                     @error('account_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -44,11 +43,11 @@
                 </dd>
             </dl>
             <!--birth_date-->
-            <dl id="app">
+            <dl>
                 <dt><label for="birth_date">{{ __("誕生日") }}</label><span class="required">{{ __("必須") }}</span></dt>
                 <dd>
                     {{--                                <input id="birth_date" type="text" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus>--}}
-                    <datetime id="birth_date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus type="date" format="yyyy-MM-dd" ref="DatetimePicker"></datetime>
+                    <datetime id="birth_date" class="@error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus type="date" format="yyyy-MM-dd" ref="DatetimePicker"></datetime>
                     @error('birth_date')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -98,7 +97,7 @@
             <dl>
                 <dt><label for="email">{{ __("メールアドレス") }}</label><span class="required">{{ __("必須") }}</span></dt>
                 <dd>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                    <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -110,7 +109,7 @@
             <dl>
                 <dt><label for="password">{{ __("パスワード") }}</label><span class="required">{{ __("必須") }}</span></dt>
                 <dd>
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                    <input id="password" type="password" class="@error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -122,7 +121,7 @@
             <dl>
                 <dt><label for="password-confirm">{{ __("パスワード（確認）") }}</label><span class="required">{{ __("必須") }}</span></dt>
                 <dd>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                    <input id="password-confirm" type="password" name="password_confirmation" required autocomplete="new-password">
                 </dd>
             </dl>
 

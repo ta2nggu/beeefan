@@ -27,18 +27,25 @@
 
     <!--contentWrap-->
     <div id="contentWrap">
-        <div id="app">
+
+            @if (session('flash_message'))
+                <div class="flashMsg">
+                    <p>{{ session('flash_message') }}</p>
+                </div>
+            @endif
 
         {{--    <div id="post-data" class="timeline_image">--}}
         {{--    21.03.28 김태영, main.blade.php에서도 ajax infinite scrolling 같이 사용하기 위해 클래스(.post-data) 로 변경--}}
-            <ul id="postBox" class="timeline_image post-data">
-                @include('timelineData')
-            </ul>
-            <div class="ajax-load">
-                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
-            </div>
-
-        </div>
+            @if(count($tweets)>=1)
+                <ul id="postBox" class="timeline_image post-data">
+                    @include('timelineData')
+                </ul>
+                <div class="ajax-load">
+                    <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+                </div>
+            @else
+                <div class="noDateBox noDateBoxBorder"><p class="noDateText">{{ __('投稿がありません') }}</p></div>
+            @endif
 
 {{--        21.04.27 kondo footer fixed(ユーザー別)--}}
         @if( Auth::id() === $creator[0]->id)

@@ -47,3 +47,54 @@
 
 /*新規投稿・投稿修正*
 *******************************/
+#adminNotice{
+    .ttlBox{
+        @include wrap_inner;
+        margin-bottom: 20px;
+        h2{
+            @include font_head;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        p{
+            color: $color_b_sub;
+            font-size: 0.9em;
+        }
+    }
+    .noList{
+        text-align: center;
+        color: $color_b_sub;
+        font-size: 0.9em;
+    }
+}
+#adminNoticeList{
+    margin-bottom: 50px;
+    li{
+        border-top: 1px solid $color_b_sub;
+        padding: 10px 0;
+        &:last-of-type{
+            border-bottom: 1px solid $color_b_sub;
+        }
+        .inner{
+            @include wrap_inner;
+        }
+        h3{
+            @include font_head;
+            &:before{
+                content: "※";
+            }
+        }
+        p{
+            font-size: 0.9em;
+        }
+        button{
+            width: 60px;
+            margin-left: auto;
+            background-color: transparent;
+            text-align: right;
+            text-decoration: underline;
+            font-size: 0.9em;
+            display: block;
+        }
+    }
+}

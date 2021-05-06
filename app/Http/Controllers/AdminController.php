@@ -122,6 +122,13 @@ class AdminController extends Controller
     }
 
     public function notice_store(Request $request) {
+        $validated = $request->validate([
+            'title' => 'required|max:400',
+            'body' => 'required',
+        ]);
+
+//        return dd($validated);
+
         $this->middleware('auth');
         $this->user =  \Auth::user();
 

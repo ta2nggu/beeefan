@@ -51,12 +51,22 @@
                 @csrf
                 <dl>
                     <dt>{{__('タイトル')}}<span class="required">{{ __('必須') }}</span></dt>
-                    <dd><input type="text" name="title"></dd>
+                    <dd><input type="text" name="title" value="{{ old('title') }}"></dd>
                 </dl>
+                @error('title')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
                 <dl>
                     <dt>{{__('本文')}}<span class="required">{{ __('必須') }}</span></dt>
-                    <dd><textarea type="text" name="body" rows="5"></textarea></dd>
+                    <dd><textarea type="text" name="body" rows="5">{{{ old('body') }}}</textarea></dd>
                 </dl>
+                @error('body')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
                 <ul class="btnBox">
                     <li><button type="submit" class="btn btnAd submitBtn">{{ __('投稿する') }}</button></li>
                     <li><button onClick="history.back()" class="btn btnBor btnBorGy">{{ __('投稿せずに戻る') }}</button></li>

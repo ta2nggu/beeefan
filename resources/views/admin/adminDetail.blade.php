@@ -7,3 +7,9 @@
 <h2>パスワード</h2>
 <h3>{{__('*********')}}</h3>
 <a href="{{ url('/password/'.$admin->id) }}">パスワードを変更する</a>
+<form method="POST" action="{{ __('/admin/del') }}">
+    @csrf
+
+    <input type="hidden" name="admin_id" value="{{$admin->id}}">
+    <button type="submit" class="btn btnAd">{{ __('削除する') }}</button>
+</form>

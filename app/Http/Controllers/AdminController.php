@@ -159,7 +159,11 @@ class AdminController extends Controller
     }
 
     public function notice_delete(Request $request) {
-        Notice::find($request->notice_id)->delete();
+        $notice = Notice::find($request->notice_id);
+
+        if ($notice != null) {
+            $notice->delete();
+        }
 
         return redirect('/admin/notice');
     }
@@ -211,6 +215,20 @@ class AdminController extends Controller
     public function adminDetail($admin_id) {
         $admin = User::find($admin_id);
 
+        if($admin === null) {
+            return redirect('/admin/admins/list');
+        }
+
         return view('admin.adminDetail', compact('admin'));
+    }
+
+    public function admin_delete(Request $request) {
+        $admin = User::find($request->input('admin_id'));
+
+        if($admin != null) {
+            $admin->delete();
+        }
+
+        return redirect('/admin/admins/list');
     }
 }

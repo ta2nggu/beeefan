@@ -78,7 +78,7 @@ Route::get('/admin/admins/{admin}', [App\Http\Controllers\AdminController::class
 Route::get('/admin/adminReg', [App\Http\Controllers\AdminController::class, 'adminReg'])->middleware('role:superadministrator');
 Route::post('/admin/adminReg', [App\Http\Controllers\AdminController::class, 'adminReg_store'])->middleware('role:superadministrator');
 Route::get('/aDetail/{admin}', [App\Http\Controllers\AdminController::class, 'adminDetail'])->middleware('role:superadministrator');
-
+Route::post('/admin/del', [App\Http\Controllers\AdminController::class, 'admin_delete'])->middleware('role:superadministrator');
 
 //21.04.06 kondo creator&admin login page
 use App\Http\Controllers\PagesController;

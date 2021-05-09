@@ -225,7 +225,10 @@ class UserController extends Controller
 
 //        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
         $id = $request->has('admin_id') ? $request->admin_id : auth()->user()->id;
-        User::find($id)->update(['password'=> Hash::make($request->new_password)]);
+        $user = User::find($id);
+        if ($user != null) {
+            $user->update(['password'=> Hash::make($request->new_password)]);
+        }
 
 //        21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
         if (auth()->user()->hasRole('creator')){
@@ -270,7 +273,10 @@ class UserController extends Controller
         //User::find(auth()->user()->id)->update(['email'=> $request->email, 'email_verified_ata'=>null,]);
 //        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
         $id = $request->has('admin_id') ? $request->admin_id : auth()->user()->id;
-        User::find($id)->update(['email' => $request->email, 'email_verified_at' => null]);
+        $user = User::find($id);
+        if ($user != null) {
+            $user->update(['email' => $request->email, 'email_verified_at' => null]);
+        }
 
 //        21.04.12 김태영, creator가 email 변경 후 mypage로 이동
         if (auth()->user()->hasRole('creator')) {

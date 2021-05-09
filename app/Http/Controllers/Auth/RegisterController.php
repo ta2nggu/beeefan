@@ -101,7 +101,10 @@ class RegisterController extends Controller
         if ($data['role'] === 'user') {
             $user->attachRole('user');
         }
-        else if ($data['role'] === 'admin') {
+        else if ($data['role'] === 'superadministrator') {
+            $user->attachRole('superadministrator');
+        }
+        else if ($data['role'] === 'administrator') {
             $user->attachRole('administrator');
         }
         else if ($data['role'] === 'creator') {

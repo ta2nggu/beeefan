@@ -49,8 +49,15 @@
             </div>
         </div>
 
+{{--            21.05.09 김태영, super admin 만 관리자 관리 화면으로 이동--}}
+        @role('superadministrator')
+            <a href="{{ url('/admin/admins/list') }}">{{__('運営者新規登録 admin관리')}}</a>
+        @else
+
+        @endrole
+
         <div id="creatorRegBtn" class="btnBox">
-            <p><a href="{{ url('/admin/creatorReg') }}" class="btn btnAd">クリエイター新規登録</a></p>
+            <p><a href="{{ url('/admin/creatorReg') }}" class="btn btnAd">{{__('クリエイター新規登録')}}</a></p>
         </div>
 
         <div class="formBox normalFormBox">

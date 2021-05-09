@@ -45,6 +45,9 @@ class VerificationController extends Controller
         }
 
 //        return redirect($this->redirectPath())->with('verified', true);
+        if($user->hasRole('superadministrator')){
+            return redirect('/admin/index')->with('verified', true);
+        }
         if($user->hasRole('administrator')){
             return redirect('/admin/index')->with('verified', true);
         }

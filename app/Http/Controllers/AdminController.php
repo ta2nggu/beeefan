@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
     public function __construct(){
-        $this->middleware('role:administrator');
+        $this->middleware('role:administrator|superadministrator');
     }
 
     //21.05.06 김태영, 잘못이해하고 만들었다.. 사용 안함
@@ -39,6 +39,7 @@ class AdminController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'nickname' => ['required','string','min:2'],//,'unique:creators','regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+            'month_price' => ['required','integer','max:1000000'],
         ]);
 
         $user = User::create([
@@ -80,17 +81,20 @@ class AdminController extends Controller
 
     public function index(Request $request){
         //Creator 수
-        $creators_cnt = DB::table("users")
-//                       ->select(DB::raw("COUNT(1) as cnt"))
-                       ->join("role_user","role_user.user_id","=","users.id")
-                       ->where('role_user.role_id', '=', 2)
-//                       ->get();
-                       ->count();
+//        $creators_cnt = DB::table("users")
+////                       ->select(DB::raw("COUNT(1) as cnt"))
+//                       ->join("role_user","role_user.user_id","=","users.id")
+//                       ->where('role_user.role_id', '=', 2)
+////                       ->get();
+//                       ->count();
+        //21.05.08 creators count 변경
+        $creators_cnt = Creator::count();
+
         //User
         $users_cnt = DB::table("users")
                                //->select(DB::raw("COUNT(1) as cnt"))
                                ->join("role_user","role_user.user_id","=","users.id")
-                               ->where('role_user.role_id', '=', 3)
+                               ->where('role_user.role_id', '=', 4)
                                //->get();
                                ->count();
 
@@ -155,8 +159,76 @@ class AdminController extends Controller
     }
 
     public function notice_delete(Request $request) {
-        Notice::find($request->notice_id)->delete();
+        $notice = Notice::find($request->notice_id);
+
+        if ($notice != null) {
+            $notice->delete();
+        }
 
         return redirect('/admin/notice');
+    }
+
+    //21.05.09 김태영, 관리자 관리 화면
+    public function admins($admin_id) {
+        $admins = DB::table("users")
+            ->join("role_user","role_user.user_id","=","users.id")
+            ->whereIn('role_user.role_id', [1, 2])//1 super admin, 2 admin
+            ->where('users.id', '!=', \Auth::user()->id)
+            ->get();
+
+        if ($admin_id != 'list') {
+            $new = User::find($admin_id);
+        }
+        else {
+            $new = '';
+        }
+
+        return view('admin.admins', compact('admins', 'new'));
+    }
+
+    public function adminReg() {
+
+        return view('admin.adminReg');
+    }
+
+    public function adminReg_store(Request $request) {
+        $validated = $request->validate([
+            'last_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $new = User::create([
+            'account_id' => $request->input('account_id'),
+            'last_name' => $request->input('last_name'),
+            'first_name' => $request->input('first_name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+        $new->attachRole('administrator');
+
+        return redirect('/admin/admins/'.$new->id);
+    }
+
+    public function adminDetail($admin_id) {
+        $admin = User::find($admin_id);
+
+        if($admin === null) {
+            return redirect('/admin/admins/list');
+        }
+
+        return view('admin.adminDetail', compact('admin'));
+    }
+
+    public function admin_delete(Request $request) {
+        $admin = User::find($request->input('admin_id'));
+
+        if($admin != null) {
+            $admin->delete();
+        }
+
+        return redirect('/admin/admins/list');
     }
 }

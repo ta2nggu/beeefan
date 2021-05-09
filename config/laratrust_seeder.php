@@ -21,6 +21,12 @@ return [
 //            'users' => 'c,r,u,d',
 //            'profile' => 'r,u'
 //        ],
+        //21.05.08 김태영, superadministrator 추가
+        'superadministrator' => [
+            'users' => 'c,r,u,d',
+            'payments' => 'c,r,u,d',
+            'profile' => 'r,u'
+        ],
         //21.02.21 김태영, creator 추가, administrotr 권한 추가, superadmin 제거
         'administrator' => [
             'users' => 'c,r,u,d',

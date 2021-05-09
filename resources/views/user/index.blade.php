@@ -19,14 +19,13 @@
 
         <div id="infoBox">
             <ul>
-                <li>
-                    <p class="ttl">title</p>
-                    <p class="txt">text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,</p>
-                </li>
-                <li>
-                    <p class="ttl">title</p>
-                    <p class="txt">text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,text,</p>
-                </li>
+                {{-- 21.05.10 김태영, 공지사항 추가 --}}
+                @foreach($notices as $notice)
+                    <li>
+                        <p class="ttl">{{$notice->title}}</p>
+                        <p class="txt"><pre>{{$notice->body}}</pre></p>
+                    </li>
+                @endforeach
             </ul>
         </div>
 

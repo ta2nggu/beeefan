@@ -73,7 +73,12 @@ Route::post('/admin/creatorReg', [App\Http\Controllers\AdminController::class, '
 Route::get('/admin/notice', [App\Http\Controllers\AdminController::class, 'notice'])->middleware('verified');
 Route::post('/admin/notice', [App\Http\Controllers\AdminController::class, 'notice_store'])->middleware('verified');
 Route::post('/admin/delNotice', [App\Http\Controllers\AdminController::class, 'notice_delete'])->middleware('verified');
-
+//21.05.08 김태영, admin 관리
+Route::get('/admin/admins/{admin}', [App\Http\Controllers\AdminController::class, 'admins'])->middleware('role:superadministrator');
+Route::get('/admin/adminReg', [App\Http\Controllers\AdminController::class, 'adminReg'])->middleware('role:superadministrator');
+Route::post('/admin/adminReg', [App\Http\Controllers\AdminController::class, 'adminReg_store'])->middleware('role:superadministrator');
+Route::get('/aDetail/{admin}', [App\Http\Controllers\AdminController::class, 'adminDetail'])->middleware('role:superadministrator');
+Route::post('/admin/del', [App\Http\Controllers\AdminController::class, 'admin_delete'])->middleware('role:superadministrator');
 
 //21.04.06 kondo creator&admin login page
 use App\Http\Controllers\PagesController;
@@ -85,7 +90,10 @@ Route::get('/page/law', [PagesController::class, 'pageLaw'])->name('pageLaw');
 Route::get('/page/help', [PagesController::class, 'pageHelp'])->name('pageHelp');
 
 //21.04.26 김태영
-Route::get('/password/change', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');
+//Route::get('/password/change', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');
+Route::get('/password/{change}', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');
 Route::post('/password/change', [App\Http\Controllers\UserController::class, 'change_password_store'])->middleware('verified');
-Route::get('/email/change', [App\Http\Controllers\UserController::class, 'change_email'])->middleware('verified');
+
+//Route::get('/email/change', [App\Http\Controllers\UserController::class, 'change_email'])->middleware('verified');
+Route::get('/email/{change}', [App\Http\Controllers\UserController::class, 'change_email'])->middleware('verified');
 Route::post('/email/change', [App\Http\Controllers\UserController::class, 'change_email_store'])->middleware('verified');

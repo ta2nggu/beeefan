@@ -35,6 +35,9 @@ class LoginController extends Controller
         if($user->hasRole('administrator')){
             return redirect('/admin/index');
         }
+        if($user->hasRole('superadministrator')){
+            return redirect('/admin/index');
+        }
         if($user->hasRole('creator')){
             //return redirect('/creator/'.$user->nickname);
             return redirect('/creator/index');
@@ -78,7 +81,7 @@ class LoginController extends Controller
 
     }
 
-    //21.05.108 kondo, アカウントIDでもログインできるように（AuthenticatesUsers＞override）
+    //21.05.08 kondo, アカウントIDでもログインできるように（AuthenticatesUsers＞override）
     public function username()
     {
         return 'account_id';

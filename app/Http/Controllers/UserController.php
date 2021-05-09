@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Following;
+use App\Models\Notice;
 use App\Models\tweet;
 use App\Models\User;
 use App\Rules\MatchOldPassword;
@@ -29,14 +30,18 @@ class UserController extends Controller
                                 ->orderby('creators.nickname', 'asc')
                                 ->paginate(5);
 
+        //21.05.10 김태영, 공지사항 추가
+        $notices = Notice::orderBy('id', 'desc')->get();
+
         if ($request->ajax()) {
-            $view = view('user.indexData', compact( 'creators'))->render();
+            $view = view('user.indexData', compact( 'creators', 'notices'))->render();
             return response()->json(['html'=>$view]);
         }
 
         return view('user.index', [
             'user' => $this->user,
-            'creators' => $creators
+            'creators' => $creators,
+            'notices' => $notices
         ]);
     }
 
@@ -192,13 +197,26 @@ class UserController extends Controller
 //        ]);
     }
 
-    public function change_password() {
+    public function change_password($admin_id) {
         $this->middleware('auth');
         $this->user =  \Auth::user();
 
+//        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
+        $selectId = $admin_id === 'change' ? $this->user->id : $admin_id;
+
         $user = DB::table("users")
-            ->where('id', '=', $this->user->id)
+            ->where('id', '=', $selectId)
             ->get();
+
+        //21.05.10 김태영, 관리자 삭제 이후 뒤로가기로 돌아와서 다시 누를까봐..
+        if(count($user) === 0) {
+            if (auth()->user()->hasRole('creator')){
+                return redirect('/creator/mypage');
+            }
+            else if (auth()->user()->hasRole('superadministrator')) {
+                return redirect('/admin/admins/list');
+            }
+        }
 
         return view('auth.passwords.change', [
             'user' => $user
@@ -220,23 +238,44 @@ class UserController extends Controller
 
         $this->validate($request, $rules, [], $attributes);
 
-        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+//        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
+        $id = $request->has('admin_id') ? $request->admin_id : auth()->user()->id;
+        $user = User::find($id);
+        if ($user != null) {
+            $user->update(['password'=> Hash::make($request->new_password)]);
+        }
 
 //        21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
         if (auth()->user()->hasRole('creator')){
             return redirect('/creator/mypage');
         }
+        else if (auth()->user()->hasRole('superadministrator')) {
+            return redirect('/admin/admins/list');
+        }
 
         return redirect()->back();
     }
 
-    public function change_email() {
+    public function change_email($admin_id) {
         $this->middleware('auth');
         $this->user =  \Auth::user();
 
+//        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
+        $selectId = $admin_id === 'change' ? $this->user->id : $admin_id;
+
         $user = DB::table("users")
-            ->where('id', '=', $this->user->id)
+            ->where('id', '=', $selectId)
             ->get();
+
+        //21.05.10 김태영, 관리자 삭제 이후 뒤로가기로 돌아와서 다시 누를까봐..
+        if(count($user) === 0) {
+            if (auth()->user()->hasRole('creator')){
+                return redirect('/creator/mypage');
+            }
+            else if (auth()->user()->hasRole('superadministrator')) {
+                return redirect('/admin/admins/list');
+            }
+        }
 
         return view('auth.email.change', [
             'user' => $user
@@ -255,15 +294,24 @@ class UserController extends Controller
         $this->validate($request, $rules, [], $attributes);
 
         $user = User::find(auth()->user()->id);
-        //User::find(auth()->user()->id)->update(['email'=> $request->email, 'email_verified_ata'=>null,]);
+//        User::find(auth()->user()->id)->update(['email'=> $request->email, 'email_verified_ata'=>null,]);
 //        return dd($user);
         $user->update(['email' => $request->email, 'email_verified_at' => null]);
         $user->sendEmailVerificationNotification();
 
+//        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
+        $id = $request->has('admin_id') ? $request->admin_id : auth()->user()->id;
+        $user = User::find($id);
+        if ($user != null) {
+            $user->update(['email' => $request->email, 'email_verified_at' => null]);
+        }
 
 //        21.04.12 김태영, creator가 email 변경 후 mypage로 이동
-        if (auth()->user()->hasRole('creator')){
+        if (auth()->user()->hasRole('creator')) {
             return redirect('/creator/mypage');
+        }
+        else if (auth()->user()->hasRole('superadministrator')) {
+            return redirect('/admin/admins/list');
         }
 
         return redirect()->back();

@@ -203,6 +203,16 @@ class UserController extends Controller
             ->where('id', '=', $selectId)
             ->get();
 
+        //21.05.10 김태영, 관리자 삭제 이후 뒤로가기로 돌아와서 다시 누를까봐..
+        if(count($user) === 0) {
+            if (auth()->user()->hasRole('creator')){
+                return redirect('/creator/mypage');
+            }
+            else if (auth()->user()->hasRole('superadministrator')) {
+                return redirect('/admin/admins/list');
+            }
+        }
+
         return view('auth.passwords.change', [
             'user' => $user
         ]);
@@ -251,6 +261,16 @@ class UserController extends Controller
         $user = DB::table("users")
             ->where('id', '=', $selectId)
             ->get();
+
+        //21.05.10 김태영, 관리자 삭제 이후 뒤로가기로 돌아와서 다시 누를까봐..
+        if(count($user) === 0) {
+            if (auth()->user()->hasRole('creator')){
+                return redirect('/creator/mypage');
+            }
+            else if (auth()->user()->hasRole('superadministrator')) {
+                return redirect('/admin/admins/list');
+            }
+        }
 
         return view('auth.email.change', [
             'user' => $user

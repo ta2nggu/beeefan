@@ -56,13 +56,6 @@
             </div>
         </div>
 
-{{--            21.05.09 김태영, super admin 만 관리자 관리 화면으로 이동--}}
-        @role('superadministrator')
-            <a href="{{ url('/admin/admins/list') }}">{{__('運営者新規登録 admin관리')}}</a>
-        @else
-
-        @endrole
-
         <div id="creatorRegBtn" class="btnBox">
             <p><a href="{{ url('/admin/creatorReg') }}" class="btn btnAd">{{__('クリエイター新規登録')}}</a></p>
         </div>
@@ -81,12 +74,16 @@
         </div>
 
         <div id="fanclubList">
-            <ul class="post-data">
-                @include('admin/indexData')
-            </ul>
-            <div class="ajax-load">
-                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
-            </div>
+            @if(count($creators)>=1)
+                <ul class="post-data">
+                    @include('admin/indexData')
+                </ul>
+                <div class="ajax-load">
+                    <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+                </div>
+            @else
+                <div class="noDateBox noDateBoxBorder"><p class="noDateText">{{ __('クリエイターが未登録です') }}</p></div>
+            @endif
         </div>
 
         @component ('components.bottomFixed')

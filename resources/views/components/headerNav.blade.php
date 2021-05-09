@@ -14,6 +14,7 @@
                     <li><a href="{{ url('/page/law') }}" class="icon_law">{{__('特定商取引法に基づく表記')}}</a></li>
                     @endrole
                     @role('user')
+                    <li><a href="{{ url('/mypage') }}" class="icon_mypage">{{__('マイページ')}}</a></li>
                     <li><a href="{{ url('/email/change') }}" class="icon_card">{{__('メールアドレス変更')}}</a></li>
                     <li><a href="{{ url('/password/change') }}" class="icon_setting">{{__('パスワード変更')}}</a></li>
                     <li><a href="" class="icon_payment">{{__('決済方法変更')}}</a></li>
@@ -23,10 +24,20 @@
                     <li><a href="{{ url('/page/law') }}" class="icon_law">{{__('特定商取引法に基づく表記')}}</a></li>
                     @endrole
                     @role('administrator')
-                    <li><a href="{{ url('/admin/notice') }}" class="icon_post">{{__('お知らせ投稿')}}</a></li>
-                    <li><a href="{{ url('/admin/creatorReg') }}" class="icon_setting">{{__('クリエイター新規登録')}}</a></li>
-                    <li><a href="" class="icon_help">{{__('運営者一覧')}}</a></li>
-                    <li><a href="" class="icon_rule">{{__('運営者新規登録')}}</a></li>
+                    <li><a href="{{ url('/admin/index') }}" class="icon_mypage">{{__('マイページ')}}</a></li>
+                    <li><a href="{{ url('/admin/notice') }}" class="icon_notice">{{__('お知らせ投稿')}}</a></li>
+                    <li><a href="{{ url('/admin/creatorReg') }}" class="icon_addCreator">{{__('クリエイター新規登録')}}</a></li>
+                    <li><a href="{{ url('/email/change') }}" class="icon_law">{{__('メールアドレス変更')}}</a></li>
+                    <li><a href="{{ url('/password/change') }}" class="icon_setting">{{__('パスワード変更')}}</a></li>
+                    @endrole
+                    @role('superadministrator')
+                    <li><a href="{{ url('/admin/index') }}" class="icon_mypage">{{__('マイページ')}}</a></li>
+                    <li><a href="{{ url('/admin/notice') }}" class="icon_notice">{{__('お知らせ投稿')}}</a></li>
+                    <li><a href="{{ url('/admin/creatorReg') }}" class="icon_addCreator">{{__('クリエイター新規登録')}}</a></li>
+                    <li><a href="{{ url('/admin/admins/list') }}" class="icon_admins">{{__('運営者一覧')}}</a></li>
+                    <li><a href="{{ url('/admin/adminReg') }}" class="icon_addAdmin">{{__('運営者新規登録')}}</a></li>
+                    <li><a href="{{ url('/email/change') }}" class="icon_law">{{__('メールアドレス変更')}}</a></li>
+                    <li><a href="{{ url('/password/change') }}" class="icon_setting">{{__('パスワード変更')}}</a></li>
                     @endrole
                     <li><a class="icon_logout" href="{{ route('logout') }}"
                            onclick="event.preventDefault();

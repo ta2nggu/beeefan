@@ -323,6 +323,18 @@ body {
 #menuDr li a.icon_law:before {
   background-image: url("/storage/icon/icon_book.png");
 }
+#menuDr li a.icon_notice:before {
+  background-image: url("/storage/icon/icon_notice.png");
+}
+#menuDr li a.icon_addCreator:before {
+  background-image: url("/storage/icon/icon_scroll.png");
+}
+#menuDr li a.icon_admins:before {
+  background-image: url("/storage/icon/icon_admins.png");
+}
+#menuDr li a.icon_addAdmin:before {
+  background-image: url("/storage/icon/icon_card.png");
+}
 #menuDr li a.icon_logout:before {
   background-image: url("/storage/icon/icon_logout.png");
 }
@@ -489,8 +501,14 @@ body {
 #bottomAdminMypage li a.mypage:before {
   background-image: url("/storage/icon/icon_user.png");
 }
-#bottomAdminMypage li a.setting:before {
-  background-image: url("/storage/icon/icon_setting.png");
+#bottomAdminMypage li a.addCreator:before {
+  background-image: url("/storage/icon/icon_scroll.png");
+}
+#bottomAdminMypage li a.admins:before {
+  background-image: url("/storage/icon/icon_admins.png");
+}
+#bottomAdminMypage li a.notice:before {
+  background-image: url("/storage/icon/icon_notice.png");
 }
 
 /*btn *****
@@ -507,7 +525,7 @@ body {
   font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
   font-weight: 600;
   font-style: normal;
-  font-size: 1.2em;
+  font-size: 16px;
 }
 .btn.line2 {
   padding-top: 10px;
@@ -523,6 +541,9 @@ button.btn {
   box-sizing: border-box;
   cursor: pointer;
   width: 100%;
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
   font-size: 16px;
   padding: 0;
 }
@@ -550,6 +571,12 @@ button.btn:not(.btnBor) {
 
 .btnS {
   max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btnSS {
+  max-width: 180px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -613,6 +640,10 @@ button.btn:not(.btnBor) {
   color: #fff;
 }
 
+.btnGy {
+  color: #aaaaaa;
+}
+
 .noDateBox {
   width: 100% !important;
   padding: 50px 0;
@@ -667,6 +698,11 @@ button.btn:not(.btnBor) {
 }
 .formBox input[type=text]:not(.btnBor), .formBox input[type=email]:not(.btnBor), .formBox input[type=password]:not(.btnBor), .formBox input[type=number]:not(.btnBor), .formBox button:not(.btnBor), .formBox input[type=button]:not(.btnBor), .formBox textarea:not(.btnBor), .formBox select:not(.btnBor) {
   border: none;
+}
+.formBox input[type=text].btn, .formBox input[type=email].btn, .formBox input[type=password].btn, .formBox input[type=number].btn, .formBox button.btn, .formBox input[type=button].btn, .formBox textarea.btn, .formBox select.btn {
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 .formBox input::-moz-placeholder {
   color: #aaa;
@@ -845,11 +881,17 @@ button.btn:not(.btnBor) {
   font-size: 0.9em;
   color: #aaaaaa;
 }
+.formBox.normalFormBox .txtLink.NoMrg {
+  margin-top: 0;
+}
 .formBox.normalFormBox .txtLink a {
   text-decoration: underline;
 }
 .formBox.normalFormBox .txtLink.center {
   text-align: center;
+}
+.formBox.normalFormBox .txtLink.right {
+  text-align: right;
 }
 .formBox.normalFormBox .centerCheckbox {
   text-align: center;
@@ -1273,6 +1315,7 @@ button.btn:not(.btnBor) {
 }
 #fanclubList li .txtBox a {
   display: inline-block;
+  font-size: 0.9em;
   margin-top: 5px;
   color: #aaaaaa;
   text-decoration: underline;
@@ -1348,6 +1391,7 @@ button.btn:not(.btnBor) {
   font-size: 1.2em;
 }
 .modal-header .close {
+  width: auto;
   position: absolute;
   top: 20px;
   right: 5%;
@@ -1383,10 +1427,22 @@ button.btn:not(.btnBor) {
   padding: 10px 0;
   text-align: center;
 }
-.modal-footer.btnBox {
+
+.modal .modal-footer.btnBox {
   width: 300px;
   width: 90%;
-  margin: 0 auto;
+  margin: 30px auto 0;
+}
+
+.warningBox .modal-content {
+  background-color: #fff;
+  padding: 30px 5%;
+}
+.warningBox .modal-warning {
+  padding: 0 5%;
+}
+.warningBox .modal-warning p {
+  line-height: 2.2;
 }
 
 /*新規投稿・投稿修正*

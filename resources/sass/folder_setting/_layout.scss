@@ -128,6 +128,10 @@ body{
             &.icon_rule:before{background-image: url("/storage/icon/icon_scroll.png");}
             &.icon_policy:before{background-image: url("/storage/icon/icon_lock.png");}
             &.icon_law:before{background-image: url("/storage/icon/icon_book.png");}
+            &.icon_notice:before{background-image: url("/storage/icon/icon_notice.png");}
+            &.icon_addCreator:before{background-image: url("/storage/icon/icon_scroll.png");}
+            &.icon_admins:before{background-image: url("/storage/icon/icon_admins.png");}
+            &.icon_addAdmin:before{background-image: url("/storage/icon/icon_card.png");}
             &.icon_logout:before{background-image: url("/storage/icon/icon_logout.png");}
         }
     }
@@ -286,8 +290,14 @@ body{
             &.mypage:before{
                 background-image: url("/storage/icon/icon_user.png");
             }
-            &.setting:before{
-                background-image: url("/storage/icon/icon_setting.png");
+            &.addCreator:before{
+                background-image: url("/storage/icon/icon_scroll.png");
+            }
+            &.admins:before{
+                background-image: url("/storage/icon/icon_admins.png");
+            }
+            &.notice:before{
+                background-image: url("/storage/icon/icon_notice.png");
             }
         }
     }

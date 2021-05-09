@@ -229,6 +229,6 @@ class AdminController extends Controller
             $admin->delete();
         }
 
-        return redirect('/admin/admins/list');
+        return redirect('/admin/admins/list')->with('flash_message', $admin->last_name.' '.$admin->first_name.'を削除しました');
     }
 }

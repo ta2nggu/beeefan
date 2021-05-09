@@ -23,7 +23,7 @@
                 @foreach($notices as $notice)
                     <li>
                         <p class="ttl">{{$notice->title}}</p>
-                        <p class="txt"><pre>{{$notice->body}}</pre></p>
+                        <pre class="txt">{{$notice->body}}</pre>
                     </li>
                 @endforeach
             </ul>
@@ -40,13 +40,17 @@
         </div>
 
         <div id="fanclubList">
-            <h2>{{ __('入会済みファンクラブ') }}</h2>
-            <ul class="post-data">
-                @include('user/indexData')
-            </ul>
-            <div class="ajax-load">
-                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
-            </div>
+            <h2>{{ __('入会中ファンクラブ一覧') }}</h2>
+            @if(count($creators)>=1)
+                <ul class="post-data">
+                    @include('user/indexData')
+                </ul>
+                <div class="ajax-load">
+                    <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+                </div>
+            @else
+                <div class="noDateBox noDateBoxBorder"><p class="noDateText">{{ __('入会中のファンクラブがありません') }}</p></div>
+            @endif
         </div>
 
         @component ('components.bottomFixed')

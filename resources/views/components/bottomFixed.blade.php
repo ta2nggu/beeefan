@@ -20,7 +20,17 @@
         <div id="bottomAdminMypage" class="bottomFixed">
             <ul class="inner">
                 <li><a href="{{ url('/admin/index') }}" class="mypage">{{__('マイページ')}}</a></li>
-                <li><a href="{{ url('/admin/creators') }}" class="setting">{{__('設定変更')}}</a></li>
+                <li><a href="{{ url('/admin/creatorReg') }}" class="addCreator">{{__('クリエイター新規登録')}}</a></li>
+                <li><a href="{{ url('/admin/notice') }}" class="notice">{{__('お知らせ投稿')}}</a></li>
+            </ul>
+        </div>
+    @endrole
+    @role('superadministrator')
+        <div id="bottomAdminMypage" class="bottomFixed">
+            <ul class="inner">
+                <li><a href="{{ url('/admin/index') }}" class="mypage">{{__('マイページ')}}</a></li>
+                <li><a href="{{ url('/admin/creatorReg') }}" class="addCreator">{{__('クリエイター新規登録')}}</a></li>
+                <li><a href="{{ url('/admin/admins/list') }}" class="admins">{{__('運営者一覧')}}</a></li>
             </ul>
         </div>
     @endrole

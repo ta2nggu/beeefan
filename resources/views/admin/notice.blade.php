@@ -14,7 +14,7 @@
         @endslot
     @endcomponent
     <!--contentWrap-->
-    <li id="contentWrap" class="contentTopMar contentBtmMar">
+    <li id="contentWrap" class="contentTopMar">
         <div id="adminNotice">
 
             <div class="ttlBox">
@@ -28,7 +28,7 @@
                             <li>
                                 <div class="inner">
                                     <h3>{{ $notice->title }}</h3>
-                                    <p>{{ $notice->body }}</p>
+                                    <pre>{{ $notice->body }}</pre>
                                     <form method="POST" action="{{ __('/admin/delNotice') }}" class="formBox">
                                         @csrf
                                         <input type="hidden" name="notice_id" value="{{ $notice->id }}">
@@ -69,13 +69,10 @@
                 @enderror
                 <ul class="btnBox">
                     <li><button type="submit" class="btn btnAd submitBtn">{{ __('投稿する') }}</button></li>
-                    <li><button onClick="history.back()" class="btn btnBor btnBorGy">{{ __('投稿せずに戻る') }}</button></li>
+                    <li><a href="{{url('/admin/index')}}" class="btn btnBor btnBorGy">{{ __('投稿せずに戻る') }}</a></li>
                 </ul>
             </form>
         </div>
-
-        @component ('components.bottomFixed')
-        @endcomponent
 
     </div><!--/contentWrap-->
 @endsection

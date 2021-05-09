@@ -9,12 +9,13 @@
         &:nth-of-type(even){
             background-color: #eedee1;
         }
-        p{
+        .ttl,.txt{
             @include wrap_inner;
         }
         .ttl{
             padding: 8px 0 ;
             position: relative;
+            cursor: pointer;
             &:before{
                 content: "※";
             }
@@ -37,7 +38,8 @@
             }
         }
         .txt{
-            overflow-wrap: break-word;
+            font-size: 0.9em;
+            white-space: pre-wrap;
             padding-bottom: 10px;
             display: none;
         }

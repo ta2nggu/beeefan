@@ -10,7 +10,7 @@
     background-color: $color_b_bk;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     @include font_head;
-    font-size: 1.2em;
+    font-size: 16px;
     &.line2{
         padding-top: 10px;
         line-height: 22px;
@@ -24,6 +24,7 @@ button.btn {
     box-sizing: border-box;
     cursor: pointer;
     width: 100%;
+    @include font_head;
     font-size: 16px;
     padding: 0;
     &:focus {
@@ -52,6 +53,11 @@ button.btn {
     margin-left: auto;
     margin-right: auto;
 }
+.btnSS{
+    max-width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .btnCansell{
     color: $color_b_sub;
 }
@@ -77,6 +83,7 @@ button.btn {
 .btnBl{ background-color: $color_f; color: #fff;}
 .btnLb{ background-color: $color_f_sub; color: #fff;}
 .btnAd{ background-color: $color_a; color: #fff;}
+.btnGy{color: $color_b_sub}
 
 .noDateBox{
     width: 100% !important;
@@ -128,6 +135,9 @@ button.btn {
         }
         &:not(.btnBor){
             border: none;
+        }
+        &.btn{
+            @include font_head;
         }
     }
     input::placeholder{color: #aaa;}
@@ -281,11 +291,17 @@ button.btn {
         margin-top: 30px;
         font-size: 0.9em;
         color: $color_b_sub;
+        &.NoMrg{
+            margin-top: 0;
+        }
         a{
             text-decoration: underline;
         }
         &.center{
             text-align: center;
+        }
+        &.right{
+            text-align: right;
         }
     }
     .centerCheckbox{
@@ -683,6 +699,7 @@ button.btn {
             }
             a{
                 display: inline-block;
+                font-size: 0.9em;
                 margin-top: 5px;
                 color: $color_b_sub;
                 text-decoration: underline;
@@ -749,6 +766,7 @@ button.btn {
         font-size: 1.2em;
     }
     .close{
+        width: auto;
         position: absolute;
         top: 20px;
         right: 5%;
@@ -780,9 +798,24 @@ button.btn {
         padding: 10px 0;
         text-align: center;
     }
-    &.btnBox{
+}
+.modal {
+    .modal-footer.btnBox{
         width: 300px;
         width: 90%;
-        margin: 0 auto;
+        margin: 30px auto 0;
+    }
+}
+
+.warningBox{
+    .modal-content {
+        background-color: #fff;
+        padding: 30px 5%;
+    }
+    .modal-warning{
+        padding: 0 5%;
+        p {
+            line-height: 2.2;
+        }
     }
 }

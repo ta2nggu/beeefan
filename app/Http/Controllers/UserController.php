@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Following;
+use App\Models\Notice;
 use App\Models\tweet;
 use App\Models\User;
 use App\Rules\MatchOldPassword;
@@ -29,14 +30,18 @@ class UserController extends Controller
                                 ->orderby('creators.nickname', 'asc')
                                 ->paginate(5);
 
+        //21.05.10 김태영, 공지사항 추가
+        $notices = Notice::orderBy('id', 'desc')->get();
+
         if ($request->ajax()) {
-            $view = view('user.indexData', compact( 'creators'))->render();
+            $view = view('user.indexData', compact( 'creators', 'notices'))->render();
             return response()->json(['html'=>$view]);
         }
 
         return view('user.index', [
             'user' => $this->user,
-            'creators' => $creators
+            'creators' => $creators,
+            'notices' => $notices
         ]);
     }
 

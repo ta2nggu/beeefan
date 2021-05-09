@@ -11,8 +11,15 @@
 
     @component ('components.header')
     @endcomponent
+
     <!--contentWrap-->
     <div id="contentWrap">
+
+        @if (session('flash_message'))
+            <div class="flashMsg">
+                <p>{{ session('flash_message') }}</p>
+            </div>
+        @endif
 
         @if (session('status'))
             <div class="alert alert-success" role="alert">

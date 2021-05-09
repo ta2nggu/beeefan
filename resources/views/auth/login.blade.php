@@ -29,8 +29,8 @@
             <form method="POST" action="{{ route('login') }}" class="formBox">
                 @csrf
                 <div>
-                    <input id="email" type="email" placeholder="{{_("メールアドレスまたはアカウントID")}}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    @error('email')
+                    <input id="account_id" type="text" placeholder="{{_("メールアドレスまたはアカウントID")}}" class="form-control @error('account_id') is-invalid @enderror" name="account_id" value="{{ old('account_id') }}" required autofocus>
+                    @error('account_id')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                     @enderror
                 </div>

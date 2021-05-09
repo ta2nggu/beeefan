@@ -87,6 +87,5 @@ Route::get('/page/help', [PagesController::class, 'pageHelp'])->name('pageHelp')
 //21.04.26 김태영
 Route::get('/password/change', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');
 Route::post('/password/change', [App\Http\Controllers\UserController::class, 'change_password_store'])->middleware('verified');
-
 Route::get('/email/change', [App\Http\Controllers\UserController::class, 'change_email'])->middleware('verified');
 Route::post('/email/change', [App\Http\Controllers\UserController::class, 'change_email_store'])->middleware('verified');

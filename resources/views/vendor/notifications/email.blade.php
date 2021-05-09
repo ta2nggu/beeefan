@@ -35,24 +35,23 @@
 
 {{-- Outro Lines --}}
 @foreach ($outroLines as $line)
-{{ $line }}
+{!! $line !!}
 
 @endforeach
 
 {{-- Salutation --}}
-@if (! empty($salutation))
-{{ $salutation }}
-@else
-@lang('Regards'),<br>
-{{ config('app.name') }}
-@endif
+{{--@if (! empty($salutation))--}}
+{{--{{ $salutation }}--}}
+{{--@else--}}
+{{--@lang('Regards'),<br>--}}
+{{--{{ config('app.name') }}--}}
+{{--@endif--}}
 
 {{-- Subcopy --}}
 @isset($actionText)
 @slot('subcopy')
 @lang(
-    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
-    'into your web browser:',
+    "もし「:actionText」ボタンをクリックしてもうまく移動できない場合は、以下のURLを直接ブラウザにコピー＆ペーストしてください。\n\n",
     [
         'actionText' => $actionText,
     ]

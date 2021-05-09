@@ -14,8 +14,8 @@
                     <li><a href="{{ url('/page/law') }}" class="icon_law">{{__('特定商取引法に基づく表記')}}</a></li>
                     @endrole
                     @role('user')
-                    <li><a href="" class="icon_card">{{__('メールアドレス変更')}}</a></li>
-                    <li><a href="" class="icon_setting">{{__('パスワード変更')}}</a></li>
+                    <li><a href="{{ url('/email/change') }}" class="icon_card">{{__('メールアドレス変更')}}</a></li>
+                    <li><a href="{{ url('/password/change') }}" class="icon_setting">{{__('パスワード変更')}}</a></li>
                     <li><a href="" class="icon_payment">{{__('決済方法変更')}}</a></li>
                     <li><a href="{{ url('/page/help') }}" class="icon_help">{{__('ヘルプ')}}</a></li>
                     <li><a href="{{ url('/page/rule') }}" class="icon_rule">{{__('利用規約')}}</a></li>

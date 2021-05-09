@@ -45,12 +45,12 @@ class VerifyEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('TTT email 인증')
-                    ->greeting('안녕하세요!')
-                    ->line('아래 인증하기 버튼을 클릭해서 Email 인증을 해주세요.')
+                    ->subject('【Beee Fan!】メールアドレス認証')
+                    ->greeting('この度は、Beee Fan!をご利用頂きまして誠にありがとうございます。')
+                    ->line('ご本人様確認のため、下記URLへ「24時間以内」にアクセスし\nメールアドレスの認証を行ってください。')
 //                    ->action('인증하기!', url('email/verify/{id}/{hash}'))
-                    ->action('인증하기!', $this->verificationUrl($notifiable))
-                    ->line('TTT에 오신걸 환영합니다.');
+                    ->action('認証する', $this->verificationUrl($notifiable))
+                    ->line('※当メールに心当たりの無い場合は、誠に恐れ入りますが\n破棄して頂けますよう、よろしくお願い致します。');
     }
 
     /**

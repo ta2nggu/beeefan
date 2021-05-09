@@ -248,16 +248,18 @@ class UserController extends Controller
             'email' => '新しいメールアドレス',
             'confirm_email' => '新しいメールアドレス(確認)'
         ];
-
         $rules = [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'confirm_email' => ['same:email']
         ];
-
         $this->validate($request, $rules, [], $attributes);
 
+        $user = User::find(auth()->user()->id);
         //User::find(auth()->user()->id)->update(['email'=> $request->email, 'email_verified_ata'=>null,]);
-        User::find(auth()->user()->id)->update(['email' => $request->email, 'email_verified_at' => null]);
+//        return dd($user);
+        $user->update(['email' => $request->email, 'email_verified_at' => null]);
+        $user->sendEmailVerificationNotification();
+
 
 //        21.04.12 김태영, creator가 email 변경 후 mypage로 이동
         if (auth()->user()->hasRole('creator')){

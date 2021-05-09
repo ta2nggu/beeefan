@@ -59,7 +59,7 @@ class AdminController extends Controller
 
 //        21.04.15 김태영, index 화면으로 이동
 //        return $this->index();
-        return redirect('/admin/index')->with('verified', true);
+        return redirect('/admin/index')->with('flash_message', 'クリエイターの登録が完了しました')->with('verified', true);
     }
 
     public function admin_creatorRegPage()

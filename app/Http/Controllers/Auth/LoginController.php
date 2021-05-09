@@ -77,4 +77,21 @@ class LoginController extends Controller
         return view('auth.login');
 
     }
+
+    //21.05.108 kondo, アカウントIDでもログインできるように（AuthenticatesUsers＞override）
+    public function username()
+    {
+        return 'account_id';
+    }
+    protected function attemptLogin(Request $request)
+    {
+        $username = $request->input($this->username());
+        $password = $request->input('password');
+        if (filter_var($username, \FILTER_VALIDATE_EMAIL)) {
+            $credentials = ['email' => $username, 'password' => $password];
+        } else {
+            $credentials = [$this->username() => $username, 'password' => $password];
+        }
+        return $this->guard()->attempt($credentials, $request->filled('remember'));
+    }
 }

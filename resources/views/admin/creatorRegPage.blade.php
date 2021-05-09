@@ -64,13 +64,13 @@
             </dl>
             <!--account_id-->
             <dl>
-                <dt><label for="account_id">{{ __('アカウントID') }}</label><span class="required">{{ __('必須') }}</span><span class="att">{{ __('※半角英数字でご記入ください') }}</span></dt>
+                <dt><label for="account_id">{{ __('アカウントID') }}</label><span class="required">{{ __('必須') }}</span><span class="att">{{ __('※「半角英数字 _ -」でご記入ください') }}</span></dt>
                 <dd>
 
                     <input id="account_id" type="text" class="form-control @error('account_id') is-invalid @enderror" name="account_id" value="{{ old('account_id') }}" required autocomplete="account_id" autofocus>
                     @error('account_id')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ __('アカウントIDは「英数字 _ -」のみ使用することができます') }}</strong>
+                        <strong>{{ __('アカウントIDは「半角英数字 _ -」のみ使用することができます') }}</strong>
                     </span>
                     @enderror
                 </dd>

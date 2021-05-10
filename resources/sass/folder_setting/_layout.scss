@@ -106,9 +106,10 @@ body{
 #menuDr{
     li{
         border-bottom: 1px solid $color_b_sub;
-        a{
+        .icon{
             display: block;
             padding: 17px 8%;
+            cursor: pointer;
             &:before{
                 content: "";
                 display: inline-block;

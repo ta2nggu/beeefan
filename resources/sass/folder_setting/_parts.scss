@@ -11,10 +11,15 @@
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     @include font_head;
     font-size: 16px;
+    color: $color_b;
     &.line2{
         padding-top: 10px;
         line-height: 22px;
         font-size: 1em;
+    }
+    &:disabled{
+        background-color: #aaa !important;
+        pointer-events: none !important;
     }
 }
 button.btn {
@@ -625,7 +630,8 @@ button.btn {
         }
         .postEditBox{
             li{
-                button,a{
+                p,a{
+                    cursor: pointer;
                     background-color: transparent;
                     padding: 20px 0;
                     display: block;
@@ -801,9 +807,9 @@ button.btn {
 }
 .modal {
     .modal-footer.btnBox{
-        width: 300px;
+        max-width: 300px;
         width: 90%;
-        margin: 30px auto 0;
+        margin: 20px auto 0;
     }
 }
 
@@ -816,6 +822,9 @@ button.btn {
         padding: 0 5%;
         p {
             line-height: 2.2;
+        }
+        .center{
+            text-align: center;
         }
     }
 }

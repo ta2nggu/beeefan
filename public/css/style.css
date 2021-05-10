@@ -280,11 +280,12 @@ body {
 #menuDr li {
   border-bottom: 1px solid #aaaaaa;
 }
-#menuDr li a {
+#menuDr li .icon {
   display: block;
   padding: 17px 8%;
+  cursor: pointer;
 }
-#menuDr li a:before {
+#menuDr li .icon:before {
   content: "";
   display: inline-block;
   width: 26px;
@@ -293,49 +294,49 @@ body {
   vertical-align: -7px;
   margin-right: 16px;
 }
-#menuDr li a.icon_mypage:before {
+#menuDr li .icon.icon_mypage:before {
   background-image: url("/storage/icon/icon_user.png");
 }
-#menuDr li a.icon_post:before {
+#menuDr li .icon.icon_post:before {
   background-image: url("/storage/icon/icon_grid.png");
 }
-#menuDr li a.icon_setting:before {
+#menuDr li .icon.icon_setting:before {
   background-image: url("/storage/icon/icon_setting.png");
 }
-#menuDr li a.icon_card:before {
+#menuDr li .icon.icon_card:before {
   background-image: url("/storage/icon/icon_card.png");
 }
-#menuDr li a.icon_payment:before {
+#menuDr li .icon.icon_payment:before {
   background-image: url("/storage/icon/icon_payment.png");
 }
-#menuDr li a.icon_draft:before {
+#menuDr li .icon.icon_draft:before {
   background-image: url("/storage/icon/icon_hidden.png");
 }
-#menuDr li a.icon_help:before {
+#menuDr li .icon.icon_help:before {
   background-image: url("/storage/icon/icon_help.png");
 }
-#menuDr li a.icon_rule:before {
+#menuDr li .icon.icon_rule:before {
   background-image: url("/storage/icon/icon_scroll.png");
 }
-#menuDr li a.icon_policy:before {
+#menuDr li .icon.icon_policy:before {
   background-image: url("/storage/icon/icon_lock.png");
 }
-#menuDr li a.icon_law:before {
+#menuDr li .icon.icon_law:before {
   background-image: url("/storage/icon/icon_book.png");
 }
-#menuDr li a.icon_notice:before {
+#menuDr li .icon.icon_notice:before {
   background-image: url("/storage/icon/icon_notice.png");
 }
-#menuDr li a.icon_addCreator:before {
+#menuDr li .icon.icon_addCreator:before {
   background-image: url("/storage/icon/icon_scroll.png");
 }
-#menuDr li a.icon_admins:before {
+#menuDr li .icon.icon_admins:before {
   background-image: url("/storage/icon/icon_admins.png");
 }
-#menuDr li a.icon_addAdmin:before {
+#menuDr li .icon.icon_addAdmin:before {
   background-image: url("/storage/icon/icon_card.png");
 }
-#menuDr li a.icon_logout:before {
+#menuDr li .icon.icon_logout:before {
   background-image: url("/storage/icon/icon_logout.png");
 }
 
@@ -526,11 +527,16 @@ body {
   font-weight: 600;
   font-style: normal;
   font-size: 16px;
+  color: #2e2c2a;
 }
 .btn.line2 {
   padding-top: 10px;
   line-height: 22px;
   font-size: 1em;
+}
+.btn:disabled {
+  background-color: #aaa !important;
+  pointer-events: none !important;
 }
 
 button.btn {
@@ -1232,7 +1238,8 @@ button.btn:not(.btnBor) {
   margin: -30px 5% 0 auto;
   z-index: 1;
 }
-#postBox .post .postEditBox li button, #postBox .post .postEditBox li a {
+#postBox .post .postEditBox li p, #postBox .post .postEditBox li a {
+  cursor: pointer;
   background-color: transparent;
   padding: 20px 0;
   display: block;
@@ -1429,9 +1436,9 @@ button.btn:not(.btnBor) {
 }
 
 .modal .modal-footer.btnBox {
-  width: 300px;
+  max-width: 300px;
   width: 90%;
-  margin: 30px auto 0;
+  margin: 20px auto 0;
 }
 
 .warningBox .modal-content {
@@ -1443,6 +1450,9 @@ button.btn:not(.btnBor) {
 }
 .warningBox .modal-warning p {
   line-height: 2.2;
+}
+.warningBox .modal-warning .center {
+  text-align: center;
 }
 
 /*normalTitleBox*

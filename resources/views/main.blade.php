@@ -39,12 +39,12 @@
             <div class="text moreArea">{!! $creator[0]->instruction !!}</div>
             <div class="btnBox">
                 @guest
-                    <p><a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn btnPi">{{ __('入会する') }}</a></p>
+                    <p><a href="{!! '/'. $creator[0]->account_id .'/join' !!}" class="btn btnPi">{{ __('入会する') }}</a></p>
                     <p><a href="{{ url('/home') }}" class="btn btnLp">{{ __('マイページにログイン') }}</a></p>
                 @else
                     @role('user')
                         @if($follow === 0)
-                            <p><a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn btnPi">{{ __('入会する') }}</a></p>
+                            <p><a href="{!! '/'. $creator[0]->account_id .'/join' !!}" class="btn btnPi">{{ __('入会する') }}</a></p>
                         @endif
                     @else
                         <p><span class="btn line2">{!! 'このアカウントでは<br>入会できません' !!}</span></p>
@@ -79,10 +79,10 @@
                         <p class="price">{{ __('月額') . $creator[0]->month_price .('円') }}</p>
                     </div>
                     @guest
-                        <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
+                        <a href="{!! '/'. $creator[0]->account_id .'/join' !!}" class="btnCircle btnPi">{{ __('入会する') }}</a>
                     @else
                         @role('user')
-                            <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
+                            <a href="{!! '/'. $creator[0]->account_id .'/join' !!}" class="btnCircle btnPi">{{ __('入会する') }}</a>
                         @else
                             <span class="btnCircle line2">{!! 'このアカウントでは<br>入会できません' !!}</span>
                         @endrole

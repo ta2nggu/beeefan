@@ -13,21 +13,25 @@
     <!--contentWrap-->
     <div id="contentWrap">
 
-        <div class="flashMsg">
-            <p>パスワードの変更が完了しました</p>
-        </div>
+        @if (session('flash_message'))
+            <div class="flashMsg">
+                <p>{{ session('flash_message') }}</p>
+            </div>
+        @endif
 
-        <div id="infoBox">
-            <ul>
-                {{-- 21.05.10 김태영, 공지사항 추가 --}}
-                @foreach($notices as $notice)
-                    <li>
-                        <p class="ttl">{{$notice->title}}</p>
-                        <pre class="txt">{{$notice->body}}</pre>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
+        @if(count($notices)>=1)
+            <div id="infoBox">
+                <ul>
+                    {{-- 21.05.10 김태영, 공지사항 추가 --}}
+                    @foreach($notices as $notice)
+                        <li>
+                            <p class="ttl">{{$notice->title}}</p>
+                            <pre class="txt">{{$notice->body}}</pre>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <div id="memberCard">
             <div class="inner">

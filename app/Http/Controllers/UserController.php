@@ -354,12 +354,9 @@ class UserController extends Controller
     }
 
 //    21.05.03 kondo, ファンクラブ詳細（途中）
-    public function joinCreator(Request $request){
-        $account_id = $request->id;
-        $user = DB::table("users")
-            ->where('account_id', $account_id)
-            ->first();
-        return view('user.fanclub',['user' => $user]);
+    public function joinFc($account_id){
+        $creator = User::where('account_id','=',$account_id)->first();
+        return view('user.fc',['creator' => $creator]);
     }
 }
 

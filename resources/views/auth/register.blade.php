@@ -129,7 +129,7 @@
             <input id="role" name="role" type="hidden" value="{{ __('user') }}">
 {{--        super admin 만들 때만 아래 사용    --}}
 {{--            <input id="role" name="role" type="hidden" value="{{ __('superadministrator') }}">--}}
-            <p class="txtLink"><a href="{{ url('/rule') }}" target="_blank">{{ __("利用規約") }}</a>{{ __("と") }}<a href="{{ url('/policy') }}" target="_blank">{{ __("プライバシーポリシー") }}</a>{{ __("をご確認ください") }}</p>
+            <p class="txtLink"><a href="{{ url('/page/rule') }}" target="_blank">{{ __("利用規約") }}</a>{{ __("と") }}<a href="{{ url('/page/policy') }}" target="_blank">{{ __("プライバシーポリシー") }}</a>{{ __("をご確認ください") }}</p>
             <ul class="btnBox">
                 <li><button type="submit" class="btn btnBl submitBtn">{{ __("同意して登録") }}</button></li>
                 <li><button onClick="history.back()" class="btn btnCansell">{{ __("登録せずに戻る") }}</button></li>

@@ -300,7 +300,7 @@ class CreatorController extends Controller
         if ($result === 1) {
             File::deleteDirectory(storage_path('app/public/images/'.$request->user_id.'/'.$request->tweet_id));
         }
-        $url = '/'.$this->user->account_id.'/timeline/0';
+        $url = '/'.$this->user->account_id.'/p/0';
         return redirect($url)->with('flash_message', '投稿を削除しました');
     }
     //21.05.06 kondo, 공개투고→비공개
@@ -317,7 +317,7 @@ class CreatorController extends Controller
         $result = tweet::where('id', $request->tweet_id)->first();
         $result->visible = 1;
         $result->save();
-        $url = '/'.$this->user->account_id.'/timeline/'.$request->tweet_id;
+        $url = '/'.$this->user->account_id.'/p/'.$request->tweet_id;
         return redirect($url)->with('flash_message', '投稿しました');
     }
 

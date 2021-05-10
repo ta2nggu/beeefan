@@ -62,5 +62,36 @@ $(function () {
     $(this).next().slideToggle();
   });
 });
+$(function () {
+  /* ログアウト（2重モーダル） */
+  $('#warningLogoutBtn').on('click', function () {
+    $('#menuDr').modal('hide');
+    $('#warningLogout').modal('show');
+  });
+  /* 投稿削除（2重モーダル） */
+
+  $('.postEditDelete').on('click', function () {
+    $(this).parents('.postEditBox').modal('hide');
+    $(this).parents('.postEditBox').nextAll('.warningDre').modal('show');
+  });
+  /* 下書きへ（2重モーダル） */
+
+  $('.postEditInvisible').on('click', function () {
+    $(this).parents('.postEditBox').modal('hide');
+    $(this).parents('.postEditBox').nextAll('.warningInvi').modal('show');
+  });
+});
+$(function () {
+  //同意して入会
+  $('#join_chk').change(function () {
+    var prop = $('#join_submit').prop('disabled');
+
+    if (prop) {
+      $('#join_submit').prop('disabled', false);
+    } else {
+      $('#join_submit').prop('disabled', true);
+    }
+  });
+});
 /******/ })()
 ;

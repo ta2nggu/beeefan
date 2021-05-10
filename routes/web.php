@@ -28,7 +28,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/mypage', [App\Http\Controllers\UserController::class, 'index'])->name('user')->middleware('verified');
 //21.05.03 kondo, ファンクラブ詳細（途中）
-Route::get('/mypage/fanclub', [App\Http\Controllers\UserController::class, 'joinCreator']);
+Route::get('/mypage/fc/{account_id}', [App\Http\Controllers\UserController::class, 'joinFc'])->name('joinFc');
 
 
 //21.03.21 김태영, User가 Creator 페이지 접속
@@ -37,7 +37,7 @@ Route::get('/mypage/fanclub', [App\Http\Controllers\UserController::class, 'join
 Route::get('/{creator}', [App\Http\Controllers\UserController::class, 'creatorIndex']);
 //21.04.06 김태영, middleware 제거 비로그인 user 접근도 허용
 //Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline'])->middleware('verified');
-Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline']);
+Route::get('/{creator}/p/{start}', [App\Http\Controllers\UserController::class, 'timeline']);
 Route::get('/{creator}/join', [App\Http\Controllers\UserController::class, 'join'])->middleware('verified');
 Route::post('/join', [App\Http\Controllers\UserController::class, 'joinStore']);
 //Route::post('/join', [App\Http\Controllers\CurlController::class, 'postCurl']);
@@ -80,14 +80,13 @@ Route::post('/admin/adminReg', [App\Http\Controllers\AdminController::class, 'ad
 Route::get('/aDetail/{admin}', [App\Http\Controllers\AdminController::class, 'adminDetail'])->middleware('role:superadministrator');
 Route::post('/admin/del', [App\Http\Controllers\AdminController::class, 'admin_delete'])->middleware('role:superadministrator');
 
-//21.04.06 kondo creator&admin login page
-use App\Http\Controllers\PagesController;
-Route::get('/creator/login', [PagesController::class, 'creatorLogin'])->name('creator_login');
-Route::get('/admin/login', [PagesController::class, 'adminLogin'])->name('admin_login');
-Route::get('/page/rule', [PagesController::class, 'pageRule'])->name('pageRule');
-Route::get('/page/policy', [PagesController::class, 'pagePolicy'])->name('pagePolicy');
-Route::get('/page/law', [PagesController::class, 'pageLaw'])->name('pageLaw');
-Route::get('/page/help', [PagesController::class, 'pageHelp'])->name('pageHelp');
+//21.04.06 kondo
+Route::get('/creator/login', [App\Http\Controllers\PagesController::class, 'creatorLogin'])->name('creator_login');
+Route::get('/admin/login', [App\Http\Controllers\PagesController::class, 'adminLogin'])->name('admin_login');
+Route::get('/page/rule', [App\Http\Controllers\PagesController::class, 'pageRule'])->name('pageRule');
+Route::get('/page/policy', [App\Http\Controllers\PagesController::class, 'pagePolicy'])->name('pagePolicy');
+Route::get('/page/law', [App\Http\Controllers\PagesController::class, 'pageLaw'])->name('pageLaw');
+Route::get('/page/help', [App\Http\Controllers\PagesController::class, 'pageHelp'])->name('pageHelp');
 
 //21.04.26 김태영
 //Route::get('/password/change', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');

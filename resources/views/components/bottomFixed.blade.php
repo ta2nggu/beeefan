@@ -3,7 +3,7 @@
         <div id="bottomCreatorMypage" class="bottomFixed">
             <ul class="inner">
                 <li><a href="{{ url('/creator/write') }}" class="pCreate">{{__('投稿する')}}</a></li>
-                <li><a href="/{{ $bottomFixed_id }}/timeline/0" class="post">{{__('タイムライン')}}</a></li>
+                <li><a href="/{{ $bottomFixed_id }}/p/0" class="post">{{__('タイムライン')}}</a></li>
                 <li><a href="{{ url('/creator/index') }}" class="mypage">{{__('マイページ')}}</a></li>
             </ul>
         </div>
@@ -11,7 +11,7 @@
     @role('user')
     <div id="bottomUserMypage" class="bottomFixed">
         <ul class="inner">
-            <li><a href="{{ url('/mypage') }}" class="post">{{__('タイムライン')}}</a></li>
+            <li><a href="{{ url('/mypage/p') }}" class="post">{{__('タイムライン')}}</a></li>
             <li><a href="{{ url('/mypage') }}" class="mypage">{{__('マイページ')}}</a></li>
         </ul>
     </div>

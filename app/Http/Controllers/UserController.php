@@ -293,18 +293,14 @@ class UserController extends Controller
         ];
         $this->validate($request, $rules, [], $attributes);
 
-        $user = User::find(auth()->user()->id);
-//        User::find(auth()->user()->id)->update(['email'=> $request->email, 'email_verified_ata'=>null,]);
-//        return dd($user);
-        $user->update(['email' => $request->email, 'email_verified_at' => null]);
-        $user->sendEmailVerificationNotification();
-
 //        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
         $id = $request->has('admin_id') ? $request->admin_id : auth()->user()->id;
         $user = User::find($id);
         if ($user != null) {
             $user->update(['email' => $request->email, 'email_verified_at' => null]);
         }
+        //21.05.10 김태영, email update 후 인증 메일 전송
+        $user->sendEmailVerificationNotification();
 
 //        21.04.12 김태영, creator가 email 변경 후 mypage로 이동
         if (auth()->user()->hasRole('creator')) {

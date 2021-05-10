@@ -10,7 +10,7 @@
         <div class="txtBox">
             <h3 class="name">{{ $value->nickname }}</h3>
             <p class="price"> {!! '月額 '. number_format($value->month_price) .'　登録者 '.number_format($value->month_price)!!}</p>
-            <a href="">{{__('詳細はこちらへ')}}</a>
+            <a href="{{ url('/admin/creator-'.$value->user_id) }}">{{__('詳細はこちらへ')}}</a>
         </div>
         <a href="{{url('/')}}" class="iconBox"></a>
     </li>

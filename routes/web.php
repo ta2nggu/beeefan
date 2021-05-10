@@ -79,6 +79,9 @@ Route::get('/admin/adminReg', [App\Http\Controllers\AdminController::class, 'adm
 Route::post('/admin/adminReg', [App\Http\Controllers\AdminController::class, 'adminReg_store'])->middleware('role:superadministrator');
 Route::get('/aDetail/{admin}', [App\Http\Controllers\AdminController::class, 'adminDetail'])->middleware('role:superadministrator');
 Route::post('/admin/del', [App\Http\Controllers\AdminController::class, 'admin_delete'])->middleware('role:superadministrator');
+//21.05.10 김태영, creator 관리
+Route::get('/admin/creator-{admin}', [App\Http\Controllers\AdminController::class, 'creatorDetail'])->middleware('role:administrator|superadministrator');
+Route::post('/creator/month_price', [App\Http\Controllers\AdminController::class, 'updateCreatorPrice'])->middleware('role:superadministrator');
 
 //21.04.06 kondo
 Route::get('/creator/login', [App\Http\Controllers\PagesController::class, 'creatorLogin'])->name('creator_login');

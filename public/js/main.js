@@ -170,6 +170,29 @@ $('#join_chk').change(function () {
   } else {
     $('#join_submit').attr('disabled', true);
   }
+}); //21.05.11 김태영, super admin이 creator 월 액 수정
+
+$('#btnUpdateCreatorPrice').click(function () {
+  $.ajax({
+    //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    type: 'post',
+    // url: '{{ route('web.php에 선언된 route 경로') }}',
+    url: '/creator/month_price',
+    dataType: 'json',
+    data: {
+      'creator_id': $('#inPriceUpdateCreatorId').val(),
+      'month_price': $('#inMonthlyPrice').val()
+    },
+    success: function success(data) {
+      console.log(data);
+    },
+    error: function error(data) {
+      console.log("error" + data);
+    }
+  });
 });
 /******/ })()
 ;

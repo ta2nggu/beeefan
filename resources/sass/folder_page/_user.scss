@@ -119,3 +119,77 @@
         }
     }
 }
+
+/*ファンクラブ退会*
+*******************************/
+.removeBox{
+    .formBox.normalFormBox{
+        max-width: none;
+        width: 100%;
+        dl{
+            @include wrap_s;
+        }
+        .btnBox{
+            @include wrap_inner;
+        }
+    }
+    h1,h2,h3{
+        padding-left: 5%;
+        padding-right: 5%;
+        margin-bottom: 20px;
+        @include font_head;
+        &+p{
+            padding-left: 5%;
+            padding-right: 5%;
+            margin-bottom: 40px;
+        }
+    }
+    h1{
+        font-size: 1.4em;
+    }
+    h2{
+        margin-top: 35px;
+        font-size: 1.1em;
+        background-color: $color_b_bk;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .txtBox{
+        background-color: $color_c_bk;
+        color: $color_c;
+        padding: 20px 5%;
+        margin: 40px 0 20px;
+    }
+    .imgbox{
+        @include flex;
+        @include ac;
+        @include wrap_s;
+        margin-bottom: 40px;
+        .thumbnail{
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            img{
+                display: block;
+                width: 100%;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+            }
+        }
+        .txt{
+            flex: 1;
+            .name{
+                @include font_head;
+                font-size: 1.2em;
+            }
+            .price{
+                font-size: 0.9em;
+            }
+        }
+    }
+}

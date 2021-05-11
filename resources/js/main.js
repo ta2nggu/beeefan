@@ -43,10 +43,12 @@ function loadMoreData(page) {
 }
 //21.05.06 kondo, first view hide
 $(function() {
-    var loadRange = $(".ajax-load").offset().top;
-    var windowSize = $(window).height();
-    if (loadRange < windowSize) {
-        $(".ajax-load").hide();
+    if ($('.ajax-load').length) {
+        var loadRange = $(".ajax-load").offset().top;
+        var windowSize = $(window).height();
+        if (loadRange < windowSize) {
+            $(".ajax-load").hide();
+        }
     }
 });
 

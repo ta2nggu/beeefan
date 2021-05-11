@@ -17,8 +17,13 @@
         line-height: 22px;
         font-size: 1em;
     }
-    &:disabled{
+    &.disabledBk:disabled{
         background-color: #aaa !important;
+        pointer-events: none !important;
+    }
+    &.disabledBor:disabled{
+        border-color: #ccc !important;
+        color: #aaa !important;
         pointer-events: none !important;
     }
 }

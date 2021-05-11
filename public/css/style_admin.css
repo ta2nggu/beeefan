@@ -243,6 +243,9 @@ body {
   overflow: hidden;
   text-indent: -999px;
 }
+#header .back.userBack {
+  background-image: url("/storage/icon/icon_left_circle_bl.png");
+}
 #header .nav {
   position: absolute;
   top: 50%;
@@ -534,8 +537,13 @@ body {
   line-height: 22px;
   font-size: 1em;
 }
-.btn:disabled {
+.btn.disabledBk:disabled {
   background-color: #aaa !important;
+  pointer-events: none !important;
+}
+.btn.disabledBor:disabled {
+  border-color: #ccc !important;
+  color: #aaa !important;
   pointer-events: none !important;
 }
 

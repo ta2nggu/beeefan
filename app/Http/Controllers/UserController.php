@@ -353,10 +353,50 @@ class UserController extends Controller
         return view('joinOk', compact('creator'));
     }
 
-//    21.05.03 kondo, ファンクラブ詳細（途中）
+//    21.05.03 kondo, 登録中のファンクラブ詳細
     public function joinFc($account_id){
-        $creator = User::where('account_id','=',$account_id)->first();
-        return view('user.fc',['creator' => $creator]);
+//        $creator = User::where('account_id','=',$account_id)->first();
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+        $creator = DB::table("users")
+            ->join("creators","creators.user_id","=","users.id")
+            ->where('users.account_id', '=', $account_id)
+            ->get();
+        //入会してなければクリエイター公開ページにリダイレクト
+        $already = $this->join_chk(auth()->user()->id, $creator[0]->user_id);
+        if (!empty($already[0])) {
+            return view('user.fc',compact('creator'));
+        }else{
+            return redirect('/'.$creator[0]->account_id);
+        }
+    }
+//    21.05.10 kondo, 登録中のファンクラブ退会
+//    view
+    public function removeFc($account_id){
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+        $creator = DB::table("users")
+            ->join("creators","creators.user_id","=","users.id")
+            ->where('users.account_id', '=', $account_id)
+            ->get();
+        //入会してなければクリエイター公開ページにリダイレクト
+        $already = $this->join_chk(auth()->user()->id, $creator[0]->user_id);
+        if (!empty($already[0])) {
+            return view('user.fcRemove',compact('creator'));
+        }else{
+            return redirect('/'.$creator[0]->account_id);
+        }
+    }
+//    post
+    public function removeFcForm(Request $request){
+        dd($request->all());
+//        $validated = $request->validate([
+//            'cause' => 'required',
+//        ]);
+
+        $follow = Following::where('user_id', \Auth::user()->id)->where('id', $creator->id)->first();
+        $follow->delete();
+        return redirect(url('/mypage'))->with('flash_message','　ファンクラブ退会完了しました。\nご利用いただき誠にありがとうございました。');
     }
 }
 

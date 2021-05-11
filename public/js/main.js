@@ -51,11 +51,13 @@ function loadMoreData(page) {
 
 
 $(function () {
-  var loadRange = $(".ajax-load").offset().top;
-  var windowSize = $(window).height();
+  if ($('.ajax-load').length) {
+    var loadRange = $(".ajax-load").offset().top;
+    var windowSize = $(window).height();
 
-  if (loadRange < windowSize) {
-    $(".ajax-load").hide();
+    if (loadRange < windowSize) {
+      $(".ajax-load").hide();
+    }
   }
 }); //21.04.18 김태영, search 검색이나 sorting 정렬은 infinite scrolling 과 다르게 다시 조회 됨
 //append가 아닌 html 내용을 새롭게 출력하기 위함

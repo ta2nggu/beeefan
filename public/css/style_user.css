@@ -243,6 +243,9 @@ body {
   overflow: hidden;
   text-indent: -999px;
 }
+#header .back.userBack {
+  background-image: url("/storage/icon/icon_left_circle_bl.png");
+}
 #header .nav {
   position: absolute;
   top: 50%;
@@ -534,8 +537,13 @@ body {
   line-height: 22px;
   font-size: 1em;
 }
-.btn:disabled {
+.btn.disabledBk:disabled {
   background-color: #aaa !important;
+  pointer-events: none !important;
+}
+.btn.disabledBor:disabled {
+  border-color: #ccc !important;
+  color: #aaa !important;
   pointer-events: none !important;
 }
 
@@ -1581,4 +1589,89 @@ button.btn:not(.btnBor) {
 .fanclub .removeLink a {
   color: #aaaaaa;
   text-decoration: underline;
+}
+
+/*ファンクラブ退会*
+*******************************/
+.removeBox .formBox.normalFormBox {
+  max-width: none;
+  width: 100%;
+}
+.removeBox .formBox.normalFormBox dl {
+  max-width: 640px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.removeBox .formBox.normalFormBox .btnBox {
+  max-width: 520px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.removeBox h1, .removeBox h2, .removeBox h3 {
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-bottom: 20px;
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+.removeBox h1 + p, .removeBox h2 + p, .removeBox h3 + p {
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-bottom: 40px;
+}
+.removeBox h1 {
+  font-size: 1.4em;
+}
+.removeBox h2 {
+  margin-top: 35px;
+  font-size: 1.1em;
+  background-color: #f4f4f4;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.removeBox .txtBox {
+  background-color: #faf0ef;
+  color: #b15a68;
+  padding: 20px 5%;
+  margin: 40px 0 20px;
+}
+.removeBox .imgbox {
+  display: flex;
+  align-items: center;
+  max-width: 640px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+.removeBox .imgbox .thumbnail {
+  width: 80px;
+  height: 80px;
+  margin-right: 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+.removeBox .imgbox .thumbnail img {
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+.removeBox .imgbox .txt {
+  flex: 1;
+}
+.removeBox .imgbox .txt .name {
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.2em;
+}
+.removeBox .imgbox .txt .price {
+  font-size: 0.9em;
 }

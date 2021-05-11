@@ -76,7 +76,7 @@
                 <div class="inner">
                     <div class="nameBox">
                         <p class="name">{{ $creator[0]->nickname }}</p>
-                        <p class="price">{{ __('月額') . $creator[0]->month_price .('円') }}</p>
+                        <p class="price">{{ __('月額') . number_format($creator[0]->month_price) .('円') }}</p>
                     </div>
                     @guest
                         <a href="{!! '/'. $creator[0]->account_id .'/join' !!}" class="btnCircle btnPi">{{ __('入会する') }}</a>

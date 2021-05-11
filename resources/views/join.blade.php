@@ -47,7 +47,7 @@
                 <label for="join_chk"><a href="{{ url('/page/rule') }}" target="_blank">{{ __('利用規約')}}</a>{{ __('に同意する')}}</label>
             </div>
             <ul class="btnBox">
-                <li><button type="submit" class="btn btnPi" id="join_submit" disabled>{{ __('入会する') }}</button></li>
+                <li><button type="submit" class="btn btnPi disabledBk" id="join_submit" disabled>{{ __('入会する') }}</button></li>
                 <li><div onclick="history.go(-1)" class="btn btnBor btnBorGy">{{ __('戻る') }}</div></li>
             </ul>
             <p class="txtLink">{{ __('※Beee Fan!ではフォンクラブ登録日によって決済日が異なります。その際にクレジットカードの限度額オーバーや有効期限切れ、デビットカードの残高不足などで正常な決済が行えない場合、該当プランから退会となりますので、ご注意ください。') }}</p>

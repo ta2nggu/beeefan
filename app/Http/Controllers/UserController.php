@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Creator;
 use App\Models\Following;
 use App\Models\Notice;
 use App\Models\tweet;
@@ -10,6 +11,7 @@ use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -49,6 +51,8 @@ class UserController extends Controller
         $creator = DB::table("creators")
             ->join('users', 'users.id', '=', 'creators.user_id')
             ->where('users.account_id', '=', $account_id)
+            //21.05.12 김태영, 비공개된 creator 제외
+            ->where('creators.visible', '=', 1)
             ->get();
 
         return $creator;
@@ -223,37 +227,88 @@ class UserController extends Controller
         ]);
     }
 
+    public function change_creator_password($creator_id) {
+        $user = DB::table("users")
+            ->where('id', '=', $creator_id)
+            ->get();
+
+        //21.05.10 김태영, 관리자 삭제 이후 뒤로가기로 돌아와서 다시 누를까봐..
+        if(count($user) === 0) {
+            if (auth()->user()->hasRole('superadministrator')) {
+                return redirect('/admin/index');
+            }
+        }
+
+        $redirect_url = '/admin/index';
+
+        return view('auth.passwords.change', [
+            'user' => $user,
+            'redirect_url' => $redirect_url
+        ]);
+    }
+
     public function change_password_store(Request $request) {
+        // 21.05.09 김태영, super admin이 admin의 email->password 변경할 때 추가
+        $id = $request->has('target_id') ? $request->target_id : auth()->user()->id;
+        $user = User::find($id);
+
         $attributes = [
             'current_password' => '現在のパスワード',
             'new_password' => '新しいパスワード',
             'new_confirm_password' => '新しいパスワード(確認)'
         ];
 
-        $rules = [
-            'current_password' => ['required', new MatchOldPassword],
-            'new_password' => ['required'],
-            'new_confirm_password' => ['same:new_password']
-        ];
+        //target_id 가 존재한다면, admin이 admin이나 creator 의 비밀번호를 바꾸는 경우
+        if ($id = $request->has('target_id')) {
+            if (Hash::check($request->current_password, $user->password)) {
+                $rules = [
+                //'current_password' => ['required', new MatchOldPassword],
+                    'new_password' => ['required'],
+                    'new_confirm_password' => ['same:new_password']
+                ];
 
-        $this->validate($request, $rules, [], $attributes);
+                $this->validate($request, $rules, [], $attributes);
 
-//        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
-        $id = $request->has('admin_id') ? $request->admin_id : auth()->user()->id;
-        $user = User::find($id);
-        if ($user != null) {
-            $user->update(['password'=> Hash::make($request->new_password)]);
+                if ($user != null) {
+                    $user->update(['password'=> Hash::make($request->new_password)]);
+                }
+
+                //21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
+                if (auth()->user()->hasRole('creator')){
+                    return redirect('/creator/mypage');
+                }
+                else if (auth()->user()->hasRole('superadministrator')) {
+                    return redirect($request->redirect_url);
+                }
+
+                return redirect()->back();
+            }
+            else {
+                return Redirect::back()->withErrors('入力したパスワードを確認してください。');
+            }
+        }
+        else {
+            //자신의 id의 비밀번호를 바꾸는 경우
+            $rules = [
+                'current_password' => ['required', new MatchOldPassword],
+                'new_password' => ['required'],
+                'new_confirm_password' => ['same:new_password']
+            ];
+
+            $this->validate($request, $rules, [], $attributes);
+
+            if ($user != null) {
+                $user->update(['password'=> Hash::make($request->new_password)]);
+            }
+
+            //21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
+            if (auth()->user()->hasRole('creator')){
+                return redirect('/creator/mypage');
+            }
+
+            return redirect()->back();
         }
 
-//        21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
-        if (auth()->user()->hasRole('creator')){
-            return redirect('/creator/mypage');
-        }
-        else if (auth()->user()->hasRole('superadministrator')) {
-            return redirect('/admin/admins/list');
-        }
-
-        return redirect()->back();
     }
 
     public function change_email($admin_id) {
@@ -293,18 +348,14 @@ class UserController extends Controller
         ];
         $this->validate($request, $rules, [], $attributes);
 
-        $user = User::find(auth()->user()->id);
-//        User::find(auth()->user()->id)->update(['email'=> $request->email, 'email_verified_ata'=>null,]);
-//        return dd($user);
-        $user->update(['email' => $request->email, 'email_verified_at' => null]);
-        $user->sendEmailVerificationNotification();
-
 //        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
         $id = $request->has('admin_id') ? $request->admin_id : auth()->user()->id;
         $user = User::find($id);
         if ($user != null) {
             $user->update(['email' => $request->email, 'email_verified_at' => null]);
         }
+        //21.05.10 김태영, email update 후 인증 메일 전송
+        $user->sendEmailVerificationNotification();
 
 //        21.04.12 김태영, creator가 email 변경 후 mypage로 이동
         if (auth()->user()->hasRole('creator')) {
@@ -343,6 +394,9 @@ class UserController extends Controller
             'next_payment_date'=> date('Y-m-d', strtotime("+1 months")),
             'payment_status' => 1
         ]);
+
+        //21.05.11 김태영, creators table에 follower_cnt 회원수 field 추가
+        Creator::where('user_id', $request->input('creator_id'))->increment('follower_cnt');
 
         return redirect($request->input('account_id').'/joinOk');
     }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Creator;
+use App\Models\Following;
 use App\Models\Notice;
+use App\Models\tweet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -230,5 +232,45 @@ class AdminController extends Controller
         }
 
         return redirect('/admin/admins/list')->with('flash_message', $admin->last_name.' '.$admin->first_name.'を削除しました');
+    }
+
+    //21.05.10 김태영, creator 관리 상세
+    public function creatorDetail($creator_id) {
+        //Creator info
+        $creator = Creator::join('users', 'users.id', '=', 'creators.user_id')->where('creators.user_id', $creator_id)->get();
+
+        //投稿数 투고 수
+        $tweet_cnt = tweet::where('user_id', $creator_id)->count();
+
+        //21.05.11 김태영, creators 테이블에 field 생성
+//        //会員数 회원 수
+//        $follower_cnt = Following::where('creator_id', $creator_id)->count();
+
+        //総売上額(利益) 총 매출액(이익)
+        //先月総売上(利益) 지난달 총 매출(이익)
+        //今月暫定総売上(利益) 이달 잠정 총 매출(이익)
+        // -> 결제 확정 이후
+
+        return view('admin.creatorDetail', compact('creator', 'tweet_cnt'));
+    }
+
+    public function updateCreatorPrice(Request $request) {
+        $creator_id = $request->input('creator_id');
+        $month_price = $request->input('month_price');
+
+        //DB 쿼리 결과는 성공시 true를 반환한다.
+        $result = DB::table('creators')->where('user_id', $creator_id)->update(
+            ['month_price' => $month_price]
+        );
+
+        return response()->json(array('msg'=> $result), 200);
+    }
+
+    public function updateCreatorVisible(Request $request) {
+        Creator::where('user_id', $request->input('creator_id'))->update(
+            ['visible' => $request->input('visible')]
+        );
+
+        return redirect('/admin/index')->with('verified', true);
     }
 }

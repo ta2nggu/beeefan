@@ -80,6 +80,11 @@ Route::get('/admin/adminReg', [App\Http\Controllers\AdminController::class, 'adm
 Route::post('/admin/adminReg', [App\Http\Controllers\AdminController::class, 'adminReg_store'])->middleware('role:superadministrator');
 Route::get('/aDetail/{admin}', [App\Http\Controllers\AdminController::class, 'adminDetail'])->middleware('role:superadministrator');
 Route::post('/admin/del', [App\Http\Controllers\AdminController::class, 'admin_delete'])->middleware('role:superadministrator');
+//21.05.10 김태영, creator 관리
+Route::get('/admin/creator-{admin}', [App\Http\Controllers\AdminController::class, 'creatorDetail'])->middleware('role:administrator|superadministrator');
+Route::post('/creator/month_price', [App\Http\Controllers\AdminController::class, 'updateCreatorPrice'])->middleware('role:superadministrator');
+Route::post('/creator/visible', [App\Http\Controllers\AdminController::class, 'updateCreatorVisible'])->middleware('role:administrator|superadministrator');
+Route::post('/creator/del', [App\Http\Controllers\AdminController::class, 'deleteCreator'])->middleware('role:administrator|superadministrator');
 
 //21.04.06 kondo
 Route::get('/creator/login', [App\Http\Controllers\PagesController::class, 'creatorLogin'])->name('creator_login');
@@ -92,6 +97,8 @@ Route::get('/page/help', [App\Http\Controllers\PagesController::class, 'pageHelp
 //21.04.26 김태영
 //Route::get('/password/change', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');
 Route::get('/password/{change}', [App\Http\Controllers\UserController::class, 'change_password'])->middleware('verified');
+//21.05.11 김태영, admin이 creator의 비밀번호를 변경 시
+Route::get('/password/creator/{change}', [App\Http\Controllers\UserController::class, 'change_creator_password'])->middleware('verified');
 Route::post('/password/change', [App\Http\Controllers\UserController::class, 'change_password_store'])->middleware('verified');
 
 //Route::get('/email/change', [App\Http\Controllers\UserController::class, 'change_email'])->middleware('verified');

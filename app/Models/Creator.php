@@ -13,5 +13,6 @@ class Creator extends Model
         'user_id',
         'nickname',
         'month_price',
+        'visible',
     ];
 }

@@ -50,9 +50,17 @@
                     <li><button type="submit" class="btn btnBl">{{ __('変更する') }}</button></li>
                     <li><button onclick="history.back();" class="btn btnBor btnBorGy">{{ __('変更せずに戻る') }}</button></li>
                     @endrole
-                    @role('administrator|superadministrator')
+                    @role('superadministrator')
                     {{-- 21.05.09 김태영, super admin이 admin의 email 변경 --}}
-                    <input type="hidden" name="admin_id" value="{{$user[0]->id}}">
+                    @if(isset($redirect_url))
+                        <input type="hidden" name="target_id" value="{{$user[0]->id}}">
+                        <input type="hidden" name="redirect_url" value="{{ $redirect_url }}">
+                    @else
+                        <input type="hidden" name="target_id" value="{{$user[0]->id}}">
+                        <input type="hidden" name="redirect_url" value="{{ __('/admin/admins/list') }}">
+                    @endif
+                    @endrole
+                    @role('administrator|superadministrator')
                     <li><button type="submit" class="btn btnAd">{{ __('変更する') }}</button></li>
                     <li><button onclick="history.back();" class="btn btnBor btnBorGy">{{ __('変更せずに戻る') }}</button></li>
                     @endrole

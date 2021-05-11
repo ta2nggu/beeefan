@@ -242,15 +242,16 @@ class AdminController extends Controller
         //投稿数 투고 수
         $tweet_cnt = tweet::where('user_id', $creator_id)->count();
 
-        //会員数 회원 수
-        $follower_cnt = Following::where('creator_id', $creator_id)->count();
+        //21.05.11 김태영, creators 테이블에 field 생성
+//        //会員数 회원 수
+//        $follower_cnt = Following::where('creator_id', $creator_id)->count();
 
         //総売上額(利益) 총 매출액(이익)
         //先月総売上(利益) 지난달 총 매출(이익)
         //今月暫定総売上(利益) 이달 잠정 총 매출(이익)
         // -> 결제 확정 이후
 
-        return view('admin.creatorDetail', compact('creator', 'tweet_cnt', 'follower_cnt'));
+        return view('admin.creatorDetail', compact('creator', 'tweet_cnt'));
     }
 
     public function updateCreatorPrice(Request $request) {
@@ -263,5 +264,13 @@ class AdminController extends Controller
         );
 
         return response()->json(array('msg'=> $result), 200);
+    }
+
+    public function updateCreatorVisible(Request $request) {
+        Creator::where('user_id', $request->input('creator_id'))->update(
+            ['visible' => $request->input('visible')]
+        );
+
+        return redirect('/admin/index')->with('verified', true);
     }
 }

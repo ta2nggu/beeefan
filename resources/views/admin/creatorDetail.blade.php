@@ -28,7 +28,7 @@ function dateFormat($timestamp) {
 <h2>{{__('投稿数')}}</h2>
 <h4>{{$tweet_cnt}}</h4>
 <h2>{{__('会員数')}}</h2>
-<h4>{{$follower_cnt}}</h4>
+<h4>{{$creator[0]->follower_cnt}}</h4>
 <h2>{{__('総売上額')}}</h2>
 <h4>
     {{-- 総売上額(利益) 밑에 날짜 있어서 creator account 생성일 부터 오늘까지 일단 표기 해둠 --}}
@@ -56,6 +56,7 @@ function dateFormat($timestamp) {
     @enderror
     <input id="inPriceUpdateCreatorId" type="hidden" name="creator_id" value="{{ $creator[0]->user_id }}">
     <button id="btnUpdateCreatorPrice" type="submit">{{ __('月額を変更する') }}</button>
+    <div id="updatedMonthlyPrice" style="color: red; display: none;"></div>
 </div>
 @endrole
 
@@ -65,10 +66,28 @@ function dateFormat($timestamp) {
     <h3>{{$creator[0]->email}}</h3>
     <h2>{{__('パスワード')}}</h2>
     <h3>{{__('*********')}}</h3>
-    <p class="txtLink NoMrg right"><a href="{{ url('/password/'.$creator[0]->user_id) }}">{{__('パスワードを変更する')}}</a></p>
+    <p class="txtLink NoMrg right"><a href="{{ url('/password/creator/'.$creator[0]->user_id) }}">{{__('パスワードを変更する')}}</a></p>
 
+<form method="POST" action="{{ __('/creator/visible') }}" class="formBox normalFormBox">
+    @csrf
 
-クリエイターを非公開にする creator 비공개
-クリエイターを削除する creator 삭제
+    <input type="hidden" name="creator_id" value="{{ $creator[0]->user_id }}">
+
+    @if ($creator[0]->visible === 1)
+        <input type="hidden" name="visible" value="0">
+        <button type="submit">{{__('creator 비공개')}}</button>
+    @else
+        <input type="hidden" name="visible" value="1">
+        <button type="submit">{{__('creator 공개')}}</button>
+    @endif
+</form>
+
+<form method="POST" action="{{ __('/creator/del') }}" class="formBox normalFormBox">
+    @csrf
+
+    <input type="hidden" name="creator_id" value="{{ $creator[0]->user_id }}">
+    <button type="submit">{{__('クリエイターを削除する creator 삭제')}}</button>
+</form>
+
 
 @endsection

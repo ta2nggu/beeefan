@@ -36,6 +36,6 @@ class MatchOldPassword implements Rule
      */
     public function message()
     {
-        return '入力したパスワードを確認してください。';
+        return '現在のパスワードが間違っています。';
     }
 }

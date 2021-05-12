@@ -30,7 +30,7 @@ Route::get('/mypage', [App\Http\Controllers\UserController::class, 'index'])->na
 //21.05.10 kondo, 入会中ファンクラブ詳細/退会
 Route::get('/mypage/fc/{account_id}', [App\Http\Controllers\UserController::class, 'joinFc'])->name('joinFc');
 Route::get('/mypage/fc/{account_id}/remove', [App\Http\Controllers\UserController::class, 'removeFc'])->name('removeFc');
-Route::post('/mypage/fc/{account_id}/remove', [App\Http\Controllers\UserController::class, 'removeFcForm'])->name('removeFcForm');
+Route::post('/mypage/fc/remove', [App\Http\Controllers\UserController::class, 'removeFcForm'])->name('removeFcForm');
 
 //21.03.21 김태영, User가 Creator 페이지 접속
 //21.04.06 김태영, middleware 제거 비로그인 user 접근도 허용

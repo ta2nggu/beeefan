@@ -21,11 +21,7 @@
                 @csrf
 
                 <dl>
-                    @role('superadministrator')
-                    <dt><label for="password">{{__('運営管理者パスワード')}}</label><span class="required">{{ __("必須") }}</span></dt>
-                    @else
                     <dt><label for="password">{{__('現在のパスワード')}}</label><span class="required">{{ __("必須") }}</span></dt>
-                    @endrole
                     <dd><input id="password" type="password" class="form-control" name="current_password" autocomplete="current-password"></dd>
                 </dl>
                 <dl>

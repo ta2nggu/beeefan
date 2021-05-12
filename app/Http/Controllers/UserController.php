@@ -454,6 +454,7 @@ class UserController extends Controller
             'content' => $request->input('content'),
         ]);
         $creator = Creator::where('user_id','=',$request->creator_id)->first();
+        $creator->decrement('follower_cnt');
         $follow = Following::where('user_id', $request->user_id)->where('creator_id', $request->creator_id)->first();
         $follow->delete();
         return redirect(url('/mypage'))->with('flash_message','“'.$creator->nickname.'”の退会が完了しました。 ご利用いただき誠にありがとうございました。');

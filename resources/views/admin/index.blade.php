@@ -31,15 +31,15 @@
             <div class="score clm3">
                 <dl>
                     <dt>クリエイター数</dt>
-                    <dd>{{ $creators_cnt }}</dd>
+                    <dd>{{ number_format($creators_cnt) }}</dd>
                 </dl>
                 <dl>
                     <dt>総会員数</dt>
-                    <dd>{{ $users_cnt }}</dd>
+                    <dd>{{ number_format($users_cnt) }}</dd>
                 </dl>
                 <dl>
                     <dt>入会総件数</dt>
-                    <dd>0</dd>
+                    <dd>{{ number_format($followings_cnt) }}</dd>
                 </dl>
             </div>
             <div class="score">

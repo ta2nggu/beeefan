@@ -91,7 +91,8 @@ class AdminController extends Controller
 //                       ->count();
         //21.05.08 creators count 변경
         $creators_cnt = Creator::count();
-
+        //21.05.12 kondo,follow count
+        $followings_cnt = Following::count();
         //User
         $users_cnt = DB::table("users")
                                //->select(DB::raw("COUNT(1) as cnt"))
@@ -124,10 +125,10 @@ class AdminController extends Controller
             $view = view('admin.indexData', compact( 'creators'))->render();
             return response()->json(['html'=>$view]);
         }
-
         return view('admin.index',[
             'creators_cnt'=>$creators_cnt,
             'users_cnt'=>$users_cnt,
+            'followings_cnt'=>$followings_cnt,
             'creators'=>$creators
         ]);
     }

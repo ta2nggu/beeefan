@@ -11,7 +11,7 @@
     @endcomponent
 
     <!--contentWrap-->
-    <div id="contentWrap" class="contentTopMar">
+    <div id="contentWrap" class="contentTopMar contentBtmMar">
         <div class="helpBox">
             <h1>特定商取引法に基づく表示</h1>
             <h2>サービス名</h2>

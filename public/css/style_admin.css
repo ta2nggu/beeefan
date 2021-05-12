@@ -908,6 +908,7 @@ button.btn:not(.btnBor) {
   text-align: right;
 }
 .formBox.normalFormBox .centerCheckbox {
+  margin-top: 50px;
   text-align: center;
 }
 .formBox.normalFormBox .searchBox {

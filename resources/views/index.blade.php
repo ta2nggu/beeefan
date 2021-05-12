@@ -14,34 +14,40 @@
                 <h1 class="logo"><img src="{{ asset('storage/common/logo.png') }}" alt="{{ config('app.name') }}"></h1>
                 <p>{{ __('○○なファンコミュニティ')}}</p>
             </div>
-            <ul class="btnBox">
-                @if (Route::has('login'))
-                    @auth
-                        @role('creator')
+            @if (session('flash_message'))
+                <div class="flashMsgTop">
+                    <p>{!! nl2br(session('flash_message')) !!}</p>
+                </div>
+            @else
+                <ul class="btnBox">
+                    @if (Route::has('login'))
+                        @auth
+                            @role('creator')
                             <li><a href="{{ url('/creator/index') }}" class="btn">{{ __('マイページ') }}</a></li>
-                        @endrole
-                        @role('user')
+                            @endrole
+                            @role('user')
                             <li><a href="{{ url('/mypage') }}" class="btn">マイページ</a></li>
-                        @endrole
-                        @role('administrator')
+                            @endrole
+                            @role('administrator')
                             <li><a href="{{ url('/admin/index') }}" class="btn">マイページ</a></li>
-                        @endrole
-                        <li><a class="btn" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
+                            @endrole
+                            <li><a class="btn" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">ログアウト</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                    @else
-                        <li><a href="{{ url('/login?root=top') }}" class="btn">ログイン</a></li>
-                        @if (Route::has('register'))
-                            <li><a href="{{ route('register') }}" class="btn">新規会員登録</a></li>
-                        @endif
-                        <li><a href="{{ url('/creator/login') }}" class="btn">クリエイターの方はこちら</a></li>
-                    @endauth
-                @endif
-            </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        @else
+                            <li><a href="{{ url('/login?root=top') }}" class="btn">ログイン</a></li>
+                            @if (Route::has('register'))
+                                <li><a href="{{ route('register') }}" class="btn">新規会員登録</a></li>
+                            @endif
+                            <li><a href="{{ url('/creator/login') }}" class="btn">クリエイターの方はこちら</a></li>
+                        @endauth
+                    @endif
+                </ul>
+            @endif
         </div>
     </div><!--/contentWrap-->
     @component ('components.footer')

@@ -908,6 +908,7 @@ button.btn:not(.btnBor) {
   text-align: right;
 }
 .formBox.normalFormBox .centerCheckbox {
+  margin-top: 50px;
   text-align: center;
 }
 .formBox.normalFormBox .searchBox {
@@ -1645,7 +1646,6 @@ button.btn:not(.btnBor) {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 40px;
 }
 .removeBox .imgbox .thumbnail {
   width: 80px;

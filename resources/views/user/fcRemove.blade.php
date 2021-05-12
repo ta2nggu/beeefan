@@ -9,7 +9,7 @@
 @section('content')
     @component ('components.header')
         @section('page_back')
-            <div class="formBox"><button onClick="history.back()" class="back userBack">{{ __('戻る') }}</button></div>
+            <div class="formBox"><a href="{{ route('joinFc', $creator[0]->account_id) }}" class="back userBack">{{ __('戻る') }}</a></div>
         @endsection
         @slot('header_title')
             <span class="name">{{ $creator[0]->nickname }}</span>{{ __('退会') }}
@@ -21,7 +21,7 @@
             <form method="POST" action="{{ __('/mypage/fc/remove') }}" class="formBox normalFormBox">
                 @csrf
                 @error('cause')
-                    <span class="invalid-feedback" role="alert">
+                    <span class="invalid-feedback" role="alert" style="margin-bottom: 30px">
                         <strong>お手数ですが、退会前に「退会の理由」を選択してください。</strong>
                     </span>
                 @enderror
@@ -70,7 +70,7 @@
                     <label for="join_chk">{{ __('上記の内容に同意する')}}</label>
                 </div>
                 <ul class="btnBox">
-                    <li><div onclick="history.go(-1)" class="btn btnBl">{{ __('退会をキャンセル') }}</div></li>
+                    <li><a href="{{ route('joinFc', $creator[0]->account_id) }}" class="btn btnBl">{{ __('退会をキャンセル') }}</a></li>
                     <li><button type="button" class="btn btnBor btnBorBl disabledBor" id="join_submit" disabled
                                 data-toggle="modal"
                                 data-target="#removeDr">{{ __('退会する') }}</button></li>

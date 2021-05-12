@@ -462,7 +462,21 @@ class UserController extends Controller
 //    21.05.12 kondo, beeefan退会（ユーザーのみアカウント削除）
 //    view
     public function removeAccount(){
-        return view('removeAccount');
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+        return view('removeAccount',[
+            'user' => $this->user,
+        ]);
+    }
+//    post
+    public function removeAccountForm(Request $request){
+        $follow = Following::where('user_id','=',$request->user_id)->first();
+        if($follow){
+            return redirect(url('/page/remove'))->with('flash_message',"入会中のファンクラブがあります。\n当サイトの退会前に各ファンクラブの退会手続きを行ってください。");
+        }
+        $user = User::find($request->user_id);
+        $user->delete();
+        return redirect(url('/'))->with('flash_message',"退会が完了しました。\nご利用いただき誠にありがとうございました。");
     }
 }
 

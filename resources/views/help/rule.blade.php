@@ -11,7 +11,7 @@
     @endcomponent
 
     <!--contentWrap-->
-    <div id="contentWrap" class="contentTopMar">
+    <div id="contentWrap" class="contentTopMar contentBtmMar">
         <div class="helpBox">
             <h1>利用規約</h1>
             <p>この利用規約（以下「本規約」といいます）は、Beee fan!の利用に関する条件及びユーザーの皆様との権利関係を定めるものです。Beee fan!の利用にあたっては、本規約の全文をお読みいただき、内容を十分にご理解いただいた上で、本規約に同意していただく必要があります。</p>

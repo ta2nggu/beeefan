@@ -908,6 +908,7 @@ button.btn:not(.btnBor) {
   text-align: right;
 }
 .formBox.normalFormBox .centerCheckbox {
+  margin-top: 50px;
   text-align: center;
 }
 .formBox.normalFormBox .searchBox {
@@ -1501,6 +1502,14 @@ button.btn:not(.btnBor) {
   margin-left: auto;
   margin-right: auto;
 }
+.topPage .flashMsgTop {
+  text-align: center;
+  max-width: 520px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  color: #fff;
+}
 .topPage #footer {
   color: #fff;
 }
@@ -1674,9 +1683,6 @@ button.btn:not(.btnBor) {
 
 /*固定ページ*
 *******************************/
-.helpBox {
-  padding-bottom: 50px;
-}
 .helpBox h1, .helpBox h2, .helpBox h3, .helpBox p, .helpBox dt, .helpBox dd {
   padding-left: 5%;
   padding-right: 5%;

@@ -33,6 +33,11 @@
             @include wrap_inner;
         }
     }
+    .flashMsgTop{
+        text-align: center;
+        @include wrap_inner;
+        color: #fff;
+    }
     #footer{
         color: #fff;
     }
@@ -201,7 +206,6 @@
 /*固定ページ*
 *******************************/
 .helpBox{
-    padding-bottom: 50px;
     h1,h2,h3,p,dt,dd{
         padding-left: 5%;
         padding-right: 5%;

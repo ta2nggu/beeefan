@@ -9,7 +9,7 @@
 @section('content')
     @component ('components.header')
         @section('page_back')
-            <div class="formBox"><button onClick="history.back()" class="back userBack">{{ __('戻る') }}</button></div>
+            <div class="formBox"><a href="{{ route('userIndex') }}" class="back userBack">{{ __('戻る') }}</a></div>
         @endsection
         @slot('header_title')
             <span class="name">{{ $creator[0]->nickname }}</span>{{ __('登録情報') }}
@@ -31,7 +31,7 @@
             </dd>
             <div class="wrap_s">
                 <p class="removeLink"><a href="{{url('/mypage/fc/'.$creator[0]->account_id.'/remove')}}">{{ __('退会のお手続き') }}</a></p>
-                <p><button onClick="history.back()" class="btn btnBor btnBorBl">{{ __('マイページへ戻る') }}</button></p>
+                <p><a href="{{ route('userIndex') }}" class="btn btnBor btnBorBl">{{ __('マイページへ戻る') }}</a></p>
             </div>
         </dl>
     </div><!--/contentWrap-->

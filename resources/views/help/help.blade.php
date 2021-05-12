@@ -11,7 +11,7 @@
     @endcomponent
 
     <!--contentWrap-->
-    <div id="contentWrap" class="contentTopMar">
+    <div id="contentWrap" class="contentTopMar contentBtmMar">
         <div class="helpBox">
             <h1>ヘルプ</h1>
             <h2>お問い合わせ</h2>

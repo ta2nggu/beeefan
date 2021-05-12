@@ -88,15 +88,12 @@
                             <div class="modal-warning">
                                 <p>退会したら取り消せません。退会してもよろしいですか？</p>
                             </div>
-                            <form action="{{ __('/creator/delTweet') }}" method="POST" class="formBox normalFormBox">
-                                @csrf
-                                <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">
-                                <input name="creator_id" type="hidden" value="{{ $creator[0]->user_id }}">
-                                <ul class="btnBox modal-footer">
-                                    <li><button type="submit" class="btn btnSS btnCircle btnBk">{{ __('はい') }}</button></li>
-                                    <li><button type="button" class="btn btnSS btnCircle" data-dismiss="modal">{{ __('いいえ') }}</button></li>
-                                </ul>
-                            </form>
+                            <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">
+                            <input name="creator_id" type="hidden" value="{{ $creator[0]->user_id }}">
+                            <ul class="btnBox modal-footer">
+                                <li><button type="submit" class="btn btnSS btnCircle btnBk">{{ __('はい') }}</button></li>
+                                <li><button type="button" class="btn btnSS btnCircle" data-dismiss="modal">{{ __('いいえ') }}</button></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

@@ -458,5 +458,11 @@ class UserController extends Controller
         $follow->delete();
         return redirect(url('/mypage'))->with('flash_message','“'.$creator->nickname.'”の退会が完了しました。 ご利用いただき誠にありがとうございました。');
     }
+
+//    21.05.12 kondo, beeefan退会（ユーザーのみアカウント削除）
+//    view
+    public function removeAccount(){
+        return view('removeAccount');
+    }
 }
 

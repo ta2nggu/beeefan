@@ -1731,3 +1731,6 @@ button.btn:not(.btnBor) {
 .helpBox dd {
   display: none;
 }
+.helpBox dd a {
+  text-decoration: underline;
+}

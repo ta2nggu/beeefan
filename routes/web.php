@@ -27,6 +27,9 @@ Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 
 Route::get('/mypage', [App\Http\Controllers\UserController::class, 'index'])->name('user')->middleware('verified');
+//21.05.12 kondo, beeefan退会（ユーザーのみアカウント削除）
+Route::get('/page/remove', [App\Http\Controllers\UserController::class, 'removeAccount'])->name('removeAccount');
+
 //21.05.10 kondo, 入会中ファンクラブ詳細/退会
 Route::get('/mypage/fc/{account_id}', [App\Http\Controllers\UserController::class, 'joinFc'])->name('joinFc');
 Route::get('/mypage/fc/{account_id}/remove', [App\Http\Controllers\UserController::class, 'removeFc'])->name('removeFc');

@@ -30,7 +30,6 @@ class UserController extends Controller
 //                                21.05.02 kondo,account_id取得の為にjoin追加
                                 ->join('users', 'users.id', '=', 'creators.user_id')
                                 ->where('followings.user_id', '=', $this->user->id)
-                                ->where('followings.cancel', 0)
                                 ->orderby('creators.nickname', 'asc')
                                 ->paginate(5);
 
@@ -456,8 +455,7 @@ class UserController extends Controller
         ]);
         $creator = Creator::where('user_id','=',$request->creator_id)->first();
         $follow = Following::where('user_id', $request->user_id)->where('creator_id', $request->creator_id)->first();
-        $follow->cancel = 1;
-        $follow->save();
+        $follow->delete();
         return redirect(url('/mypage'))->with('flash_message','“'.$creator->nickname.'”の退会が完了しました。 ご利用いただき誠にありがとうございました。');
     }
 }

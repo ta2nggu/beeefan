@@ -67,8 +67,8 @@
             </div>
             <div class="selectBox">
                 <select id="search_creator_select" name="sortCreators">
-                    <option value="{{ __("created_at,desc") }}">{{ __('登錄日が新しい順に表示') }}</option>
-                    <option value="{{ __("created_at,asc") }}">{{ __('登錄日が古い順に表示') }}</option>
+                    <option value="{{ __("creators.created_at,desc") }}">{{ __('登錄日が新しい順に表示') }}</option>
+                    <option value="{{ __("creators.created_at,asc") }}">{{ __('登錄日が古い順に表示') }}</option>
                 </select>
             </div>
         </div>

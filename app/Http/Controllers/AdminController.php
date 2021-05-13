@@ -109,14 +109,16 @@ class AdminController extends Controller
 
         if ($request->sorting != null) {
             $creators = DB::table("creators")
+                ->join("users","users.id","=","creators.user_id")
                 ->where('creators.nickname', 'LIKE','%'.$request->search."%")
                 ->orderBy($request->sorting, $request->direction)
                 ->paginate(3);
         }
         else {
             $creators = DB::table("creators")
+                ->join("users","users.id","=","creators.user_id")
                 ->where('creators.nickname', 'LIKE','%'.$request->search === null?$request->search:''."%")
-                ->orderBy('created_at', 'desc')
+                ->orderBy('creators.created_at', 'desc')
                 ->paginate(3);
         }
 

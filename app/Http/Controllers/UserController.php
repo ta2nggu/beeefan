@@ -134,6 +134,9 @@ class UserController extends Controller
         //21.04.20 김태영, 입회 여부 조회 추가
         //account_id 로 creaotr 정보 가져오기
         $creator = $this->creator_info_withAccId($account_id);
+        if(!$creator->count()) {
+            return abort(404);
+        }
         //login user 의 id와 creator 의 user_id 로 입회 여부 조회
         $follow = $this->join_chk(auth()->user() === null ? null : auth()->user()->id, $creator[0]->user_id);
         //1 입회, 0 미입회

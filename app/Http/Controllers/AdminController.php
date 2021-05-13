@@ -5,9 +5,11 @@ use App\Models\Creator;
 use App\Models\Following;
 use App\Models\Notice;
 use App\Models\tweet;
+use App\Models\Tweet_image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -273,6 +275,38 @@ class AdminController extends Controller
         Creator::where('user_id', $request->input('creator_id'))->update(
             ['visible' => $request->input('visible')]
         );
+
+        return redirect('/admin/index')->with('verified', true);
+    }
+
+    public function deleteCreator(Request $request) {
+        //삭제되는 creator의 투고 찾기
+        $tweets = DB::table('tweets')->where('user_id', $request->creator_id)->get();
+
+        //투고 이미지들 삭제
+        foreach ($tweets as $tweet) {
+            Tweet_image::where('tweet_id', $tweet->id)->delete();
+        }
+
+        //투고 삭제
+        tweet::where('user_id', $request->creator_id)->delete();
+
+        //권한 삭제
+        DB::table('role_user')->where('user_id', $request->creator_id)->delete();
+
+        //입회 정보 삭제
+        Following::where('creator_id', $request->creator_id)->delete();
+
+        //creator 테이블 삭제
+        Creator::where('user_id', $request->creator_id)->delete();
+
+        //user 테이블 삭제
+        $result = User::where('id', $request->creator_id)->delete();
+
+        //업로드 폴더 삭제
+        if ($result === 1) {
+            File::deleteDirectory(storage_path('app/public/images/'.$request->creator_id));
+        }
 
         return redirect('/admin/index')->with('verified', true);
     }

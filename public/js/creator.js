@@ -118,7 +118,8 @@ $(document).ready(function (e) {
     $('#add_link').modal('hide');
   });
   $('#c_mypage_submit').click(function () {
-    $('#c_mypage_instruction').val($('#instruction').html());
+    //21.05.13 김태영, $('#instruction').html() -> text()
+    $('#c_mypage_instruction').val($('#instruction').text());
     console.log($('#input_background_img').val());
   });
 }); // 21.04.09 김태영, add hyper link

@@ -47,6 +47,8 @@ Route::get('/{creator}/join', [App\Http\Controllers\UserController::class, 'join
 Route::post('/join', [App\Http\Controllers\UserController::class, 'joinStore']);
 //Route::post('/join', [App\Http\Controllers\CurlController::class, 'postCurl']);
 Route::get('/{creator}/joinOk', [App\Http\Controllers\UserController::class, 'joinOk'])->middleware('verified');
+//21.05.14 김태영, User Mypage -> 가입중인 모든 creator Timeline
+Route::get('/mypage/p', [App\Http\Controllers\UserController::class, 'timeline_followings'])->middleware('verified');
 
 //Route::get('/creator', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');
 //Route::get('/creator/{creator}', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');

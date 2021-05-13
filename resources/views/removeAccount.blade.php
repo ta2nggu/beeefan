@@ -44,13 +44,13 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <p class="titleText">退会する</p>
+                                        <p class="titleText">{{__('退会する')}}</p>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-warning">
-                                        <p>退会したら取り消せません。退会してもよろしいですか？</p>
+                                        <p>{{__('退会したら取り消せません。退会してもよろしいですか？')}}</p>
                                     </div>
                                     <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">
                                     <ul class="btnBox modal-footer">

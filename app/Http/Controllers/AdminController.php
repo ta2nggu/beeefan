@@ -262,12 +262,10 @@ class AdminController extends Controller
     public function updateCreatorPrice(Request $request) {
         $creator_id = $request->input('creator_id');
         $month_price = $request->input('month_price');
-
         //DB 쿼리 결과는 성공시 true를 반환한다.
         $result = DB::table('creators')->where('user_id', $creator_id)->update(
             ['month_price' => $month_price]
         );
-
         return response()->json(array('msg'=> $result), 200);
     }
 
@@ -275,39 +273,39 @@ class AdminController extends Controller
         Creator::where('user_id', $request->input('creator_id'))->update(
             ['visible' => $request->input('visible')]
         );
-
+        $creator = Creator::where('user_id','=',$request->creator_id)->first();
+        if($creator->visible===0){
+            \Session::flash('flash_message','「'.$creator->nickname.'」を非公開にしました');
+        }else{
+            \Session::flash('flash_message','「'.$creator->nickname.'」を公開にしました');
+        }
         return redirect('/admin/index')->with('verified', true);
     }
 
     public function deleteCreator(Request $request) {
+        $creator = Creator::where('user_id','=',$request->creator_id)->first();
+        $creator = $creator->nickname;
         //삭제되는 creator의 투고 찾기
         $tweets = DB::table('tweets')->where('user_id', $request->creator_id)->get();
-
         //투고 이미지들 삭제
         foreach ($tweets as $tweet) {
             Tweet_image::where('tweet_id', $tweet->id)->delete();
         }
-
         //투고 삭제
         tweet::where('user_id', $request->creator_id)->delete();
-
         //권한 삭제
         DB::table('role_user')->where('user_id', $request->creator_id)->delete();
-
         //입회 정보 삭제
         Following::where('creator_id', $request->creator_id)->delete();
-
         //creator 테이블 삭제
         Creator::where('user_id', $request->creator_id)->delete();
-
         //user 테이블 삭제
         $result = User::where('id', $request->creator_id)->delete();
-
         //업로드 폴더 삭제
         if ($result === 1) {
             File::deleteDirectory(storage_path('app/public/images/'.$request->creator_id));
         }
 
-        return redirect('/admin/index')->with('verified', true);
+        return redirect('/admin/index')->with('verified', true)->with('flash_message','「'.$creator.'」を削除しました');
     }
 }

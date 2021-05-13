@@ -28,7 +28,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/mypage', [App\Http\Controllers\UserController::class, 'index'])->name('userIndex')->middleware('verified');
 //21.05.12 kondo, beeefan退会（ユーザーのみアカウント削除）
-Route::get('/page/remove', [App\Http\Controllers\UserController::class, 'removeAccount'])->name('removeAccount');
+Route::get('/mypage/remove', [App\Http\Controllers\UserController::class, 'removeAccount'])->name('removeAccount');
 Route::post('/page/remove', [App\Http\Controllers\UserController::class, 'removeAccountForm'])->name('removeAccountForm');
 
 //21.05.10 kondo, 入会中ファンクラブ詳細/退会

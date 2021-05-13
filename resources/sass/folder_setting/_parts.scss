@@ -93,6 +93,7 @@ button.btn {
 .btnBl{ background-color: $color_f; color: #fff;}
 .btnLb{ background-color: $color_f_sub; color: #fff;}
 .btnAd{ background-color: $color_a; color: #fff;}
+.btnAd2{ background-color: $color_a_sub; color: #fff;}
 .btnGy{color: $color_b_sub}
 
 .noDateBox{
@@ -715,6 +716,15 @@ button.btn {
                 margin-top: 5px;
                 color: $color_b_sub;
                 text-decoration: underline;
+            }
+            .invisibleText{
+                display: inline-block;
+                background-color: $color_c;
+                color: #fff;
+                border-radius: 8px;
+                padding: 0 10px;
+                margin-bottom: 5px;
+                font-size: 11px;
             }
         }
         .iconBox{

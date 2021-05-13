@@ -38,13 +38,13 @@
                     <p class="txtLink NoMrg right"><a href="{{ url('/email/'.$admin->id) }}">{{__('メールアドレスを変更する')}}</a></p>
                 </dd>
             </dl>
-            <dl class="readonlyBox">
-                <dt>{{__('パスワード')}}</dt>
-                <dd>
-                    <p class="inputCss">{{__('*********')}}</p>
-                    <p class="txtLink NoMrg right"><a href="{{ url('/password/'.$admin->id) }}">{{__('パスワードを変更する')}}</a></p>
-                </dd>
-            </dl>
+{{--            <dl class="readonlyBox">--}}
+{{--                <dt>{{__('パスワード')}}</dt>--}}
+{{--                <dd>--}}
+{{--                    <p class="inputCss">{{__('*********')}}</p>--}}
+{{--                    <p class="txtLink NoMrg right"><a href="{{ url('/password/'.$admin->id) }}">{{__('パスワードを変更する')}}</a></p>--}}
+{{--                </dd>--}}
+{{--            </dl>--}}
 
             <ul class="btnBox">
                 <li><a class="btn btnBor btnBorGy"

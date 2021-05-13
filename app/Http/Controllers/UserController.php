@@ -284,7 +284,6 @@ class UserController extends Controller
                 else if (auth()->user()->hasRole('superadministrator')) {
                     return redirect($request->redirect_url);
                 }
-
                 return redirect()->back();
             }
             else {
@@ -366,6 +365,7 @@ class UserController extends Controller
             return redirect('/creator/mypage');
         }
         else if (auth()->user()->hasRole('superadministrator')) {
+            \Session::flash('flash_message','「'.$user->last_name.' '.$user->first_name.'」さんのメールアドレスを変更しました。ログイン後にメールアドレスの承認が必要です。');
             return redirect('/admin/admins/list');
         }
 

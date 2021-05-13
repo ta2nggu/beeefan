@@ -13,12 +13,6 @@
     <!--contentWrap-->
     <div id="contentWrap">
 
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
-
         <div id="profileHeader">
             @if (isset($user[0]->background_img))
                 <div class="imgbox" style="background-image: url({{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }})">
@@ -70,9 +64,6 @@
             <div class="btnBox">
                 <p><a href="/{{ $user[0]->account_id }}" class="btn btnBor btnBorLp">{{__('公開ページを確認')}}</a></p>
             </div>
-
-{{--            21.04.29 김태영, 下書き投稿一覧 page 개발을 위해 anchor 여기에 추가 나중에 지우세요 --}}
-{{--            21.04.29 kondo, 비공개 화면 link headerNavへ移動--}}
 
         </div>
         <!--postList(parts)-->

@@ -102,6 +102,26 @@
     }
 }
 
+/*クリエイター情報詳細*
+*******************************/
+#adminCreatorDetail{
+    margin-top: 50px;
+}
+#changeMonthlyPrice{
+    margin-bottom: 50px;
+    h2{
+        @include font_head;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        &+p{
+            color: $color_b_sub;
+        }
+    }
+    .monthly_priceBox{
+        margin: 20px 0;
+    }
+}
+
 /*管理者用＞運営者一覧*
 *******************************/
 .admins{

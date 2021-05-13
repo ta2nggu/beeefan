@@ -654,6 +654,11 @@ button.btn:not(.btnBor) {
   color: #fff;
 }
 
+.btnAd2 {
+  background-color: #68727d;
+  color: #fff;
+}
+
 .btnGy {
   color: #aaaaaa;
 }
@@ -1335,6 +1340,15 @@ button.btn:not(.btnBor) {
   margin-top: 5px;
   color: #aaaaaa;
   text-decoration: underline;
+}
+#fanclubList li .txtBox .invisibleText {
+  display: inline-block;
+  background-color: #b15a68;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0 10px;
+  margin-bottom: 5px;
+  font-size: 11px;
 }
 #fanclubList li .iconBox {
   position: absolute;

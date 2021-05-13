@@ -58,32 +58,32 @@
 
             <div id="profileEditText" class="wrap_inner">
                 <dl>
-                    <dt>クリエイター名</dt>
+                    <dt>{{__('クリエイター名')}}</dt>
                     <dd><input name="nickname" type="text" value="{{ $user[0]->nickname }}"></dd>
                 </dl>
                 <dl>
-                    <dt>名前</dt>
+                    <dt>{{__('名前')}}</dt>
                     <dd class="nameBox">
-                        <input name="last_name" type="text" value="{{ $user[0]->last_name }}" placeholder="姓">
-                        <input name="first_name" type="text" value="{{ $user[0]->first_name }}" placeholder="名">
+                        <input name="last_name" type="text" value="{{ $user[0]->last_name }}" placeholder="{{__('姓')}}">
+                        <input name="first_name" type="text" value="{{ $user[0]->first_name }}" placeholder="{{__('名')}}">
                     </dd>
                 </dl>
                 <dl class="readonlyBox">
-                    <dt>メールアドレス</dt>
+                    <dt>{{__('メールアドレス')}}</dt>
                     <dd>
                         <input class="readonly" name="email" type="text" value="{{ $user[0]->email }}" readonly>
-                        <a href="{{ url('/email/change') }}">メールアドレスを変更する</a>
+                        <a href="{{ url('/email/change') }}">{{__('メールアドレスを変更する')}}</a>
                     </dd>
                 </dl>
                 <dl class="readonlyBox">
-                    <dt>パスワード</dt>
+                    <dt>{{__('パスワード')}}</dt>
                     <dd>
-                        <p class="inputCss">*********</p>
-                        <a href="{{ url('/password/change') }}">パスワードを変更する</a>
+                        <p class="inputCss">{{__('*********')}}</p>
+                        <a href="{{ url('/password/change') }}">{{__('パスワードを変更する')}}</a>
                     </dd>
                 </dl>
                 <dl>
-                    <dt>説明文</dt>
+                    <dt>{{__('説明文')}}</dt>
                     <dd>
                         <div id="instruction">
                             {!! $user[0]->instruction !!}

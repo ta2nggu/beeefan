@@ -17,6 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+
+//            21.05.13 kondo 仮登録用
+            $table->boolean('email_verified')->default(0);
+            $table->string('email_verify_token')->nullable();
+
 //            21.04.01 김태영, account_id 추가
             $table->string('account_id', 20)->unique();
             $table->string('password');

@@ -40,7 +40,7 @@
             <div class="btnBox">
                 @guest
                     <p><a href="{!! '/'. $creator[0]->account_id .'/join' !!}" class="btn btnPi">{{ __('入会する') }}</a></p>
-                    <p><a href="{{ url('/home') }}" class="btn btnLp">{{ __('マイページにログイン') }}</a></p>
+                    <p><a href="{{ url('/home') }}" class="btn btnLp">{{ __('ログインする') }}</a></p>
                 @else
                     @role('user')
                         @if($follow === 0)

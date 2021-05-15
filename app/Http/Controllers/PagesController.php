@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use Auth;
 
 class PagesController extends Controller
 {
-    //21.04.02 kondo, 静的ページ用
 
     // クリエイターログイン
     public function creatorLogin(){
@@ -31,10 +28,3 @@ class PagesController extends Controller
         return view('help/help');
     }
 }
-//class homeController extends Controller
-//{
-//    public function ブレード名(){
-//        $auths = Auth::user();
-//        return view('home', [ 'auths' => $auths ]);
-//    }
-//}

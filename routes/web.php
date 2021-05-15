@@ -18,15 +18,24 @@ use Illuminate\Support\Facades\Route;
 //});
 Route::get('/', function () {
     return view('index');
-});
+})->name('top');
 
 Auth::routes();//이렇게 작성하면 verification.verify, resend.. 등 자동으로 router가 생김
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home')->middleware('verified');
+Route::get('/mypage', [App\Http\Controllers\UserController::class, 'userIndex'])->name('userIndex')->middleware('verified');
 
-Route::get('/mypage', [App\Http\Controllers\UserController::class, 'index'])->name('userIndex')->middleware('verified');
+//21.05.14 kondo, beeefan仮登録・登録
+Route::get('/register/pre_registered', [App\Http\Controllers\Auth\RegisterController::class, 'preRegistered'])->name('preRegistered');
+//決済選択
+Route::get('/register/{email_token}', [App\Http\Controllers\Auth\RegisterController::class, 'registerPaymentSelect'])->name('registerPaymentSelect');
+//あとで登録
+Route::post('/register/NoSelect', [App\Http\Controllers\Auth\RegisterController::class, 'registerPaymentNoSelect'])->name('registerPaymentNoSelect');
+//登録完了
+Route::get('/registered', [App\Http\Controllers\Auth\RegisterController::class, 'registered'])->name('registered')->middleware('auth');
+
 //21.05.12 kondo, beeefan退会（ユーザーのみアカウント削除）
 Route::get('/mypage/remove', [App\Http\Controllers\UserController::class, 'removeAccount'])->name('removeAccount');
 Route::post('/page/remove', [App\Http\Controllers\UserController::class, 'removeAccountForm'])->name('removeAccountForm');
@@ -43,7 +52,7 @@ Route::get('/{creator}', [App\Http\Controllers\UserController::class, 'creatorIn
 //21.04.06 김태영, middleware 제거 비로그인 user 접근도 허용
 //Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline'])->middleware('verified');
 Route::get('/{creator}/p/{start}', [App\Http\Controllers\UserController::class, 'timeline']);
-Route::get('/{creator}/join', [App\Http\Controllers\UserController::class, 'join'])->middleware('verified');
+Route::get('/{creator}/join', [App\Http\Controllers\UserController::class, 'join']);
 Route::post('/join', [App\Http\Controllers\UserController::class, 'joinStore']);
 //Route::post('/join', [App\Http\Controllers\CurlController::class, 'postCurl']);
 Route::get('/{creator}/joinOk', [App\Http\Controllers\UserController::class, 'joinOk'])->middleware('verified');

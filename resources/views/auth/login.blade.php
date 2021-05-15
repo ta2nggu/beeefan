@@ -26,6 +26,11 @@
                     <h1>{{_("会員ログイン")}}</h1>
                 @endif
             </div>
+            @if (session('flash_message'))
+                <div class="flashMsgTop">
+                    <p>{!! nl2br(session('flash_message')) !!}</p>
+                </div>
+            @endif
             <form method="POST" action="{{ route('login') }}" class="formBox">
                 @csrf
                 <div>

@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Creator;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+
+use Mail;
+use App\Mail\EmailVerification;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Prefecture;
 
@@ -26,15 +35,15 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    //protected $redirectTo = RouteServiceProvider::HOME;
-    //21.02.21 김태영, 계정 생성 후 리다이렉션 경로 변경
-//    protected $redirectTo = '/user';
-    protected $redirectTo = '/mypage';
+//    /**
+//     * Where to redirect users after registration.
+//     *
+//     * @var string
+//     */
+//    //protected $redirectTo = RouteServiceProvider::HOME;
+//    //21.02.21 김태영, 계정 생성 후 리다이렉션 경로 변경
+////    protected $redirectTo = '/user';
+//    protected $redirectTo = '/mypage';
 
     /**
      * Create a new controller instance.
@@ -43,7 +52,9 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+//        $this->middleware('guest');
+//        21.05.15 kondo,　仮登録から本登録ページでミドルウェアが適用されないように
+        $this->middleware('guest', ['except' => ['registerPaymentNoSelect', 'registered']]);
     }
 
     /**
@@ -76,14 +87,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-//        return User::create([
-//            'name' => $data['name'],
-//            'email' => $data['email'],
-//            'password' => Hash::make($data['password']),
-//            'nickname' => $data['nickname'],
-//            'birth_date' => $data['birth_date'],
-//        ]);
-
         //21.02.21 김태영, role 부여
         $user = User::create([
 //            21.04.04 김태영, 일반 user 이름 제거
@@ -96,8 +99,9 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
 //            'nickname' => $data['nickname'],
             'birth_date' => $data['birth_date'],
+            //21.05.13 kondo, 仮登録用
+            'email_verify_token' => base64_encode($data['email']),
         ]);
-
         if ($data['role'] === 'user') {
             $user->attachRole('user');
         }
@@ -110,14 +114,79 @@ class RegisterController extends Controller
         else if ($data['role'] === 'creator') {
             $user->attachRole('creator');
         }
+        //    21.05.13 kondo, 仮登録の為
+        $fc_id = $data['fc_id'];
+        $email = new EmailVerification($user,$fc_id);
+        Mail::to($user->email) ->send($email);
+
         return $user;
     }
 
 //    21.04.02 김태영, 생성
-    protected function showRegistrationForm() {
+    protected function showRegistrationForm(Request $request) {
+        $fc_id=$request->fc_id;
         $Prefectures = Prefecture::select('id', 'name')->orderby('id')->get();
 
-        return view('auth.register', compact('Prefectures'));
+        return view('auth.register', compact('Prefectures','fc_id'));
     }
 
+//    21.05.13 kondo, 仮登録の為
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create( $request->all() )));
+
+        return redirect('/register/pre_registered');
+    }
+    // 仮登録完了画面
+    public function preRegistered(){
+        return view('auth/pre_registered');
+    }
+    // 決済方法登録
+    public function registerPaymentSelect($email_token,Request $request){
+        //無効なtoken
+        if ( !User::where('email_verify_token','=',$email_token)->exists()){
+            return redirect('/')->with('flash_message', "無効なトークンです。\n再度アクセスし直してください。");
+        } else {
+            //token有効
+            $user = User::where('email_verify_token','=',$email_token)->first();
+            //tokenとメールアドレスが一致するか確認
+            if( $user->email != $request->email){
+                return redirect('/')->with('flash_message', "無効なトークンです。\n再度アクセスし直してください。");
+            }
+            //本登録すみの場合
+            if ($user->status == config('const.USER_STATUS.REGISTER')) {
+                return redirect('/login?root=top')->with('flash_message', "すでに本登録されています。\nログインして利用してください。");
+            }
+            $user->status = config('const.USER_STATUS.MAIL_AUTHED');
+            $user->email_verified_at = Carbon::now();
+
+            if ($user->save()) {
+                $fc_id=$request->fc_id;
+                return view('payment/select', compact('email_token','user','fc_id'));
+            } else {
+                return redirect('/')->with('flash_message', "メール認証に失敗しました。\n再度、メールからリンクをクリックしてください。");
+            }
+        }
+    }
+    // 決済方法登録せずに会員登録
+    public function registerPaymentNoSelect(Request $request){
+        $user = User::find($request->user_id);
+        $user->status = config('const.USER_STATUS.REGISTER');
+        if ($user->save()) {
+            Auth::login($user);
+            $fc_id=$request->fc_id;
+            return redirect(url('/registered?fc_id='.$fc_id));
+        } else {
+            return redirect('/')->with('flash_message', "会員登録に失敗しました。\n再度、メールからリンクをクリックしてください。");
+        }
+    }
+    // 仮登録完了画面
+    public function registered(Request $request){
+        $creator = Creator::where('user_id', $request->fc_id)->first();
+        if($creator){
+            $user = User::find($creator->user_id);
+        }
+        return view('auth/registered',compact('creator','user'));
+    }
 }

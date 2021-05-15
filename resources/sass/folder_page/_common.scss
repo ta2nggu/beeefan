@@ -46,6 +46,10 @@
 /*login*
 *******************************/
 .login{
+    .flashMsgTop{
+        margin: -20px 0 20px;
+        font-size: 0.9em;
+    }
     #contentWrap {
         .formBox{
             @include wrap_inner;
@@ -117,7 +121,7 @@
 /*新規会員登録*
 *******************************/
 #stepBox {
-    margin: 40px 0 60px;
+    margin: 0 0 40px;
     .normalTitleBox{
         margin-bottom: 60px;
     }
@@ -261,6 +265,34 @@
         display: none;
         a{
             text-decoration: underline;
+        }
+    }
+}
+
+/*決済関連*
+*******************************/
+#paymentSlectBox{
+    label{
+        display: block;
+        border: 1px solid $color_b_sub2;
+        border-radius: 5px;
+        padding: 15px 10px 15px 50px;
+        margin-bottom: 10px;
+        span{
+            display: block;
+        }
+        .ttl{
+            @include font_head;
+            font-size: 1.1em;
+        }
+        .txt{
+            font-size: 0.9em;
+        }
+        &:before{
+            left: 10px;
+        }
+        &:after {
+            left: 19px;
         }
     }
 }

@@ -22,15 +22,7 @@
                 <ul class="btnBox">
                     @if (Route::has('login'))
                         @auth
-                            @role('creator')
-                            <li><a href="{{ url('/creator/index') }}" class="btn">{{ __('マイページ') }}</a></li>
-                            @endrole
-                            @role('user')
-                            <li><a href="{{ url('/mypage') }}" class="btn">マイページ</a></li>
-                            @endrole
-                            @role('administrator')
-                            <li><a href="{{ url('/admin/index') }}" class="btn">マイページ</a></li>
-                            @endrole
+                            <li><a href="{{ route('home') }}" class="btn">{{ __('マイページ') }}</a></li>
                             <li><a class="btn" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">ログアウト</a>

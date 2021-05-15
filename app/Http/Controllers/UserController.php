@@ -22,7 +22,7 @@ class UserController extends Controller
 //        $this->middleware('role:user|administrator|creator');
     }
 
-    public function index(Request $request){
+    public function userIndex(Request $request){
         $this->middleware('auth');
         $this->user =  \Auth::user();
 
@@ -375,17 +375,17 @@ class UserController extends Controller
     //입회화면 이동
     public function join($account_id) {
         $this->middleware('auth');
-        $this->user =  \Auth::user();
-
         $creator = $this->creator_info_withAccId($account_id);
-
+        if(\Auth::user()){
+            $this->user =  \Auth::user();
+        }else{
+            return view('joinLogin', compact('creator'));
+        }
         //이미 입회 했다면
         $already = $this->join_chk(auth()->user()->id, $creator[0]->user_id);
-
         if (!empty($already[0])) {
             return redirect('/'.$account_id);
         }
-
         return view('join', compact('creator'));
     }
 

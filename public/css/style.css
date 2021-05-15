@@ -1530,6 +1530,10 @@ button.btn:not(.btnBor) {
 
 /*login*
 *******************************/
+.login .flashMsgTop {
+  margin: -20px 0 20px;
+  font-size: 0.9em;
+}
 .login #contentWrap .formBox {
   max-width: 520px;
   width: 90%;
@@ -1609,7 +1613,7 @@ button.btn:not(.btnBor) {
 /*新規会員登録*
 *******************************/
 #stepBox {
-  margin: 40px 0 60px;
+  margin: 0 0 40px;
 }
 #stepBox .normalTitleBox {
   margin-bottom: 60px;
@@ -1753,4 +1757,32 @@ button.btn:not(.btnBor) {
 }
 .helpBox dd a {
   text-decoration: underline;
+}
+
+/*決済関連*
+*******************************/
+#paymentSlectBox label {
+  display: block;
+  border: 1px solid #ededed;
+  border-radius: 5px;
+  padding: 15px 10px 15px 50px;
+  margin-bottom: 10px;
+}
+#paymentSlectBox label span {
+  display: block;
+}
+#paymentSlectBox label .ttl {
+  font-family: a-otf-midashi-go-mb31-pr6n, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.1em;
+}
+#paymentSlectBox label .txt {
+  font-size: 0.9em;
+}
+#paymentSlectBox label:before {
+  left: 10px;
+}
+#paymentSlectBox label:after {
+  left: 19px;
 }

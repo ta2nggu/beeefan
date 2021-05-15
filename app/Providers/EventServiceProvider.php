@@ -15,9 +15,10 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
+//        21.05.15 kondo,　仮登録時にメールを送らない
+//        Registered::class => [
+//            SendEmailVerificationNotification::class,
+//        ],
     ];
 
     /**

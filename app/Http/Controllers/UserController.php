@@ -205,6 +205,38 @@ class UserController extends Controller
 //        ]);
     }
 
+    public function timeline_followings(Request $request) {
+        $tweets = DB::table('followings', 'f')
+            ->select(DB::raw("users.last_name, users.first_name, users.account_id, creators.user_id as creator_id, creators.profile_img, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->join('tweets', 'tweets.user_id', '=', 'f.creator_id')
+            ->join('users', 'users.id', '=', 'tweets.user_id')
+            ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
+            ->where('f.user_id', \Auth::user()->id)
+            ->where('tweets.visible', 1)
+            ->orderBy('tweets.id', 'desc')
+            ->paginate(3);
+
+        $tweet_images = new \Illuminate\Support\Collection;
+        foreach ($tweets as $tweet) {
+            $loop = DB::table('tweets', 'tweets')
+                ->select(DB::raw("tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path"))
+                ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
+                ->where('tweets.id', $tweet->id)
+                ->where('tweet_images.idx','<>', $tweet->main_img_idx)//무료공개 = main image는 이미 tweet 정보 가져올 때 가져옴, main image 제외하고 조회
+                ->where('tweets.visible', 1)
+                ->orderBy('tweet_images.idx', 'asc')
+                ->get();
+
+            $tweet_images = $tweet_images->merge($loop);
+        }
+
+        if ($request->ajax()) {
+            $view = view('user.t_followingsData', compact('tweets', 'tweet_images'))->render();
+            return response()->json(['html'=>$view]);
+        }
+        return view('user.t_followings', compact('tweets', 'tweet_images'));
+    }
+
     public function change_password($admin_id) {
         $this->middleware('auth');
         $this->user =  \Auth::user();

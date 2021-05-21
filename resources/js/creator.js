@@ -124,8 +124,7 @@ $(document).ready(function (e) {
     });
 
     $('#c_mypage_submit').click(function() {
-        //21.05.13 김태영, $('#instruction').html() -> text()
-        $('#c_mypage_instruction').val($('#instruction').text());
+        $('#c_mypage_instruction').val($('#instruction').html());
         console.log($('#input_background_img').val());
     });
 });

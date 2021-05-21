@@ -10,6 +10,8 @@
         v-on:vdropzone-file-added="addedEvent"
         v-on:vdropzone-removed-file="removedEvent"
         v-on:vdropzone-success="successEvent"
+        v-on:vdropzone-thumbnail="thumbnailEvent"
+        v-on:vdropzone-drag-enter="dragEvent"
     >
     </vue-dropzone>
     <div class='more' ref='more'><div></div></div>
@@ -29,8 +31,24 @@
 <script>
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import Cropper from 'cropperjs'
+import 'cropperjs/dist/cropper.css'
 
 import * as draganddrop from '../draganddrop.js'
+
+// transform cropper dataURI output to a Blob which Dropzone accepts
+function dataURItoBlob(dataURI) {
+    var byteString = atob(dataURI.split(',')[1]);
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: 'image/jpeg' });
+}
+// modal window template
+var modalTemplate = '<div class="modal"><button class="crop-upload">適用</button><button class="crop-cancel">取消</button><div class="image-container"></div></div>';
+let croping;
 
 export default {
     name: 'Dropzone',
@@ -67,7 +85,8 @@ export default {
                 maxFiles: 10,
                 parallelUploads: 5,
                 dictDefaultMessage: '',
-                clickable: '.more'
+                clickable: '.more',
+                acceptedFiles: ".jpeg,.jpg,.png,.gif,.mp4,.mkv,.avi"
             },
             editMode:0,//21.05.01 김태영, 편집하기
             tweet_id:null,//21.05.02 김태영, 편집하기
@@ -80,6 +99,8 @@ export default {
         let dropzone = this.$refs.myVueDropzone.dropzone
         dropzone.element.appendChild(this.$refs.more)
 
+        //파일 선택 시 다중 선택 막기
+        dropzone.hiddenFileInput.removeAttribute("multiple");
 
         //재정렬 drag and drop 사용
         $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
@@ -517,6 +538,89 @@ export default {
             setTimeout(function() {
                 window.location.href = url;
             }, 3000);
+        },
+        thumbnailEvent(file, dataUrl) {
+            let myDropzone = this.$refs.myVueDropzone.dropzone
+
+            // ignore files which were already cropped and re-rendered
+            // to prevent infinite loop
+            if (file.cropped) {
+                return;
+            }
+
+            var unixtime = new Date().getTime();
+
+            // cache filename to re-assign it to cropped file
+            var cachedFilename = unixtime + '_' + file.name;//unixtime 추가
+            // remove not cropped file from dropzone (we will replace it later)
+            myDropzone.removeFile(file);
+
+            // dynamically create modals to allow multiple files processing
+            var $cropperModal = $(modalTemplate);
+            // 'Crop and Upload' button in a modal
+            var $uploadCrop = $cropperModal.find('.crop-upload');
+            var $cancelCrop = $cropperModal.find('.crop-cancel');
+
+            $('.image-container img').remove();
+
+            var $img = $('<img />');
+            // initialize FileReader which reads uploaded file
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                // add uploaded and read image to modal
+                $cropperModal.find('.image-container').html($img);
+                $img.attr('src', reader.result);
+
+                // $(".modal").on("shown.bs.modal", function() {
+                // initialize cropper for uploaded image
+                // croping = new Cropper($('.image-container img').get(0), {
+                croping = new Cropper($('.image-container img')[0], {
+                        aspectRatio: 1
+                        // aspectRatio: 16 / 9,
+                        ,autoCropArea: 1
+                        ,movable: true
+                        ,cropBoxResizable: true
+                        // ,minContainerWidth: 850
+                    });
+                // })
+            };
+
+            // read uploaded file (triggers code above)
+            reader.readAsDataURL(file);
+
+            $cropperModal.modal('show');
+
+            // listener for 'Crop and Upload' button in modal
+            $uploadCrop.on('click', function() {
+                // get cropped image data
+                //var blob = $img.cropper('getCroppedCanvas').toDataURL();
+                var blob = croping.getCroppedCanvas().toDataURL();
+                // transform it to Blob object
+                var newFile = dataURItoBlob(blob);
+                // set 'cropped to true' (so that we don't get to that listener again)
+                newFile.cropped = true;
+                // assign original filename
+                newFile.name = cachedFilename;
+
+                // add cropped file to dropzone
+                myDropzone.addFile(newFile);
+                // upload cropped file with dropzone
+                // myDropzone.processQueue();
+                $cropperModal.modal('hide');
+            });
+            $cancelCrop.on('click', function() {
+                $cropperModal.modal('hide');
+            });
+        },
+        dragEvent(event) {
+            this.$fire({
+                text: "追加ボタンを押してください。",
+                type: "error",
+                timer: 3000
+            }).then(r => {
+                console.log(r.value);
+            });
+            return;
         }
     }
 }
@@ -650,5 +754,4 @@ export default {
     background-color: #Ddabb4;
     opacity: 0;
 }
-
 </style>

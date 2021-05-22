@@ -18,7 +18,7 @@ class CreateTweetImagesTable extends Migration
             $table->increments('id');
             $table->bigInteger('tweet_id');
             $table->integer('idx');
-            $table->string('name');
+            $table->string('name', 1000);
             $table->string('mime_type');
             $table->boolean('private')->default(0);//1 (전체공개), 0 (회원공개)
             $table->timestamps();

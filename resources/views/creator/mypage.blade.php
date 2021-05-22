@@ -85,9 +85,9 @@
                 <dl>
                     <dt>{{__('説明文')}}</dt>
                     <dd>
+                        <input id="c_mypage_instruction" name="instruction" type="hidden" value="{{$user[0]->instruction}}">
                         <div id="instruction">
                             {!! $user[0]->instruction !!}
-                            <input id="c_mypage_instruction" name="instruction" type="hidden" value="{{$user[0]->instruction}}" readonly>
                         </div>
                         <div class="instruction_link">
                             <a class="nav-link"

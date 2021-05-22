@@ -62,5 +62,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        //21.05.18 kondo, ユーザーが仮登録状態の場合
+        'loginUserCheck' => \App\Http\Middleware\LoginUserCheck::class,
     ];
 }

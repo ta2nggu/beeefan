@@ -27,4 +27,9 @@ class PagesController extends Controller
     public function pageHelp(){
         return view('help/help');
     }
+
+    // エラー
+    public function errorShow(){
+        return view('errors/error');
+    }
 }

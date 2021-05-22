@@ -26,7 +26,7 @@
                     <h2>{{__('退会についてのご注意')}}</h2>
                     <p>{{__('退会される場合、現在保存されている会員情報は全て削除されます。退会されると同時にサービスがご利用できなくなります。それでも退会をご希望される場合は、下記より退会手続きを行ってください。')}}</p>
 
-                    <form action="{{ __('/page/remove') }}" method="POST" class="formBox normalFormBox">
+                    <form action="{{ route('removeAccount.post') }}" method="POST" class="formBox normalFormBox">
                         @csrf
 
                         <div class="formBox normalFormBox">

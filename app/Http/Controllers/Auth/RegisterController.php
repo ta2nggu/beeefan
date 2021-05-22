@@ -54,7 +54,7 @@ class RegisterController extends Controller
     {
 //        $this->middleware('guest');
 //        21.05.15 kondo,　仮登録から本登録ページでミドルウェアが適用されないように
-        $this->middleware('guest', ['except' => ['registerPaymentNoSelect', 'registered']]);
+        $this->middleware('guest', ['except' => ['preRegistered', 'registerPaymentNoSelect', 'registered']]);
     }
 
     /**
@@ -135,28 +135,27 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
         event(new Registered($user = $this->create( $request->all() )));
-
-        return redirect('/register/pre_registered');
+        return redirect(route('preRegistered.show'));
     }
     // 仮登録完了画面
     public function preRegistered(){
         return view('auth/pre_registered');
     }
     // 決済方法登録
-    public function registerPaymentSelect($email_token,Request $request){
+    public function registerPayment($email_token,Request $request){
         //無効なtoken
         if ( !User::where('email_verify_token','=',$email_token)->exists()){
-            return redirect('/')->with('flash_message', "無効なトークンです。\n再度アクセスし直してください。");
+            return redirect(route('error.show'))->with('flash_message', "無効なトークンです。\n再度アクセスし直してください。");
         } else {
             //token有効
             $user = User::where('email_verify_token','=',$email_token)->first();
             //tokenとメールアドレスが一致するか確認
             if( $user->email != $request->email){
-                return redirect('/')->with('flash_message', "無効なトークンです。\n再度アクセスし直してください。");
+                return redirect(route('error.show'))->with('flash_message', "無効なトークンです。\n再度アクセスし直してください。");
             }
             //本登録すみの場合
             if ($user->status == config('const.USER_STATUS.REGISTER')) {
-                return redirect('/login?root=top')->with('flash_message', "すでに本登録されています。\nログインして利用してください。");
+                return redirect(route('error.show'))->with('flash_message', "すでに本登録されています。\nログインして利用してください。");
             }
             $user->status = config('const.USER_STATUS.MAIL_AUTHED');
             $user->email_verified_at = Carbon::now();
@@ -165,7 +164,7 @@ class RegisterController extends Controller
                 $fc_id=$request->fc_id;
                 return view('payment/select', compact('email_token','user','fc_id'));
             } else {
-                return redirect('/')->with('flash_message', "メール認証に失敗しました。\n再度、メールからリンクをクリックしてください。");
+                return redirect(route('error.show'))->with('flash_message', "メール認証に失敗しました。\n再度、メールからリンクをクリックしてください。");
             }
         }
     }
@@ -177,16 +176,18 @@ class RegisterController extends Controller
             Auth::login($user);
             $fc_id=$request->fc_id;
             return redirect(url('/registered?fc_id='.$fc_id));
-        } else {
-            return redirect('/')->with('flash_message', "会員登録に失敗しました。\n再度、メールからリンクをクリックしてください。");
         }
+        return redirect('/')->with('flash_message', "会員登録に失敗しました。\n再度、メールからリンクをクリックしてください。");
     }
     // 仮登録完了画面
     public function registered(Request $request){
-        $creator = Creator::where('user_id', $request->fc_id)->first();
-        if($creator){
-            $user = User::find($creator->user_id);
+        if($request->fc_id === 0) {
+            $creator = Creator::where('user_id', $request->fc_id)->first();
+            if ($creator) {
+                $user = User::find($creator->user_id);
+            }
+            return view('auth/registered',compact('creator','user'));
         }
-        return view('auth/registered',compact('creator','user'));
+    return view('auth/registered');
     }
 }

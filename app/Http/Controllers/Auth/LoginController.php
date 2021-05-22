@@ -78,7 +78,6 @@ class LoginController extends Controller
             }
         }
         return view('auth.login');
-
     }
 
     //21.05.08 kondo, アカウントIDでもログインできるように（AuthenticatesUsers＞override）

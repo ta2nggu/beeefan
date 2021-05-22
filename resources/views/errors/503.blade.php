@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title','アクセスエラー')
+@section('title','システムエラー')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
@@ -16,12 +16,11 @@
             @if(env('APP_DEBUG') == 1)
                 <p>{{ $exception->getMessage() }}</p>
             @else
-                <div class="normalTitleBox wrap_inner">
-                    <p>{{__('このページは存在しません。')}}</p>
-                    <a href="{{route('top')}}" class="btn btnS btnCircle">{{__('トップページへ')}}</a>
+                <div class="normalTitleBox">
+                    <p>{!! 'アクセスが集中しております。<br>大変恐れ入りますが、<br>時間をおいてもう一度アクセスしてください。' !!}</p>
                 </div>
             @endif
-        </div><!--/contentWrap-->
+    </div><!--/contentWrap-->
     @component ('components.footer')
     @endcomponent
 @endsection

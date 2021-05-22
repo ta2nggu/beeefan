@@ -62,7 +62,11 @@
                 <form method="POST" action="{{ route('registerPaymentNoSelect') }}" class="formBox normalFormBox">
                     @csrf
                     <input name="user_id" type="hidden" value="{{ $user->id }}">
-                    <input name="fc_id" type="hidden" value="{{ $fc_id }}">
+                    @isset($fc_id)
+                        <input name="fc_id" type="hidden" value="{{ $fc_id }}">
+                    @else
+                        <input name="fc_id" type="hidden" value="0">
+                    @endisset
                     <div>
                         <div><button type="submit" class="btn btnBor btnBorBl">{{ __("あとで登録する") }}</button></div>
                     </div>

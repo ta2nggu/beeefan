@@ -17,11 +17,11 @@
                 <p>{{ $exception->getMessage() }}</p>
             @else
                 <div class="normalTitleBox wrap_inner">
-                    <p>{{__('このページは存在しません。')}}</p>
+                    <p>{{__('このページにはアクセスできません。')}}</p>
                     <a href="{{route('top')}}" class="btn btnS btnCircle">{{__('トップページへ')}}</a>
                 </div>
             @endif
-        </div><!--/contentWrap-->
+    </div><!--/contentWrap-->
     @component ('components.footer')
     @endcomponent
 @endsection

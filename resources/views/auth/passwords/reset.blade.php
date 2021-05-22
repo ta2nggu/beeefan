@@ -48,7 +48,10 @@
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                     </dd>
                 </dl>
-                <div class="btnBox"><button type="submit" class="btn btnS btnBl">{{ __('設定する') }}</button></div>
+                <ul class="btnBox">
+                    <li><button type="submit" class="btn btnBl">{{ __('設定する') }}</button></li>
+                    <li><a href="{{route('top')}}" class="btn btnBor btnBorBl">{{ __('トップページに戻る') }}</a></li>
+                </ul>
             </form>
 
         </div>

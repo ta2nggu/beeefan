@@ -34,7 +34,7 @@ class EmailVerification extends Mailable
     {
         return $this
             ->subject('【Beee Fan!】仮登録完了のお知らせ')
-            ->view('vendor.notifications.addAccount')
+            ->view('vendor.mail.addAccount')
             ->with(['user' => $this->user,'fc_id' => $this->fc_id]);
     }
 }

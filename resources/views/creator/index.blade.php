@@ -13,6 +13,12 @@
     <!--contentWrap-->
     <div id="contentWrap">
 
+        @if (session('flash_message'))
+            <div class="flashMsg">
+                <p>{{ session('flash_message') }}</p>
+            </div>
+        @endif
+
         <div id="profileHeader">
             @if (isset($user[0]->background_img))
                 <div class="imgbox" style="background-image: url({{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }})">

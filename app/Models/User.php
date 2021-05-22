@@ -37,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'birth_date',// 모델에 fillable 에 추가해야 db 필드에 값이 들어감
         'email_verified_at',//21.04.14 김태영, email_verified_at 추가, fillable에 있어야지만 필드에 insert 나 update 할 수 있음
         'email_verified', 'email_verify_token', //21.05.13 kondo, 仮登録用
+        'status',
     ];
 
     /**
@@ -63,5 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new Notifications\VerifyEmail); // Replace this with your custom notification class
+    }
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new Notifications\CustomResetPassword($token));
     }
 }

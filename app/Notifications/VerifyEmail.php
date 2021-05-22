@@ -45,12 +45,13 @@ class VerifyEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('【Beee Fan!】メールアドレス認証のお知らせ')
-                    ->greeting('この度は、Beee Fan!をご利用頂きまして誠にありがとうございます。')
-                    ->line("ご本人様確認のため、下記URLへ「60分以内」にアクセスし\nメールアドレスの認証を行ってください。")
-//                    ->action('인증하기!', url('email/verify/{id}/{hash}'))
-                    ->action('認証する', $this->verificationUrl($notifiable))
-                    ->line("※当メールに心当たりの無い場合は、誠に恐れ入りますが\n破棄して頂けますよう、よろしくお願い致します。");
+            ->from('admin@example.com', config('app.name'))
+            ->subject('【Beee Fan!】メールアドレス認証のお知らせ')
+            ->greeting('この度は、Beee Fan!をご利用頂きまして誠にありがとうございます。')
+            ->line("ご本人様確認のため、下記URLへ「60分以内」にアクセスし\nメールアドレスの認証を行ってください。")
+    //                    ->action('인증하기!', url('email/verify/{id}/{hash}'))
+            ->action('認証する', $this->verificationUrl($notifiable))
+            ->line("※当メールに心当たりの無い場合は、誠に恐れ入りますが\n破棄して頂けますよう、よろしくお願い致します。");
     }
 
     /**
@@ -78,7 +79,7 @@ class VerifyEmail extends Notification
             'verification.verify', Carbon::now()->addMinutes(60), [
                 'id' => $notifiable->getKey(),
                 'hash' => sha1($notifiable->getEmailForVerification()),//라라벨 6 부터는 get 파라미터로 hash도 받아야함
-            ]
+            ],
         );
     }
 }

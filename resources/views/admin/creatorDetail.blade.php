@@ -3,7 +3,6 @@
 @section('title',$creator[0]->nickname.'クリエイター情報')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style_admin.css') }}">
-    <script src="{{ asset('js/main.js') }}" defer></script>
 @endsection
 @section('body','')
 
@@ -27,6 +26,12 @@
 
     <!--contentWrap-->
     <div id="contentWrap" class="contentBtmMar">
+
+        @if (session('flash_message'))
+            <div class="flashMsg">
+                <p>{{ session('flash_message') }}</p>
+            </div>
+        @endif
 
         <div id="profileHeader" class="profileHeaderNoBk">
             <div class="imgbox">
@@ -82,21 +87,24 @@
 
         <div id="adminCreatorDetail" class="formBox normalFormBox">
             @role('superadministrator')
-                <div id="changeMonthlyPrice">
-                    <h2>月額変更</h2>
-                    <p>月額は運営管理者しか変更できません。変更する場合は、金額を記入し「月額を変更する」ボタンを押してください。</p>
-                    <div class="monthly_priceBox">
-                        <input id="inMonthlyPrice" type="number" class="form-control @error('month_price') is-invalid @enderror"  name="month_price" value="{{$creator[0]->month_price}}" required autocomplete="month_price" autofocus>
+                <form method="POST" action="{{ __('/creator/month_price') }}">
+                    @csrf
+                    <div id="changeMonthlyPrice">
+                        <h2>月額変更</h2>
+                        <p>月額は運営管理者しか変更できません。変更する場合は、金額を記入し「月額を変更する」ボタンを押してください。</p>
+                        <div class="monthly_priceBox">
+                            <input id="inMonthlyPrice" type="number" class="form-control @error('month_price') is-invalid @enderror"  name="month_price" value="{{$creator[0]->month_price}}" required autocomplete="month_price" autofocus>
+                        </div>
+                        @error('month_price')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        <input id="inPriceUpdateCreatorId" type="hidden" name="creator_id" value="{{ $creator[0]->user_id }}">
+                        <button id="btnUpdateCreatorPrice" type="submit" class="btn btnAd">{{ __('月額を変更する') }}</button>
+                        <div id="updatedMonthlyPrice" style="color: red; display: none;"></div>
                     </div>
-                    @error('month_price')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                    <input id="inPriceUpdateCreatorId" type="hidden" name="creator_id" value="{{ $creator[0]->user_id }}">
-                    <button id="btnUpdateCreatorPrice" type="submit" class="btn btnAd">{{ __('月額を変更する') }}</button>
-                    <div id="updatedMonthlyPrice" style="color: red; display: none;"></div>
-                </div>
+                </form>
             @endrole
 
             <dl>

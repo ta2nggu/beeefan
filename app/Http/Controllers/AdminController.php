@@ -52,6 +52,7 @@ class AdminController extends Controller
             'first_name' => $request->input('first_name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
+            'status' => '1',
         ]);
         $user->attachRole('creator');
 
@@ -213,6 +214,7 @@ class AdminController extends Controller
             'first_name' => $request->input('first_name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
+            'status' => '1',
         ]);
         $new->attachRole('administrator');
 
@@ -259,14 +261,30 @@ class AdminController extends Controller
         return view('admin.creatorDetail', compact('creator', 'tweet_cnt'));
     }
 
+//      21.05.17 kondo,　jsを使わずにリダイレクトで「flash_message」表示に変更
+//    public function updateCreatorPrice(Request $request) {
+//        $creator_id = $request->input('creator_id');
+//        $month_price = $request->input('month_price');
+//        //DB 쿼리 결과는 성공시 true를 반환한다.
+//        $result = DB::table('creators')->where('user_id', $creator_id)->update(
+//            ['month_price' => $month_price]
+//        );
+//        return response()->json(array('msg'=> $result), 200);
+//    }
+//    ↓
     public function updateCreatorPrice(Request $request) {
-        $creator_id = $request->input('creator_id');
-        $month_price = $request->input('month_price');
-        //DB 쿼리 결과는 성공시 true를 반환한다.
-        $result = DB::table('creators')->where('user_id', $creator_id)->update(
-            ['month_price' => $month_price]
-        );
-        return response()->json(array('msg'=> $result), 200);
+        $creator = Creator::where('user_id','=',$request->creator_id)->first();
+        $before_price = $creator->month_price;
+        $month_price = $request->month_price;
+        if($before_price === (int)$month_price){
+            return redirect( route('AdminCreatorDetail',$request->creator_id))->with('flash_message','月額の変更がありませんでした');
+        }else{
+            $creator->month_price = $month_price;
+            if($creator->save()){
+                return redirect( route('AdminCreatorDetail',$request->creator_id))->with('flash_message','月額を「'.number_format($before_price).'円」から「'.number_format($month_price).'円」に変更しました');
+            }
+        }
+        return redirect( route('AdminCreatorDetail',$request->creator_id))->with('flash_message','月額の変更に失敗しました');
     }
 
     public function updateCreatorVisible(Request $request) {

@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title','アクセスエラー')
+@section('title','エラー')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
@@ -17,11 +17,11 @@
                 <p>{{ $exception->getMessage() }}</p>
             @else
                 <div class="normalTitleBox wrap_inner">
-                    <p>{{__('このページは存在しません。')}}</p>
+                    <p>{!! '不正な要求です。<br>再度やり直してください。' !!}</p>
                     <a href="{{route('top')}}" class="btn btnS btnCircle">{{__('トップページへ')}}</a>
                 </div>
             @endif
-        </div><!--/contentWrap-->
+    </div><!--/contentWrap-->
     @component ('components.footer')
     @endcomponent
 @endsection

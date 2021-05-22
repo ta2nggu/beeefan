@@ -28,7 +28,7 @@
     @else
     <li class="postVideo">
         @endif
-        <a href="{{ $value->account_id }}/timeline/{{ $value->id }}">
+        <a href="{{__('/'.$value->account_id.'/p/'.$value->id)}}">
             <img src="{{ asset('storage/images/'.$value->path) }}" alt="">
         </a>
     </li>

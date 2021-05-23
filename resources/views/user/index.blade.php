@@ -15,7 +15,7 @@
 
         @if (session('flash_message'))
             <div class="flashMsg">
-                <p>{{ session('flash_message') }}</p>
+                <p>{!! nl2br(session('flash_message')) !!}</p>
             </div>
         @endif
 

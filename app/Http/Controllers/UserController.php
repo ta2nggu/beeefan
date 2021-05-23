@@ -311,7 +311,7 @@ class UserController extends Controller
 
                 //21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
                 if (auth()->user()->hasRole('creator')){
-                    return redirect('/creator/mypage');
+                    return redirect('/creator/mypage')->with('flash_message','パスワードを変更しました');
                 }
                 else if (auth()->user()->hasRole('superadministrator')) {
                     return redirect($request->redirect_url);
@@ -337,11 +337,12 @@ class UserController extends Controller
             }
 
             //21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
-            if (auth()->user()->hasRole('creator')){
-                return redirect('/creator/mypage');
+            if ($user->hasRole('creator')){
+                return redirect(route('creator'))->with('flash_message','パスワードを変更しました');
+            }elseif ($user->hasRole('superadministrator|administrator')){
+                return redirect(route('admin'))->with('flash_message','パスワードを変更しました');
             }
-
-            return redirect()->back();
+            return redirect(route('userIndex'))->with('flash_message','パスワードを変更しました');
         }
 
     }
@@ -390,17 +391,17 @@ class UserController extends Controller
             $user->update(['email' => $request->email, 'email_verified_at' => null]);
         }
         //21.05.10 김태영, email update 후 인증 메일 전송
-        $user->sendEmailVerificationNotification();
+//        $user->sendEmailVerificationNotification_change();
 
 //        21.04.12 김태영, creator가 email 변경 후 mypage로 이동
-        if (auth()->user()->hasRole('creator')) {
-            return redirect('/creator/mypage');
-        }
-        else if (auth()->user()->hasRole('superadministrator')) {
+//        if (auth()->user()->hasRole('creator')) {
+//            return redirect('/email/verify')->with('flash_message');
+//        }
+        if (auth()->user()->hasRole('superadministrator')) {
             \Session::flash('flash_message','「'.$user->last_name.' '.$user->first_name.'」さんのメールアドレスを変更しました。ログイン後にメールアドレスの承認が必要です。');
             return redirect('/admin/admins/list');
         }
-
+        return redirect('/email/verify')->with('flash_message','メッセージ表示');
         return redirect()->back();
     }
 

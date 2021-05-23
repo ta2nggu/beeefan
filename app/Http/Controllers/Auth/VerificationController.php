@@ -24,6 +24,14 @@ class VerificationController extends Controller
 
     use VerifiesEmails;
 
+    public function show(Request $request)
+    {
+        $user = $request->user();
+        return $request->user()->hasVerifiedEmail()
+            ? redirect($this->redirectPath())
+            : view('auth.verify',compact('user'));
+    }
+
     /**
      * Where to redirect users after verification.
      *
@@ -46,18 +54,18 @@ class VerificationController extends Controller
 
 //        return redirect($this->redirectPath())->with('verified', true);
         if($user->hasRole('superadministrator')){
-            return redirect('/admin/index')->with('verified', true);
+            return redirect('/admin/index')->with('verified', true)->with('flash_message','メールアドレスの認証が完了しました');
         }
         if($user->hasRole('administrator')){
-            return redirect('/admin/index')->with('verified', true);
+            return redirect('/admin/index')->with('verified', true)->with('flash_message','メールアドレスの認証が完了しました');
         }
         if($user->hasRole('creator')){
             //return redirect('/creator/'.$user->nickname);
-            return redirect('/creator/index')->with('verified', true);
+            return redirect('/creator/index')->with('verified', true)->with('flash_message','メールアドレスの認証が完了しました');
         }
         if($user->hasRole('user')){
 //            return redirect('/user')->with('verified', true);
-            return redirect('/mypage')->with('verified', true);
+            return redirect('/mypage')->with('verified', true)->with('flash_message','メールアドレスの認証が完了しました');
         }
     }
 

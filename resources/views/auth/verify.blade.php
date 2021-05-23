@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title','仮登録完了')
+@section('title','メールアドレス認証')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
@@ -14,10 +14,14 @@
             <div id="stepBox">
                 <div class="normalTitleBox">
                     <h2>{{ __("メールアドレス認証") }}</h2>
-                    @if (session('resent'))
-                        <p>{!! ("送信完了しました。<br>メールが届かない場合は下記の宛先まで<br>お問い合わせください。<br>beeefun@example.com") !!}</p>
+                    @if (session('flash_message'))
+                        <p>{!! ("メールアドレスの変更を完了するには<br>下記の「送信ボタン」をクリックし<br>メールに記載されたURLから<br>認証を行ってください。<br><br>新しいメールアドレス<br>").$user->email !!}</p>
                     @else
-                        <p>{!! ("メールアドレスの認証が済んでいません。<br>下記の「送信ボタン」をクリックし<br>メールに記載されたURLから<br>認証を完了してください。<br><br>登録中のメールアドレス") !!}</p>
+                        @if (session('resent'))
+                            <p>{!! ("送信完了しました。<br>メールが届かない場合は下記の宛先まで<br>お問い合わせください。<br>beeefun@example.com") !!}</p>
+                        @else
+                            <p>{!! ("メールアドレスの認証をしてください。<br>下記の「送信ボタン」をクリックし<br>メールに記載されたURLから<br>認証を完了してください。<br><br>登録中のメールアドレス<br>").$user->email !!}</p>
+                        @endif
                     @endif
                 </div>
             </div>

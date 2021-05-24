@@ -287,6 +287,7 @@ class UserController extends Controller
         // 21.05.09 김태영, super admin이 admin의 email->password 변경할 때 추가
         $id = $request->has('target_id') ? $request->target_id : auth()->user()->id;
         $user = User::find($id);
+        $changerId = \Auth::user()->id;
 
         $attributes = [
             'current_password' => '現在のパスワード',
@@ -299,22 +300,28 @@ class UserController extends Controller
             if (Hash::check($request->current_password, $user->password)) {
                 $rules = [
                 //'current_password' => ['required', new MatchOldPassword],
-                    'new_password' => ['required'],
+                    'new_password' => ['required', 'min:8'],
                     'new_confirm_password' => ['same:new_password']
                 ];
-
                 $this->validate($request, $rules, [], $attributes);
 
                 if ($user != null) {
                     $user->update(['password'=> Hash::make($request->new_password)]);
                 }
-
-                //21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
-                if (auth()->user()->hasRole('creator')){
-                    return redirect('/creator/mypage')->with('flash_message','パスワードを変更しました');
-                }
-                else if (auth()->user()->hasRole('superadministrator')) {
-                    return redirect($request->redirect_url);
+                //自分以外
+                if ($request->target_id != $changerId) {
+                    //21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
+                    if ($user->hasRole('creator')) {
+                        \Session::flash('flash_message', '「' . $user->last_name . ' ' . $user->first_name . '」さんのパスワードを変更しました。');
+                        return redirect(route('admin'));
+                    } else if ($user->hasRole('administrator')) {
+                        \Session::flash('flash_message', '「' . $user->last_name . ' ' . $user->first_name . '」さんのパスワードを変更しました。');
+                        return redirect('/admin/admins/list');
+                    }
+                }else{
+                    if ($user->hasRole('superadministrator|administrator')) {
+                        return redirect(route('admin'))->with('flash_message','パスワードを変更しました');
+                    }
                 }
                 return redirect()->back();
             }
@@ -326,7 +333,7 @@ class UserController extends Controller
             //자신의 id의 비밀번호를 바꾸는 경우
             $rules = [
                 'current_password' => ['required', new MatchOldPassword],
-                'new_password' => ['required'],
+                'new_password' => ['required', 'min:8'],
                 'new_confirm_password' => ['same:new_password']
             ];
 
@@ -335,14 +342,15 @@ class UserController extends Controller
             if ($user != null) {
                 $user->update(['password'=> Hash::make($request->new_password)]);
             }
-
             //21.04.12 김태영, creator가 비밀번호 변경 후 mypage로 이동
             if ($user->hasRole('creator')){
                 return redirect(route('creator'))->with('flash_message','パスワードを変更しました');
             }elseif ($user->hasRole('superadministrator|administrator')){
                 return redirect(route('admin'))->with('flash_message','パスワードを変更しました');
+            }elseif ($user->hasRole('user')){
+                return redirect(route('userIndex'))->with('flash_message','パスワードを変更しました');
             }
-            return redirect(route('userIndex'))->with('flash_message','パスワードを変更しました');
+            return redirect()->back();
         }
 
     }
@@ -353,7 +361,6 @@ class UserController extends Controller
 
 //        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
         $selectId = $admin_id === 'change' ? $this->user->id : $admin_id;
-
         $user = DB::table("users")
             ->where('id', '=', $selectId)
             ->get();
@@ -384,9 +391,13 @@ class UserController extends Controller
         ];
         $this->validate($request, $rules, [], $attributes);
 
+//        21.05.24 kondo, 自分
+        $changerId =  \Auth::user()->id;
+
 //        21.05.09 김태영, super admin이 admin의 email 변경할 때 추가
         $id = $request->has('admin_id') ? $request->admin_id : auth()->user()->id;
         $user = User::find($id);
+
         if ($user != null) {
             $user->update(['email' => $request->email, 'email_verified_at' => null]);
         }
@@ -398,8 +409,10 @@ class UserController extends Controller
 //            return redirect('/email/verify')->with('flash_message');
 //        }
         if (auth()->user()->hasRole('superadministrator')) {
-            \Session::flash('flash_message','「'.$user->last_name.' '.$user->first_name.'」さんのメールアドレスを変更しました。ログイン後にメールアドレスの承認が必要です。');
-            return redirect('/admin/admins/list');
+            if($user->hasRole('administrator')){
+                \Session::flash('flash_message','「'.$user->last_name.' '.$user->first_name.'」さんのメールアドレスを変更しました。ログイン後にメールアドレスの承認が必要です。');
+                return redirect('/admin/admins/list');
+            }
         }
         return redirect('/email/verify')->with('flash_message','メッセージ表示');
         return redirect()->back();

@@ -1906,7 +1906,7 @@ function dataURItoBlob(dataURI) {
 } // modal window template
 
 
-var modalTemplate = '<div class="modal"><button class="crop-upload">適用</button><button class="crop-cancel">取消</button><div class="image-container"></div></div>';
+var modalTemplate = '<div class="modal"><div class="modalInner"><div><div class="image-container"></div><ul><li><button class="crop-cancel">取消</button></li><li><button class="crop-upload">適用</button></li></ul></div></div></div>';
 var croping;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Dropzone',
@@ -2063,12 +2063,12 @@ var croping;
 
       formData.append('tweet_id', this.tweet_id); //var str = file.previewElement.querySelector("#private" + file.name.toString()).value;
 
-      var str = file.previewElement.querySelector("input[name='private'");
+      var str = file.previewElement.querySelector("input[name='private']");
       this.imgPrivate.push($(str).val());
       formData.append('private', this.imgPrivate); //21.05.02 김태영, 투고편집
 
       if (this.editMode === 1) {
-        var strTweet_image_id = file.previewElement.querySelector("input[name='tweet_image_id'");
+        var strTweet_image_id = file.previewElement.querySelector("input[name='tweet_image_id']");
         this.tweet_image_id.push($(strTweet_image_id).val());
         formData.append('tweet_image_id', this.tweet_image_id);
       }
@@ -2283,7 +2283,7 @@ var croping;
           this.$fire({
             //title: "Title",
             // text: "전체공개 이미지를 하나 이상 선택해주세요",
-            text: "無料公開イメージを1つ選択してください。",
+            text: "無料公開を1つ選択してください。",
             type: "error",
             timer: 3000
           }).then(function (r) {
@@ -2351,7 +2351,7 @@ var croping;
             this.$fire({
               //title: "Title",
               // text: "전체공개 이미지를 하나 이상 선택해주세요",
-              text: "無料公開イメージを1つ選択してください。",
+              text: "無料公開を1つ選択してください。",
               type: "error",
               timer: 3000
             }).then(function (r) {
@@ -11416,7 +11416,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.infoTxt{\n    padding: 30px 0;\n    color: #aaaaaa;\n}\n#dropzone {\n    padding: 0;\n    border: none;\n    background-color: #fff;\n    display:flex;\n    flex-wrap: wrap;\n    justify-content: space-between;\n}\n.dropzone .dz-preview{\n    width: 49%;\n    height: auto;\n    padding-bottom: 60px;\n    margin: 0 0 50px;\n    background-color: #fff;\n}\n.dropzone .dz-preview img {\n    width: 100%;\n}\n.dropzone .dz-preview .btnPrivate {\n    cursor: pointer;\n    z-index: 30;\n    position: absolute;\n    border: 2px #9ac5ea solid;\n    color:#9ac5ea;\n    left: 0;\n    bottom: 10px;\n    background-color: #ffffff;\n    border-radius: 20px;\n    font-size: 14px;\n    height: 34px;\n    line-height: 34px;\n    max-width: 200px;\n    width: 80%;\n    text-align: center;\n}\n.dropzone .dz-preview .dz-remove {\n    cursor: pointer;\n    opacity: 1;\n    font-size: 0;\n    position: absolute;\n    bottom: 10px;\n    right: 0;\n    border: none;\n    width: 20%;\n    height: 36px;\n}\n.dropzone .dz-preview .dz-remove:before{\n    content: \"\";\n    display: block;\n    width: 70%;\n    height: 100%;\n    background: url('/storage/icon/icon_delete.png') no-repeat center/contain #fff;\n    position: absolute;\n    top: 0;\n    left: 15%;\n}\n.more {\n    width: 100%;\n    padding-top: 100%;\n    cursor: pointer;\n    position: relative;\n}\n.more div{\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    padding-top: 100%;\n    background-color: #f3f3f3;\n}\n.more div:before{\n    content: \"+\";\n    color: lightgray;\n    font-size: 60px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%,-50%);\n}\n.dz-preview + .more{\n    width: 49%;\n    padding-top: 49%;\n}\n.msg {\n    margin-top: 50px;\n    width: 100%;\n}\n.msgTextarea {\n    width: 100%;\n    border-color: #e7e7e7;\n    height: 140px;\n    padding: 20px 5%;\n    border-radius: 5px;\n    margin-bottom: 20px;\n}\n.btnDropUp {\n    width: 100%;\n    margin-bottom: 10px;\n}\n.btnUpload {\n    width: 100%;\n    line-height: 60px;\n}\n.btnUpload:disabled {\n    opacity: 0.6;\n}\n.btnInvisible {\n    width: 100%;\n    line-height: 60px;\n}\n.dropzone .dz-preview .dz-progress {\n    opacity: 0;\n}\n.vue-dropzone>.dz-preview .dz-details {\n    background-color: #Ddabb4;\n    opacity: 0;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.infoTxt{\n    padding: 30px 0;\n    color: #aaaaaa;\n}\n#dropzone {\n    padding: 0;\n    border: none;\n    background-color: #fff;\n    display:flex;\n    flex-wrap: wrap;\n    justify-content: space-between;\n}\n.dropzone .dz-clickable,\n.dropzone .dz-preview{\n   margin: 0 0 80px;\n}\n.dropzone .dz-preview{\n    width: 49%;\n    height: auto;\n    background-color: #fff;\n}\n.dropzone .dz-preview img {\n    width: 100%;\n}\n.dropzone .dz-preview .btnPrivate {\n    cursor: pointer;\n    z-index: 30;\n    position: absolute;\n    border: 2px #9ac5ea solid;\n    color:#9ac5ea;\n    left: 0;\n    bottom: -50px;\n    background-color: #ffffff;\n    border-radius: 20px;\n    font-size: 14px;\n    height: 34px;\n    line-height: 34px;\n    max-width: 200px;\n    width: 80%;\n    text-align: center;\n}\n.dropzone .dz-preview .dz-remove {\n    display: block;\n    cursor: pointer;\n    opacity: 1;\n    font-size: 0;\n    position: absolute;\n    bottom: -50px;\n    right: 0;\n    border: none;\n    width: 20%;\n    height: 36px;\n    background: url('/storage/icon/icon_delete.png') no-repeat center/70% #fff;\n}\n.more {\n    width: 100%;\n    padding-top: 100%;\n    cursor: pointer;\n    position: relative;\n}\n.more div{\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    padding-top: 100%;\n    background-color: #f3f3f3;\n}\n.more div:before{\n    content: \"+\";\n    color: lightgray;\n    font-size: 60px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%,-50%);\n}\n.dz-preview + .more{\n    width: 49%;\n    padding-top: 49%;\n}\n.msg {\n    margin-top: 30px;\n    width: 100%;\n}\n.msgTextarea {\n    width: 100%;\n    border-color: #e7e7e7;\n    height: 140px;\n    padding: 20px 5%;\n    border-radius: 5px;\n    margin-bottom: 20px;\n}\n.btnDropUp {\n    width: 100%;\n    margin-bottom: 10px;\n}\n.btnUpload {\n    width: 100%;\n    line-height: 60px;\n}\n.btnUpload:disabled {\n    opacity: 0.6;\n}\n.btnInvisible {\n    width: 100%;\n    line-height: 60px;\n}\n.dropzone .dz-preview .dz-progress {\n    opacity: 0;\n}\n.vue-dropzone>.dz-preview .dz-details {\n    background-color: #Ddabb4;\n    opacity: 0;\n}\n/*modal*/\n.modal .modalInner{\n    height: 100vh;\n    width: 100%;\n    display:flex;\n    justify-content: center;\n    align-items: center;\n}\n.modal .modalInner ul{\n    margin-top: 15px;\n    display: flex;\n    justify-content: space-between;\n}\n.modal .modalInner li{\n    width: 49%;\n}\n.modal .modalInner button {\n    -webkit-box-sizing: content-box;\n    -webkit-appearance: button;\n    -moz-appearance: button;\n         appearance: button;\n    box-sizing: border-box;\n    cursor: pointer;\n    width: 100%;\n    font-size: 16px;\n    padding: 0;\n    border: none;\n    border-radius: 10px;\n    padding: 12px 0;\n}\n.crop-upload{\n    background-color: #b15a68;\n    color: #fff;\n}\n.crop-cancel{\n    background-color: #ededed;\n    color: #b15a68;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -47,7 +47,7 @@ function dataURItoBlob(dataURI) {
     return new Blob([ab], { type: 'image/jpeg' });
 }
 // modal window template
-var modalTemplate = '<div class="modal"><button class="crop-upload">適用</button><button class="crop-cancel">取消</button><div class="image-container"></div></div>';
+var modalTemplate = '<div class="modal"><div class="modalInner"><div><div class="image-container"></div><ul><li><button class="crop-cancel">取消</button></li><li><button class="crop-upload">適用</button></li></ul></div></div></div>';
 let croping;
 
 export default {
@@ -202,13 +202,13 @@ export default {
             formData.append('tweet_id', this.tweet_id);
 
             //var str = file.previewElement.querySelector("#private" + file.name.toString()).value;
-            var str = file.previewElement.querySelector("input[name='private'");
+            var str = file.previewElement.querySelector("input[name='private']");
             this.imgPrivate.push($(str).val());
             formData.append('private', this.imgPrivate);
 
             //21.05.02 김태영, 투고편집
             if (this.editMode === 1) {
-                var strTweet_image_id = file.previewElement.querySelector("input[name='tweet_image_id'");
+                var strTweet_image_id = file.previewElement.querySelector("input[name='tweet_image_id']");
                 this.tweet_image_id.push($(strTweet_image_id).val());
                 formData.append('tweet_image_id', this.tweet_image_id);
             }
@@ -440,7 +440,7 @@ export default {
                     this.$fire({
                         //title: "Title",
                         // text: "전체공개 이미지를 하나 이상 선택해주세요",
-                        text: "無料公開イメージを1つ選択してください。",
+                        text: "無料公開を1つ選択してください。",
                         type: "error",
                         timer: 3000
                     }).then(r => {
@@ -506,7 +506,7 @@ export default {
                     this.$fire({
                         //title: "Title",
                         // text: "전체공개 이미지를 하나 이상 선택해주세요",
-                        text: "無料公開イメージを1つ選択してください。",
+                        text: "無料公開を1つ選択してください。",
                         type: "error",
                         timer: 3000
                     }).then(r => {
@@ -644,12 +644,13 @@ export default {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
-
+.dropzone .dz-clickable,
+.dropzone .dz-preview{
+   margin: 0 0 80px;
+}
 .dropzone .dz-preview{
     width: 49%;
     height: auto;
-    padding-bottom: 60px;
-    margin: 0 0 50px;
     background-color: #fff;
 }
 .dropzone .dz-preview img {
@@ -662,7 +663,7 @@ export default {
     border: 2px #9ac5ea solid;
     color:#9ac5ea;
     left: 0;
-    bottom: 10px;
+    bottom: -50px;
     background-color: #ffffff;
     border-radius: 20px;
     font-size: 14px;
@@ -673,25 +674,17 @@ export default {
     text-align: center;
 }
 .dropzone .dz-preview .dz-remove {
+    display: block;
     cursor: pointer;
     opacity: 1;
     font-size: 0;
     position: absolute;
-    bottom: 10px;
+    bottom: -50px;
     right: 0;
     border: none;
     width: 20%;
     height: 36px;
-}
-.dropzone .dz-preview .dz-remove:before{
-    content: "";
-    display: block;
-    width: 70%;
-    height: 100%;
-    background: url('/storage/icon/icon_delete.png') no-repeat center/contain #fff;
-    position: absolute;
-    top: 0;
-    left: 15%;
+    background: url('/storage/icon/icon_delete.png') no-repeat center/70% #fff;
 }
 .more {
     width: 100%;
@@ -721,7 +714,7 @@ export default {
     padding-top: 49%;
 }
 .msg {
-    margin-top: 50px;
+    margin-top: 30px;
     width: 100%;
 }
 .msgTextarea {
@@ -753,5 +746,52 @@ export default {
 .vue-dropzone>.dz-preview .dz-details {
     background-color: #Ddabb4;
     opacity: 0;
+}
+/*modal*/
+.modal .modalInner{
+    height: 100vh;
+    width: 100%;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.modal .modalInner ul{
+    margin-top: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.modal .modalInner li{
+    width: 49%;
+}
+.modal .modalInner button {
+    -webkit-box-sizing: content-box;
+    -webkit-appearance: button;
+    appearance: button;
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 0;
+}
+.crop-upload{
+    background-color: #b15a68;
+    color: #fff;
+}
+.crop-cancel{
+    background-color: #ededed;
+    color: #b15a68;
 }
 </style>

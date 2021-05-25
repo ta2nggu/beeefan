@@ -89,12 +89,13 @@ function time_ago($sec) {
                     <img src="{{ asset('storage/images/'.$tweet->path) }}" alt="">
                 @else
 {{--                    <video class="video-js" controls poster="#" playsinline autoplay loop preload="auto" width="640px" height="267px" src="{{ asset('storage/images/'.$tweet->path) }}"></video>--}}
-                    <video id="my_video_1" class="video-js vjs-default-skin" width="640px" height="267px"
+                    <video id="my_video_1" class="video-js" width="640px" height="267px"
                            controls preload="none"
 {{--                           poster='http://video-js.zencoder.com/oceans-clip.jpg'--}}
-                           poster='#'
-                           data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
-                        <source src="https://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
+                           poster=""
+{{--                           data-setup='{ "fluid": true, "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>--}}
+                           data-setup='{ "fluid": true, "aspectRatio":"640:267" }'>
+                        <source src="{{ asset('storage/images/'.$tweet->path) }}" type='{{$tweet->mime_type}}' />
 {{--                        <source src="https://vjs.zencdn.net/v/oceans.webm" type='video/webm' />--}}
                     </video>
                 @endif
@@ -109,7 +110,7 @@ function time_ago($sec) {
                     @if (explode('/', $tweet_image->mime_type)[0] === 'image')
                         <img src="{{ asset('storage/images/'.$tweet_image->path) }}" alt="">
                     @else
-
+                        <img src="{{ asset('storage/images/'.$tweet_image->path) }}" alt="">
                     @endif
                     @if ($tweet->file_cnt > 1)
                         <div class="counter"></div>

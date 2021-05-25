@@ -10,15 +10,20 @@ h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bw
 
 //moreArea
 $(function() {
-    $('.moreBtn').on('click', function() {
-        if ($(this).parent().hasClass('open')) {
-            $(this).html('..続きを読む');
-            $(this).parent().removeClass('open');
-        }else{
-            $(this).html('閉じる');
-            $(this).parent().addClass('open');
+    if(('.moreBtn').length){
+        if($('.moreArea').height() > 66){
+            $('.moreBtn').show();
+            $('.moreBtn').on('click', function() {
+                if ($(this).parent().hasClass('open')) {
+                    $(this).html('..続きを読む');
+                    $(this).parent().removeClass('open');
+                }else{
+                    $(this).html('閉じる');
+                    $(this).parent().addClass('open');
+                }
+            });
         }
-    });
+    }
 });
 
 //infoBox

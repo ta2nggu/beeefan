@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -141,8 +142,14 @@ class UserController extends Controller
         $follow = $this->join_chk(auth()->user() === null ? null : auth()->user()->id, $creator[0]->user_id);
         //1 입회, 0 미입회
         $follow = !empty($follow[0]) ? 1 : 0;
-
         //입회 여부에 따라 tweet 하위 이미지 가져오는 쿼리 다름
+        //21.05.25 kondo, クリエイター自身とadmin/saは「follow = 1」に（ログインしているか判定）
+        if (Auth::check()) {
+            $user = \Auth::user();
+            if($creator[0]->id == $user->id || $user->hasRole('superadministrator|administrator')){
+                $follow = 1;
+            }
+        }
         if ($follow === 1) {
             //입회한 사용자의 경우
             $query = "tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweet_images.mime_type";

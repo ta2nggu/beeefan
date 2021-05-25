@@ -371,16 +371,18 @@ button.btn {
 ********************************/
 .moreArea{
     position: relative;
-    max-height: calc(3em * 1.6);
+    max-height: calc(3em * 1.6 + 2px);
     overflow: hidden;
     transition: height 0.2s ease;
     &.open{
         max-height: 100em;
-        padding-bottom: 1.8em;;
+        padding-bottom: 2.2em;;
     }
     .moreBtn{
+        cursor: pointer;
+        display: none;
         position: absolute;
-        bottom: 0;
+        bottom: 5px;
         right: 0;
         color: $color_b_sub;
         text-decoration: underline;

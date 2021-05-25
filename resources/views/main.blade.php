@@ -36,7 +36,9 @@
         @endif
         <div id="profileBox">
             <h1 class="name">{{ $creator[0]->nickname }}</h1>
-            <div class="text moreArea">{!! $creator[0]->instruction !!}</div>
+            @isset($creator[0]->instruction)
+                <div class="text moreArea">{!! $creator[0]->instruction !!}<p class="moreBtn">続きを見る</p></div>
+            @endisset
             <div class="btnBox">
                 @guest
                     <p><a href="{!! '/'. $creator[0]->account_id .'/join' !!}" class="btn btnPi">{{ __('入会する') }}</a></p>

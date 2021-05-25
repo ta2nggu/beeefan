@@ -75,7 +75,7 @@ class CreatorController extends Controller
     }
 
 //    21.04.08 김태영, 크리에이터 mypage 추가
-    public function mypage(){
+    public function creatorSetting(){
         $this->middleware('auth');
         $this->user =  \Auth::user();
 
@@ -84,12 +84,12 @@ class CreatorController extends Controller
             ->where('account_id', '=', $this->user->account_id)
             ->get();
 
-        return view('creator.mypage', [
+        return view('creator.setting', [
             'user' => $user
         ]);
     }
 
-    public function mypage_store(Request $request) {
+    public function creatorSetting_store(Request $request) {
 
         $this->middleware('auth');
         $this->user =  \Auth::user();
@@ -167,7 +167,7 @@ class CreatorController extends Controller
 //            'tweets' => $tweets
 //        ]);
 //        21.04.17 김태영, redirect 직접 url 호출로 변경
-        return redirect('/creator/index')->with('verified', true);
+        return redirect(route('creator'))->with('verified', true)->with('flash_message','プロフィールの変更が完了しました');
     }
 
 //    21.03.07 김태영, dropzone js 사용으로 변경, 현재 사용 안함

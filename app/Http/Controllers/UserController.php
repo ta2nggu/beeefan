@@ -152,28 +152,36 @@ class UserController extends Controller
         }
         if ($follow === 1) {
             //입회한 사용자의 경우
-            $query = "tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path";
+            $query = "tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweet_images.mime_type";
         }
         else {
             //입회하지 사용자의 않은 경우
-            $query = "tweet_images.tweet_id, tweet_images.idx, 'noimg.png' AS path";
+            $query = "tweet_images.tweet_id, tweet_images.idx, 'noimg.png' AS path, tweet_images.mime_type";
         }
 
         //main tweet
         //nowTweet -> 사용자가 click한 tweet, timeline에서 최상단에 위치
         $nowTweet = DB::table('tweets', 'tweets')
-            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time, tweet_images.mime_type"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
+            ->join("tweet_images",function($join){
+                $join->on("tweet_images.tweet_id", "=", "tweets.id")
+                    ->on("tweet_images.idx", "=", "tweets.main_img_idx");
+            })
             ->where('users.account_id', $account_id)
             ->where('tweets.id', $startTweet)
             ->where('tweets.visible', 1)
             ->get();
         //otherTweets -> 사용자가 click한 tweet을 제외한 나머지를 등록 역순으로 조회
         $otherTweets = DB::table('tweets', 'tweets')
-            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time, tweet_images.mime_type"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
+            ->join("tweet_images",function($join){
+                $join->on("tweet_images.tweet_id", "=", "tweets.id")
+                    ->on("tweet_images.idx", "=", "tweets.main_img_idx");
+            })
             ->where('users.account_id', $account_id)
             ->where('tweets.id','<>', $startTweet)
             ->where('tweets.visible', 1)

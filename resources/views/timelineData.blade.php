@@ -85,7 +85,19 @@ function time_ago($sec) {
         </div>
         <div class="owl-carousel owl-theme">
             <div class="postImgBox">
-                <img src="{{ asset('storage/images/'.$tweet->path) }}" alt="">
+                @if (explode('/', $tweet->mime_type)[0] === 'image')
+                    <img src="{{ asset('storage/images/'.$tweet->path) }}" alt="">
+                @else
+{{--                    <video class="video-js" controls poster="#" playsinline autoplay loop preload="auto" width="640px" height="267px" src="{{ asset('storage/images/'.$tweet->path) }}"></video>--}}
+                    <video id="my_video_1" class="video-js vjs-default-skin" width="640px" height="267px"
+                           controls preload="none"
+{{--                           poster='http://video-js.zencoder.com/oceans-clip.jpg'--}}
+                           poster='#'
+                           data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
+                        <source src="https://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
+{{--                        <source src="https://vjs.zencdn.net/v/oceans.webm" type='video/webm' />--}}
+                    </video>
+                @endif
 {{--                @if ($tweet->file_cnt > 1)<div class="counter" style="position: absolute; top: 0px; left: 250px; color: white; background-color: rgba(16,16,16,0.5);">{{ __('1 / ') }}{{ $tweet->file_cnt }}</div>@endif--}}
                 @if ($tweet->file_cnt > 1)
                     <div class="counter"></div>
@@ -93,107 +105,111 @@ function time_ago($sec) {
             </div>
             @foreach($tweet_images as $tweet_image)
                 @if($tweet->id == $tweet_image->tweet_id)
-                    <div class="postImgBox">
+                <div class="postImgBox">
+                    @if (explode('/', $tweet_image->mime_type)[0] === 'image')
                         <img src="{{ asset('storage/images/'.$tweet_image->path) }}" alt="">
-                        @if ($tweet->file_cnt > 1)
-                            <div class="counter"></div>
-                        @endif
-                        {{-- 21.04.20 김태영, $follow === 0 미입회 user 일 때 img tag 위에 가입 안내 div 표시 --}}
-                        @if($follow === 0)
-                            <div class="secretBox">
-                                <div class="inner">
-                                    <p>このコンテンツを観るには<br>ファンクラブへの入会が必要です。</p>
-                                    <ul class="btnBox">
-                                        <li><a href="../../{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn">入会する</a></li>
-                                        <li><a href="{{ url('/home') }}" class="btn">ログイン</a></li>
-                                    </ul>
-                                    <p><a href="" target="_blank">支払い方法について</a></p>
-                                </div>
+                    @else
+
+                    @endif
+                    @if ($tweet->file_cnt > 1)
+                        <div class="counter"></div>
+                    @endif
+                    {{-- 21.04.20 김태영, $follow === 0 미입회 user 일 때 img tag 위에 가입 안내 div 표시 --}}
+                    @if($follow === 0)
+                        <div class="secretBox">
+                            <div class="inner">
+                                <p>このコンテンツを観るには<br>ファンクラブへの入会が必要です。</p>
+                                <ul class="btnBox">
+                                    <li><a href="../../{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn">入会する</a></li>
+                                    <li><a href="{{ url('/home') }}" class="btn">ログイン</a></li>
+                                </ul>
+                                <p><a href="" target="_blank">支払い方法について</a></p>
                             </div>
-                        @endif
-                    </div>
-                @endif
-            @endforeach
-        </div>
+                        </div>
+                    @endif
+                </div>
+            @endif
+        @endforeach
+    </div>
 
 {{--        21.05.06 kondo,投稿したcreatorのみ編集可能--}}
-        @if( Auth::id() === $creator[0]->id)
-            <a class="editBtn"
-               data-toggle="modal"
-               data-target="#edit{{$tweet->id}}"><img src="{{ asset('storage/icon/icon_leader.png') }}" alt="{{__('編集')}}"></a>
-            <div class="modal fade postEditBox" id="edit{{$tweet->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-bottom" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body postEditLink">
-                            <ul>
-                                <li><p class="postEditDelete">{{ __('削除') }}</p></li>
-                                <li><a href="/creator/edit/{{$tweet->id}}">{{__('編集')}}</a></li>
-                                <li><p class="postEditInvisible">{{ __('下書きに戻す') }}</p></li>
-                            </ul>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">{{__('キャンセル')}}</button>
-                        </div>
+    @if( Auth::id() === $creator[0]->id)
+        <a class="editBtn"
+           data-toggle="modal"
+           data-target="#edit{{$tweet->id}}"><img src="{{ asset('storage/icon/icon_leader.png') }}" alt="{{__('編集')}}"></a>
+        <div class="modal fade postEditBox" id="edit{{$tweet->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-bottom" role="document">
+                <div class="modal-content">
+                    <div class="modal-body postEditLink">
+                        <ul>
+                            <li><p class="postEditDelete">{{ __('削除') }}</p></li>
+                            <li><a href="/creator/edit/{{$tweet->id}}">{{__('編集')}}</a></li>
+                            <li><p class="postEditInvisible">{{ __('下書きに戻す') }}</p></li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">{{__('キャンセル')}}</button>
                     </div>
                 </div>
             </div>
-
-            <!--削除ポップアップ-->
-            <div class="modal fade warningBox warningDre" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <p class="titleText">コンテンツを削除</p>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-warning">
-                            <p>コンテンツは投稿から削除されます。コンテンツは一度削除したら取り消せません。削除してもよろしいですか？</p>
-                        </div>
-                        <form action="{{ __('/creator/delTweetPost') }}" method="POST" class="formBox normalFormBox">
-                            @csrf
-                            <input type="hidden" name="user_id" value="{{ $creator[0]->user_id }}">
-                            <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
-                            <ul class="btnBox modal-footer">
-                                <li><button type="submit" class="btn btnSS btnCircle btnBk">{{ __('はい') }}</button></li>
-                                <li><button type="button" class="btn btnSS btnCircle" data-dismiss="modal">{{ __('いいえ') }}</button></li>
-                            </ul>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!--下書きポップアップ-->
-            <div class="modal fade warningBox warningInvi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <p class="titleText">下書きに戻す</p>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-warning">
-                            <p>コンテンツを下書きに戻しますか?下書き一覧から再度公開することも可能です。戻してもよろしいですか？</p>
-                        </div>
-                        <form action="{{ __('/creator/ChangeTweetInvisible') }}" method="POST" class="formBox normalFormBox">
-                            @csrf
-                            <input type="hidden" name="user_id" value="{{ $creator[0]->user_id }}">
-                            <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
-                            <ul class="btnBox modal-footer">
-                                <li><button type="submit" class="btn btnSS btnCircle btnBk">{{ __('はい') }}</button></li>
-                                <li><button type="button" class="btn btnSS btnCircle" data-dismiss="modal">{{ __('いいえ') }}</button></li>
-                            </ul>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        <div class="textBox">
-            <div class="text moreArea">{{ $tweet->msg }}</div>
         </div>
 
-    </li>
+        <!--削除ポップアップ-->
+        <div class="modal fade warningBox warningDre" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="titleText">コンテンツを削除</p>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-warning">
+                        <p>コンテンツは投稿から削除されます。コンテンツは一度削除したら取り消せません。削除してもよろしいですか？</p>
+                    </div>
+                    <form action="{{ __('/creator/delTweetPost') }}" method="POST" class="formBox normalFormBox">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $creator[0]->user_id }}">
+                        <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+                        <ul class="btnBox modal-footer">
+                            <li><button type="submit" class="btn btnSS btnCircle btnBk">{{ __('はい') }}</button></li>
+                            <li><button type="button" class="btn btnSS btnCircle" data-dismiss="modal">{{ __('いいえ') }}</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--下書きポップアップ-->
+        <div class="modal fade warningBox warningInvi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="titleText">下書きに戻す</p>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-warning">
+                        <p>コンテンツを下書きに戻しますか?下書き一覧から再度公開することも可能です。戻してもよろしいですか？</p>
+                    </div>
+                    <form action="{{ __('/creator/ChangeTweetInvisible') }}" method="POST" class="formBox normalFormBox">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $creator[0]->user_id }}">
+                        <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+                        <ul class="btnBox modal-footer">
+                            <li><button type="submit" class="btn btnSS btnCircle btnBk">{{ __('はい') }}</button></li>
+                            <li><button type="button" class="btn btnSS btnCircle" data-dismiss="modal">{{ __('いいえ') }}</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <div class="textBox">
+        <div class="text moreArea">{{ $tweet->msg }}</div>
+    </div>
+
+</li>
 @endforeach

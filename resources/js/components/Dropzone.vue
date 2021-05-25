@@ -398,6 +398,11 @@ export default {
                     inputPrivate.value = '1';
                 }
             }
+
+            if (file.type.split('/')[0] === 'image') {
+                file.previewElement.querySelector(".dz-size").remove();
+                file.previewElement.querySelector(".dz-filename").remove();
+            }
         },
         removedEvent(file, error, xhr) {
             // var files = this.$refs.myVueDropzone.dropzone.files;
@@ -744,8 +749,9 @@ export default {
     opacity: 0;
 }
 .vue-dropzone>.dz-preview .dz-details {
-    background-color: #Ddabb4;
+    background-color: transparent;
     opacity: 0;
+    color: black;
 }
 /*modal*/
 .modal .modalInner{

@@ -109,8 +109,8 @@ Route::middleware('verified')->group(function () {
     //Route::get('/creator/{creator}', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator')->middleware('verified');
     Route::get('/creator/index', [App\Http\Controllers\CreatorController::class, 'index'])->name('creator');
     Route::get('/creator/write', [App\Http\Controllers\CreatorController::class, 'write'])->name('write');
-    Route::get('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage'])->name('mypage');
-    Route::post('/creator/mypage', [App\Http\Controllers\CreatorController::class, 'mypage_store']);
+    Route::get('/creator/setting', [App\Http\Controllers\CreatorController::class, 'creatorSetting'])->name('creatorSetting');
+    Route::post('/creator/setting', [App\Http\Controllers\CreatorController::class, 'creatorSetting_store'])->name('creatorSetting_store');
     //21.04.29 김태영, 下書き投稿一覧 초안 투고 리스트 화면, 비공개 투고 조회 화면으로
     Route::get('/creator/invisible', [App\Http\Controllers\CreatorController::class, 'invisibleTweets']);
     Route::get('/creator/invisibleTime/{start}', [App\Http\Controllers\CreatorController::class, 'invisibleTweetsTime']);

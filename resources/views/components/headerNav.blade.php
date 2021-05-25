@@ -6,7 +6,7 @@
                     <li><a href="{{ route('home') }}" class="icon icon_mypage">{{__('マイページ')}}</a></li>
                     @role('creator')
                     <li><a href="{{ url('/creator/write') }}" class="icon icon_post">{{__('投稿する')}}</a></li>
-                    <li><a href="{{ url('/creator/mypage') }}" class="icon icon_setting">{{__('プロフィール編集')}}</a></li>
+                    <li><a href="{{ route('creatorSetting') }}" class="icon icon_setting">{{__('プロフィール編集')}}</a></li>
                     <li><a href="{{ url('/creator/invisible') }}" class="icon icon_draft">{{__('下書き投稿一覧')}}</a></li>
                     <li><a href="{{ url('/page/help') }}" class="icon icon_help">{{__('ヘルプ')}}</a></li>
                     <li><a href="{{ url('/page/rule') }}" class="icon icon_rule">{{__('利用規約')}}</a></li>

@@ -22,7 +22,7 @@
         {{--자기소개 hyper link blade incldue--}}
         @include('creator.partials.link')
 
-        <form method="POST" enctype="multipart/form-data" class="formBox normalFormBox" id="upload-image" action="{{ __('/creator/mypage') }}" >
+        <form method="POST" enctype="multipart/form-data" class="formBox normalFormBox" id="upload-image" action="{{ route('creatorSetting_store') }}" >
             @csrf
 
             <div id="profileEditImg" class="image-upload">

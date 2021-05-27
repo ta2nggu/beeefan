@@ -4,6 +4,7 @@ import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import VueRouter from 'vue-router'
 import VueSimpleAlert from "vue-simple-alert"
+import videojs from 'video.js'
 
 Vue.use(Datetime)
 Vue.use(VueRouter)

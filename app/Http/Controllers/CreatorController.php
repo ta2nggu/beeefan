@@ -55,7 +55,7 @@ class CreatorController extends Controller
             ->paginate(15);
 
         if ($request->ajax()) {
-            $view = view('creator.indexData', compact( 'tweets'))->render();
+            $view = view('creator.indexData', compact( 'user', 'tweets'))->render();
             return response()->json(['html'=>$view]);
         }
 

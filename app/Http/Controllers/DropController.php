@@ -47,10 +47,10 @@ class DropController extends Controller
 
                 //21.07.04 김태영, video thumbnail
                 if (explode("/", $image->getClientMimeType())[0] === "video"){
-                    $thumbnail = 'thumb_'.explode(".", $image->getClientOriginalName())[0].'.png';
+                    $thumbnail = 'thumb_'.explode(".", $image->getClientOriginalName())[0].'.jpeg';//'.png';
                     $video = $this->ffmpeg->open($image);
                     $frame = $video->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds(0));
-                    $frame->addFilter(new \FFMpeg\Filters\Frame\CustomFrameFilter('scale=640x640'));
+                    $frame->addFilter(new \FFMpeg\Filters\Frame\CustomFrameFilter('scale=480x480'));
                     if (!is_dir(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'))) {
                         //mkdir($path, 0777, true);
                         mkdir(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'));

@@ -48,7 +48,7 @@ class CreatorController extends Controller
 //            ->where('tweet_images.private', 0)
 //            ->orderBy('tweets.id', 'desc')
 //            ->orderBy('tweet_images.idx')
-            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweets.main_img, '.', 1), '.png') AS thumb_path, SUBSTRING_INDEX(main_img_mime_type, '/', 1) AS main_img_mime_type"))
+            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweets.main_img, '.', 1), '.jpeg') AS thumb_path, SUBSTRING_INDEX(main_img_mime_type, '/', 1) AS main_img_mime_type"))
             ->where('tweets.user_id', $this->user->id)
             ->where('tweets.visible', 1)
             ->orderBy('tweets.id', 'desc')

@@ -92,9 +92,10 @@ function time_ago($sec) {
                     <video class="video-js vjs-default-skin vjs-big-play-centered" width="640px" height="640px"
                            controls preload='none'
 {{--                           poster='http://video-js.zencoder.com/oceans-clip.jpg'--}}
-                           poster=''
+                           poster="{{ asset('storage/images/'.$tweet->thumb_path) }}"
 {{--                           data-setup='{ "fluid": true, "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>--}}
                            data-setup='{ "fluid": true, "aspectRatio":"640:640" }'>
+{{--                        <source src="{{ secure_asset('storage/images/'.$tweet->path) }}" type='{{$tweet->mime_type}}' />--}}
                         <source src="{{ URL::asset('storage/images/'.$tweet->path) }}" type='{{$tweet->mime_type}}' />
 {{--                        <source src="https://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />--}}
                     </video>
@@ -112,7 +113,7 @@ function time_ago($sec) {
                     @else
                         <video class="video-js vjs-default-skin vjs-big-play-centered" width="640px" height="640px"
                                controls preload='none'
-                               poster=''
+                               poster="{{ asset('storage/images/'.$tweet->thumb_path) }}"
                                data-setup='{ "fluid": true, "aspectRatio":"640:640" }'>
                             <source src="{{ URL::asset('storage/images/'.$tweet_image->path) }}" type='{{$tweet_image->mime_type}}' />
                         </video>

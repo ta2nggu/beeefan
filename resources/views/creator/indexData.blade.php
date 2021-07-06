@@ -27,7 +27,11 @@
         <li class="postVideo">
             @endif
             <a href="/{{ $user[0]->account_id }}/p/{{ $value->id }}">
-                <img src="{{ asset('storage/images/'.$value->path) }}" alt="">
+                @if($value->main_img_mime_type === 'video')
+                    <img src="{{ asset('storage/images/'.$value->thumb_path) }}" alt="">
+                @else
+                    <img src="{{ asset('storage/images/'.$value->path) }}" alt="">
+                @endif
             </a>
         </li>
 @endforeach

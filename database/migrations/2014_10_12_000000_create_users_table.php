@@ -28,8 +28,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
 //            $table->string('name')->nullable();
             //21.04.15 김태영, 성, 이름으로 변경(last_name, first_name)
-            $table->string('last_name')->nullable();
-            $table->string('first_name')->nullable();
+            $table->string('last_name', 100)->nullable();
+            $table->string('first_name', 100)->nullable();
             //21.04.17 김태영, nickname creators 테이블로 이동
 //            $table->string('nickname')->nullable();
             //21.04.17 김태영, sns_url field 제거

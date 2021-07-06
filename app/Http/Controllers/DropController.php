@@ -6,11 +6,19 @@ use App\Models\Tweet_image;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
 
+require '../vendor/autoload.php';
+
 class DropController extends Controller
 {
-    public function store(Request $request) {
-//        return dd($request);
+    protected $ffmpeg;
+    public function __construct() {
+        $this->ffmpeg =\FFMpeg\FFMpeg::create([
+            'ffmpeg.binaries'  => '/usr/bin/ffmpeg',
+            'ffprobe.binaries' => '/usr/bin/ffprobe'
+        ]);
+    }
 
+    public function store(Request $request) {
         //21.05.02 김태영, 분기
         //신규투고
         if ($request->editMode === "0") {
@@ -29,14 +37,29 @@ class DropController extends Controller
             $mTweet->file_cnt = $request->file_cnt;
             $mTweet->include_video = $request->include_video;
             $mTweet->main_img = $request->main_img;
+            $mTweet->main_img_mime_type = $request->main_img_mime_type;
             $mTweet->main_img_idx = $request->main_img_idx;
             $mTweet->save();
 
             for ($i = 0; $i < count($images); $i++) {
                 $image = $images[$i];
                 $imageName = $image->getClientOriginalName();
+
+                //21.07.04 김태영, video thumbnail
+                if (explode("/", $image->getClientMimeType())[0] === "video"){
+                    $thumbnail = 'thumb_'.explode(".", $image->getClientOriginalName())[0].'.png';
+                    $video = $this->ffmpeg->open($image);
+                    $frame = $video->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds(0));
+                    $frame->addFilter(new \FFMpeg\Filters\Frame\CustomFrameFilter('scale=640x640'));
+                    if (!is_dir(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'))) {
+                        //mkdir($path, 0777, true);
+                        mkdir(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'));
+                    }
+                    $frame->save(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').$thumbnail);
+                }
+
 //            $image->move(storage_path('images/'.$request->id.'/'.$mTweet->id), $imageName);
-                $image->move(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id), $imageName);
+                $image->move(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'), $imageName);
 
                 $mImage = new Tweet_image();
                 $mImage->tweet_id = $mTweet->id;
@@ -64,6 +87,7 @@ class DropController extends Controller
                 'visible' => $request->visible,
                 'msg' => $request->msg,
                 'main_img' => $request->main_img,
+                'main_img_mime_type' => $request->main_img_mime_type,
                 'main_img_idx' => $request->main_img_idx,
             ];
 

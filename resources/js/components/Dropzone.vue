@@ -67,6 +67,7 @@ export default {
             msg:"",
             visible:1,
             main_img:"",
+            main_img_mime_type:"",
             main_img_idx:0,
             include_video:0,
             file_cnt:0,
@@ -83,10 +84,11 @@ export default {
                 autoProcessQueue: false,
                 uploadMultiple: true,
                 maxFiles: 10,
-                parallelUploads: 5,
+                parallelUploads: 10,
                 dictDefaultMessage: '',
                 clickable: '.more',
-                acceptedFiles: ".jpeg,.jpg,.png,.gif,.mp4,.mkv,.avi"
+                acceptedFiles: ".jpeg,.jpg,.png,.gif,.mp4,.mkv,.avi",
+                maxFilesize: 5//MB
             },
             editMode:0,//21.05.01 김태영, 편집하기
             tweet_id:null,//21.05.02 김태영, 편집하기
@@ -194,6 +196,7 @@ export default {
             formData.append('include_video', this.include_video);
             //21.03.22 김태영, 전체공개 대표 이미지 찾기
             formData.append('main_img', this.main_img);
+            formData.append('main_img_mime_type', this.main_img_mime_type);
             //21.03.25 김태영, 전체공개 대표 이미지 index 추가
             formData.append('main_img_idx', this.main_img_idx);
             //21.05.01 김태영, 투고편집
@@ -483,6 +486,7 @@ export default {
                     if (files[_i].previewElement.querySelector(".inPrivate").value === '0') {
                         if (this.main_img === "") {
                             this.main_img = files[_i].name;
+                            this.main_img_mime_type = files[_i].type;
                             this.main_img_idx = _i;
                         }
                     }
@@ -525,6 +529,7 @@ export default {
                     if (files[_i].previewElement.querySelector(".inPrivate").value === '0') {
                         if (this.main_img === "") {
                             this.main_img = files[_i].name;
+                            this.main_img_mime_type = files[_i].type;
                             this.main_img_idx = _i;
                         }
                     }
@@ -538,7 +543,7 @@ export default {
             }
         },
         successEvent(file, response) {
-            var url = this.editMode === '0' ? '/creator/index' : '/creator/invisible';
+            var url = this.editMode === 0 ? '/creator/index' : '/creator/invisible';
 
             setTimeout(function() {
                 window.location.href = url;
@@ -599,7 +604,7 @@ export default {
             $uploadCrop.on('click', function() {
                 // get cropped image data
                 //var blob = $img.cropper('getCroppedCanvas').toDataURL();
-                var blob = croping.getCroppedCanvas().toDataURL();
+                var blob = croping.getCroppedCanvas().toDataURL(file.type, 0.2);
                 // transform it to Blob object
                 var newFile = dataURItoBlob(blob);
                 // set 'cropped to true' (so that we don't get to that listener again)

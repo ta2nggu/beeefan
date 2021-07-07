@@ -36,6 +36,55 @@ import 'cropperjs/dist/cropper.css'
 
 import * as draganddrop from '../draganddrop.js'
 
+var resizeImage = function (settings) {
+    var file = settings.file;
+    var maxSize = settings.maxSize;
+    var reader = new FileReader();
+    var image = new Image();
+    var canvas = document.createElement('canvas');
+    var dataURItoBlob = function (dataURI) {
+        var bytes = dataURI.split(',')[0].indexOf('base64') >= 0 ?
+            atob(dataURI.split(',')[1]) :
+            unescape(dataURI.split(',')[1]);
+        var mime = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var max = bytes.length;
+        var ia = new Uint8Array(max);
+        for (var i = 0; i < max; i++)
+            ia[i] = bytes.charCodeAt(i);
+        return new Blob([ia], { type: 'image/jpeg'});
+    };
+    var resize = function () {
+        var width = image.width;
+        var height = image.height;
+        if (width > height) {
+            if (width > maxSize) {
+                height *= maxSize / width;
+                width = maxSize;
+            }
+        } else {
+            if (height > maxSize) {
+                width *= maxSize / height;
+                height = maxSize;
+            }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+        var dataUrl = canvas.toDataURL('image/jpeg');
+        return dataURItoBlob(dataUrl);
+    };
+    return new Promise(function (ok, no) {
+        if (!file.type.match(/image.*/)) {
+            no(new Error("Not an image"));
+            return;
+        }
+        reader.onload = function (readerEvent) {
+            image.onload = function () { return ok(resize()); };
+            image.src = readerEvent.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+};
 // transform cropper dataURI output to a Blob which Dropzone accepts
 function dataURItoBlob(dataURI) {
     var byteString = atob(dataURI.split(',')[1]);
@@ -67,6 +116,7 @@ export default {
             msg:"",
             visible:1,
             main_img:"",
+            main_img_mime_type:"",
             main_img_idx:0,
             include_video:0,
             file_cnt:0,
@@ -83,10 +133,11 @@ export default {
                 autoProcessQueue: false,
                 uploadMultiple: true,
                 maxFiles: 10,
-                parallelUploads: 5,
+                parallelUploads: 10,
                 dictDefaultMessage: '',
                 clickable: '.more',
-                acceptedFiles: ".jpeg,.jpg,.png,.gif,.mp4,.mkv,.avi"
+                acceptedFiles: ".jpeg,.jpg,.png,.gif,.mp4,.mkv,.avi",
+                maxFilesize: 5//MB
             },
             editMode:0,//21.05.01 김태영, 편집하기
             tweet_id:null,//21.05.02 김태영, 편집하기
@@ -194,6 +245,7 @@ export default {
             formData.append('include_video', this.include_video);
             //21.03.22 김태영, 전체공개 대표 이미지 찾기
             formData.append('main_img', this.main_img);
+            formData.append('main_img_mime_type', this.main_img_mime_type);
             //21.03.25 김태영, 전체공개 대표 이미지 index 추가
             formData.append('main_img_idx', this.main_img_idx);
             //21.05.01 김태영, 투고편집
@@ -483,6 +535,7 @@ export default {
                     if (files[_i].previewElement.querySelector(".inPrivate").value === '0') {
                         if (this.main_img === "") {
                             this.main_img = files[_i].name;
+                            this.main_img_mime_type = files[_i].type;
                             this.main_img_idx = _i;
                         }
                     }
@@ -525,6 +578,7 @@ export default {
                     if (files[_i].previewElement.querySelector(".inPrivate").value === '0') {
                         if (this.main_img === "") {
                             this.main_img = files[_i].name;
+                            this.main_img_mime_type = files[_i].type;
                             this.main_img_idx = _i;
                         }
                     }
@@ -538,7 +592,7 @@ export default {
             }
         },
         successEvent(file, response) {
-            var url = this.editMode === '0' ? '/creator/index' : '/creator/invisible';
+            var url = this.editMode === 0 ? '/creator/index' : '/creator/invisible';
 
             setTimeout(function() {
                 window.location.href = url;
@@ -599,19 +653,39 @@ export default {
             $uploadCrop.on('click', function() {
                 // get cropped image data
                 //var blob = $img.cropper('getCroppedCanvas').toDataURL();
-                var blob = croping.getCroppedCanvas().toDataURL();
+                var blob = croping.getCroppedCanvas().toDataURL(file.type, 0.9);
                 // transform it to Blob object
-                var newFile = dataURItoBlob(blob);
-                // set 'cropped to true' (so that we don't get to that listener again)
-                newFile.cropped = true;
-                // assign original filename
-                newFile.name = cachedFilename;
+                // var newFile = dataURItoBlob(blob);
+                var newFile;
+                resizeImage({
+                    file: dataURItoBlob(blob),
+                    maxSize: 480
+                }).then(function (resizedImage) {
+                    reader.onload = function(e){
+                        newFile = resizedImage;
+                        // set 'cropped to true' (so that we don't get to that listener again)
+                        newFile.cropped = true;
+                        // assign original filename
+                        newFile.name = cachedFilename;
 
-                // add cropped file to dropzone
-                myDropzone.addFile(newFile);
-                // upload cropped file with dropzone
-                // myDropzone.processQueue();
-                $cropperModal.modal('hide');
+                        // add cropped file to dropzone
+                        myDropzone.addFile(newFile);
+                        // upload cropped file with dropzone
+                        // myDropzone.processQueue();
+                        $cropperModal.modal('hide');
+                    };
+                    reader.readAsDataURL(file);
+                });
+                // // set 'cropped to true' (so that we don't get to that listener again)
+                // newFile.cropped = true;
+                // // assign original filename
+                // newFile.name = cachedFilename;
+                //
+                // // add cropped file to dropzone
+                // myDropzone.addFile(newFile);
+                // // upload cropped file with dropzone
+                // // myDropzone.processQueue();
+                // $cropperModal.modal('hide');
             });
             $cancelCrop.on('click', function() {
                 $cropperModal.modal('hide');

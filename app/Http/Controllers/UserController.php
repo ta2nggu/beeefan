@@ -96,7 +96,7 @@ class UserController extends Controller
 //            ->orderBy('tweets.id', 'desc')
 //            ->orderBy('tweet_images.idx')
 
-            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, creators.nickname, tweets.id, tweets.include_video, tweets.file_cnt, users.account_id"))
+            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, creators.nickname, tweets.id, tweets.include_video, tweets.file_cnt, users.account_id, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweets.main_img, '.', 1), '.jpeg') AS thumb_path, SUBSTRING_INDEX(main_img_mime_type, '/', 1) AS main_img_mime_type"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
 //            ->where('users.nickname', $creator_nick)
@@ -152,17 +152,17 @@ class UserController extends Controller
         }
         if ($follow === 1) {
             //입회한 사용자의 경우
-            $query = "tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweet_images.mime_type";
+            $query = "tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweet_images.mime_type, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweet_images.name, '.', 1), '.jpeg') AS thumb_path";
         }
         else {
             //입회하지 사용자의 않은 경우
-            $query = "tweet_images.tweet_id, tweet_images.idx, 'noimg.png' AS path, tweet_images.mime_type";
+            $query = "tweet_images.tweet_id, tweet_images.idx, 'noimg.png' AS path, tweet_images.mime_type, 'noimg.png' AS thumb_path";
         }
 
         //main tweet
         //nowTweet -> 사용자가 click한 tweet, timeline에서 최상단에 위치
         $nowTweet = DB::table('tweets', 'tweets')
-            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time, tweet_images.mime_type"))
+            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time, tweet_images.mime_type, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweets.main_img, '.', 1), '.jpeg') AS thumb_path"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
             ->join("tweet_images",function($join){
@@ -175,7 +175,7 @@ class UserController extends Controller
             ->get();
         //otherTweets -> 사용자가 click한 tweet을 제외한 나머지를 등록 역순으로 조회
         $otherTweets = DB::table('tweets', 'tweets')
-            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time, tweet_images.mime_type"))
+            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time, tweet_images.mime_type, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweets.main_img, '.', 1), '.jpeg') AS thumb_path"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
             ->join("tweet_images",function($join){

@@ -13,6 +13,7 @@ class tweet extends Model
         'visible',
         'msg',
         'main_img',
+        'main_img_mime_type',
         'main_img_idx',
     ];
 }

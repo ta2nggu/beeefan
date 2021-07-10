@@ -136,8 +136,8 @@ export default {
                 parallelUploads: 10,
                 dictDefaultMessage: '',
                 clickable: '.more',
-                acceptedFiles: ".jpeg,.jpg,.png,.gif,.mp4,.mkv,.avi",
-                maxFilesize: 5//MB
+                acceptedFiles: ".jpeg,.jpg,.png,.gif,.mp4,.mkv,.avi,.MOV"
+                // maxFilesize: 5//MB
             },
             editMode:0,//21.05.01 김태영, 편집하기
             tweet_id:null,//21.05.02 김태영, 편집하기

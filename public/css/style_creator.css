@@ -1382,7 +1382,7 @@ button.btn:not(.btnBor) {
 }
 
 .modal-dialog {
-  height: 100vh;
+  height: 100%;
 }
 
 .modal-content {

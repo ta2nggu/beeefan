@@ -9,11 +9,14 @@ use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 //21.03.30 김태영, 회원가입 email 인증 customize
 use App\Notifications;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use LaratrustUserTrait;
     use HasFactory, Notifiable;
+    //21.07.08 김태영, add Laravel Cashier
+    use Billable;
 
     /**
      * The attributes that are mass assignable.

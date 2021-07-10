@@ -70,6 +70,21 @@ class AdminController extends Controller
 
     public function admin_creatorRegPage()
     {
+        //21.07.10 김태영, stripe test
+//        $stripe = new \Stripe\StripeClient(
+//            env('STRIPE_SECRET')
+//        );
+//        $result_product = $stripe->products->create([
+//            'name' => 'Gold Special',
+//        ]);
+//        $result_price = $stripe->prices->create([
+//            'unit_amount' => 550,
+//            'currency' => 'jpy',
+//            'recurring' => ['interval' => 'month'],
+//            'product' => $result_product->id,
+//        ]);
+//        return dd($result_price->id);
+
         return view("admin.creatorRegPage");
     }
 

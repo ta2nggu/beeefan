@@ -3,6 +3,18 @@
 @section('title','新規会員登録')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script>
+        window.onload = function() {
+            new Rolldate({
+                el: '#birth_date',
+                format: 'YYYY-MM-DD',
+                beginYear: 1920,
+                endYear: new Date().getFullYear(),
+                title: 'ああ'
+            })
+        }
+    </script>
+    <script src="{{ asset('js/rolldate.min.js') }}"></script>
 @endsection
 @section('body','')
 
@@ -48,7 +60,9 @@
                     <dt><label for="birth_date">{{ __("誕生日") }}</label><span class="required">{{ __("必須") }}</span></dt>
                     <dd>
                         {{--                                <input id="birth_date" type="text" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus>--}}
-                        <datetime id="birth_date" class="@error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus type="date" format="yyyy-MM-dd" ref="DatetimePicker"></datetime>
+{{--                        <datetime id="birth_date" class="@error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus type="date" format="yyyy-MM-dd" ref="DatetimePicker"></datetime>--}}
+{{--                        20210710 kondo,datePicker change--}}
+                        <input type="text" id="birth_date" placeholder="YYYY-MM-DD" class="@error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" required autocomplete="birth_date" autofocus type="date">
                         @error('birth_date')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -62,11 +76,11 @@
                     <dd>
                         <div class="clm2 sexBox">
                             <div>
-                                <input type="radio" id="male" value=1 name="sex" class="@error('sex') is-invalid @enderror">
+                                <input type="radio" id="male" value=1 name="sex" class="@error('sex') is-invalid @enderror" @if(old('sex')=="1") checked @endif>
                                 <label for="male">{{ __("男性") }}</label>
                             </div>
                             <div>
-                                <input type="radio" id="female" value=0 name="sex">
+                                <input type="radio" id="female" value=0 name="sex" @if(old('sex')=="0") checked @endif>
                                 <label for="female">{{ __("女性") }}</label>
                             </div>
                         </div>
@@ -84,7 +98,7 @@
                         <select name="prefecture_id" id="prefecture_id" class="prefecture_id @error('prefecture_id') is-invalid @enderror">
                             <option value="" selected disabled hidden>{{ __("ご選択ください") }}</option>
                             @foreach($Prefectures as $Prefecture)
-                                <option value="{{ $Prefecture->id }}">{{ $Prefecture->name }}</option>
+                                <option value="{{ $Prefecture->id }}" @if(old('prefecture_id')=="$Prefecture->id") selected @endif>{{ $Prefecture->name }}</option>
                             @endforeach
                         </select>
                         @error('prefecture_id')

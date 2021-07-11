@@ -34,8 +34,14 @@ var __webpack_exports__ = {};
   };
 
   s.parentNode.insertBefore(tk, s);
-})(document); //moreArea
+})(document); //firstview
 
+
+$(window).on('load resize', function () {
+  var mainheight = $(window).height();
+  $('#contentWrap').css('minHeight', mainheight);
+  $('.view1 #contentWrap').css('height', mainheight);
+}); //moreArea
 
 $(function () {
   if ('.moreBtn'.length) {

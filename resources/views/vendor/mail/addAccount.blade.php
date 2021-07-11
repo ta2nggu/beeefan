@@ -1,5 +1,5 @@
 <br>
-{{$user.' 様'}}<br>
+{{$user->account_id.' 様'}}<br>
 <br>
 {{ config('app.name') }}をご利用いただき誠にありがとうございます。<br>
 <br>

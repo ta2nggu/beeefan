@@ -18,20 +18,26 @@
                         <p>{!! ("メールアドレスの変更を完了するには<br>下記の「送信ボタン」をクリックし<br>メールに記載されたURLから<br>認証を行ってください。<br><br>新しいメールアドレス<br>").$user->email !!}</p>
                     @else
                         @if (session('resent'))
-                            <p>{!! ("送信完了しました。<br>メールが届かない場合は下記の宛先まで<br>お問い合わせください。<br>beeefun@example.com") !!}</p>
+                            <p>{!! ("送信完了しました。<br>メールが届かない場合は下記の宛先まで<br>お問い合わせください。<br>info@beeefan.com") !!}</p>
                         @else
                             <p>{!! ("メールアドレスの認証をしてください。<br>下記の「送信ボタン」をクリックし<br>メールに記載されたURLから<br>認証を完了してください。<br><br>登録中のメールアドレス<br>").$user->email !!}</p>
                         @endif
                     @endif
                 </div>
             </div>
-
-            <form class="formBox" method="POST" action="{{ route('verification.resend') }}">
-                @csrf
-                <ul class="btnBox wrap_inner">
-                    <li><button type="submit" class="btn btnS btnCircle btnBl">{{ __('認証メールを送信する') }}</button></li>
+            @if (session('resent'))
+                <ul class="btnBox">
+                    <li><a href="{{route('top')}}" class="btn btnS btnBor btnBorBl">{{ __('トップページに戻る') }}</a></li>
                 </ul>
-            </form>
+            @else
+                <form class="formBox" method="POST" action="{{ route('verification.resend') }}">
+                    @csrf
+                    <ul class="btnBox wrap_inner">
+                        <li><button type="submit" class="btn btnS btnCircle btnBl">{{ __('認証メールを送信する') }}</button></li>
+                    </ul>
+                </form>
+            @endif
+
         </div>
 
     </div><!--/contentWrap-->

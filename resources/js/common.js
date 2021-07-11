@@ -9,7 +9,7 @@ h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bw
 })(document);
 
 //firstview
-$(window).on('load resize', function(){
+$(function() {
     var mainheight = $(window).height();
     $('#contentWrap').css('minHeight', mainheight);
     $('.view1 #contentWrap').css('height', mainheight);

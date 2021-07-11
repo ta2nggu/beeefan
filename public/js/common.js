@@ -37,7 +37,7 @@ var __webpack_exports__ = {};
 })(document); //firstview
 
 
-$(window).on('load resize', function () {
+$(function () {
   var mainheight = $(window).height();
   $('#contentWrap').css('minHeight', mainheight);
   $('.view1 #contentWrap').css('height', mainheight);

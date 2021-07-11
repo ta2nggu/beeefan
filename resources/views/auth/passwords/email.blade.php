@@ -15,7 +15,7 @@
             @if (session('status'))
                 <div class="normalTitleBox">
                     <h2>{{ __("パスワード再設定") }}</h2>
-                    <p>{!! ("ご登録のメールアドレス宛に<br>URLをお送りしております。<br>60分以内にパスワードの再設定をしてください。") !!}</p>
+                    <p>{!! ("ご登録のメールアドレス宛に<br>URLをお送りしております。<br>パスワードの再設定をしてください。") !!}</p>
                     <a class="btn btnS btnBl" href="{{ url('/login') }}">{{ __('ログイン画面へ') }}</a></div>
                 </div>
             @else
@@ -34,7 +34,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <p class="txtLink center">{!! ("メールアドレスをお忘れの方は<br>下記の宛先までお問い合わせください<br>beeefun@example.com</p>") !!}
+                            <p class="txtLink center">{!! ("メールアドレスをお忘れの方は<br>下記の宛先までお問い合わせください<br>info@beeefan.com</p>") !!}
                         </dd>
                     </dl>
                     <div class="btnBox"><button type="submit" class="btn btnS btnBl">{{ __('送信') }}</button></div>

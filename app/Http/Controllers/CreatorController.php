@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Creator;
 use App\Models\Following;
 use App\Models\Image;
-use App\Models\tweet;
+use App\Models\Tweet;
 use App\Models\Tweet_image;
 use Illuminate\Http\Request;
 use App\Models\User;

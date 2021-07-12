@@ -40,11 +40,11 @@
                 <ul class="btnBox">
                     @role('creator')
                     <li><button type="submit" class="btn btnPi">{{ __('変更する') }}</button></li>
-                    <li><button onclick="history.back();" class="btn btnBor btnBorLp">{{ __('変更せずに戻る') }}</button></li>
+                    <li><a class="btn btnBor btnBorLp" href="{{ url('/creator/setting') }}">{{ __('変更せずに戻る') }}</a></li>
                     @endrole
                     @role('user')
                     <li><button type="submit" class="btn btnBl">{{ __('変更する') }}</button></li>
-                    <li><button onclick="history.back();" class="btn btnBor btnBorGy">{{ __('変更せずに戻る') }}</button></li>
+                    <li><a class="btn btnBor btnBorGy" href="{{ url('/mypage') }}">{{ __('変更せずに戻る') }}</a></li>
                     @endrole
                     @role('superadministrator')
                     {{-- 21.05.09 김태영, super admin이 admin의 email 변경 --}}
@@ -58,7 +58,7 @@
                     @endrole
                     @role('administrator|superadministrator')
                     <li><button type="submit" class="btn btnAd">{{ __('変更する') }}</button></li>
-                    <li><button onclick="history.back();" class="btn btnBor btnBorGy">{{ __('変更せずに戻る') }}</button></li>
+                    <li><a class="btn btnBor btnBorGy" href="{{ url('/admin/index') }}">{{ __('変更せずに戻る') }}</a></li>
                     @endrole
                 </ul>
             </form>

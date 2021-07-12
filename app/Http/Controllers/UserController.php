@@ -439,6 +439,11 @@ class UserController extends Controller
         $creator = $this->creator_info_withAccId($account_id);
         if(\Auth::user()){
             $this->user =  \Auth::user();
+            if($this->user->hasRole('superadministrator|administrator')) {
+                return redirect(route('admin'))->with('flash_message','このアカウントではアクセスできません');
+            }elseif($this->user->hasRole('creator')) {
+                return redirect(route('creator'))->with('flash_message','このアカウントではアクセスできません');
+            }
         }else{
             return view('joinLogin', compact('creator'));
         }

@@ -102,6 +102,7 @@ class RegisterController extends Controller
             //21.05.13 kondo, 仮登録用
             'email_verify_token' => base64_encode($data['email']),
         ]);
+
         if ($data['role'] === 'user') {
             $user->attachRole('user');
         }

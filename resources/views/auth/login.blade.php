@@ -35,20 +35,17 @@
                 @csrf
                 <div>
                     <input id="account_id" type="text" placeholder="{{_("メールアドレスまたはアカウントID")}}" class="form-control @error('account_id') is-invalid @enderror" name="account_id" value="{{ old('account_id') }}" required autofocus>
-                    @error('account_id')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                    @enderror
                 </div>
                 <div>
-                    <input id="password" type="password" placeholder="{{_("パスワード")}}" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                    @error('password')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                    @enderror
+                    <input id="password" type="password" placeholder="{{_("パスワード")}}" class="form-control" name="password" required autocomplete="current-password">
                 </div>
                 <div class="saveCheck">
                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                     <label class="form-check-label" for="remember">{{_("ログイン状態を保存する")}}</label>
                 </div>
+                @error('account_id')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
                 <div>
                     <button type="submit" class="btn btnBl submitBtn">{{_("ログイン")}}</button>
                 </div>

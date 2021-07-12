@@ -181,7 +181,7 @@ class RegisterController extends Controller
     }
     // 仮登録完了画面
     public function registered(Request $request){
-        if($request->fc_id === 0) {
+        if($request->fc_id) {
             $creator = Creator::where('user_id', $request->fc_id)->first();
             if ($creator) {
                 $user = User::find($creator->user_id);

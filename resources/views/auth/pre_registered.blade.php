@@ -23,6 +23,9 @@
                     <li></li>
                 </ol>
             </div>
+            <ul class="btnBox wrap_inner">
+                <li><a class="btn btnS btnBor btnBorBl" href="{{route('top')}}">{{ __("トップページへ") }}</a></li>
+            </ul>
         </div>
 
     </div><!--/contentWrap-->

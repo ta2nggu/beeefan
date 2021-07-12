@@ -25,7 +25,7 @@
             </div>
             <ul class="btnBox wrap_inner">
                 @if(isset($creator))
-                    <li><a class="btn btnBl" href="{{ url('/'.$user->account_id.'/join') }}">{{ __($creator->nickname." 入会") }}</a></li>
+                    <li><a class="btn btnBl" href="{{ url('/'.$user->account_id.'/join') }}">{{ __($creator->nickname." に入会する") }}</a></li>
                 @endif
                 <li><a class="btn btnBor btnBorBl" href="{{route('home')}}">{{ __("マイページへ") }}</a></li>
             </ul>

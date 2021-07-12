@@ -70,6 +70,9 @@ button.btn {
 }
 .btnCansell{
     color: $color_b_sub;
+    &:hover{
+        color: $color_b_sub;
+    }
 }
 .btnBox{
     &>p,
@@ -84,17 +87,17 @@ button.btn {
     background-color: #fff;
     border: 2px solid $color_b;
 }
-.btnBorLp{ border-color: $color_c_sub; color: $color_c_sub;}
-.btnBorBl{ border-color: $color_f; color: $color_f;}
-.btnBorGy{ border-color: $color_b_sub2; color: $color_b_sub;}
-.btnBk{ background-color: $color_b; color: #fff;}
-.btnPi{ background-color: $color_c; color: #fff;}
-.btnLp{ background-color: $color_c_sub; color: #fff;}
-.btnBl{ background-color: $color_f; color: #fff;}
-.btnLb{ background-color: $color_f_sub; color: #fff;}
-.btnAd{ background-color: $color_a; color: #fff;}
-.btnAd2{ background-color: $color_a_sub; color: #fff;}
-.btnGy{color: $color_b_sub}
+.btnBorLp{ border-color: $color_c_sub; color: $color_c_sub; &:hover{color: $color_c_sub;}}
+.btnBorBl{ border-color: $color_f; color: $color_f; &:hover{color: $color_f;}}
+.btnBorGy{ border-color: $color_b_sub2; color: $color_b_sub; &:hover{color: $color_b_sub;}}
+.btnBk{ background-color: $color_b; color: #fff; &:hover{color: #fff;}}
+.btnPi{ background-color: $color_c; color: #fff; &:hover{color: #fff;}}
+.btnLp{ background-color: $color_c_sub; color: #fff; &:hover{color: #fff;}}
+.btnBl{ background-color: $color_f; color: #fff; &:hover{color: #fff;}}
+.btnLb{ background-color: $color_f_sub; color: #fff; &:hover{color: #fff;}}
+.btnAd{ background-color: $color_a; color: #fff; &:hover{color: #fff;}}
+.btnAd2{ background-color: $color_a_sub; color: #fff; &:hover{color: #fff;}}
+.btnGy{color: $color_b_sub; &:hover{color: $color_b_sub;}}
 
 .noDateBox{
     width: 100% !important;
@@ -234,6 +237,9 @@ button.btn {
     }
     label a{
         text-decoration: underline;
+    }
+    .form-control.is-invalid{
+        background-image: none;
     }
 }
 .formBox.normalFormBox{

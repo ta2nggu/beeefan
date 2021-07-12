@@ -1635,8 +1635,7 @@ button.btn:not(.btnBor) {
   height: 200px;
   overflow: scroll;
   border-radius: 5px;
-  padding: 10px;
-    font-size: 16px;
+  padding: 15px 10px;
   background-color: rgba(255, 255, 255, 0.7) !important;
   border: 1px solid #ededed;
   background-color: #fff;

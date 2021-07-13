@@ -25,18 +25,13 @@
                     @endif
                 </div>
             </div>
-{{--            @if (session('resent'))--}}
-{{--                <ul class="btnBox">--}}
-{{--                    <li><a href="{{route('top')}}" class="btn btnS btnBor btnBorBl">{{ __('トップページに戻る') }}</a></li>--}}
-{{--                </ul>--}}
-{{--            @else--}}
-                <form class="formBox" method="POST" action="{{ route('verification.resend') }}">
-                    @csrf
-                    <ul class="btnBox wrap_inner">
-                        <li><button type="submit" class="btn btnS btnCircle btnBl">{{ __('認証メールを送信する') }}</button></li>
-                    </ul>
-                </form>
-{{--            @endif--}}
+            <form class="formBox" method="POST" action="{{ route('verification.resend') }}">
+                @csrf
+                <ul class="btnBox wrap_inner">
+                    <li><button type="submit" class="btn btnS btnCircle btnBl">{{ __('認証メールを送信する') }}</button></li>
+                    <li><a href="{{route('top')}}" class="btn btnS btnCircle btnBor btnBorBl">{{ __('トップページに戻る') }}</a></li>
+                </ul>
+            </form>
 
         </div>
 

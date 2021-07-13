@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Creator;
-use App\Models\Following;
 use App\Models\Image;
 use App\Models\Tweet;
 use App\Models\Tweet_image;
@@ -60,11 +59,9 @@ class CreatorController extends Controller
             return response()->json(['html'=>$view]);
         }
         $creator_id = $this->user->id;
-        $follower_cnt = Following::where('creator_id', $creator_id)->count();
         return view('creator.index', [
             'user' => $user,
-            'tweets' => $tweets,
-            'follower_cnt' => $follower_cnt
+            'tweets' => $tweets
         ]);
     }
 

@@ -3,13 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="497242d8-90dc-46f5-b6f7-aa8c8af0f384" name="デフォルト変更リスト" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CreatorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CreatorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/style_creator.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style_creator.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/folder_page/_creator.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/folder_page/_creator.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/email/change.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/email/change.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/change.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/change.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/creatorRegPage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/creatorRegPage.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/creator/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/creator/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supervisord.log" beforeDir="false" afterPath="$PROJECT_DIR$/supervisord.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +175,7 @@
       <updated>1625644705192</updated>
       <workItem from="1625644708024" duration="1565000" />
       <workItem from="1625752968661" duration="6444000" />
-      <workItem from="1625890003944" duration="31432000" />
+      <workItem from="1625890003944" duration="34122000" />
     </task>
     <servers />
   </component>

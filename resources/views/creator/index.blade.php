@@ -42,7 +42,7 @@
                 </dl>
                 <dl>
                     <dt>{{__('会員数')}}</dt>
-                    <dd>{{ number_format($follower_cnt) }}</dd>
+                    <dd>{{ $user[0]->follower_cnt }}</dd>
                 </dl>
             </div>
             <div class="score">

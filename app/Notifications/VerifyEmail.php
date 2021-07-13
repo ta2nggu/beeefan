@@ -47,7 +47,7 @@ class VerifyEmail extends Notification
     {
         $user = User::find($notifiable->id);
         return (new MailMessage)
-            ->from('admin@example.com', config('app.name'))
+            ->from('info@beeefan.com', config('app.name'))
             ->subject('【Beee Fan!】メールアドレス認証のお知らせ')
             ->action($user, $this->verificationUrl($notifiable));
     }

@@ -162,7 +162,17 @@ class RegisterController extends Controller
 
             if ($user->save()) {
                 $fc_id=$request->fc_id;
-                return view('payment/select', compact('email_token','user','fc_id'));
+                //21.07.11 김태영, save a payment method
+                //stripe로 확정
+                //au, softbank.. 통신사 결제 없음
+                //return view('payment/select', compact('email_token','user','fc_id'));
+
+                //21.07.11 김태영, make a customer
+                //stripe id = customer id
+                $stripeCustomer = $user->createOrGetStripeCustomer();
+                return view('payment/update-payment-method', [
+                    'intent' => $user->createSetupIntent()
+                ]);
             } else {
                 return redirect(route('error.show'))->with('flash_message', "メール認証に失敗しました。\n再度、メールからリンクをクリックしてください。");
             }

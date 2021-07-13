@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('birth_date')->nullable();
 //            21.04.01 김태영, sex 성별, prefecture 도시 추가
             $table->boolean('sex')->nullable();//1 (남자), 0 (여자)
-            $table->integer('prefecture_id')->nullable();
+            $table->smallInteger('prefecture_id')->nullable()->unsigned();
             //21.04.17 김태영, month_price creators 테이블로 이동
             //21.04.15 김태영, 월액 추가
 //            $table->integer('month_price')->nullable()->default(0);

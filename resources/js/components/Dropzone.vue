@@ -800,9 +800,10 @@ export default {
     width: 100%;
     border-color: #e7e7e7;
     height: 140px;
-    padding: 20px 5%;
+    padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
+    font-size: 16px;
 }
 .btnDropUp {
     width: 100%;

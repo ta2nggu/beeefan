@@ -111,7 +111,7 @@
             <input id="role" name="role" type="hidden" value="{{ __('creator') }}">
             <ul class="btnBox">
                 <li><button type="submit" class="btn btnAd submitBtn">{{ __('クリエイターを登録する') }}</button></li>
-                <li><button onClick="history.back()" class="btn btnBor btnBorGy">{{ __('登録せずに戻る') }}</button></li>
+                <li><a href="{{route('admin')}}" class="btn btnBor btnBorGy">{{ __('登録せずに戻る') }}</a></li>
             </ul>
         </form>
     </div><!--/contentWrap-->

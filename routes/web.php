@@ -75,9 +75,7 @@ Route::middleware('verified','loginUserCheck')->group(function () {
     //user mypage
     Route::get('/mypage', [App\Http\Controllers\UserController::class, 'userIndex'])->name('userIndex');
     //21.04.06 김태영, middleware 제거 비로그인 user 접근도 허용
-    Route::get('/{creator}/join', [App\Http\Controllers\UserController::class, 'join']);
     Route::post('/join', [App\Http\Controllers\UserController::class, 'joinStore']);
-    //Route::post('/join', [App\Http\Controllers\CurlController::class, 'postCurl']);
     Route::get('/{creator}/joinOk', [App\Http\Controllers\UserController::class, 'joinOk']);
     //21.05.10 kondo, 入会中ファンクラブ詳細/退会
     Route::get('/mypage/fc/{account_id}', [App\Http\Controllers\UserController::class, 'joinFc'])->name('joinFc');
@@ -99,6 +97,8 @@ Route::get('/{creator}', [App\Http\Controllers\UserController::class, 'creatorIn
 //21.04.06 김태영, middleware 제거 비로그인 user 접근도 허용
 //Route::get('/{creator}/timeline/{start}', [App\Http\Controllers\UserController::class, 'timeline'])->middleware('verified');
 Route::get('/{creator}/p/{start}', [App\Http\Controllers\UserController::class, 'timeline']);
+Route::get('/{creator}/join', [App\Http\Controllers\UserController::class, 'join']);
+//Route::post('/join', [App\Http\Controllers\CurlController::class, 'postCurl']);
 
 /**
  *  for role:creator　(メール認証済み)

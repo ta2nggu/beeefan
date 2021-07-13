@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title',' 投稿一覧')
+@section('title',' 登録中タイムライン')
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style_user.css') }}">
     <!-- 21.03.25 김태영, 추가 owl carousel(timeline image slider) 작성 -->
@@ -21,23 +21,25 @@
             <div class="formBox"><button onClick="history.back()" class="back userBack">{{ __('戻る') }}</button></div>
         @endsection
         @slot('header_title')
-            {{ __('投稿') }}
+            {{ __('タイムライン') }}
         @endslot
     @endcomponent
 
     <!--contentWrap-->
     <div id="contentWrap">
 
-    @if(count($tweets)>=1)
-        <ul id="postBox" class="timeline_image post-data">
-            @include('user.t_followingsData')
-        </ul>
-        <div class="ajax-load">
-            <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
-        </div>
-    @else
-        <div class="noDateBox noDateBoxBorder"><p class="noDateText">{{ __('投稿がありません') }}</p></div>
-    @endif
+        @if(count($tweets)>=1)
+            <ul id="postBox" class="timeline_image post-data">
+                @include('user.t_followingsData')
+            </ul>
+            <div class="ajax-load">
+                <div class="loadingIcon"><img src="{{ asset('storage/icon/loading.gif') }}" alt="{{ __('データを持ってきています。') }}"></div>
+            </div>
+        @else
+            <div class="noDateBox noDateBoxBorder"><p class="noDateText">{{ __('投稿がありません') }}</p></div>
+        @endif
 
+        @component ('components.bottomFixed')
+        @endcomponent
     </div><!--/contentWrap-->
 @endsection

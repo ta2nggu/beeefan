@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Creator;
 use App\Models\Image;
-use App\Models\tweet;
+use App\Models\Tweet;
 use App\Models\Tweet_image;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -58,7 +58,7 @@ class CreatorController extends Controller
             $view = view('creator.indexData', compact( 'user', 'tweets'))->render();
             return response()->json(['html'=>$view]);
         }
-
+        $creator_id = $this->user->id;
         return view('creator.index', [
             'user' => $user,
             'tweets' => $tweets

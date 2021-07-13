@@ -7,6 +7,7 @@
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/supervisord.log" beforeDir="false" afterPath="$PROJECT_DIR$/supervisord.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/adminReg.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/adminReg.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,10 +186,14 @@
       <updated>1625644705192</updated>
       <workItem from="1625644708024" duration="1565000" />
       <workItem from="1625752968661" duration="6444000" />
+<<<<<<< HEAD
       <workItem from="1625890003944" duration="6542000" />
       <workItem from="1626011670213" duration="8866000" />
       <workItem from="1626100681661" duration="8914000" />
       <workItem from="1626179332780" duration="3149000" />
+=======
+      <workItem from="1625890003944" duration="36466000" />
+>>>>>>> e4883a91aa6ebf5f64408ce297ab1ffafac30f49
     </task>
     <servers />
   </component>

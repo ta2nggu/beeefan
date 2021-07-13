@@ -78,7 +78,7 @@
 
             <ul class="btnBox">
                 <li><button type="submit" class="btn btnAd submitBtn">{{ __('運営者を登録する') }}</button></li>
-                <li><button onClick="history.back()" class="btn btnBor btnBorGy">{{ __('登録せずに戻る') }}</button></li>
+                <li><a href="{{url('/admin/admins/list')}}" class="btn btnBor btnBorGy">{{ __('登録せずに戻る') }}</a></li>
             </ul>
 
         </form>

@@ -145,6 +145,9 @@ Route::middleware('verified')->group(function () {
     Route::get('/admin/creator-{admin}', [App\Http\Controllers\AdminController::class, 'creatorDetail'])->name('AdminCreatorDetail');
     Route::post('/creator/visible', [App\Http\Controllers\AdminController::class, 'updateCreatorVisible']);
     Route::post('/creator/del', [App\Http\Controllers\AdminController::class, 'deleteCreator']);
+
+    //21.07.13 김태영, save stripe payment method
+    Route::post('/stripe/savePaymentMethod', [App\Http\Controllers\SubscriptionController::class, 'paymentMethod_store']);
 });
 
 /**

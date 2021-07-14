@@ -233,6 +233,12 @@
     p{
         margin-top: 10px;
         line-height: 1.8;
+        &.redBox{
+            background-color: $color_c_bk;
+            color: $color_c;
+            padding: 20px 5%;
+            margin-top: 40px;
+        }
     }
     dt,dd {
         padding-top: 14px;

@@ -37,10 +37,13 @@ Route::get('/page/help', [App\Http\Controllers\PagesController::class, 'pageHelp
 //21.05.12 kondo, beeefan account remove（ユーザーのみアカウント削除）
 Route::get('/remove', [App\Http\Controllers\UserController::class, 'removeAccount'])->name('removeAccount.show');
 Route::post('/remove', [App\Http\Controllers\UserController::class, 'removeAccountForm'])->name('removeAccount.post');
+Route::get('/exit', [App\Http\Controllers\UserController::class, 'accountExit'])->name('exit.show');
 
 //21.05.17 kondo, error page
 Route::get('error/{code}', function ($code) { abort($code); });
 Route::get('error', [App\Http\Controllers\PagesController::class, 'errorShow'])->name('error.show');
+Route::get('/error_invalid', [App\Http\Controllers\PagesController::class, 'accountInvalid'])->name('accountInvalid.show');
+Route::post('/error_invalid', [App\Http\Controllers\PagesController::class, 'accountInvalidPost'])->name('accountInvalid.post'); //無効アカウント削除
 
 /**
  *  for accountUser　(ユーザー：仮登録)
@@ -48,6 +51,8 @@ Route::get('error', [App\Http\Controllers\PagesController::class, 'errorShow'])-
  */
 Route::get('/register/pre_registered', [App\Http\Controllers\Auth\RegisterController::class, 'preRegistered'])->name('preRegistered.show'); //仮登録完了
 Route::get('/register/{email_token}', [App\Http\Controllers\Auth\RegisterController::class, 'registerPayment'])->name('registerPayment.show'); //決済選択
+Route::post('/register/paymentSelect', [App\Http\Controllers\Auth\RegisterController::class, 'registerPaymentSelect'])->name('registerPaymentSelect'); //決済方法登録登録
+Route::get('/register/credit_card', [App\Http\Controllers\Auth\RegisterController::class, 'registerCard'])->name('registerCard.show'); //カード情報入力画面
 Route::post('/register/NoSelect', [App\Http\Controllers\Auth\RegisterController::class, 'registerPaymentNoSelect'])->name('registerPaymentNoSelect'); //あとで登録
 
 /**

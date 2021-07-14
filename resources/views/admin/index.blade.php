@@ -62,7 +62,7 @@
 
         <div class="formBox normalFormBox">
             <div class="searchBox">
-                <input id="search_creator_input" type="text" placeholder="クリエイター名で検索する。">
+                <input id="search_creator_input" type="text" placeholder="{{__('クリエイター名で検索する')}}">
                 <input type="image" src="{{ asset('storage/icon/icon_search.png') }}">
             </div>
             <div class="selectBox">

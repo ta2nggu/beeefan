@@ -163,21 +163,40 @@ class RegisterController extends Controller
 
             if ($user->save()) {
                 $fc_id=$request->fc_id;
+                //210714 kondo, 選択ページありでカード情報は別ページに
+                return view('payment/select', compact('email_token','user','fc_id'));
+
                 //21.07.11 김태영, save a payment method
                 //stripe로 확정
                 //au, softbank.. 통신사 결제 없음
                 //return view('payment/select', compact('email_token','user','fc_id'));
-
-                //21.07.11 김태영, make a customer
-                //stripe id = customer id
-                $stripeCustomer = $user->createOrGetStripeCustomer();
-                return view('payment/update-payment-method', [
-                    'intent' => $user->createSetupIntent()
-                ]);
             } else {
                 return redirect(route('error.show'))->with('flash_message', "メール認証に失敗しました。\n再度、メールからリンクをクリックしてください。");
             }
         }
+    }
+    // 決済方法選択
+    public function registerPaymentSelect(Request $request){
+        $user_id = $request->user_id;
+        $payment_select = $request->payment_select;
+        //カードの時
+        if ($payment_select == 'credit_card') {
+            $fc_id = $request->fc_id;
+            dd('stripe画面へ');
+            return redirect(url('/register/credit_card?user_id='. $user_id .'&fc_id=' . $fc_id));
+        }
+        return redirect('/')->with('flash_message', "会員登録に失敗しました。\n再度、メールからリンクをクリックしてください。");
+    }
+    //210714 kondo, stripeページ表示
+    public function registerCard(Request $request){
+        dd('test');
+        $user = User::find($request->user_id);
+        //21.07.11 김태영, make a customer
+        //stripe id = customer id
+        $stripeCustomer = $user->createOrGetStripeCustomer();
+        return view('payment/update-payment-method', [
+            'intent' => $user->createSetupIntent()
+        ]);
     }
     // 決済方法登録せずに会員登録
     public function registerPaymentNoSelect(Request $request){

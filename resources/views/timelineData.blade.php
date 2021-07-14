@@ -128,7 +128,7 @@ function time_ago($sec) {
                                 <p>このコンテンツを観るには<br>ファンクラブへの入会が必要です。</p>
                                 <ul class="btnBox">
                                     <li><a href="../../{{ $creator[0]->account_id }}{{ __('/join') }}" class="btn">入会する</a></li>
-                                    <li><a href="{{ url('/home') }}" class="btn">ログイン</a></li>
+                                    <li><a href="{{ url('/home') }}" class="btn">ログインする</a></li>
                                 </ul>
                                 <p><a href="" target="_blank">支払い方法について</a></p>
                             </div>

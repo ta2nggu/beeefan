@@ -4,7 +4,7 @@
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
-@section('body','')
+@section('body','view1')
 
 @section('content')
 
@@ -23,37 +23,43 @@
                     <li></li>
                 </ol>
             </div>
-            <form method="POST" action="{{ __('') }}" class="formBox normalFormBox">
+            <form method="POST" action="{{ route('registerPaymentSelect') }}" class="formBox normalFormBox">
                 @csrf
                 <ul id="paymentSlectBox">
                     <li>
-                        <input type="radio" id="credit_card" value="{{ __("クレジットカード") }}" name="payment_select" class="">
+                        <input type="radio" id="credit_card" value="{{ __("credit_card") }}" name="payment_select" class="">
                         <label for="credit_card">
                             <span class="ttl">{{ __("クレジットカード") }}</span>
                         </label>
                     </li>
-                    <li>
-                        <input type="radio" id="softbank" value="{{ __("softbank決済") }}" name="payment_select" class="">
-                        <label for="softbank">
-                            <span class="ttl">{{ __("softbank決済") }}</span>
-                            <span class="txt">{{ __("テキストが入りますテキストが入ります") }}</span>
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio" id="docomo" value="{{ __("docomo決済") }}" name="payment_select" class="">
-                        <label for="docomo">
-                            <span class="ttl">{{ __("docomo決済") }}</span>
-                            <span class="txt">{{ __("テキストが入りますテキストが入ります") }}</span>
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio" id="au" value="{{ __("au決済") }}" name="payment_select" class="">
-                        <label for="au">
-                            <span class="ttl">{{ __("au決済") }}</span>
-                            <span class="txt">{{ __("テキストが入りますテキストが入ります") }}</span>
-                        </label>
-                    </li>
+{{--                    <li>--}}
+{{--                        <input type="radio" id="softbank" value="{{ __("softbank決済") }}" name="payment_select" class="">--}}
+{{--                        <label for="softbank">--}}
+{{--                            <span class="ttl">{{ __("softbank決済") }}</span>--}}
+{{--                            <span class="txt">{{ __("テキストが入りますテキストが入ります") }}</span>--}}
+{{--                        </label>--}}
+{{--                    </li>--}}
+{{--                    <li>--}}
+{{--                        <input type="radio" id="docomo" value="{{ __("docomo決済") }}" name="payment_select" class="">--}}
+{{--                        <label for="docomo">--}}
+{{--                            <span class="ttl">{{ __("docomo決済") }}</span>--}}
+{{--                            <span class="txt">{{ __("テキストが入りますテキストが入ります") }}</span>--}}
+{{--                        </label>--}}
+{{--                    </li>--}}
+{{--                    <li>--}}
+{{--                        <input type="radio" id="au" value="{{ __("au決済") }}" name="payment_select" class="">--}}
+{{--                        <label for="au">--}}
+{{--                            <span class="ttl">{{ __("au決済") }}</span>--}}
+{{--                            <span class="txt">{{ __("テキストが入りますテキストが入ります") }}</span>--}}
+{{--                        </label>--}}
+{{--                    </li>--}}
                 </ul>
+                <input name="user_id" type="hidden" value="{{ $user->id }}">
+                @isset($fc_id)
+                    <input name="fc_id" type="hidden" value="{{ $fc_id }}">
+                @else
+                    <input name="fc_id" type="hidden" value="0">
+                @endisset
                 <div class="btnBox" style="margin-bottom: 10px">
                     <div><button type="submit" class="btn btnBl">{{ __("登録") }}</button></div>
                 </div>

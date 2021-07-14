@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
 use Auth;
+use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -31,5 +33,16 @@ class PagesController extends Controller
     // エラー
     public function errorShow(){
         return view('errors/error');
+    }
+
+    // エラー（アカウント無効化画面）
+    public function accountInvalid(){
+        return view('errors/accountInvalid');
+    }
+    // エラー（アカウント無効化画面）アカウント削除
+    public function accountInvalidPost(Request $request){
+        $user = User::find($request->user_id);
+        $user->delete();
+        return redirect(url('/register'));
     }
 }

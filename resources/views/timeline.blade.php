@@ -68,7 +68,7 @@
                             @if($follow === 0)
                                 <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
                             @else
-                                <span class="btnCircle line2">{{ __('入会中です') }}</span>
+                                <span class="btnCircle">{{ __('入会中です') }}</span>
                             @endif
                         @else
                         <span class="btnCircle line2">{!! 'このアカウントでは<br>入会できません' !!}</span>

@@ -38,11 +38,9 @@ class VerificationController extends Controller
             if($difference > 1){
                 $user->status = config('const.USER_STATUS.INVALID');
                 if ($user->save()) {
-                    Auth::logout($user);
-                    return redirect(route('error.show'))->with('flash_message', "仮登録が無効になりました。\n再度、新規登録からやり直してください。");
+                    return redirect(route('accountInvalid.show'));
                 } else {
-                    Auth::logout($user);
-                    return redirect(route('error.show'))->with('flash_message', "エラーが発生しました。\n再度、新規登録からやり直してください。");
+                    return redirect(route('accountInvalid.show'));
                 }
             }
             Auth::logout($user);

@@ -1768,6 +1768,12 @@ button.btn:not(.btnBor) {
   margin-top: 10px;
   line-height: 1.8;
 }
+.helpBox p.redBox {
+  background-color: #faf0ef;
+  color: #b15a68;
+  padding: 20px 5%;
+  margin-top: 40px;
+}
 .helpBox dt, .helpBox dd {
   padding-top: 14px;
   padding-bottom: 14px;

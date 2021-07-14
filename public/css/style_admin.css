@@ -1558,6 +1558,11 @@ button.btn:not(.btnBor) {
   margin-right: auto;
   margin: 20px auto;
 }
+.admin #search_creator_input, .admin #search_creator_select {
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 50px;
+}
 .admin #fanclubList li .iconBox:before {
   background-image: url("/storage/icon/icon_right-circle.png");
 }

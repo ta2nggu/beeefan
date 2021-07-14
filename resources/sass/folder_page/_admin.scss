@@ -35,6 +35,11 @@
         @include wrap_inner;
         margin: $mg auto;
     }
+    #search_creator_input,#search_creator_select{
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 50px;
+    }
     #fanclubList li{
         .iconBox:before{
             background-image: url("/storage/icon/icon_right-circle.png");

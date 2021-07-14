@@ -542,11 +542,15 @@ class UserController extends Controller
     public function removeAccountForm(Request $request){
         $follow = Following::where('user_id','=',$request->user_id)->first();
         if($follow){
-            return redirect(url('/page/remove'))->with('flash_message',"入会中のファンクラブがあります。\n当サイトの退会前に各ファンクラブの退会手続きを行ってください。");
+            return redirect(url('/remove'))->with('flash_message',"入会中のファンクラブがあります。\n当サイトの退会前にマイページから各ファンクラブの退会手続きを行ってください。");
         }
         $user = User::find($request->user_id);
         $user->delete();
-        return redirect(url('/'))->with('flash_message',"退会が完了しました。\nご利用いただき誠にありがとうございました。");
+        return redirect(route('exit.show'));
+    }
+//    accountExit view
+    public function accountExit(){
+        return view('exit');
     }
 }
 

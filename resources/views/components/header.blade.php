@@ -3,7 +3,15 @@
     @if(isset( $header_title ))
         <h1 class="txtTitle">{{$header_title}}</h1>
     @else
-        <p class="logo"><a href="{{ url('/') }}"><img src="{{ asset('storage/common/logo.png') }}" alt="{{ config('app.name') }}"></a></p>
+        <p class="logo">
+            @auth
+                <a href="{{ route('home') }}">
+            @else
+                <a href="{{ route('top') }}">
+            @endauth
+                <img src="{{ asset('storage/common/logo.png') }}" alt="{{ config('app.name') }}">
+            </a>
+        </p>
     @endif
 
     <ul class="nav">

@@ -1561,10 +1561,12 @@ button.btn:not(.btnBor) {
 #profileEditImg label:after {
   content: "";
   display: block;
-  width: 34px;
-  height: 34px;
-  background: url("/images/icon_camera.png") no-repeat center/cover;
+  width: 40px;
+  height: 40px;
+  background: url("/storage/icon/icon_camera.png") no-repeat center/50% #b15a68;
   position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
 }
 #profileEditImg img {
   display: block;
@@ -1595,9 +1597,9 @@ button.btn:not(.btnBor) {
   overflow: hidden;
 }
 #profileEditImg .profile_img label:after {
-  top: 50%;
+  bottom: 5%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 }
 
 .profileEdit .normalFormBox {

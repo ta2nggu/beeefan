@@ -734,6 +734,7 @@ export default {
 }
 .dropzone .dz-preview img {
     width: 100%;
+    filter: none !important;
 }
 .dropzone .dz-preview .btnPrivate {
     cursor: pointer;
@@ -755,11 +756,12 @@ export default {
 .dropzone .dz-preview .dz-remove {
     display: block;
     cursor: pointer;
-    opacity: 1;
+    opacity: 1 !important;
     font-size: 0;
     position: absolute;
     bottom: -50px;
     right: 0;
+    top: auto;
     border: none;
     width: 20%;
     height: 36px;
@@ -830,7 +832,7 @@ export default {
 }
 /*modal*/
 .modal .modalInner{
-    height: 100vh;
+    height: 100%;
     width: 100%;
     display:-webkit-box;
     display:-ms-flexbox;
@@ -850,6 +852,11 @@ export default {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    width: 90%;
+    z-index: 1;
 }
 .modal .modalInner li{
     width: 49%;

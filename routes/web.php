@@ -1,4 +1,4 @@
-<?php
+/creator/setting<?php
 
 use Illuminate\Support\Facades\Route;
 

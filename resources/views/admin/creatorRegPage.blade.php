@@ -77,7 +77,7 @@
             </dl>
             <!--Password-->
             <dl>
-                <dt><label for="password">{{ __('パスワード') }}</label><span class="required">{{ __('必須') }}</span></dt>
+                <dt><label for="password">{{ __('パスワード') }}</label><span class="required">{{ __('必須') }}</span><span class="att">{{ __('※8文字以上でご記入ください') }}</span></dt>
                 <dd>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                     @error('password')
@@ -98,7 +98,7 @@
             <dl>
                 <dt><label for="month_price">{{ __('月額') }}</label><span class="required">{{ __('必須') }}</span><span class="att">{{ __('※月額設定後、変更できるのは運営管理者のみです。') }}</span></dt>
                 <dd>
-                    <div class="monthly_priceBox"><input type="number" class="form-control @error('month_price') is-invalid @enderror"  name="month_price" value="{{ old('month_price', 0) }}" required autocomplete="month_price" autofocus></div>
+                    <div class="monthly_priceBox"><input type="number" class="form-control @error('month_price') is-invalid @enderror"  name="month_price" value="{{ old('month_price') }}" required autocomplete="month_price" autofocus></div>
                     @error('month_price')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

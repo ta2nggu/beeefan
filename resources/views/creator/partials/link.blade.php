@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <p class="titleText">{{ __('リンクを張る') }}</p>
+                <p class="titleText">{{ __('リンクを貼る') }}</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,7 +14,7 @@
                 </dl>
                 <dl>
                     <dt>{{ __('URL') }}</dt>
-                    <dd><input id="display_text" name="display_text" type="text" placeholder="{{ __('https://') }}"></dd>
+                    <dd><input id="url" name="url" type="text" placeholder="{{ __('https://') }}"></dd>
                 </dl>
             </div>
             <ul class="btnBox modal-footer">

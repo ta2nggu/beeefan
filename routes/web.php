@@ -43,7 +43,7 @@ Route::get('/exit', [App\Http\Controllers\UserController::class, 'accountExit'])
 Route::get('error/{code}', function ($code) { abort($code); });
 Route::get('error', [App\Http\Controllers\PagesController::class, 'errorShow'])->name('error.show');
 Route::get('/error_invalid', [App\Http\Controllers\PagesController::class, 'accountInvalid'])->name('accountInvalid.show');
-Route::post('/error_invalid', [App\Http\Controllers\PagesController::class, 'accountInvalidPost'])->name('accountInvalid.post'); //無効アカウント削除
+Route::post('/error_invalid_post', [App\Http\Controllers\PagesController::class, 'accountInvalidPost'])->name('accountInvalid.post'); //無効アカウント削除
 
 /**
  *  for accountUser　(ユーザー：仮登録)

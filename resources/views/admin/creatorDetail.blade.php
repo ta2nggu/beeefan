@@ -119,7 +119,7 @@
             </dl>
             <dl>
                 <dt>{{__('アカウントID')}}</dt>
-                <dd>{{ $creator[0]->email }}</dd>
+                <dd>{{ $creator[0]->account_id }}</dd>
             </dl>
             <dl>
                 <dt>{{__('名前')}}</dt>

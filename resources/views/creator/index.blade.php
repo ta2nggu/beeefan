@@ -50,10 +50,17 @@
                     <dt>{{__('総売上額')}}</dt>
                     @php
                         $day = new DateTime($user[0]->created_at);
+                        $yesterday = new DateTime('-1 day');
                     @endphp
-                    <dd>0
+                    <dd>{{__('0')}}
 {{--                        21.04.29 kondo, 登録日から昨日までの日付（当日までいけるか確認）--}}
-                        <span class="period">{{__('('.$day->format('Y/m/d').'〜'.date('Y/m/d',strtotime('-1 day')) .')') }}</span>
+                        <span class="period">
+                            {{__('(')}}
+                            @if($day < $yesterday)
+                                {{__($day->format('Y/m/d').' ')}}
+                            @endif
+                            {{__('〜 '.$yesterday->format('Y/m/d') .')') }}
+                        </span>
                     </dd>
                 </dl>
             </div>

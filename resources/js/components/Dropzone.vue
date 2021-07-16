@@ -590,7 +590,7 @@ export default {
                     var newFile;
                     resizeImage({
                         file: dataURItoBlob(blob),
-                        maxSize: 480
+                        maxSize: 640//480
                     }).then(function (resizedImage) {
                         reader.onload = function (e) {
                             newFile = resizedImage;

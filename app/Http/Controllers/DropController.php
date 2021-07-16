@@ -41,7 +41,7 @@ class DropController extends Controller
                     $mTweet->visible = $request->visible;
                     $mTweet->file_cnt = $request->file_cnt;
                     $mTweet->include_video = $request->include_video;
-                    $mTweet->main_img = explode("/", $image->getClientMimeType())[0] === "video" ? explode(".", $image->getClientOriginalName())[0].'.mp4' : $request->main_img;;
+                    $mTweet->main_img = explode("/", $image->getClientMimeType())[0] === "video" ? explode(".", $image->getClientOriginalName())[0].'.mp4' : $request->main_img;
                     $mTweet->main_img_mime_type = $request->main_img_mime_type;
                     $mTweet->main_img_idx = $request->main_img_idx;
                     $mTweet->save();
@@ -59,7 +59,11 @@ class DropController extends Controller
                     }
                     $frame->save(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').$thumbnail);
 
-                    $video->save(new \FFMpeg\Format\Video\X264(), storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').explode(".", $image->getClientOriginalName())[0].'.mp4');
+//                    $video->save(new \FFMpeg\Format\Video\X264(), storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').explode(".", $image->getClientOriginalName())[0].'.mp4');
+                    $clip = $video->clip(\FFMpeg\Coordinate\TimeCode::fromSeconds(0), \FFMpeg\Coordinate\TimeCode::fromSeconds(10));
+//                    $clip->filters()->resize(new \FFMpeg\Coordinate\Dimension(320, 240), \FFMpeg\Filters\Video\ResizeFilter::RESIZEMODE_INSET, true);
+                    $clip->save(new \FFMpeg\Format\Video\X264(),storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').explode(".", $image->getClientOriginalName())[0].'.mp4');
+
                 }
                 else {
                     $image->move(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'), $imageName);

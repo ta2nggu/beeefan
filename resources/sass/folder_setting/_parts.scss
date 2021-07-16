@@ -405,10 +405,7 @@ button.btn {
     padding-bottom: 18%;
     .imgbox{
         position: relative;
-        background: no-repeat center/cover;
-        padding-top: 46%;
-        background-color: $color_c_bk;
-        div{
+        .thumbnail{
             position: absolute;
             bottom: 0;
             left: 50%;
@@ -431,7 +428,6 @@ button.btn {
     &.profileHeaderNoBk{
         padding-bottom: 0;
         .imgbox {
-            background-color: transparent;
             padding-top: 30px;
             div {
                 position: relative;

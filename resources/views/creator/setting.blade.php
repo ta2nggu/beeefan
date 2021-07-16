@@ -30,9 +30,9 @@
                 <div class="background_img">
                     <label for="input_background_img" >
                         @if (isset($user[0]->background_img))
-                            <img id="preview_background_img" src="{{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }}" alt="">
+                            <img id="preview_background_img" src="{{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }}" alt="{{ $user[0]->nickname }}">
                         @else
-                            <img id="preview_background_img" src="{{ asset('storage/icon/no_images_c_bk.png') }}" alt=""></img>
+                            <img id="preview_background_img" src="{{ asset('storage/icon/no_images_c_bk.gif') }}" alt="{{ $user[0]->nickname }}">
                         @endif
                     </label>
                     <input id="input_background_img" name="background_img" type="file"/>
@@ -44,9 +44,9 @@
                 <div class="profile_img">
                     <label for="input_profile_img">
                         @if (isset($user[0]->profile_img))
-                            <img id="preview_profile_img" src="{{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->profile_img) }}" alt="">
+                            <img id="preview_profile_img" src="{{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->profile_img) }}" alt="{{ $user[0]->nickname }}">
                         @else
-                            <img id="preview_profile_img" src="{{ asset('storage/icon/no_images_c.png') }}" alt="">
+                            <img id="preview_profile_img" src="{{ asset('storage/icon/no_images_c.png') }}" alt="{{ $user[0]->nickname }}">
                         @endif
                     </label>
                     <input id="input_profile_img" name="profile_img" type="file"/>

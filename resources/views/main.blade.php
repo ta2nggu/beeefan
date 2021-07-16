@@ -17,11 +17,12 @@
     <!--contentWrap-->
     <div id="contentWrap">
         <div id="profileHeader">
-            @if (isset($creator[0]->background_img))
-                <div class="imgbox" style="background-image: url({{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }})">
-            @else
-                <div class="imgbox">
-            @endif
+            <div class="imgbox">
+                @if (isset($creator[0]->background_img))
+                    <div class="bkImg"><img src="{{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->background_img) }}" alt="{{ $creator[0]->nickname }}"></div>
+                @else
+                    <div class="bkImg"><img src="{{ asset('storage/icon/no_images_c_bk.gif') }}" alt="{{ $creator[0]->nickname }}"></div>
+                @endif
                 @if (isset($creator[0]->profile_img))
                     <div class="thumbnail"><img src="{{ asset('storage/images/'.$creator[0]->user_id.'/'.$creator[0]->profile_img) }}" alt="{{ $creator[0]->nickname }}"></div>
                 @else

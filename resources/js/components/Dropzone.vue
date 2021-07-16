@@ -391,6 +391,7 @@ export default {
                     divRemove.style.opacity = 1;
                 });
 
+                dropzone.hiddenFileInput.removeAttribute("multiple");
             }
             //투고편집
             else {

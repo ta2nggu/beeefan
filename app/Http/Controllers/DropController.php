@@ -53,6 +53,9 @@ class DropController extends Controller
                     $video = $this->ffmpeg->open($image);
                     $frame = $video->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds(0));
                     $frame->addFilter(new \FFMpeg\Filters\Frame\CustomFrameFilter('scale=640x640'));
+                    if (!is_dir(storage_path('app/public/images/'.$request->id.'/'))) {
+                        mkdir(storage_path('app/public/images/'.$request->id.'/'));
+                    }
                     if (!is_dir(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'))) {
                         //mkdir($path, 0777, true);
                         mkdir(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'));

@@ -222,7 +222,7 @@ class UserController extends Controller
 
     public function timeline_followings(Request $request) {
         $tweets = DB::table('followings', 'f')
-            ->select(DB::raw("users.last_name, users.first_name, users.account_id, creators.user_id as creator_id, creators.profile_img, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->select(DB::raw("users.last_name, users.first_name, users.account_id, creators.user_id as creator_id, creators.profile_img, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweets.main_img, '.', 1), '.jpeg') AS thumb_path, main_img_mime_type AS mime_type"))
             ->join('tweets', 'tweets.user_id', '=', 'f.creator_id')
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
@@ -234,7 +234,7 @@ class UserController extends Controller
         $tweet_images = new \Illuminate\Support\Collection;
         foreach ($tweets as $tweet) {
             $loop = DB::table('tweets', 'tweets')
-                ->select(DB::raw("tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path"))
+                ->select(DB::raw("tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweet_images.mime_type, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweet_images.name, '.', 1), '.jpeg') AS thumb_path"))
                 ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
                 ->where('tweets.id', $tweet->id)
                 ->where('tweet_images.idx','<>', $tweet->main_img_idx)//무료공개 = main image는 이미 tweet 정보 가져올 때 가져옴, main image 제외하고 조회
@@ -244,6 +244,8 @@ class UserController extends Controller
 
             $tweet_images = $tweet_images->merge($loop);
         }
+
+//        dd($tweets);
 
         if ($request->ajax()) {
             $view = view('user.t_followingsData', compact('tweets', 'tweet_images'))->render();

@@ -1,6 +1,5 @@
 <template>
 <div>
-<!--    <textarea v-model="msg" placeholder="メッセージを入力してください"></textarea>-->
     <p class="infoTxt">投稿後に画像の変更・並び替えはできません。</p>
     <vue-dropzone
         ref="myVueDropzone"
@@ -153,13 +152,9 @@ export default {
         //파일 선택 시 다중 선택 막기
         dropzone.hiddenFileInput.removeAttribute("multiple");
 
-        //재정렬 drag and drop 사용
-        $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
-        // $(document).ready(function() {
-        //     //div list
-        //     // $('#dropzone').sortable({container: '#dropzone', nodes: ':not(#dropzone, .more)'});
-        //     $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
-        // });
+        //21.07.16 김태영, drag and drop 제거
+        // //재정렬 drag and drop 사용
+        // $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
 
         //21.05.01 김태영, 편집하기
         if (typeof this.tweet_images != "undefined") {
@@ -175,20 +170,6 @@ export default {
 
             var _i, _len;
             for (_i = 0, _len = this.tweet_images.length; _i < _len; _i++) {
-                //var lastModified = Date.now();
-                //var mockFile = { name: this.tweet_images[_i].name, private : this.tweet_images[_i].private, status: "queued", size: 0, type:this.tweet_images[_i].mime_type, upload: {chunked: false}, lastModified :lastModified, lastModifiedDate:new Date(lastModified) }
-                //var mockFile = new File({ name: this.tweet_images[_i].name, private : this.tweet_images[_i].private, status: "queued", size: 0, type:this.tweet_images[_i].mime_type, upload: {chunked: false}});
-
-                // dropzone.options.addedfile.call(dropzone, mockFile);
-                // dropzone.options.thumbnail.call(dropzone, mockFile, this.tweet_images[_i].path);
-                // dropzone.options.complete.call(dropzone, mockFile);
-
-                // dropzone.emit("addedfile", mockFile);
-                // dropzone.emit("thumbnail", mockFile, this.tweet_images[_i].path);
-                // dropzone.emit("complete", mockFile);
-                // dropzone.files.push(mockFile);
-                //console.log(dropzone);
-
                 var myBlob;
                 var GetFileBlobUsingURL = function (url, convertBlob) {
                     var xhr = new XMLHttpRequest();
@@ -342,54 +323,36 @@ export default {
 
                 file.previewElement.querySelector('.dz-remove').innerHTML = '&#128465';
 
-                //21.03.18 김태영, 파일 지우기, 공개여부 선택에 마우스 위로 올라올 경우 drop n drag 기능 제거
-                var divRemove = file.previewElement.querySelector('.dz-remove');
-                divRemove.addEventListener('mouseover', function (e) {
-                    e.preventDefault(); // click이벤트 외의 이벤트 막기위해
-                    e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
-
-                    $('#dropzone').sortable('destroy');
-                });
-
-                //21.03.19 김태영, 모바일 touchstart 테스트
-                // function handleStart(evt) {
-                //     console.log('a');
-                // }
-
-                // divRemove.addEventListener("touchstart", handleStart, {passive: true});
-                // var clickEvent = (function() {
-                //     if ('ontouchstart' in document.documentElement === true) {
-                //         console.log('bbb');
-                //         return 'touchstart';
-                //     } else {
-                //         console.log('ccc');
-                //         return 'click';
-                //     }
-                // })();
+                //21.07.16 김태영, drag and drop 제거
+                // //21.03.18 김태영, 파일 지우기, 공개여부 선택에 마우스 위로 올라올 경우 drop n drag 기능 제거
+                // var divRemove = file.previewElement.querySelector('.dz-remove');
+                // divRemove.addEventListener('mouseover', function (e) {
+                //     e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                //     e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
                 //
-                // divRemove.addEventListener(clickEvent,function(){
-                //     console.log('aaa');
+                //     $('#dropzone').sortable('destroy');
                 // });
-                btnPrivate.addEventListener('mouseover', function (e) {
-                    e.preventDefault(); // click이벤트 외의 이벤트 막기위해
-                    e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
-
-                    $('#dropzone').sortable('destroy');
-                });
-                var divPreview = file.previewElement.querySelector('.dz-details');
-                divPreview.addEventListener('mouseover', function (e) {
-                    e.preventDefault(); // click이벤트 외의 이벤트 막기위해
-                    e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
-
-                    $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
-                    divRemove.style.opacity = 0;
-                });
-                divPreview.addEventListener('mouseout', function (e) {
-                    e.preventDefault(); // click이벤트 외의 이벤트 막기위해
-                    e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
-
-                    divRemove.style.opacity = 1;
-                });
+                //
+                // btnPrivate.addEventListener('mouseover', function (e) {
+                //     e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                //     e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+                //
+                //     $('#dropzone').sortable('destroy');
+                // });
+                // var divPreview = file.previewElement.querySelector('.dz-details');
+                // divPreview.addEventListener('mouseover', function (e) {
+                //     e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                //     e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+                //
+                //     $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
+                //     divRemove.style.opacity = 0;
+                // });
+                // divPreview.addEventListener('mouseout', function (e) {
+                //     e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                //     e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+                //
+                //     divRemove.style.opacity = 1;
+                // });
 
                 dropzone.hiddenFileInput.removeAttribute("multiple");
             }
@@ -677,16 +640,6 @@ export default {
                     };
                     reader.readAsDataURL(file);
                 });
-                // // set 'cropped to true' (so that we don't get to that listener again)
-                // newFile.cropped = true;
-                // // assign original filename
-                // newFile.name = cachedFilename;
-                //
-                // // add cropped file to dropzone
-                // myDropzone.addFile(newFile);
-                // // upload cropped file with dropzone
-                // // myDropzone.processQueue();
-                // $cropperModal.modal('hide');
             });
             $cancelCrop.on('click', function() {
                 $cropperModal.modal('hide');

@@ -30,20 +30,22 @@ class DropController extends Controller
                 $images = [$images];
             }
 
-            $mTweet = new Tweet();
-            $mTweet->user_id = $request->id;
-            $mTweet->msg = $request->msg;
-            $mTweet->visible = $request->visible;
-            $mTweet->file_cnt = $request->file_cnt;
-            $mTweet->include_video = $request->include_video;
-            $mTweet->main_img = $request->main_img;
-            $mTweet->main_img_mime_type = $request->main_img_mime_type;
-            $mTweet->main_img_idx = $request->main_img_idx;
-            $mTweet->save();
-
             for ($i = 0; $i < count($images); $i++) {
                 $image = $images[$i];
                 $imageName = $image->getClientOriginalName();
+
+                if ($i == 0) {
+                    $mTweet = new Tweet();
+                    $mTweet->user_id = $request->id;
+                    $mTweet->msg = $request->msg;
+                    $mTweet->visible = $request->visible;
+                    $mTweet->file_cnt = $request->file_cnt;
+                    $mTweet->include_video = $request->include_video;
+                    $mTweet->main_img = explode("/", $image->getClientMimeType())[0] === "video" ? explode(".", $image->getClientOriginalName())[0].'.mp4' : $request->main_img;;
+                    $mTweet->main_img_mime_type = $request->main_img_mime_type;
+                    $mTweet->main_img_idx = $request->main_img_idx;
+                    $mTweet->save();
+                }
 
                 //21.07.04 김태영, video thumbnail
                 if (explode("/", $image->getClientMimeType())[0] === "video"){
@@ -56,10 +58,12 @@ class DropController extends Controller
                         mkdir(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'));
                     }
                     $frame->save(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').$thumbnail);
-                }
 
-//            $image->move(storage_path('images/'.$request->id.'/'.$mTweet->id), $imageName);
-                $image->move(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'), $imageName);
+                    $video->save(new \FFMpeg\Format\Video\X264(), storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').explode(".", $image->getClientOriginalName())[0].'.mp4');
+                }
+                else {
+                    $image->move(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'), $imageName);
+                }
 
                 $mImage = new Tweet_image();
                 $mImage->tweet_id = $mTweet->id;

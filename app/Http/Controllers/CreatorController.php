@@ -38,6 +38,11 @@ class CreatorController extends Controller
 //            ->get();
         $user = $this->getCreatorInfoWithUserId($this->user->id);
 
+        $tweets_cnt = DB::table('tweets', 'tweets')
+            ->where('tweets.user_id', $this->user->id)
+            ->where('tweets.visible', 1)
+            ->count('id');
+
         $tweets = DB::table('tweets', 'tweets')
 //            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweets.id, tweet_images.mime_type, A.images_cnt"))
 //            ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
@@ -55,13 +60,14 @@ class CreatorController extends Controller
             ->paginate(15);
 
         if ($request->ajax()) {
-            $view = view('creator.indexData', compact( 'user', 'tweets'))->render();
+            $view = view('creator.indexData', compact( 'user', 'tweets', 'tweets_cnt'))->render();
             return response()->json(['html'=>$view]);
         }
         $creator_id = $this->user->id;
         return view('creator.index', [
             'user' => $user,
-            'tweets' => $tweets
+            'tweets' => $tweets,
+            'tweets_cnt' => $tweets_cnt
         ]);
     }
 

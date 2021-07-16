@@ -328,16 +328,11 @@ class CreatorController extends Controller
     }
 
     public function edit(Request $request) {
-        //$images = Tweet_image::select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
-        $images = tweet::select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) as path, tweet_images.name, tweet_images.idx, tweet_images.private, tweet_images.mime_type, tweets.id as tweet_id, tweet_images.id as tweet_image_id, tweets.msg"))
+        $images = tweet::select(DB::raw("case when SUBSTRING_INDEX(tweet_images.mime_type, '/', 1) = 'video' then CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweet_images.name, '.', 1), '.jpeg') else CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) end as path, tweet_images.name, tweet_images.idx, tweet_images.private, tweet_images.mime_type, tweets.id as tweet_id, tweet_images.id as tweet_image_id, tweets.msg"))
             ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
             ->where('tweets.id', $request->tweet_id)
             ->orderby('idx', 'asc')
             ->get();
-
-//        foreach ($images as $image) {
-//            $image['path'] = storage_path($image['path']);
-//        }
 
         return view('creator.edit', compact('images'));
     }

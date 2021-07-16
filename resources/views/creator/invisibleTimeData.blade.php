@@ -85,7 +85,21 @@ function time_ago($sec) {
         </div>
         <div class="owl-carousel owl-theme">
             <div class="postImgBox">
-                <img src="{{ asset('storage/images/'.$tweet->path) }}" alt="">
+                @if (explode('/', $tweet->mime_type)[0] === 'image')
+                    <img src="{{ asset('storage/images/'.$tweet->path) }}" alt="">
+                @else
+                    {{--                    <video id="my_video_1" class="video-js" width="640px" height="267px"--}}
+                    <video class="video-js vjs-default-skin vjs-big-play-centered" width="640px" height="640px"
+                           controls preload='none'
+                           {{--                           poster='http://video-js.zencoder.com/oceans-clip.jpg'--}}
+                           poster="{{ asset('storage/images/'.$tweet->thumb_path) }}"
+                           {{--                           data-setup='{ "fluid": true, "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>--}}
+                           data-setup='{ "fluid": true, "aspectRatio":"640:640" }'>
+                        {{--                        <source src="{{ secure_asset('storage/images/'.$tweet->path) }}" type='{{$tweet->mime_type}}' />--}}
+                        <source src="{{ URL::asset('storage/images/'.$tweet->path) }}" type='{{$tweet->mime_type}}' />
+                        {{--                        <source src="https://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />--}}
+                    </video>
+                @endif
                 {{--                @if ($tweet->file_cnt > 1)<div class="counter" style="position: absolute; top: 0px; left: 250px; color: white; background-color: rgba(16,16,16,0.5);">{{ __('1 / ') }}{{ $tweet->file_cnt }}</div>@endif--}}
                 @if ($tweet->file_cnt > 1)
                     <div class="counter"></div>
@@ -94,7 +108,16 @@ function time_ago($sec) {
             @foreach($tweet_images as $tweet_image)
                 @if($tweet->id == $tweet_image->tweet_id)
                     <div class="postImgBox">
-                        <img src="{{ asset('storage/images/'.$tweet_image->path) }}" alt="">
+                        @if (explode('/', $tweet_image->mime_type)[0] === 'image')
+                            <img src="{{ asset('storage/images/'.$tweet_image->path) }}" alt="">
+                        @else
+                            <video class="video-js vjs-default-skin vjs-big-play-centered" width="640px" height="640px"
+                                   controls preload='none'
+                                   poster="{{ asset('storage/images/'.$tweet_image->thumb_path) }}"
+                                   data-setup='{ "fluid": true, "aspectRatio":"640:640" }'>
+                                <source src="{{ URL::asset('storage/images/'.$tweet_image->path) }}" type='{{$tweet_image->mime_type}}' />
+                            </video>
+                        @endif
                         @if ($tweet->file_cnt > 1)
                             <div class="counter"></div>
                         @endif

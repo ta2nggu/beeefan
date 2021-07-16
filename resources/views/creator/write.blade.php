@@ -3,7 +3,8 @@
 @section('title',"新規投稿")
 @section('pageCss')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+{{--    21.07.17 김태영, console에 Cannot redefine property: $router 에러 나서 주석 처리--}}
+{{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
     <script src="{{ asset('js/main.js') }}" defer></script>
 @endsection
 @section('body','')

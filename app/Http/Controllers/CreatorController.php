@@ -217,7 +217,7 @@ class CreatorController extends Controller
         $user = $this->getCreatorInfoWithUserId($this->user->id);
 
         $tweets = DB::table('tweets', 'tweets')
-            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt"))
+            ->select(DB::raw("CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, tweets.id, tweets.include_video, tweets.file_cnt, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweets.main_img, '.', 1), '.jpeg') AS thumb_path, SUBSTRING_INDEX(main_img_mime_type, '/', 1) AS main_img_mime_type"))
             ->where('tweets.user_id', $this->user->id)
             ->where('tweets.visible', 0)//0 비공개
             ->orderBy('tweets.id', 'desc')
@@ -246,7 +246,7 @@ class CreatorController extends Controller
         //main tweet
         //nowTweet -> 사용자가 click한 tweet, timeline에서 최상단에 위치
         $nowTweet = DB::table('tweets', 'tweets')
-            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time, tweets.main_img_mime_type as mime_type, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweets.main_img, '.', 1), '.jpeg') AS thumb_path"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
             ->where('users.id', $this->user->id)
@@ -255,7 +255,7 @@ class CreatorController extends Controller
             ->get();
         //otherTweets -> 사용자가 click한 tweet을 제외한 나머지를 등록 역순으로 조회
         $otherTweets = DB::table('tweets', 'tweets')
-            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time"))
+            ->select(DB::raw("users.last_name, users.first_name, creators.nickname, tweets.id, tweets.msg, tweets.file_cnt, tweets.main_img_idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweets.main_img) AS path, TIMESTAMPDIFF(SECOND, release_at, now()) as past_time, tweets.main_img_mime_type as mime_type, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweets.main_img, '.', 1), '.jpeg') AS thumb_path"))
             ->join('users', 'users.id', '=', 'tweets.user_id')
             ->join('creators', 'creators.user_id', '=', 'tweets.user_id')
             ->where('users.id', $this->user->id)
@@ -270,7 +270,7 @@ class CreatorController extends Controller
         $tweet_images = new \Illuminate\Support\Collection;
         foreach ($tweets as $tweet) {
             $loop = DB::table('tweets', 'tweets')
-                ->select(DB::raw("tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path"))
+                ->select(DB::raw("tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweet_images.mime_type, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweet_images.name, '.', 1), '.jpeg') AS thumb_path"))
                 ->join('users', 'users.id', '=', 'tweets.user_id')
                 ->join('tweet_images', 'tweet_images.tweet_id', '=', 'tweets.id')
                 ->where('users.id', $this->user->id)
@@ -294,6 +294,7 @@ class CreatorController extends Controller
     public function delTweet(Request $request) {
         $result = tweet::where('id', $request->tweet_id)->delete();
         if ($result === 1) {
+            Tweet_image::where('tweet_id', $request->tweet_id)->delete();
             File::deleteDirectory(storage_path('app/public/images/'.$request->user_id.'/'.$request->tweet_id));
         }
         return redirect('/creator/invisible');
@@ -304,6 +305,7 @@ class CreatorController extends Controller
         $this->user =  \Auth::user();
         $result = tweet::where('id', $request->tweet_id)->delete();
         if ($result === 1) {
+            Tweet_image::where('tweet_id', $request->tweet_id)->delete();
             File::deleteDirectory(storage_path('app/public/images/'.$request->user_id.'/'.$request->tweet_id));
         }
         $url = '/'.$this->user->account_id.'/p/0';

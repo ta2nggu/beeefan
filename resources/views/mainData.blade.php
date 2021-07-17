@@ -26,14 +26,14 @@
             <li class="postSingle">
         @endif
     @else
-    <li class="postVideo">
-        @endif
-        <a href="{{__('/'.$value->account_id.'/p/'.$value->id)}}">
-            @if($value->main_img_mime_type === 'video')
-                <img src="{{ asset('storage/images/'.$value->thumb_path) }}" alt="">
-            @else
-                <img src="{{ asset('storage/images/'.$value->path) }}" alt="">
-            @endif
-        </a>
-    </li>
+        <li class="postVideo">
+    @endif
+            <a href="{{__('/'.$value->account_id.'/p/'.$value->id)}}">
+                @if($value->main_img_mime_type === 'video')
+                    <img src="{{ asset('storage/images/'.$value->thumb_path) }}" alt="">
+                @else
+                    <img src="{{ asset('storage/images/'.$value->path) }}" alt="">
+                @endif
+            </a>
+        </li>
 @endforeach

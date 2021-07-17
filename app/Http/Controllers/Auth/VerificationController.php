@@ -54,7 +54,7 @@ class VerificationController extends Controller
                 ? redirect($this->redirectPath())
                 : view('auth.verify',compact('user'));
         }else{
-            return redirect(route('login'))->with('flash_message','メールアドレスの認証が完了しました');
+            return redirect(route('login'));
         }
     }
 

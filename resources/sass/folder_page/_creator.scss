@@ -25,15 +25,7 @@
     }
     label{
         cursor: pointer;
-        display: block;
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: $color_c_bk;
-        &:after{
+        &:after {
             content: "";
             display: block;
             width: 40px;
@@ -44,18 +36,8 @@
             opacity: 0.7;
         }
     }
-    img{
-        display: block;
-        width: 100%;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-    }
     .background_img{
         position: relative;
-        padding-bottom: 46%;
-        overflow: hidden;
         label{
             &:after {
                 bottom: 10px;
@@ -69,7 +51,6 @@
         left: 50%;
         transform: translate(-50%,50%);
         width: 36%;
-        height: 78%;
         border-radius: 50%;
         border: 3px solid $color_c_sub;
         overflow: hidden;
@@ -78,6 +59,8 @@
                 bottom: 5%;
                 left: 50%;
                 transform: translateX(-50%);
+            }
+            img{
             }
         }
     }

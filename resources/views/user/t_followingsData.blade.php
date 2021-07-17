@@ -85,7 +85,16 @@ function time_ago($sec) {
         </div>
         <div class="owl-carousel owl-theme">
             <div class="postImgBox">
-                <img src="{{ asset('storage/images/'.$tweet->path) }}" alt="">
+                @if (explode('/', $tweet->mime_type)[0] === 'image')
+                    <img src="{{ asset('storage/images/'.$tweet->path) }}" alt="">
+                @else
+                    <video class="video-js vjs-default-skin vjs-big-play-centered" width="640px" height="640px"
+                           controls preload='none'
+                           poster="{{ asset('storage/images/'.$tweet->thumb_path) }}"
+                           data-setup='{ "fluid": true, "aspectRatio":"640:640" }'>
+                        <source src="{{ URL::asset('storage/images/'.$tweet->path) }}" type='{{$tweet->mime_type}}' />
+                    </video>
+                @endif
                 @if ($tweet->file_cnt > 1)
                     <div class="counter"></div>
                 @endif
@@ -93,7 +102,16 @@ function time_ago($sec) {
             @foreach($tweet_images as $tweet_image)
                 @if($tweet->id == $tweet_image->tweet_id)
                     <div class="postImgBox">
-                        <img src="{{ asset('storage/images/'.$tweet_image->path) }}" alt="">
+                        @if (explode('/', $tweet_image->mime_type)[0] === 'image')
+                            <img src="{{ asset('storage/images/'.$tweet_image->path) }}" alt="">
+                        @else
+                            <video class="video-js vjs-default-skin vjs-big-play-centered" width="640px" height="640px"
+                                   controls preload='none'
+                                   poster="{{ asset('storage/images/'.$tweet_image->thumb_path) }}"
+                                   data-setup='{ "fluid": true, "aspectRatio":"640:640" }'>
+                                <source src="{{ URL::asset('storage/images/'.$tweet_image->path) }}" type='{{$tweet_image->mime_type}}' />
+                            </video>
+                        @endif
                         @if ($tweet->file_cnt > 1)
                             <div class="counter"></div>
                         @endif

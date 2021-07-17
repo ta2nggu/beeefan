@@ -1,7 +1,6 @@
 <template>
 <div>
-<!--    <textarea v-model="msg" placeholder="メッセージを入力してください"></textarea>-->
-    <p class="infoTxt">投稿後に画像の変更・並び替えはできません。</p>
+    <p class="infoTxt">投稿後に画像の変更・削除・並び替えはできません。<br>動画は10秒までアップロード可能です。</p>
     <vue-dropzone
         ref="myVueDropzone"
         id="dropzone"
@@ -123,7 +122,6 @@ export default {
             disableUploadButton: true,
             imgPrivate: [],
             dropzoneOptions: {
-                // url: 'api/DropUp',
                 //21.03.21 김태영, url 앞에 '/' 없으면 web.php 을 바라보게 됨
                 url: 'api/DropUp',
                 thumbnailWidth: 320,
@@ -153,19 +151,16 @@ export default {
         //파일 선택 시 다중 선택 막기
         dropzone.hiddenFileInput.removeAttribute("multiple");
 
-        //재정렬 drag and drop 사용
-        $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
-        // $(document).ready(function() {
-        //     //div list
-        //     // $('#dropzone').sortable({container: '#dropzone', nodes: ':not(#dropzone, .more)'});
-        //     $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
-        // });
+        //21.07.16 김태영, drag and drop 제거
+        // //재정렬 drag and drop 사용
+        // $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
 
         //21.05.01 김태영, 편집하기
         if (typeof this.tweet_images != "undefined") {
             this.editMode = 1;
 
-            $('#dropzone').sortable('destroy');
+            //21.07.17 김태영, drag and drop 제거 -> destroy 만 있어도 실행 됨
+            // $('#dropzone').sortable('destroy');
 
             this.disableUploadButton = false;
 
@@ -175,20 +170,6 @@ export default {
 
             var _i, _len;
             for (_i = 0, _len = this.tweet_images.length; _i < _len; _i++) {
-                //var lastModified = Date.now();
-                //var mockFile = { name: this.tweet_images[_i].name, private : this.tweet_images[_i].private, status: "queued", size: 0, type:this.tweet_images[_i].mime_type, upload: {chunked: false}, lastModified :lastModified, lastModifiedDate:new Date(lastModified) }
-                //var mockFile = new File({ name: this.tweet_images[_i].name, private : this.tweet_images[_i].private, status: "queued", size: 0, type:this.tweet_images[_i].mime_type, upload: {chunked: false}});
-
-                // dropzone.options.addedfile.call(dropzone, mockFile);
-                // dropzone.options.thumbnail.call(dropzone, mockFile, this.tweet_images[_i].path);
-                // dropzone.options.complete.call(dropzone, mockFile);
-
-                // dropzone.emit("addedfile", mockFile);
-                // dropzone.emit("thumbnail", mockFile, this.tweet_images[_i].path);
-                // dropzone.emit("complete", mockFile);
-                // dropzone.files.push(mockFile);
-                //console.log(dropzone);
-
                 var myBlob;
                 var GetFileBlobUsingURL = function (url, convertBlob) {
                     var xhr = new XMLHttpRequest();
@@ -209,9 +190,8 @@ export default {
                         convertBlob(blobToFile(blob, 'testFile.jpg'));
                     });
                 };
-                var FileURL=this.tweet_images[_i].path;//"test/test.jpg"
+                var FileURL=this.tweet_images[_i].path;
                 GetFileObjectFromURL(FileURL, function (fileObject) {
-                    // console.log(fileObject);
                     myBlob = fileObject;
                 });
                 var myFile = new File([myBlob], this.tweet_images[_i].name);
@@ -253,7 +233,6 @@ export default {
             //21.05.01 김태영, 투고편집
             formData.append('tweet_id', this.tweet_id);
 
-            //var str = file.previewElement.querySelector("#private" + file.name.toString()).value;
             var str = file.previewElement.querySelector("input[name='private']");
             this.imgPrivate.push($(str).val());
             formData.append('private', this.imgPrivate);
@@ -289,7 +268,6 @@ export default {
                 var btnPrivate = document.createElement("div");
                 btnPrivate.id = "btn" + unique_field_id;
                 btnPrivate.className = "btnPrivate"
-                //file.previewElement.querySelector(".dz-details").appendChild(btnPrivate);
                 file.previewElement.appendChild(btnPrivate);
 
                 var inputPrivate = document.createElement("input");
@@ -332,8 +310,6 @@ export default {
                     inputPrivate.value = '1';
                 }
 
-                // this.$refs.myVueDropzone.dropzone.default_configuration.emit("thumbnail", file, "http://path/to/image");
-
                 //21.03.15 김태영, 가이드 + 추가
                 let dropzone = this.$refs.myVueDropzone.dropzone
                 dropzone.files.length > 0
@@ -342,55 +318,38 @@ export default {
 
                 file.previewElement.querySelector('.dz-remove').innerHTML = '&#128465';
 
-                //21.03.18 김태영, 파일 지우기, 공개여부 선택에 마우스 위로 올라올 경우 drop n drag 기능 제거
-                var divRemove = file.previewElement.querySelector('.dz-remove');
-                divRemove.addEventListener('mouseover', function (e) {
-                    e.preventDefault(); // click이벤트 외의 이벤트 막기위해
-                    e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
-
-                    $('#dropzone').sortable('destroy');
-                });
-
-                //21.03.19 김태영, 모바일 touchstart 테스트
-                // function handleStart(evt) {
-                //     console.log('a');
-                // }
-
-                // divRemove.addEventListener("touchstart", handleStart, {passive: true});
-                // var clickEvent = (function() {
-                //     if ('ontouchstart' in document.documentElement === true) {
-                //         console.log('bbb');
-                //         return 'touchstart';
-                //     } else {
-                //         console.log('ccc');
-                //         return 'click';
-                //     }
-                // })();
+                //21.07.16 김태영, drag and drop 제거
+                // //21.03.18 김태영, 파일 지우기, 공개여부 선택에 마우스 위로 올라올 경우 drop n drag 기능 제거
+                // var divRemove = file.previewElement.querySelector('.dz-remove');
+                // divRemove.addEventListener('mouseover', function (e) {
+                //     e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                //     e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
                 //
-                // divRemove.addEventListener(clickEvent,function(){
-                //     console.log('aaa');
+                //     $('#dropzone').sortable('destroy');
                 // });
-                btnPrivate.addEventListener('mouseover', function (e) {
-                    e.preventDefault(); // click이벤트 외의 이벤트 막기위해
-                    e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+                //
+                // btnPrivate.addEventListener('mouseover', function (e) {
+                //     e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                //     e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+                //
+                //     $('#dropzone').sortable('destroy');
+                // });
+                // var divPreview = file.previewElement.querySelector('.dz-details');
+                // divPreview.addEventListener('mouseover', function (e) {
+                //     e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                //     e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+                //
+                //     $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
+                //     divRemove.style.opacity = 0;
+                // });
+                // divPreview.addEventListener('mouseout', function (e) {
+                //     e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+                //     e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
+                //
+                //     divRemove.style.opacity = 1;
+                // });
 
-                    $('#dropzone').sortable('destroy');
-                });
-                var divPreview = file.previewElement.querySelector('.dz-details');
-                divPreview.addEventListener('mouseover', function (e) {
-                    e.preventDefault(); // click이벤트 외의 이벤트 막기위해
-                    e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
-
-                    $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
-                    divRemove.style.opacity = 0;
-                });
-                divPreview.addEventListener('mouseout', function (e) {
-                    e.preventDefault(); // click이벤트 외의 이벤트 막기위해
-                    e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지
-
-                    divRemove.style.opacity = 1;
-                });
-
+                dropzone.hiddenFileInput.removeAttribute("multiple");
             }
             //투고편집
             else {
@@ -457,11 +416,6 @@ export default {
             }
         },
         removedEvent(file, error, xhr) {
-            // var files = this.$refs.myVueDropzone.dropzone.files;
-            // console.log(files);
-            // var myDiv = files[0].previewElement.querySelector(".btnPrivate");
-            // files[0].previewElement.removeChild(myDiv);
-
             //21.03.15 김태영, 가이드 + 추가
             let dropzone = this.$refs.myVueDropzone.dropzone
             dropzone.files.length > 0
@@ -492,11 +446,8 @@ export default {
                     }
                 }
                 if (chk === 0) {
-                // if (chk != 1) {
-                    // alert('전체공개 이미지를 하나 이상 선택해주세요');
                     this.$fire({
                         //title: "Title",
-                        // text: "전체공개 이미지를 하나 이상 선택해주세요",
                         text: "無料公開を1つ選択してください。",
                         type: "error",
                         timer: 3000
@@ -506,21 +457,10 @@ export default {
                     return;
                 }
 
-                //21.03.19 김태영, drag n drop 후 전송 전 재정렬
-                // var filesReorder = this.$refs.myVueDropzone.dropzone.getQueuedFiles();
-                // Sort theme based on the DOM element index
-                files.sort(function (a, b) {
-                    return ($(a.previewElement).index() > $(b.previewElement).index()) ? 1 : -1;
-                })
-                //21.03.21 김태영, removeAllFiles, addFile 기능 필요 없음
-                // // Clear the dropzone queue
-                // this.$refs.myVueDropzone.dropzone.removeAllFiles();
-                // // Add the reordered files to the queue
-                // // this.$refs.myVueDropzone.dropzone.handleFiles(files);
-                // var i = 0;
-                // for(i; i < files.length; i++){
-                //     this.$refs.myVueDropzone.dropzone.addFile(files[i]);
-                // }
+                //21.07.17 김태영, drag & drop 기능 제거로 인해 정렬 필요 없음
+                // files.sort(function (a, b) {
+                //     return ($(a.previewElement).index() > $(b.previewElement).index()) ? 1 : -1;
+                // })
 
                 // 전체공개 이미지 check 반복문에 file remove 버튼 제거 로직이 있었으나 check 통과 후로 변경
                 for (_i = 0, _len = files.length; _i < _len; _i++) {
@@ -546,7 +486,6 @@ export default {
             }
             //투고 편집
             else {
-                // var files = dropzone.querySelectorAll(".inPrivate");
                 var files = this.$refs.myVueDropzone.dropzone.files;
 
                 var _i, _len, chk = 0;
@@ -559,11 +498,7 @@ export default {
                 }
 
                 if (chk === 0) {
-                // if (chk != 1) {
-                    // alert('전체공개 이미지를 하나 이상 선택해주세요');
                     this.$fire({
-                        //title: "Title",
-                        // text: "전체공개 이미지를 하나 이상 선택해주세요",
                         text: "無料公開を1つ選択してください。",
                         type: "error",
                         timer: 3000
@@ -585,111 +520,97 @@ export default {
                 }
 
                 this.disableUploadButton = true;
-                // console.log(this.$refs.myVueDropzone.dropzone.files);
-                // console.log(this.$refs.myVueDropzone.files);
-                //this.$refs.myVueDropzone.dropzone.processQueue();
                 this.$refs.myVueDropzone.processQueue();
             }
         },
         successEvent(file, response) {
-            var url = this.editMode === 0 ? '/creator/index' : '/creator/invisible';
-
+            var url = '/creator/index';
+            $('body, html').animate({ scrollTop: 0 }, 500);
             setTimeout(function() {
                 window.location.href = url;
             }, 3000);
         },
         thumbnailEvent(file, dataUrl) {
-            let myDropzone = this.$refs.myVueDropzone.dropzone
+            if (this.editMode === 0) {
+                let myDropzone = this.$refs.myVueDropzone.dropzone
 
-            // ignore files which were already cropped and re-rendered
-            // to prevent infinite loop
-            if (file.cropped) {
-                return;
-            }
+                // ignore files which were already cropped and re-rendered
+                // to prevent infinite loop
+                if (file.cropped) {
+                    return;
+                }
 
-            var unixtime = new Date().getTime();
+                var unixtime = new Date().getTime();
 
-            // cache filename to re-assign it to cropped file
-            var cachedFilename = unixtime + '_' + file.name;//unixtime 추가
-            // remove not cropped file from dropzone (we will replace it later)
-            myDropzone.removeFile(file);
+                // cache filename to re-assign it to cropped file
+                var cachedFilename = unixtime + '_' + file.name;//unixtime 추가
+                // remove not cropped file from dropzone (we will replace it later)
+                myDropzone.removeFile(file);
 
-            // dynamically create modals to allow multiple files processing
-            var $cropperModal = $(modalTemplate);
-            // 'Crop and Upload' button in a modal
-            var $uploadCrop = $cropperModal.find('.crop-upload');
-            var $cancelCrop = $cropperModal.find('.crop-cancel');
+                // dynamically create modals to allow multiple files processing
+                var $cropperModal = $(modalTemplate);
+                // 'Crop and Upload' button in a modal
+                var $uploadCrop = $cropperModal.find('.crop-upload');
+                var $cancelCrop = $cropperModal.find('.crop-cancel');
 
-            $('.image-container img').remove();
+                $('.image-container img').remove();
 
-            var $img = $('<img />');
-            // initialize FileReader which reads uploaded file
-            var reader = new FileReader();
-            reader.onloadend = function () {
-                // add uploaded and read image to modal
-                $cropperModal.find('.image-container').html($img);
-                $img.attr('src', reader.result);
+                var $img = $('<img />');
+                // initialize FileReader which reads uploaded file
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    // add uploaded and read image to modal
+                    $cropperModal.find('.image-container').html($img);
+                    $img.attr('src', reader.result);
 
-                // $(".modal").on("shown.bs.modal", function() {
-                // initialize cropper for uploaded image
-                // croping = new Cropper($('.image-container img').get(0), {
-                croping = new Cropper($('.image-container img')[0], {
+                    // $(".modal").on("shown.bs.modal", function() {
+                    // initialize cropper for uploaded image
+                    croping = new Cropper($('.image-container img')[0], {
                         aspectRatio: 1
                         // aspectRatio: 16 / 9,
-                        ,autoCropArea: 1
-                        ,movable: true
-                        ,cropBoxResizable: true
+                        , autoCropArea: 1
+                        , movable: true
+                        , cropBoxResizable: true
                         // ,minContainerWidth: 850
                     });
-                // })
-            };
+                    // })
+                };
 
-            // read uploaded file (triggers code above)
-            reader.readAsDataURL(file);
+                // read uploaded file (triggers code above)
+                reader.readAsDataURL(file);
 
-            $cropperModal.modal('show');
+                $cropperModal.modal('show');
 
-            // listener for 'Crop and Upload' button in modal
-            $uploadCrop.on('click', function() {
-                // get cropped image data
-                //var blob = $img.cropper('getCroppedCanvas').toDataURL();
-                var blob = croping.getCroppedCanvas().toDataURL(file.type, 0.9);
-                // transform it to Blob object
-                // var newFile = dataURItoBlob(blob);
-                var newFile;
-                resizeImage({
-                    file: dataURItoBlob(blob),
-                    maxSize: 480
-                }).then(function (resizedImage) {
-                    reader.onload = function(e){
-                        newFile = resizedImage;
-                        // set 'cropped to true' (so that we don't get to that listener again)
-                        newFile.cropped = true;
-                        // assign original filename
-                        newFile.name = cachedFilename;
+                // listener for 'Crop and Upload' button in modal
+                $uploadCrop.on('click', function () {
+                    // get cropped image data
+                    //var blob = $img.cropper('getCroppedCanvas').toDataURL();
+                    var blob = croping.getCroppedCanvas().toDataURL(file.type, 0.9);
+                    // transform it to Blob object
+                    var newFile;
+                    resizeImage({
+                        file: dataURItoBlob(blob),
+                        maxSize: 640//480
+                    }).then(function (resizedImage) {
+                        reader.onload = function (e) {
+                            newFile = resizedImage;
+                            // set 'cropped to true' (so that we don't get to that listener again)
+                            newFile.cropped = true;
+                            // assign original filename
+                            newFile.name = cachedFilename;
 
-                        // add cropped file to dropzone
-                        myDropzone.addFile(newFile);
-                        // upload cropped file with dropzone
-                        // myDropzone.processQueue();
-                        $cropperModal.modal('hide');
-                    };
-                    reader.readAsDataURL(file);
+                            // add cropped file to dropzone
+                            myDropzone.addFile(newFile);
+                            // upload cropped file with dropzone
+                            $cropperModal.modal('hide');
+                        };
+                        reader.readAsDataURL(file);
+                    });
                 });
-                // // set 'cropped to true' (so that we don't get to that listener again)
-                // newFile.cropped = true;
-                // // assign original filename
-                // newFile.name = cachedFilename;
-                //
-                // // add cropped file to dropzone
-                // myDropzone.addFile(newFile);
-                // // upload cropped file with dropzone
-                // // myDropzone.processQueue();
-                // $cropperModal.modal('hide');
-            });
-            $cancelCrop.on('click', function() {
-                $cropperModal.modal('hide');
-            });
+                $cancelCrop.on('click', function () {
+                    $cropperModal.modal('hide');
+                });
+            }
         },
         dragEvent(event) {
             this.$fire({
@@ -709,6 +630,7 @@ export default {
 .infoTxt{
     padding: 30px 0;
     color: #aaaaaa;
+    font-size: 12px;
 }
 #dropzone {
     padding: 0;
@@ -725,45 +647,61 @@ export default {
 }
 .dropzone .dz-clickable,
 .dropzone .dz-preview{
-   margin: 0 0 80px;
+   margin: 0 0 70px;
 }
 .dropzone .dz-preview{
     width: 49%;
-    height: auto;
+    padding-top: 49%;
     background-color: #fff;
+    position: relative;
+}
+.dropzone .dz-preview .dz-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 !important;
 }
 .dropzone .dz-preview img {
     width: 100%;
+    filter: none !important;
+    position: absolute;
+}
+.vue-dropzone>.dz-preview .dz-image img:not([src]){
+    display: none;
 }
 .dropzone .dz-preview .btnPrivate {
     cursor: pointer;
-    z-index: 30;
     position: absolute;
+    z-index: 0;
     border: 2px #9ac5ea solid;
     color:#9ac5ea;
     left: 0;
-    bottom: -50px;
+    bottom: -44px;
     background-color: #ffffff;
     border-radius: 20px;
     font-size: 14px;
     height: 34px;
     line-height: 34px;
-    max-width: 200px;
     width: 80%;
+    width: calc(100% - 40px);
     text-align: center;
 }
 .dropzone .dz-preview .dz-remove {
     display: block;
     cursor: pointer;
-    opacity: 1;
+    opacity: 1 !important;
     font-size: 0;
     position: absolute;
-    bottom: -50px;
+    z-index: 0;
+    bottom: -40px;
     right: 0;
+    top: auto;
     border: none;
-    width: 20%;
-    height: 36px;
-    background: url('/storage/icon/icon_delete.png') no-repeat center/70% #fff;
+    width: 28px;
+    height: 28px;
+    background: url('/storage/icon/icon_delete.png') no-repeat center/cover;
 }
 .more {
     width: 100%;
@@ -793,7 +731,6 @@ export default {
     padding-top: 49%;
 }
 .msg {
-    margin-top: 30px;
     width: 100%;
 }
 .msgTextarea {
@@ -828,9 +765,30 @@ export default {
     opacity: 0;
     color: black;
 }
+.vue-dropzone>.dz-file-preview .dz-details:before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%,-50%);
+    background: url('/storage/icon/icon_video.png') no-repeat center/cover;
+}
+.dropzone .dz-preview .dz-details .dz-size,
+.dropzone .dz-preview .dz-details .dz-filename{
+    display: none;
+}
+.dropzone .dz-preview:hover{
+    z-index: 0;
+}
+.dropzone .dz-preview:hover .dz-image img{
+    transform: none !important;
+}
 /*modal*/
 .modal .modalInner{
-    height: 100vh;
+    height: 100%;
     width: 100%;
     display:-webkit-box;
     display:-ms-flexbox;
@@ -850,6 +808,11 @@ export default {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    width: 90%;
+    z-index: 1;
 }
 .modal .modalInner li{
     width: 49%;
@@ -874,5 +837,8 @@ export default {
 .crop-cancel{
     background-color: #ededed;
     color: #b15a68;
+}
+.modal .cropper-modal{
+    opacity: 0.8;
 }
 </style>

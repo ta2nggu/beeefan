@@ -20,10 +20,11 @@
         @endif
 
         <div id="profileHeader">
+            <div class="imgbox">
             @if (isset($user[0]->background_img))
-                <div class="imgbox" style="background-image: url({{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }})">
+                <div class="bkImg"><img src="{{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->background_img) }}" alt="{{ $user[0]->nickname }}"></div>
             @else
-                <div class="imgbox">
+                <div class="bkImg"><img src="{{ asset('storage/icon/no_images_c_bk.gif') }}" alt="{{ $user[0]->nickname }}"></div>
             @endif
                 @if (isset($user[0]->profile_img))
                     <div class="thumbnail"><img src="{{ asset('storage/images/'.$user[0]->user_id.'/'.$user[0]->profile_img) }}" alt="{{ $user[0]->nickname }}"></div>
@@ -38,7 +39,8 @@
             <div class="score clm2">
                 <dl>
                     <dt>{{__('投稿数')}}</dt>
-                    <dd>{{ number_format($tweets->count()) }}</dd>
+{{--                    <dd>{{ number_format($tweets->count()) }}</dd>--}}
+                    <dd>{{ number_format($tweets_cnt) }}</dd>
                 </dl>
                 <dl>
                     <dt>{{__('会員数')}}</dt>

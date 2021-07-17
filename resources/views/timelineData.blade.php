@@ -113,7 +113,7 @@ function time_ago($sec) {
                     @else
                         <video class="video-js vjs-default-skin vjs-big-play-centered" width="640px" height="640px"
                                controls preload='none'
-                               poster="{{ asset('storage/images/'.$tweet->thumb_path) }}"
+                               poster="{{ asset('storage/images/'.$tweet_image->thumb_path) }}"
                                data-setup='{ "fluid": true, "aspectRatio":"640:640" }'>
                             <source src="{{ URL::asset('storage/images/'.$tweet_image->path) }}" type='{{$tweet_image->mime_type}}' />
                         </video>

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <p class="infoTxt">投稿後に画像の変更・並び替えはできません。</p>
+    <p class="infoTxt">投稿後に画像の変更・削除・並び替えはできません。<br>動画は10秒までアップロード可能です。</p>
     <vue-dropzone
         ref="myVueDropzone"
         id="dropzone"
@@ -525,7 +525,7 @@ export default {
         },
         successEvent(file, response) {
             var url = '/creator/index';
-
+            $('body, html').animate({ scrollTop: 0 }, 500);
             setTimeout(function() {
                 window.location.href = url;
             }, 3000);
@@ -630,6 +630,7 @@ export default {
 .infoTxt{
     padding: 30px 0;
     color: #aaaaaa;
+    font-size: 12px;
 }
 #dropzone {
     padding: 0;
@@ -646,32 +647,45 @@ export default {
 }
 .dropzone .dz-clickable,
 .dropzone .dz-preview{
-   margin: 0 0 80px;
+   margin: 0 0 70px;
 }
 .dropzone .dz-preview{
     width: 49%;
-    height: auto;
+    padding-top: 49%;
     background-color: #fff;
+    position: relative;
+}
+.dropzone .dz-preview .dz-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 !important;
 }
 .dropzone .dz-preview img {
     width: 100%;
     filter: none !important;
+    position: absolute;
+}
+.vue-dropzone>.dz-preview .dz-image img:not([src]){
+    display: none;
 }
 .dropzone .dz-preview .btnPrivate {
     cursor: pointer;
-    z-index: 30;
     position: absolute;
+    z-index: 0;
     border: 2px #9ac5ea solid;
     color:#9ac5ea;
     left: 0;
-    bottom: -50px;
+    bottom: -44px;
     background-color: #ffffff;
     border-radius: 20px;
     font-size: 14px;
     height: 34px;
     line-height: 34px;
-    max-width: 200px;
     width: 80%;
+    width: calc(100% - 40px);
     text-align: center;
 }
 .dropzone .dz-preview .dz-remove {
@@ -680,13 +694,14 @@ export default {
     opacity: 1 !important;
     font-size: 0;
     position: absolute;
-    bottom: -50px;
+    z-index: 0;
+    bottom: -40px;
     right: 0;
     top: auto;
     border: none;
-    width: 20%;
-    height: 36px;
-    background: url('/storage/icon/icon_delete.png') no-repeat center/70% #fff;
+    width: 28px;
+    height: 28px;
+    background: url('/storage/icon/icon_delete.png') no-repeat center/cover;
 }
 .more {
     width: 100%;
@@ -716,7 +731,6 @@ export default {
     padding-top: 49%;
 }
 .msg {
-    margin-top: 30px;
     width: 100%;
 }
 .msgTextarea {
@@ -750,6 +764,27 @@ export default {
     background-color: transparent;
     opacity: 0;
     color: black;
+}
+.vue-dropzone>.dz-file-preview .dz-details:before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%,-50%);
+    background: url('/storage/icon/icon_video.png') no-repeat center/cover;
+}
+.dropzone .dz-preview .dz-details .dz-size,
+.dropzone .dz-preview .dz-details .dz-filename{
+    display: none;
+}
+.dropzone .dz-preview:hover{
+    z-index: 0;
+}
+.dropzone .dz-preview:hover .dz-image img{
+    transform: none !important;
 }
 /*modal*/
 .modal .modalInner{
@@ -802,5 +837,8 @@ export default {
 .crop-cancel{
     background-color: #ededed;
     color: #b15a68;
+}
+.modal .cropper-modal{
+    opacity: 0.8;
 }
 </style>

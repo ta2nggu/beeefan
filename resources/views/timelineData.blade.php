@@ -122,7 +122,7 @@ function time_ago($sec) {
                         <div class="counter"></div>
                     @endif
                     {{-- 21.04.20 김태영, $follow === 0 미입회 user 일 때 img tag 위에 가입 안내 div 표시 --}}
-                    @if($follow === 0)
+                    @if($follow === 0 && $tweet_image->private === 1)
                         <div class="secretBox">
                             <div class="inner">
                                 <p>このコンテンツを観るには<br>ファンクラブへの入会が必要です。</p>

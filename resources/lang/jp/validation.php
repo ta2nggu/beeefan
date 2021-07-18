@@ -122,7 +122,8 @@ return [
         'account_id' => 'アカウントID',
         'name' => '名前',
         'email' => 'メールアドレス',
-        'password' => 'パスワード'
+        'password' => 'パスワード',
+        'month_price' => '月額'
     ],
 
 ];

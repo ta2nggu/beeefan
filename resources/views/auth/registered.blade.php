@@ -14,7 +14,7 @@
             <div id="stepBox">
                 <div class="normalTitleBox">
                     <h2>{{ __("会員登録完了") }}</h2>
-                    <p>{!! ("会員登録が完了いたしました。<br>BeeeFan!のコンテンツをお楽しみください。") !!}</p>
+                    <p>{!! ("会員登録が完了いたしました。<br>Beee Fan!のコンテンツをお楽しみください。") !!}</p>
                 </div>
                 <ol>
                     <li></li>

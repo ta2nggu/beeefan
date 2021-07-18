@@ -151,6 +151,10 @@ export default {
         //파일 선택 시 다중 선택 막기
         dropzone.hiddenFileInput.removeAttribute("multiple");
 
+        $(document).change(function () {
+            dropzone.hiddenFileInput.removeAttribute("multiple");
+        });
+
         //21.07.16 김태영, drag and drop 제거
         // //재정렬 drag and drop 사용
         // $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
@@ -247,6 +251,8 @@ export default {
         addedEvent (file) {
             //신규투고
             if (this.editMode === 0) {
+                let dropzone = this.$refs.myVueDropzone.dropzone;
+
                 this.disableUploadButton = false;
 
                 //21.03.03 김태영, 중복된 파일 제거
@@ -255,11 +261,21 @@ export default {
                     var _i, _len;
                     for (_i = 0, _len = files.length; _i < _len - 1; _i++) // -1 to exclude current file
                     {
-                        if(files[_i].name === file.name
+                        if (
+                            files[_i].name === file.name
                             && files[_i].size === file.size
-                            && files[_i].lastModifiedDate.toString() === file.lastModifiedDate.toString())
+                            //&& files[_i].lastModifiedDate.toString() === file.lastModifiedDate.toString()
+                            )
                         {
                             this.$refs.myVueDropzone.dropzone.removeFile(file);
+                            this.$fire({
+                                text: "重複したファイルがあります。",
+                                type: "error",
+                                timer: 3000
+                            }).then(r => {
+                                console.log(r.value);
+                            });
+                            return;
                         }
                     }
                 }
@@ -311,7 +327,6 @@ export default {
                 }
 
                 //21.03.15 김태영, 가이드 + 추가
-                let dropzone = this.$refs.myVueDropzone.dropzone
                 dropzone.files.length > 0
                     ? dropzone.element.appendChild(this.$refs.more)
                     : dropzone.element.removeChild(this.$refs.more)
@@ -543,7 +558,7 @@ export default {
                 var unixtime = new Date().getTime();
 
                 // cache filename to re-assign it to cropped file
-                var cachedFilename = unixtime + '_' + file.name;//unixtime 추가
+                var cachedFilename = unixtime + '_' + file.name.substring(0, file.name.lastIndexOf(".")) + '.jpeg';
                 // remove not cropped file from dropzone (we will replace it later)
                 myDropzone.removeFile(file);
 

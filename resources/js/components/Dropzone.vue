@@ -367,6 +367,8 @@ export default {
                 if (file.type.split('/')[0] == 'video') {
                     // var container = document.getElementById("contentWrap");
                     var video = document.createElement('video');
+                    video.className='video-js vjs-default-skin"'
+                    var source = document.createElement('source');
                     var canvas = document.createElement('canvas');
                     var context = canvas.getContext('2d');
 
@@ -374,7 +376,10 @@ export default {
                     reader.readAsDataURL(file)
                     reader.onload = function(event) {
                         var w, h, ratio;
-                        video.src = event.target.result;
+                        // video.src = event.target.result;
+                        source.src = event.target.result;
+                        source.type ='video/mp4';
+                        video.appendChild(source);
                         // container.appendChild(video);
                         // container.appendChild(canvas);
                         video.currentTime = 0;

@@ -152,11 +152,11 @@ class UserController extends Controller
         }
         if ($follow === 1) {
             //입회한 사용자의 경우
-            $query = "tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweet_images.mime_type, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweet_images.name, '.', 1), '.jpeg') AS thumb_path";
+            $query = "tweet_images.tweet_id, tweet_images.idx, CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) AS path, tweet_images.mime_type, CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweet_images.name, '.', 1), '.jpeg') AS thumb_path, tweet_images.private";
         }
         else {
             //입회하지 사용자의 않은 경우
-            $query = "tweet_images.tweet_id, tweet_images.idx, 'noimg.png' AS path, tweet_images.mime_type, 'noimg.png' AS thumb_path";
+            $query = "tweet_images.tweet_id, tweet_images.idx, case when tweet_images.private = 1 then 'noimg.png' else CONCAT(tweets.user_id, '/', tweets.id, '/', tweet_images.name) end AS path, tweet_images.mime_type, case when tweet_images.private = 1 then 'noimg.png' else CONCAT(tweets.user_id, '/', tweets.id, '/thumb_', SUBSTRING_INDEX(tweet_images.name, '.', 1), '.jpeg') end AS thumb_path, tweet_images.private";
         }
 
         //main tweet

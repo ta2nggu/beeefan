@@ -62,11 +62,11 @@
                         <p class="price">{{ __('月額') . number_format($creator[0]->month_price) .('円') }}</p>
                     </div>
                     @guest
-                        <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
+                        <a href="{{url('/'.$creator[0]->account_id.'/join')}}" class="btnCircle btnPi">{{ __('入会する') }}</a>
                     @else
                         @role('user')
                             @if($follow === 0)
-                                <a href="{{ $creator[0]->account_id }}{{ __('/join') }}" class="btnCircle btnPi">{{ __('入会する') }}</a>
+                                <a href="{{url('/'.$creator[0]->account_id.'/join')}}" class="btnCircle btnPi">{{ __('入会する') }}</a>
                             @else
                                 <span class="btnCircle">{{ __('入会中です') }}</span>
                             @endif

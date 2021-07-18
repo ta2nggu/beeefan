@@ -1030,6 +1030,9 @@ button.btn:not(.btnBor) {
   padding-left: 10px;
   line-height: 1.4em;
 }
+.moreArea.moreAreaAll {
+  max-height: none;
+}
 
 /*profile *****
 ********************************/
@@ -1049,15 +1052,6 @@ button.btn:not(.btnBor) {
   border-radius: 50%;
   border: 3px solid #dfa4ad;
   overflow: hidden;
-  height: 78%;
-}
-#profileHeader .imgbox .thumbnail img {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  width: 100%;
 }
 #profileHeader.profileHeaderNoBk {
   padding-bottom: 0;

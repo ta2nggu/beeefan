@@ -1030,6 +1030,9 @@ button.btn:not(.btnBor) {
   padding-left: 10px;
   line-height: 1.4em;
 }
+.moreArea.moreAreaAll {
+  max-height: none;
+}
 
 /*profile *****
 ********************************/
@@ -1049,15 +1052,6 @@ button.btn:not(.btnBor) {
   border-radius: 50%;
   border: 3px solid #dfa4ad;
   overflow: hidden;
-  height: 78%;
-}
-#profileHeader .imgbox .thumbnail img {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  width: 100%;
 }
 #profileHeader.profileHeaderNoBk {
   padding-bottom: 0;
@@ -1533,7 +1527,7 @@ button.btn:not(.btnBor) {
   margin-right: auto;
 }
 #infoBox li .ttl {
-  padding: 8px 0;
+  padding: 12px 30px 12px 0;
   position: relative;
   cursor: pointer;
 }
@@ -1543,17 +1537,17 @@ button.btn:not(.btnBor) {
 #infoBox li .ttl:after {
   content: "";
   display: block;
-  width: 24px;
-  height: 24px;
-  background: url("/storage/icon/icon_close_pi.png") no-repeat center/cover;
+  width: 30px;
+  height: 30px;
+  background: url("/storage/icon/icon_bottom_pi.png") no-repeat center/cover;
   position: absolute;
   top: 50%;
   right: 0;
-  transform: translateY(-50%) rotate(45deg);
+  transform: translateY(-50%);
   transition: all 0.4s;
 }
 #infoBox li .ttl.active:after {
-  transform: translateY(-50%) rotate(0);
+  transform: translateY(-50%) rotate(180deg);
 }
 #infoBox li .txt {
   font-size: 0.9em;

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <p class="infoTxt">投稿後に画像の変更・削除・並び替えはできません。<br>動画は10秒までアップロード可能です。</p>
+    <p class="infoTxt">投稿後に画像の変更・削除・並び替えはできません。<br>画像・動画合わせて6枚まで投稿可能です。<br>動画は10秒までアップロード可能です。</p>
     <vue-dropzone
         ref="myVueDropzone"
         id="dropzone"
@@ -130,8 +130,8 @@ export default {
                 addRemoveLinks: true,
                 autoProcessQueue: false,
                 uploadMultiple: true,
-                maxFiles: 10,
-                parallelUploads: 10,
+                maxFiles: 6, //10
+                parallelUploads: 6, //10
                 dictDefaultMessage: '',
                 clickable: '.more',
                 acceptedFiles: ".jpeg,.jpg,.png,.gif,.mp4,.mkv,.avi,.MOV"
@@ -416,7 +416,7 @@ export default {
 
                             if (video.duration > 10) {
                                 varthis.$fire({
-                                    text: "動画は10秒まで投稿可能です。",
+                                    text: "10秒以上の動画の為、10秒にカットして投稿します。",
                                     type: "error",
                                     timer: 3000
                                 }).then(r => {
@@ -506,6 +506,7 @@ export default {
             }
         },
         processQueue(visible) {
+            $('body, html').animate({ scrollTop: 0 }, 500);
             //21.03.20 김태영, visible 1 투고 저장, visible 0 임시저장(비공개)
             this.visible = visible;
 
@@ -603,7 +604,6 @@ export default {
         },
         successEvent(file, response) {
             var url = '/creator/index';
-            $('body, html').animate({ scrollTop: 0 }, 500);
             setTimeout(function() {
                 window.location.href = url;
             }, 3000);
@@ -648,7 +648,10 @@ export default {
                         // aspectRatio: 16 / 9,
                         , autoCropArea: 1
                         , movable: true
-                        , cropBoxResizable: true
+                        ,viewMode : 1
+                        , cropBoxResizable: true,
+                        minCropBoxHeight: 300,
+                        minCropBoxWidth: 300
                         // ,minContainerWidth: 850
                     });
                     // })
@@ -866,6 +869,9 @@ export default {
 }
 .dropzone .dz-preview:hover .dz-image img{
     transform: none !important;
+}
+.dropzone > div:nth-of-type(n+8){
+    display: none;
 }
 /*modal*/
 .modal .modalInner{

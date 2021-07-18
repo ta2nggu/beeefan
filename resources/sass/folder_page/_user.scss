@@ -13,7 +13,7 @@
             @include wrap_inner;
         }
         .ttl{
-            padding: 8px 0 ;
+            padding: 12px 30px 12px 0;
             position: relative;
             cursor: pointer;
             &:before{
@@ -22,18 +22,18 @@
             &:after{
                 content: "";
                 display: block;
-                width: 24px;
-                height: 24px;
-                background: url("/storage/icon/icon_close_pi.png") no-repeat center/cover;
+                width: 30px;
+                height: 30px;
+                background: url("/storage/icon/icon_bottom_pi.png") no-repeat center/cover;
                 position: absolute;
                 top: 50%;
                 right: 0;
-                transform: translateY(-50%) rotate(45deg);
+                transform: translateY(-50%);
                 transition: all 0.4s;
             }
             &.active{
                 &:after {
-                    transform: translateY(-50%) rotate(0);
+                    transform: translateY(-50%) rotate(180deg);
                 }
             }
         }

@@ -36,6 +36,7 @@ function loadMoreData(page) {
         // $("#post-data").append(data.html);
         // 21.03.28 김태영, main 화면에서 같이 사용하기 위해 클래스(.post-data)로 변경
         $(".post-data").append(data.html);
+
     })
     .fail(function(jqXHR,ajaxOptions,thrownError) {
         console.log("Server not responding..");

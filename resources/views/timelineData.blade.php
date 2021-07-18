@@ -216,7 +216,7 @@ function time_ago($sec) {
 
     <div class="textBox">
         @isset($tweet->msg)
-            <div class="text moreArea">{!! $tweet->msg !!}<p class="moreBtn">続きを見る</p></div>
+            <div class="text moreArea moreAreaAll">{!! $tweet->msg !!}<p class="moreBtn">続きを見る</p></div>
         @endisset
     </div>
 

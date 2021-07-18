@@ -9,8 +9,7 @@
                 el: '#birth_date',
                 format: 'YYYY-MM-DD',
                 beginYear: 1920,
-                endYear: new Date().getFullYear(),
-                title: 'ああ'
+                endYear: new Date().getFullYear()
             })
         }
     </script>

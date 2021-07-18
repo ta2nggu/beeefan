@@ -367,7 +367,7 @@ export default {
                 if (file.type.split('/')[0] == 'video') {
                     // var container = document.getElementById("contentWrap");
                     var video = document.createElement('video');
-                    video.className='video-js vjs-default-skin"'
+                    // video.className='video-js vjs-default-skin"'
                     var source = document.createElement('source');
                     var canvas = document.createElement('canvas');
                     var context = canvas.getContext('2d');
@@ -385,6 +385,10 @@ export default {
                         video.currentTime = 0;
                         video.play();
                         // video.pause();
+
+                        video.ondurationchange = function() {
+                            alert(video.duration);
+                        };
 
                         video.onloadeddata = (event) => {
                             // Calculate the ratio of the video's width to height
@@ -408,6 +412,8 @@ export default {
                             var dataURI = canvas.toDataURL('image/jpeg');
 
                             file.previewElement.querySelector(".dz-image img").src = dataURI;
+
+                            console.log(video.duration);
                         };
                     };
                 }

@@ -29,7 +29,7 @@
                     <dd><input id="new_password" type="password" class="form-control" name="new_password" autocomplete="current-password"></dd>
                 </dl>
                 <dl>
-                    <dt><label for="password">{{__('新しいパスワード(確認)')}}</label></dt>
+                    <dt><label for="password">{{__('新しいパスワード(確認)')}}</label><span class="required">{{ __("必須") }}</span></dt>
                     <dd><input id="new_confirm_password" type="password" class="form-control" name="new_confirm_password" autocomplete="current-password"></dd>
                 </dl>
 

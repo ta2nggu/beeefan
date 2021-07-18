@@ -151,6 +151,10 @@ export default {
         //파일 선택 시 다중 선택 막기
         dropzone.hiddenFileInput.removeAttribute("multiple");
 
+        $(document).change(function () {
+            dropzone.hiddenFileInput.removeAttribute("multiple");
+        });
+
         //21.07.16 김태영, drag and drop 제거
         // //재정렬 drag and drop 사용
         // $('#dropzone').sortable({container: '#dropzone', nodes: '.dz-preview'});
@@ -247,6 +251,8 @@ export default {
         addedEvent (file) {
             //신규투고
             if (this.editMode === 0) {
+                let dropzone = this.$refs.myVueDropzone.dropzone;
+
                 this.disableUploadButton = false;
 
                 //21.03.03 김태영, 중복된 파일 제거
@@ -255,11 +261,21 @@ export default {
                     var _i, _len;
                     for (_i = 0, _len = files.length; _i < _len - 1; _i++) // -1 to exclude current file
                     {
-                        if(files[_i].name === file.name
+                        if (
+                            files[_i].name === file.name
                             && files[_i].size === file.size
-                            && files[_i].lastModifiedDate.toString() === file.lastModifiedDate.toString())
+                            //&& files[_i].lastModifiedDate.toString() === file.lastModifiedDate.toString()
+                            )
                         {
                             this.$refs.myVueDropzone.dropzone.removeFile(file);
+                            this.$fire({
+                                text: "重複したファイルがあります。",
+                                type: "error",
+                                timer: 3000
+                            }).then(r => {
+                                console.log(r.value);
+                            });
+                            return;
                         }
                     }
                 }
@@ -311,7 +327,6 @@ export default {
                 }
 
                 //21.03.15 김태영, 가이드 + 추가
-                let dropzone = this.$refs.myVueDropzone.dropzone
                 dropzone.files.length > 0
                     ? dropzone.element.appendChild(this.$refs.more)
                     : dropzone.element.removeChild(this.$refs.more)
@@ -348,6 +363,49 @@ export default {
                 //
                 //     divRemove.style.opacity = 1;
                 // });
+
+                if (file.type.split('/')[0] == 'video') {
+                    // var container = document.getElementById("contentWrap");
+                    var video = document.createElement('video');
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+
+                    const reader = new FileReader()
+                    reader.readAsDataURL(file)
+                    reader.onload = function(event) {
+                        var w, h, ratio;
+                        video.src = event.target.result;
+                        // container.appendChild(video);
+                        // container.appendChild(canvas);
+                        video.currentTime = 0;
+                        video.play();
+                        // video.pause();
+
+                        video.onloadeddata = (event) => {
+                            // Calculate the ratio of the video's width to height
+                            ratio = video.videoWidth / video.videoHeight;
+                            // Define the required width as 100 pixels smaller than the actual video's width
+                            w = video.videoWidth - 100;
+                            // Calculate the height based on the video's width and the ratio
+                            h = parseInt(w / ratio, 10);
+                            // Set the canvas width and height to the values just calculated
+                            canvas.width = w;
+                            canvas.height = h;
+
+                            // Define the size of the rectangle that will be filled (basically the entire element)
+                            context.fillRect(0, 0, w, h);
+                            // Grab the image from the video
+                            context.drawImage(video, 0, 0, w, h);
+
+                            video.pause();
+
+                            //convert to desired file format
+                            var dataURI = canvas.toDataURL('image/jpeg');
+
+                            file.previewElement.querySelector(".dz-image img").src = dataURI;
+                        };
+                    };
+                }
 
                 dropzone.hiddenFileInput.removeAttribute("multiple");
             }
@@ -543,7 +601,7 @@ export default {
                 var unixtime = new Date().getTime();
 
                 // cache filename to re-assign it to cropped file
-                var cachedFilename = unixtime + '_' + file.name;//unixtime 추가
+                var cachedFilename = unixtime + '_' + file.name.substring(0, file.name.lastIndexOf(".")) + '.jpeg';
                 // remove not cropped file from dropzone (we will replace it later)
                 myDropzone.removeFile(file);
 
@@ -741,6 +799,9 @@ export default {
     border-radius: 5px;
     margin-bottom: 20px;
     font-size: 16px;
+    font-family: '小塚ゴシック Pro','Kozuka Gothic Pro',メイリオ,Meiryo,sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 .btnDropUp {
     width: 100%;

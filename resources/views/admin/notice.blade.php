@@ -45,7 +45,7 @@
 
             <div class="ttlBox">
                 <h2>{{__('お知らせ投稿')}}</h2>
-                <p>{{__('※一度投稿すると編集できません')}}</p>
+                <p>{{__('※投稿後の再編集はできません。')}}</p>
             </div>
             <form method="POST" action="{{ __('/admin/notice') }}" class="formBox normalFormBox">
                 @csrf

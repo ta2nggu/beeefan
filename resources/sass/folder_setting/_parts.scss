@@ -380,9 +380,10 @@ button.btn {
     max-height: calc(3em * 1.6 + 2px);
     overflow: hidden;
     transition: height 0.2s ease;
+    white-space: pre-wrap;
     &.open{
         max-height: 100em;
-        padding-bottom: 2.2em;;
+        padding-bottom: 2.2em;
     }
     .moreBtn{
         cursor: pointer;

@@ -42,7 +42,7 @@ class DropController extends Controller
                     $mTweet->file_cnt = $request->file_cnt;
                     $mTweet->include_video = $request->include_video;
                     $mTweet->main_img = explode("/", $image->getClientMimeType())[0] === "video" ? explode(".", $image->getClientOriginalName())[0].'.mp4' : $request->main_img;
-                    $mTweet->main_img_mime_type = $request->main_img_mime_type;
+                    $mTweet->main_img_mime_type = explode("/", $image->getClientMimeType())[0] === "video" ? explode("/", $image->getClientMimeType())[0].'/mp4' : $request->main_img_mime_type;
                     $mTweet->main_img_idx = $request->main_img_idx;
                     $mTweet->save();
                 }
@@ -75,8 +75,8 @@ class DropController extends Controller
                 $mImage = new Tweet_image();
                 $mImage->tweet_id = $mTweet->id;
                 $mImage->idx = $i;
-                $mImage->name = $imageName;
-                $mImage->mime_type = $image->getClientMimeType();
+                $mImage->name = explode("/", $image->getClientMimeType())[0] === "video" ? explode(".", $imageName)[0].'.mp4' : $imageName;
+                $mImage->mime_type = explode("/", $image->getClientMimeType())[0] === "video" ? explode("/", $image->getClientMimeType())[0].'/mp4' : $image->getClientMimeType();
                 $mImage->private = $imgPrivate[$i];//$i === 0 ? 1 : 0;
                 $mImage->save();
             }

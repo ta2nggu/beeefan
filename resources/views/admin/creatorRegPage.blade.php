@@ -40,7 +40,7 @@
             </dl>
             <!--nickname-->
             <dl>
-                <dt><label for="nickname">{{ __('クリエイター名') }}</label><span class="required">{{ __('必須') }}</span><span class="att">{{ __('※後からクリエイターの設定変更画面にて変更可能です。') }}</span></dt>
+                <dt><label for="nickname">{{ __('クリエイター名') }}</label><span class="required">{{ __('必須') }}</span><span class="att">{{ __('※登録後、クリエイターのプロフィール変更画面にて変更可能です。') }}</span></dt>
                 <dd>
                     <input id="nickname" type="text" class="form-control @error('nickname') is-invalid @enderror"  name="nickname" value="{{ old('nickname') }}" required autocomplete="nickname" autofocus>
                     @error('nickname')

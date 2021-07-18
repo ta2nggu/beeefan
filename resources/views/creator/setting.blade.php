@@ -36,7 +36,7 @@
                             <img id="preview_background_img" src="{{ asset('storage/icon/no_images_c_bk.gif') }}" alt="{{ $user[0]->nickname }}">
                         @endif
                     </label>
-                    <input id="input_background_img" name="background_img" type="file"/>
+                    <input id="input_background_img" name="background_img" type="file" accept="image/*"/>
                     @error('background_img')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
@@ -50,7 +50,7 @@
                             <img id="preview_profile_img" src="{{ asset('storage/icon/no_images_c.png') }}" alt="{{ $user[0]->nickname }}">
                         @endif
                     </label>
-                    <input id="input_profile_img" name="profile_img" type="file"/>
+                    <input id="input_profile_img" name="profile_img" type="file" accept="image/*"/>
                     @error('profile_img')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror

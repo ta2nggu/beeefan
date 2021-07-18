@@ -364,6 +364,49 @@ export default {
                 //     divRemove.style.opacity = 1;
                 // });
 
+                if (file.type.split('/')[0] == 'video') {
+                    // var container = document.getElementById("contentWrap");
+                    var video = document.createElement('video');
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+
+                    const reader = new FileReader()
+                    reader.readAsDataURL(file)
+                    reader.onload = function(event) {
+                        var w, h, ratio;
+                        video.src = event.target.result;
+                        // container.appendChild(video);
+                        // container.appendChild(canvas);
+                        video.currentTime = 0;
+                        video.play();
+                        // video.pause();
+
+                        video.onloadeddata = (event) => {
+                            // Calculate the ratio of the video's width to height
+                            ratio = video.videoWidth / video.videoHeight;
+                            // Define the required width as 100 pixels smaller than the actual video's width
+                            w = video.videoWidth - 100;
+                            // Calculate the height based on the video's width and the ratio
+                            h = parseInt(w / ratio, 10);
+                            // Set the canvas width and height to the values just calculated
+                            canvas.width = w;
+                            canvas.height = h;
+
+                            // Define the size of the rectangle that will be filled (basically the entire element)
+                            context.fillRect(0, 0, w, h);
+                            // Grab the image from the video
+                            context.drawImage(video, 0, 0, w, h);
+
+                            video.pause();
+
+                            //convert to desired file format
+                            var dataURI = canvas.toDataURL('image/jpeg');
+
+                            file.previewElement.querySelector(".dz-image img").src = dataURI;
+                        };
+                    };
+                }
+
                 dropzone.hiddenFileInput.removeAttribute("multiple");
             }
             //투고편집

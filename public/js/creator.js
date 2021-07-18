@@ -4325,11 +4325,12 @@ $(document).ready(function (e) {
         $cropperModal.find('.image-container').html($img);
         $img.attr('src', reader2.result);
         croping = new (cropperjs__WEBPACK_IMPORTED_MODULE_0___default())($('.image-container img')[0], {
-          aspectRatio: type == 'back' ? 32 / 15 : 1 // aspectRatio: 16 / 9,
+          aspectRatio: type == 'back' ? 2 / 1 : 1 // aspectRatio: 16 / 9,
           ,
           autoCropArea: 1,
           movable: true,
-          cropBoxResizable: true // ,minContainerWidth: 850
+          cropBoxResizable: true,
+          viewMode: 3 // ,minContainerWidth: 850
 
         });
       }; // read uploaded file (triggers code above)
@@ -4345,7 +4346,7 @@ $(document).ready(function (e) {
         var newFile;
         resizeImage({
           file: dataURItoBlob(blob),
-          maxSize: type == 'back' ? 640 : 250
+          maxSize: type == 'back' ? 640 : 320
         }).then(function (resizedImage) {
           reader.onload = function (e) {
             newFile = resizedImage; // set 'cropped to true' (so that we don't get to that listener again)

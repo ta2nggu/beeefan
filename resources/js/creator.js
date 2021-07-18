@@ -187,11 +187,12 @@ $(document).ready(function (e) {
                 $img.attr('src', reader2.result);
 
                 croping = new Cropper($('.image-container img')[0], {
-                    aspectRatio: type == 'back' ? 32 / 15 : 1
+                    aspectRatio: type == 'back' ? 2 / 1 : 1
                     // aspectRatio: 16 / 9,
                     ,autoCropArea: 1
                     ,movable: true
                     ,cropBoxResizable: true
+                    ,viewMode: 3
                     // ,minContainerWidth: 850
                 });
             };
@@ -209,7 +210,7 @@ $(document).ready(function (e) {
                 var newFile;
                 resizeImage({
                     file: dataURItoBlob(blob),
-                    maxSize: type == 'back' ? 640 : 250
+                    maxSize: type == 'back' ? 640 : 320
                 }).then(function (resizedImage) {
                     reader.onload = function(e){
                         newFile = resizedImage;

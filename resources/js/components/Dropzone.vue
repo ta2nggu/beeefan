@@ -365,7 +365,7 @@ export default {
                 // });
 
                 if (file.type.split('/')[0] == 'video') {
-                    var container = document.getElementById("contentWrap");
+                    // var container = document.getElementById("contentWrap");
                     var video = document.createElement('video');
                     video.className='video-js vjs-default-skin"'
                     var source = document.createElement('source');

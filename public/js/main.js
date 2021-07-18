@@ -124,7 +124,7 @@ if ($(".post-data").length > 0) {
       $('.owl-carousel').owlCarousel({
         center: true,
         items: 1,
-        loop: true,
+        loop: false,
         onInitialized: counter,
         onTranslated: counter,
         margin: 10
@@ -139,7 +139,7 @@ $(document).ready(function () {
     $('.owl-carousel').owlCarousel({
       center: true,
       items: 1,
-      loop: true,
+      loop: false,
       onInitialized: counter,
       onTranslated: counter,
       margin: 10

@@ -741,6 +741,9 @@ export default {
     border-radius: 5px;
     margin-bottom: 20px;
     font-size: 16px;
+    font-family: '小塚ゴシック Pro','Kozuka Gothic Pro',メイリオ,Meiryo,sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 .btnDropUp {
     width: 100%;

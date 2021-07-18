@@ -1012,6 +1012,7 @@ button.btn:not(.btnBor) {
   max-height: calc(3em * 1.6 + 2px);
   overflow: hidden;
   transition: height 0.2s ease;
+  white-space: pre-wrap;
 }
 .moreArea.open {
   max-height: 100em;

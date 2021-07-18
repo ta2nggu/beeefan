@@ -251,6 +251,7 @@ export default {
         addedEvent (file) {
             //신규투고
             if (this.editMode === 0) {
+                var varthis = this;
                 let dropzone = this.$refs.myVueDropzone.dropzone;
 
                 this.disableUploadButton = false;
@@ -386,9 +387,9 @@ export default {
                         video.play();
                         // video.pause();
 
-                        video.ondurationchange = function() {
-                            alert(video.duration);
-                        };
+                        // video.ondurationchange = function() {
+                        //     alert(video.duration);
+                        // };
 
                         video.onloadeddata = (event) => {
                             // Calculate the ratio of the video's width to height
@@ -413,7 +414,15 @@ export default {
 
                             file.previewElement.querySelector(".dz-image img").src = dataURI;
 
-                            console.log(video.duration);
+                            if (video.duration > 10) {
+                                varthis.$fire({
+                                    text: "動画は10秒まで投稿可能です。",
+                                    type: "error",
+                                    timer: 3000
+                                }).then(r => {
+                                    console.log(r.value);
+                                });
+                            }
                         };
                     };
                 }

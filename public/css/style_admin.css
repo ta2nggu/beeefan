@@ -1063,8 +1063,6 @@ button.btn:not(.btnBor) {
   position: relative;
   transform: translateX(-50%);
   width: 36%;
-  padding-top: 35%;
-  height: auto;
 }
 
 /*profileBox*/

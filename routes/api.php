@@ -22,3 +22,4 @@ Route::post('/upload', [App\Http\Controllers\TEST_ImageController::class, 'store
 
 Route::post('/DropUp', [App\Http\Controllers\DropController::class, 'store'])->name('/app/DropUp');
 
+Route::post('/makeThumbnail', [App\Http\Controllers\DropController::class, 'makeThumbnail'])->name('/app/makeThumbnail');

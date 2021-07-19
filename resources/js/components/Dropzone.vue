@@ -366,55 +366,24 @@ export default {
                 // });
 
                 if (file.type.split('/')[0] == 'video') {
-                    // var container = document.getElementById("contentWrap");
-                    var video = document.createElement('video');
-                    // video.className='video-js vjs-default-skin"'
-                    var source = document.createElement('source');
-                    var canvas = document.createElement('canvas');
-                    var context = canvas.getContext('2d');
+                    var form_data = new FormData();
+                    form_data.append('file', file);
+                    form_data.append('creator_id', this.currentUser);
 
-                    const reader = new FileReader()
-                    reader.readAsDataURL(file)
-                    reader.onload = function(event) {
-                        var w, h, ratio;
-                        // video.src = event.target.result;
-                        source.src = event.target.result;
-                        source.type ='video/mp4';
-                        video.appendChild(source);
-                        // container.appendChild(video);
-                        // container.appendChild(canvas);
-                        video.currentTime = 0;
-                        video.play();
-                        // video.pause();
+                    $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url: "api/makeThumbnail",
+                        data: form_data,
+                        async: true,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        timeout: 60000,
+                        success: function (data) {
+                            file.previewElement.querySelector(".dz-image img").src = data.thumbPath;
 
-                        // video.ondurationchange = function() {
-                        //     alert(video.duration);
-                        // };
-
-                        video.onloadeddata = (event) => {
-                            // Calculate the ratio of the video's width to height
-                            ratio = video.videoWidth / video.videoHeight;
-                            // Define the required width as 100 pixels smaller than the actual video's width
-                            w = video.videoWidth - 100;
-                            // Calculate the height based on the video's width and the ratio
-                            h = parseInt(w / ratio, 10);
-                            // Set the canvas width and height to the values just calculated
-                            canvas.width = w;
-                            canvas.height = h;
-
-                            // Define the size of the rectangle that will be filled (basically the entire element)
-                            context.fillRect(0, 0, w, h);
-                            // Grab the image from the video
-                            context.drawImage(video, 0, 0, w, h);
-
-                            video.pause();
-
-                            //convert to desired file format
-                            var dataURI = canvas.toDataURL('image/jpeg');
-
-                            file.previewElement.querySelector(".dz-image img").src = dataURI;
-
-                            if (video.duration > 10) {
+                            if (data.duration > 10) {
                                 varthis.$fire({
                                     text: "10秒以上の動画の為、10秒にカットして投稿します。",
                                     type: "error",
@@ -423,8 +392,72 @@ export default {
                                     console.log(r.value);
                                 });
                             }
-                        };
-                    };
+                        },
+                        error: function (e) {
+                            console.log('Failed to create thumbnail');
+                        }
+                    });
+
+                    //video thumbnail front-end에서 만들던 방식 주석
+                    // // var container = document.getElementById("contentWrap");
+                    // var video = document.createElement('video');
+                    // // video.className='video-js vjs-default-skin"'
+                    // var source = document.createElement('source');
+                    // var canvas = document.createElement('canvas');
+                    // var context = canvas.getContext('2d');
+                    //
+                    // const reader = new FileReader()
+                    // reader.readAsDataURL(file)
+                    // reader.onload = function(event) {
+                    //     var w, h, ratio;
+                    //     // video.src = event.target.result;
+                    //     source.src = event.target.result;
+                    //     source.type ='video/mp4';
+                    //     video.appendChild(source);
+                    //     // container.appendChild(video);
+                    //     // container.appendChild(canvas);
+                    //     video.currentTime = 0;
+                    //     video.play();
+                    //     // video.pause();
+                    //
+                    //     // video.ondurationchange = function() {
+                    //     //     alert(video.duration);
+                    //     // };
+                    //
+                    //     video.onloadeddata = (event) => {
+                    //         // Calculate the ratio of the video's width to height
+                    //         ratio = video.videoWidth / video.videoHeight;
+                    //         // Define the required width as 100 pixels smaller than the actual video's width
+                    //         w = video.videoWidth - 100;
+                    //         // Calculate the height based on the video's width and the ratio
+                    //         h = parseInt(w / ratio, 10);
+                    //         // Set the canvas width and height to the values just calculated
+                    //         canvas.width = w;
+                    //         canvas.height = h;
+                    //
+                    //         // Define the size of the rectangle that will be filled (basically the entire element)
+                    //         context.fillRect(0, 0, w, h);
+                    //         // Grab the image from the video
+                    //         context.drawImage(video, 0, 0, w, h);
+                    //
+                    //         video.pause();
+                    //
+                    //         //convert to desired file format
+                    //         var dataURI = canvas.toDataURL('image/jpeg');
+                    //
+                    //         file.previewElement.querySelector(".dz-image img").src = dataURI;
+                    //
+                    //         if (video.duration > 10) {
+                    //             varthis.$fire({
+                    //                 text: "10秒以上の動画の為、10秒にカットして投稿します。",
+                    //                 type: "error",
+                    //                 timer: 3000
+                    //             }).then(r => {
+                    //                 console.log(r.value);
+                    //             });
+                    //         }
+                    //     };
+                    // };
                 }
 
                 dropzone.hiddenFileInput.removeAttribute("multiple");

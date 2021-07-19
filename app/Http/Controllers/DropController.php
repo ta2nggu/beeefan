@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tweet_image;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
+use Illuminate\Support\Facades\File;
 
 require '../vendor/autoload.php';
 
@@ -19,9 +20,8 @@ class DropController extends Controller
     }
 
     public function store(Request $request) {
-        //21.05.02 김태영, 분기
         //신규투고
-        if ($request->editMode === "0") {            
+        if ($request->editMode === "0") {
 	    $images = $request->file('file');
             $imgPrivate = $request->private;
             $imgPrivate = explode(",", $imgPrivate);
@@ -34,6 +34,7 @@ class DropController extends Controller
                 $image = $images[$i];
                 $imageName = $image->getClientOriginalName();
 
+                //DB tweets table 저장
                 if ($i == 0) {
                     $mTweet = new Tweet();
                     $mTweet->user_id = $request->id;
@@ -47,8 +48,8 @@ class DropController extends Controller
                     $mTweet->save();
                 }
 
-                //21.07.04 김태영, video thumbnail
                 if (explode("/", $image->getClientMimeType())[0] === "video"){
+                    //video thumbnail 저장
                     $thumbnail = 'thumb_'.explode(".", $image->getClientOriginalName())[0].'.jpeg';//'.png';
                     $video = $this->ffmpeg->open($image);
                     $frame = $video->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds(0));
@@ -57,21 +58,19 @@ class DropController extends Controller
                         mkdir(storage_path('app/public/images/'.$request->id.'/'));
                     }
                     if (!is_dir(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'))) {
-                        //mkdir($path, 0777, true);
                         mkdir(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'));
                     }
                     $frame->save(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').$thumbnail);
 
-//                    $video->save(new \FFMpeg\Format\Video\X264(), storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').explode(".", $image->getClientOriginalName())[0].'.mp4');
+                    //video 저장
                     $clip = $video->clip(\FFMpeg\Coordinate\TimeCode::fromSeconds(0), \FFMpeg\Coordinate\TimeCode::fromSeconds(10));
-//                    $clip->filters()->resize(new \FFMpeg\Coordinate\Dimension(320, 240), \FFMpeg\Filters\Video\ResizeFilter::RESIZEMODE_INSET, true);
                     $clip->save(new \FFMpeg\Format\Video\X264(),storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').explode(".", $image->getClientOriginalName())[0].'.mp4');
-
                 }
                 else {
                     $image->move(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'), $imageName);
                 }
 
+                //DB tweet_images table 저장
                 $mImage = new Tweet_image();
                 $mImage->tweet_id = $mTweet->id;
                 $mImage->idx = $i;
@@ -80,6 +79,8 @@ class DropController extends Controller
                 $mImage->private = $imgPrivate[$i];//$i === 0 ? 1 : 0;
                 $mImage->save();
             }
+            //temp(임시) 테이블 삭제
+            File::deleteDirectory(storage_path('app/public/images/'.$request->id.'/temp/'));
         }
         //투고 편집
         else {
@@ -113,6 +114,34 @@ class DropController extends Controller
                 $tweet_images->find($tweet_image_id[$i])->update($mparam);
             }
         }
+    }
 
+    public function makeThumbnail(Request $request) {
+        if ($request->ajax()) {
+            //directory 존재 여부 체크
+            if (!is_dir(storage_path('app/public/images/'.$request->creator_id.'/'))) {
+                mkdir(storage_path('app/public/images/'.$request->creator_id.'/'));
+            }
+            if (!is_dir(storage_path('app/public/images/'.$request->creator_id.'/temp/'))) {
+                mkdir(storage_path('app/public/images/'.$request->creator_id.'/temp/'));
+            }
+
+            $file = $request->file('file');
+            $timestamp = time();
+            $thumbnail = 'thumb_'.$timestamp.'.jpeg';
+
+            $video = $this->ffmpeg->open($file);
+            $frame = $video->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds(0));
+            $frame->addFilter(new \FFMpeg\Filters\Frame\CustomFrameFilter('scale=640x640'));
+            $frame->save(storage_path('app/public/images/'.$request->creator_id.'/temp/').$thumbnail);
+
+            $tempFilePath = $video->getPathfile();
+            $duration = exec("ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $tempFilePath");
+            $thumbPath = asset('storage/images/'.$request->creator_id.'/temp/'.$thumbnail);
+            return compact('duration', 'thumbPath');
+        }
+        else{
+            return dd('wrong approach');
+        }
     }
 }

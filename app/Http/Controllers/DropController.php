@@ -21,8 +21,8 @@ class DropController extends Controller
     public function store(Request $request) {
         //21.05.02 김태영, 분기
         //신규투고
-        if ($request->editMode === "0") {
-            $images = $request->file('file');
+        if ($request->editMode === "0") {            
+	    $images = $request->file('file');
             $imgPrivate = $request->private;
             $imgPrivate = explode(",", $imgPrivate);
 

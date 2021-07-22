@@ -10,21 +10,21 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <!-- 21.03.25 김태영, 추가 owl carousel(timeline image slider) 작성 -->
+    <script src="{{ asset('js/owl.carousel.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- 21.03.23 김태영, 추가 timeline ajax 작성 -->
     <script src="{{ asset('js/main.js') }}" defer></script>
-    <!-- 21.03.25 김태영, 추가 owl carousel(timeline image slider) 작성 -->
-    <script src="{{ asset('js/owl.carousel.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- 21.03.25 김태영, 추가 owl carousel(timeline image slider) 작성 -->
     <link href="{{ asset('css/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('css/owl.theme.default.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

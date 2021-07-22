@@ -56,12 +56,12 @@ $(function(){
         $('#warningLogout').modal('show');
     });
     /* 投稿削除（2重モーダル） */
-    $('.postEditDelete').on('click', function() {
+    $('#postBox').on('click', '.postEditDelete', function() {
         $(this).parents('.postEditBox').modal( 'hide' );
         $(this).parents('.postEditBox').nextAll('.warningDre').modal('show');
     });
     /* 下書きへ（2重モーダル） */
-    $('.postEditInvisible').on('click', function() {
+    $('#postBox').on('click', '.postEditInvisible', function() {
         $(this).parents('.postEditBox').modal( 'hide' );
         $(this).parents('.postEditBox').nextAll('.warningInvi').modal('show');
     });

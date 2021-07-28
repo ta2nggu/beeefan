@@ -369,7 +369,7 @@ export default {
                     var maxSize = 2 * 1024 * 1024;//2MB
                     if (file.size > maxSize) {
                         varthis.$fire({
-                            text: "ファイルサイズ2MBを超えることはできません。",
+                            text: "ファイルサイズが大きい為アップロードできません。",
                             type: "error",
                             timer: 3000
                         }).then(r => {

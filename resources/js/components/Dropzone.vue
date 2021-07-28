@@ -366,6 +366,19 @@ export default {
                 // });
 
                 if (file.type.split('/')[0] == 'video') {
+                    var maxSize = 2 * 1024 * 1024;//2MB
+                    if (file.size > maxSize) {
+                        varthis.$fire({
+                            text: "ファイルサイズ2MBを超えることはできません。",
+                            type: "error",
+                            timer: 3000
+                        }).then(r => {
+                            console.log(r.value);
+                        });
+                        dropzone.removeFile(file);
+                        return;
+                    }
+
                     var form_data = new FormData();
                     form_data.append('file', file);
                     form_data.append('creator_id', this.currentUser);
@@ -386,7 +399,7 @@ export default {
                             if (data.duration > 10) {
                                 varthis.$fire({
                                     text: "10秒以上の動画の為、10秒にカットして投稿します。",
-                                    type: "error",
+                                    type: "warning",
                                     timer: 3000
                                 }).then(r => {
                                     console.log(r.value);

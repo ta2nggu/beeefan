@@ -366,7 +366,7 @@ export default {
                 // });
 
                 if (file.type.split('/')[0] == 'video') {
-                    var maxSize = 10 * 1024 * 1024;//2MB
+                    var maxSize = 10 * 1024 * 1024;//10MB
                     if (file.size > maxSize) {
                         varthis.$fire({
                             text: "ファイルサイズが大きい為アップロードできません。",

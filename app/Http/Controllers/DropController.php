@@ -34,6 +34,16 @@ class DropController extends Controller
                 $image = $images[$i];
                 $imageName = $image->getClientOriginalName();
 
+                //ios safari에서 투고하면 video file 이름이 "trim"
+                //file 이름 앞에 unix time을 붙임
+                if (explode(".", $image->getClientOriginalName())[0] === "trim") {
+                    $timestamp = time();
+                    $videoFileName = $timestamp."_".explode(".", $image->getClientOriginalName())[0].'.mp4';
+                }
+                else {
+                    $videoFileName = explode(".", $image->getClientOriginalName())[0].'.mp4';
+                }
+
                 //DB tweets table 저장
                 if ($i == 0) {
                     $mTweet = new Tweet();
@@ -42,7 +52,7 @@ class DropController extends Controller
                     $mTweet->visible = $request->visible;
                     $mTweet->file_cnt = $request->file_cnt;
                     $mTweet->include_video = $request->include_video;
-                    $mTweet->main_img = explode("/", $image->getClientMimeType())[0] === "video" ? explode(".", $image->getClientOriginalName())[0].'.mp4' : $request->main_img;
+                    $mTweet->main_img = explode("/", $image->getClientMimeType())[0] === "video" ? $videoFileName : $request->main_img;
                     $mTweet->main_img_mime_type = explode("/", $image->getClientMimeType())[0] === "video" ? explode("/", $image->getClientMimeType())[0].'/mp4' : $request->main_img_mime_type;
                     $mTweet->main_img_idx = $request->main_img_idx;
                     $mTweet->save();
@@ -64,7 +74,7 @@ class DropController extends Controller
 
                     //video 저장
                     $clip = $video->clip(\FFMpeg\Coordinate\TimeCode::fromSeconds(0), \FFMpeg\Coordinate\TimeCode::fromSeconds(10));
-                    $clip->save(new \FFMpeg\Format\Video\X264(),storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').explode(".", $image->getClientOriginalName())[0].'.mp4');
+                    $clip->save(new \FFMpeg\Format\Video\X264(),storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/').$videoFileName);
                 }
                 else {
                     $image->move(storage_path('app/public/images/'.$request->id.'/'.$mTweet->id.'/'), $imageName);
@@ -74,7 +84,7 @@ class DropController extends Controller
                 $mImage = new Tweet_image();
                 $mImage->tweet_id = $mTweet->id;
                 $mImage->idx = $i;
-                $mImage->name = explode("/", $image->getClientMimeType())[0] === "video" ? explode(".", $imageName)[0].'.mp4' : $imageName;
+                $mImage->name = explode("/", $image->getClientMimeType())[0] === "video" ? $videoFileName : $imageName;
                 $mImage->mime_type = explode("/", $image->getClientMimeType())[0] === "video" ? explode("/", $image->getClientMimeType())[0].'/mp4' : $image->getClientMimeType();
                 $mImage->private = $imgPrivate[$i];//$i === 0 ? 1 : 0;
                 $mImage->save();

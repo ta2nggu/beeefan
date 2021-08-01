@@ -161,6 +161,10 @@ Route::post('/stripe/savePaymentMethod', [App\Http\Controllers\SubscriptionContr
  *  for role:superadministrator　(メール認証済み)
  *  middleware：verified
  */
+//21.08.01 kondo, superadministrator新規作成
+Route::get('/admin/saReg', [App\Http\Controllers\PagesController::class, 'saReg']);
+Route::post('/admin/saReg', [App\Http\Controllers\PagesController::class, 'saReg_store']);
+
 Route::middleware('verified','role:superadministrator')->group(function () {
     //21.05.08 김태영, admin 관리
     Route::get('/admin/admins/{admin}', [App\Http\Controllers\AdminController::class, 'admins']);

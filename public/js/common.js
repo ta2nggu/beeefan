@@ -44,19 +44,22 @@ $(function () {
 }); //moreArea
 
 $(function () {
-  if ('.moreBtn'.length) {
-    if ($('.moreArea').height() > 66) {
-      $('.moreBtn').show();
-      $('.moreBtn').on('click', function () {
-        if ($(this).parent().hasClass('open')) {
-          $(this).html('..続きを読む');
-          $(this).parent().removeClass('open');
-        } else {
-          $(this).html('閉じる');
-          $(this).parent().addClass('open');
-        }
-      });
-    }
+  if ('.moreArea'.length) {
+    $('.moreArea').each(function () {
+      if ($(this).height() > 66) {
+        var btn = $(this).find('.moreBtn');
+        btn.show();
+        $(btn).on('click', function () {
+          if ($(this).parent().hasClass('open')) {
+            $(this).html('..続きを読む');
+            $(this).parent().removeClass('open');
+          } else {
+            $(this).html('閉じる');
+            $(this).parent().addClass('open');
+          }
+        });
+      }
+    });
   }
 }); //infoBox
 

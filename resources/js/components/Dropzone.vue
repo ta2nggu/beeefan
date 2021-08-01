@@ -634,11 +634,16 @@ export default {
                 }
 
                 for (_i = 0, _len = files.length; _i < _len; _i++) {
-                    //21.03.22 김태영, 전체공개 대표 이미지 찾기
                     if (files[_i].previewElement.querySelector(".inPrivate").value === '0') {
                         if (this.main_img === "") {
+                            var _j, _jlen, main_img_mime_type;
+                            for (_j = 0, _jlen = this.tweet_images.length; _j < _jlen; _j++) {
+                                if (files[_i].tweet_image_id == this.tweet_images[_j].tweet_image_id) {
+                                    main_img_mime_type = this.tweet_images[_j].mime_type;
+                                }
+                            }
                             this.main_img = files[_i].name;
-                            this.main_img_mime_type = files[_i].type;
+                            this.main_img_mime_type = main_img_mime_type;//files[_i].type;
                             this.main_img_idx = _i;
                         }
                     }
@@ -649,7 +654,14 @@ export default {
             }
         },
         successEvent(file, response) {
-            var url = '/creator/index';
+            //公開
+            if(this.visible===1){
+                var url = '/creator/index';
+            }
+            //非公開
+            else{
+                var url = '/creator/invisible';
+            }
             setTimeout(function() {
                 window.location.href = url;
             }, 3000);

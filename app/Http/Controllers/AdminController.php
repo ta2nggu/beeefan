@@ -44,7 +44,7 @@ class AdminController extends Controller
         $validated = $request->validate([
             'last_name' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
-            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/'],
+            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/','not_in:index,verify,creator,admin,page,remove,exit,error,register,registered,home,mypage,join,image,stripe,aDetail,password,email'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'nickname' => ['required','string','min:2'],//,'unique:creators','regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
@@ -201,7 +201,7 @@ class AdminController extends Controller
     public function admins($admin_id) {
         $admins = DB::table("users")
             ->join("role_user","role_user.user_id","=","users.id")
-            ->whereIn('role_user.role_id', [1, 2])//1 super admin, 2 admin
+            ->whereIn('role_user.role_id', [2])//1 super admin, 2 admin
             ->where('users.id', '!=', \Auth::user()->id)
             ->get();
 
@@ -224,7 +224,7 @@ class AdminController extends Controller
         $validated = $request->validate([
             'last_name' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
-            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/'],
+            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/','not_in:index,verify,creator,admin,page,remove,exit,error,register,registered,home,mypage,join,image,stripe,aDetail,password,email'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);

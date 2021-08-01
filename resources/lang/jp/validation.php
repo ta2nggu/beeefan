@@ -66,7 +66,7 @@ return [
         'string'  => ':attributeには:min文字以上の文字列を指定してください。',
         'array'   => ':attributeには:min個以上の要素を持つ配列を指定してください。',
     ],
-    'not_in'               => ':attributeには:valuesのうちいずれとも異なる値を指定してください。',
+    'not_in'               => ':attributeに指定できない値です。',
     'numeric'              => ':attributeには数値を指定してください。',
     'present'              => ':attributeには現在時刻を指定してください。',
     'regex'                => '正しい形式の:attributeを指定してください。',

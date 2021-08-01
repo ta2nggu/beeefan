@@ -15,8 +15,13 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
+    private $stripe;
     public function __construct(){
         $this->middleware('role:administrator|superadministrator');
+
+        $this->stripe = new \Stripe\StripeClient(
+            env('STRIPE_SECRET')
+        );
     }
 
     //21.05.06 김태영, 잘못이해하고 만들었다.. 사용 안함
@@ -63,6 +68,22 @@ class AdminController extends Controller
             'month_price' => $request->input('month_price'),
         ]);
 
+        //21.07.10 김태영, stripe create a product(= creator)
+        $result_product = $this->stripe->products->create([
+            'name' => $user->id,//'ex)Gold Special',
+        ]);
+        $result_price = $this->stripe->prices->create([
+            'unit_amount' => $request->input('month_price'),//550,
+            'currency' => env('CASHIER_CURRENCY'),//'jpy',
+            'recurring' => ['interval' => 'month'],
+            'product' => $result_product->id,
+            'nickname' => $request->input('account_id'),
+        ]);
+
+        Creator::where('user_id', $user->id)->update(
+            ['price_id' => $result_price->id]
+        );
+
 //        21.04.15 김태영, index 화면으로 이동
 //        return $this->index();
         return redirect('/admin/index')->with('flash_message', 'クリエイターの登録が完了しました')->with('verified', true);
@@ -70,21 +91,6 @@ class AdminController extends Controller
 
     public function admin_creatorRegPage()
     {
-        //21.07.10 김태영, stripe test
-//        $stripe = new \Stripe\StripeClient(
-//            env('STRIPE_SECRET')
-//        );
-//        $result_product = $stripe->products->create([
-//            'name' => 'Gold Special',
-//        ]);
-//        $result_price = $stripe->prices->create([
-//            'unit_amount' => 550,
-//            'currency' => 'jpy',
-//            'recurring' => ['interval' => 'month'],
-//            'product' => $result_product->id,
-//        ]);
-//        return dd($result_price->id);
-
         return view("admin.creatorRegPage");
     }
 
@@ -296,6 +302,26 @@ class AdminController extends Controller
         }else{
             $creator->month_price = $month_price;
             if($creator->save()){
+                //stripe product id 가져오기
+                $product_id = $this->stripe->prices->retrieve(
+                    $creator->price_id
+                )->product;
+                //product의 기존 price 비활성화
+                $this->stripe->prices->update(
+                    $creator->price_id,
+                    ['active' => false]
+                );
+                //새로운 price 생성
+                $new_price = $this->stripe->prices->create([
+                    'unit_amount' => $month_price,
+                    'currency' => env('CASHIER_CURRENCY'),//'jpy',
+                    'recurring' => ['interval' => 'month'],
+                    'product' => $product_id,
+                ]);
+                //Creators table에 price_id update
+                Creator::where('user_id', $request->creator_id)->update(
+                    ['price_id' => $new_price->id]
+                );
                 return redirect( route('AdminCreatorDetail',$request->creator_id))->with('flash_message','月額を「'.number_format($before_price).'円」から「'.number_format($month_price).'円」に変更しました');
             }
         }

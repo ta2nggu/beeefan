@@ -60,7 +60,7 @@ class DropController extends Controller
 
                 if (explode("/", $image->getClientMimeType())[0] === "video"){
                     //video thumbnail 저장
-                    $thumbnail = 'thumb_'.explode(".", $image->getClientOriginalName())[0].'.jpeg';//'.png';
+                    $thumbnail = 'thumb_'.$videoFileName.'.jpeg';//'.png';
                     $video = $this->ffmpeg->open($image);
                     $frame = $video->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds(0));
                     $frame->addFilter(new \FFMpeg\Filters\Frame\CustomFrameFilter('scale=640x640'));

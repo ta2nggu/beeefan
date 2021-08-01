@@ -54,7 +54,7 @@ Route::get('/register/{email_token}', [App\Http\Controllers\Auth\RegisterControl
 Route::post('/register/paymentSelect', [App\Http\Controllers\Auth\RegisterController::class, 'registerPaymentSelect'])->name('registerPaymentSelect'); //決済方法登録登録
 //21.07.25 김태영, /register/paymentMethod/credit_card 추가
 Route::get('/register/paymentMethod/credit_card', [App\Http\Controllers\Auth\RegisterController::class, 'registerCard'])->name('registerCard.show'); //カード情報入力画面
-Route::get('/register/credit_card', [App\Http\Controllers\Auth\RegisterController::class, 'registerCard'])->name('registerCard.show'); //カード情報入力画面
+//Route::get('/register/credit_card', [App\Http\Controllers\Auth\RegisterController::class, 'registerCard'])->name('registerCard.show'); //カード情報入力画面
 Route::post('/register/NoSelect', [App\Http\Controllers\Auth\RegisterController::class, 'registerPaymentNoSelect'])->name('registerPaymentNoSelect'); //あとで登録
 
 /**

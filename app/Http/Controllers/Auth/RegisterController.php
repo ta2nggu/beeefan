@@ -182,18 +182,19 @@ class RegisterController extends Controller
         //カードの時
         if ($payment_select == 'credit_card') {
             $fc_id = $request->fc_id;
-            dd('stripe画面へ');
-            return redirect(url('/register/credit_card?user_id='. $user_id .'&fc_id=' . $fc_id));
+//            dd('stripe画面へ');
+//            return redirect(url('/register/credit_card?user_id='. $user_id .'&fc_id=' . $fc_id));
+            return redirect(url('/register/paymentMethod/credit_card?user_id='. $user_id .'&fc_id=' . $fc_id));
         }
         return redirect('/')->with('flash_message', "会員登録に失敗しました。\n再度、メールからリンクをクリックしてください。");
     }
     //210714 kondo, stripeページ表示
     public function registerCard(Request $request){
-        dd('test');
+//        dd('test');
         $user = User::find($request->user_id);
         //21.07.11 김태영, make a customer
         //stripe id = customer id
-        $stripeCustomer = $user->createOrGetStripeCustomer();
+        $user->createOrGetStripeCustomer();
         return view('payment/update-payment-method', [
             'intent' => $user->createSetupIntent()
         ]);

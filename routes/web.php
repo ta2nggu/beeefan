@@ -52,7 +52,9 @@ Route::post('/error_invalid_post', [App\Http\Controllers\PagesController::class,
 Route::get('/register/pre_registered', [App\Http\Controllers\Auth\RegisterController::class, 'preRegistered'])->name('preRegistered.show'); //仮登録完了
 Route::get('/register/{email_token}', [App\Http\Controllers\Auth\RegisterController::class, 'registerPayment'])->name('registerPayment.show'); //決済選択
 Route::post('/register/paymentSelect', [App\Http\Controllers\Auth\RegisterController::class, 'registerPaymentSelect'])->name('registerPaymentSelect'); //決済方法登録登録
-Route::get('/register/credit_card', [App\Http\Controllers\Auth\RegisterController::class, 'registerCard'])->name('registerCard.show'); //カード情報入力画面
+//21.07.25 김태영, /register/paymentMethod/credit_card 추가
+Route::get('/register/paymentMethod/credit_card', [App\Http\Controllers\Auth\RegisterController::class, 'registerCard'])->name('registerCard.show'); //カード情報入力画面
+//Route::get('/register/credit_card', [App\Http\Controllers\Auth\RegisterController::class, 'registerCard'])->name('registerCard.show'); //カード情報入力画面
 Route::post('/register/NoSelect', [App\Http\Controllers\Auth\RegisterController::class, 'registerPaymentNoSelect'])->name('registerPaymentNoSelect'); //あとで登録
 
 /**
@@ -151,9 +153,9 @@ Route::middleware('verified')->group(function () {
     Route::post('/creator/visible', [App\Http\Controllers\AdminController::class, 'updateCreatorVisible']);
     Route::post('/creator/del', [App\Http\Controllers\AdminController::class, 'deleteCreator']);
 
-    //21.07.13 김태영, save stripe payment method
-    Route::post('/stripe/savePaymentMethod', [App\Http\Controllers\SubscriptionController::class, 'paymentMethod_store']);
 });
+//21.07.13 김태영, save stripe payment method
+Route::post('/stripe/savePaymentMethod', [App\Http\Controllers\SubscriptionController::class, 'paymentMethod_store']);
 
 /**
  *  for role:superadministrator　(メール認証済み)

@@ -51,7 +51,7 @@
                     <input id="account_id" type="text" class="form-control @error('account_id') is-invalid @enderror" name="account_id" value="{{ old('account_id') }}" required autocomplete="account_id" autofocus>
                     @error('account_id')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ __('アカウントIDは「半角英数字 _ -」のみ使用することができます') }}</strong>
+                        <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                 </dd>

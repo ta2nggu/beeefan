@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PagesController extends Controller
 {
@@ -44,5 +45,30 @@ class PagesController extends Controller
         $user = User::find($request->user_id);
         $user->delete();
         return redirect(url('/register'));
+    }
+
+    //21.08.01 kondo, superadministrator新規作成
+    public function saReg() {
+        return view('admin.saReg');
+    }
+    public function saReg_store(Request $request) {
+        $validated = $request->validate([
+            'last_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/','not_in:index,verify,creator,admin,page,remove,exit,error,register,registered,home,mypage,join,image,stripe,aDetail,password,email'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $new = User::create([
+            'account_id' => $request->input('account_id'),
+            'last_name' => $request->input('last_name'),
+            'first_name' => $request->input('first_name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'status' => '5',
+        ]);
+        $new->attachRole('superadministrator');
+        return redirect(route('top'));
     }
 }

@@ -69,7 +69,7 @@ class RegisterController extends Controller
 //            'name' => ['required', 'string', 'max:255'],
 //        21.04.04 김태영, account_id, prefecture_id 추가, nickname 제거
 //        21.04.29 kondo, sex 추가
-            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/'],
+            'account_id' => ['required', 'string', 'min:2', 'max:20','unique:users', 'regex:/^[\w-]*$/','not_in:index,verify,creator,admin,page,remove,exit,error,register,registered,home,mypage,join,image,stripe,aDetail,password,email'],
             'sex' => ['required'],
             'prefecture_id' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -100,7 +100,7 @@ class RegisterController extends Controller
 //            'nickname' => $data['nickname'],
             'birth_date' => $data['birth_date'],
             //21.05.13 kondo, 仮登録用
-            'email_verify_token' => base64_encode($data['email']),
+            'email_verifyValidatesAttributes_token' => base64_encode($data['email']),
         ]);
 
         if ($data['role'] === 'user') {

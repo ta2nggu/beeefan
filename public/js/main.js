@@ -8,6 +8,17 @@ var __webpack_exports__ = {};
 // views/timeline.blade.php
 // views/main.blade.php
 // views/admin/index.blade.php
+function owlCarousel() {
+  $('.owl-carousel').owlCarousel({
+    center: true,
+    items: 1,
+    loop: false,
+    onInitialized: counter,
+    onTranslated: counter,
+    margin: 10
+  });
+}
+
 function loadMoreData(page) {
   //21.04.17 김태영, admin/index.blade.php creator 검색 기능을 위해 추가
   $search = $('#search_creator_input').length > 0 ? $('#search_creator_input').val() : null; //21.04.17 김태영, admin/index.blade.php creator 정렬 기능을 위해 추가
@@ -43,7 +54,43 @@ function loadMoreData(page) {
     $(".ajax-load").hide(); // $("#post-data").append(data.html);
     // 21.03.28 김태영, main 화면에서 같이 사용하기 위해 클래스(.post-data)로 변경
 
-    $(".post-data").append(data.html);
+    $(".post-data").append(data.html); // 21.08.01 kondo, done毎に再読み込み
+
+    if ('.moreArea'.length) {
+      $('.moreArea').each(function () {
+        if ($(this).height() > 66) {
+          var btn = $(this).find('.moreBtn');
+          btn.show();
+          $(btn).on('click', function () {
+            if ($(this).parent().hasClass('open')) {
+              $(this).html('..続きを読む');
+              $(this).parent().removeClass('open');
+            } else {
+              $(this).html('閉じる');
+              $(this).parent().addClass('open');
+            }
+          });
+        }
+      });
+    } // 21.03.28 김태영, ajax infinite scrolling 실행 될 때도 owl-carousel 선언해야 함, 선언 안하면 ajax로 html 붙일 때 적용 안됨
+    // $('.owl-carousel').owlCarousel 선언이 없다면  div class에 owl-loaded owl-drag 안생긴다. image slider를 사용할 수 없음
+    // 21.08.01 kondo, done時に移動
+
+
+    if ($(".video-js").length) {
+      // videojs(document.getElementsByClassName("video-js")[0], {}, function(){
+      //     // Player (this) is initialized and ready.
+      // });
+      var massVideo = $('.video-js');
+
+      for (var i = 0; i < massVideo.length; i++) {
+        videojs(massVideo[i]).ready(function () {});
+      }
+    }
+
+    if ($(".owl-carousel").length) {
+      owlCarousel();
+    }
   }).fail(function (jqXHR, ajaxOptions, thrownError) {
     console.log("Server not responding..");
   });
@@ -116,19 +163,6 @@ if ($(".post-data").length > 0) {
     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
       page++;
       loadMoreData(page);
-    } // 21.03.28 김태영, ajax infinite scrolling 실행 될 때도 owl-carousel 선언해야 함, 선언 안하면 ajax로 html 붙일 때 적용 안됨
-    // $('.owl-carousel').owlCarousel 선언이 없다면  div class에 owl-loaded owl-drag 안생긴다. image slider를 사용할 수 없음
-
-
-    if ($(".owl-carousel").length > 0) {
-      $('.owl-carousel').owlCarousel({
-        center: true,
-        items: 1,
-        loop: false,
-        onInitialized: counter,
-        onTranslated: counter,
-        margin: 10
-      });
     }
   });
 }
@@ -136,14 +170,7 @@ if ($(".post-data").length > 0) {
 $(document).ready(function () {
   //21.04.17 김태영, owl-carousel class 존재할 때만
   if ($(".owl-carousel").length > 0) {
-    $('.owl-carousel').owlCarousel({
-      center: true,
-      items: 1,
-      loop: false,
-      onInitialized: counter,
-      onTranslated: counter,
-      margin: 10
-    });
+    owlCarousel();
   }
 });
 

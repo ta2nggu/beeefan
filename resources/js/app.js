@@ -19,6 +19,7 @@ Vue.use(VueSimpleAlert)
 require('./bootstrap');
 
 window.Vue = require('vue').default;
+window.videojs = videojs;
 
 /**
  * The following block of code may be used to automatically register your
